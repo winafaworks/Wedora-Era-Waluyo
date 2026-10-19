@@ -1,4 +1,6 @@
 import React, { Suspense } from "react";
+import { notFound } from "next/navigation";
+import { getBookingByToken } from "@/lib/actions/booking";
 import KonfirmasiClient from "./konfirmasi-client";
 
 interface PageProps {
@@ -7,7 +9,13 @@ interface PageProps {
 
 async function TokenContent({ params }: PageProps) {
   const { token } = await params;
-  return <KonfirmasiClient token={token} />;
+  const booking = await getBookingByToken(token);
+
+  if (!booking) {
+    notFound();
+  }
+
+  return <KonfirmasiClient booking={booking} />;
 }
 
 export default function KonfirmasiPelangganPage({ params }: PageProps) {

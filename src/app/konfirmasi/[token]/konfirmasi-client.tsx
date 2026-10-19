@@ -1,36 +1,34 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, Phone, Calendar, MapPin, Sparkles, MessageSquare } from "lucide-react";
+import { CheckCircle2, Phone, Calendar, MapPin, Sparkles, MessageSquare, AlertCircle } from "lucide-react";
+import { confirmBookingByCustomer } from "@/lib/actions/booking";
 
 interface KonfirmasiClientProps {
-  token: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  booking: any;
 }
 
-export default function KonfirmasiClient({ token }: KonfirmasiClientProps) {
-  const [confirmed, setConfirmed] = useState(false);
+export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
+  const [status, setStatus] = useState<string>(booking.status || "belum_dikonfirmasi");
   const [koreksi, setKoreksi] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const mockPesanan = {
-    nama: "Aulia & Fajar",
-    tanggalAcara: "24 Oktober 2026",
-    lokasi: "Gedung Soetedja, Purwokerto",
-    paket: "Paket Premium Gold Era Waluyo",
-    kebaya: "Kebaya Solo Basahan Beludru Hitam (Ukuran M)",
-    beskap: "Beskap Sikepan Hitam Gold (Ukuran L)",
-    dekorasi: "Dekorasi Pelaminan Jawa Klasik 8 Meter + Mini Garden",
-    mc: "Kak Deni Purwokerto",
-    makeup: "Tim Era Waluyo Traditional MUA",
-    catatan: "Akad pukul 08.00 WIB, resepsi mulai pukul 11.00 WIB.",
-  };
+  const isAlreadyConfirmed = status === "dikonfirmasi";
 
-  const handleKonfirmasi = () => {
+  const handleKonfirmasi = async () => {
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setConfirmed(true);
-    }, 600);
+    setErrorMessage(null);
+
+    const res = await confirmBookingByCustomer(booking.token_konfirmasi, koreksi);
+
+    if (res.success && res.status) {
+      setStatus(res.status);
+    } else {
+      setErrorMessage(res.error || "Gagal menyimpan konfirmasi.");
+    }
+    setIsSubmitting(false);
   };
 
   return (
@@ -50,7 +48,14 @@ export default function KonfirmasiClient({ token }: KonfirmasiClientProps) {
           </div>
         </div>
 
-        {confirmed ? (
+        {errorMessage && (
+          <div className="p-4 bg-[rgba(224,122,110,0.14)] border border-[#E07A6E] rounded-xl text-xs text-[#B13C30] flex items-center gap-2">
+            <AlertCircle size={16} />
+            <span>{errorMessage}</span>
+          </div>
+        )}
+
+        {isAlreadyConfirmed ? (
           /* State Konfirmasi Berhasil */
           <div className="bg-[#FBF7EC] border border-[#DDD2BA] rounded-2xl p-8 text-center space-y-4 shadow-sm">
             <div className="w-16 h-16 mx-auto rounded-full bg-[rgba(127,211,155,0.2)] flex items-center justify-center text-[#2F7A4B]">
@@ -60,7 +65,7 @@ export default function KonfirmasiClient({ token }: KonfirmasiClientProps) {
               Pesanan Telah Dikonfirmasi
             </h2>
             <p className="text-sm text-[#5E5A52] leading-relaxed">
-              Terima kasih Kak <strong>{mockPesanan.nama}</strong>. Rincian kesepakatan acara telah tersimpan resmi di sistem Era Waluyo.
+              Terima kasih Kak <strong>{booking.nama_pelanggan}</strong>. Rincian kesepakatan acara pernikahan telah tersimpan resmi dan terkonfirmasi di sistem Era Waluyo.
             </p>
             {koreksi && (
               <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#DDD2BA] text-left text-xs text-[#5E5A52]">
@@ -70,8 +75,8 @@ export default function KonfirmasiClient({ token }: KonfirmasiClientProps) {
                 {koreksi}
               </div>
             )}
-            <div className="pt-2 text-xs text-[#8F8A7F]">
-              Token Verifikasi: {token || "RESMI-EW-2026"}
+            <div className="pt-2 text-[11px] text-[#8F8A7F]">
+              Waktu Konfirmasi: {new Date().toLocaleDateString("id-ID")}
             </div>
           </div>
         ) : (
@@ -80,10 +85,10 @@ export default function KonfirmasiClient({ token }: KonfirmasiClientProps) {
             <div className="bg-[#FBF7EC] border border-[#DDD2BA] rounded-2xl p-6 space-y-4 shadow-sm">
               <div>
                 <span className="text-xs font-semibold text-[#B8923F] uppercase tracking-wider">
-                  Konfirmasi Kesepakatan
+                  Konfirmasi Kesepakatan Resmi
                 </span>
                 <h2 className="font-serif text-2xl font-medium text-[#111111] mt-1">
-                  Halo, {mockPesanan.nama}
+                  Halo, {booking.nama_pelanggan}
                 </h2>
                 <p className="text-xs text-[#5E5A52] mt-1">
                   Mohon periksa rincian pesanan Anda di bawah ini dengan teliti sebelum menyetujui.
@@ -96,7 +101,7 @@ export default function KonfirmasiClient({ token }: KonfirmasiClientProps) {
                   <div>
                     <div className="text-xs text-[#5E5A52]">Tanggal Acara</div>
                     <div className="font-semibold text-[#111111]">
-                      {mockPesanan.tanggalAcara}
+                      {booking.tanggal_acara}
                     </div>
                   </div>
                 </div>
@@ -106,7 +111,7 @@ export default function KonfirmasiClient({ token }: KonfirmasiClientProps) {
                   <div>
                     <div className="text-xs text-[#5E5A52]">Lokasi Pelaksanaan</div>
                     <div className="font-semibold text-[#111111]">
-                      {mockPesanan.lokasi}
+                      {booking.lokasi}
                     </div>
                   </div>
                 </div>
@@ -116,7 +121,7 @@ export default function KonfirmasiClient({ token }: KonfirmasiClientProps) {
                   <div>
                     <div className="text-xs text-[#5E5A52]">Paket Pilihan</div>
                     <div className="font-semibold text-[#111111]">
-                      {mockPesanan.paket}
+                      {booking.packages?.nama || "Paket Khusus Era Waluyo"}
                     </div>
                   </div>
                 </div>
@@ -124,14 +129,40 @@ export default function KonfirmasiClient({ token }: KonfirmasiClientProps) {
 
               {/* Rincian Busana & Dekorasi */}
               <div className="pt-4 border-t border-[#EADFC8] space-y-2 text-xs">
-                <div className="font-semibold text-[#111111]">Rincian Layanan:</div>
+                <div className="font-semibold text-[#111111]">Rincian Layanan Disepakati:</div>
                 <ul className="space-y-1.5 text-[#5E5A52] list-disc list-inside">
-                  <li><strong>Busana Akad/Resepsi:</strong> {mockPesanan.kebaya} & {mockPesanan.beskap}</li>
-                  <li><strong>Dekorasi:</strong> {mockPesanan.dekorasi}</li>
-                  <li><strong>Master of Ceremony:</strong> {mockPesanan.mc}</li>
-                  <li><strong>Tata Rias (MUA):</strong> {mockPesanan.makeup}</li>
-                  <li><strong>Catatan Khusus:</strong> {mockPesanan.catatan}</li>
+                  {booking.kebaya_baju && (
+                    <li><strong>Busana / Kebaya:</strong> {booking.kebaya_baju} (Ukuran: {booking.ukuran || "M"})</li>
+                  )}
+                  {booking.dekorasi && (
+                    <li><strong>Dekorasi:</strong> {booking.dekorasi}</li>
+                  )}
+                  {booking.makeup && (
+                    <li><strong>Tata Rias (MUA):</strong> {booking.makeup}</li>
+                  )}
+                  {booking.mc && (
+                    <li><strong>Master of Ceremony (MC):</strong> {booking.mc}</li>
+                  )}
+                  {booking.fotografer && (
+                    <li><strong>Dokumentasi Foto:</strong> {booking.fotografer}</li>
+                  )}
+                  {booking.video && (
+                    <li><strong>Video:</strong> {booking.video}</li>
+                  )}
+                  {booking.hiburan && (
+                    <li><strong>Hiburan:</strong> {booking.hiburan}</li>
+                  )}
+                  {booking.catatan_khusus && (
+                    <li><strong>Catatan Khusus:</strong> {booking.catatan_khusus}</li>
+                  )}
                 </ul>
+              </div>
+
+              <div className="pt-4 border-t border-[#EADFC8] flex items-center justify-between text-xs">
+                <span className="text-[#5E5A52]">Uang Muka (DP) Tercatat:</span>
+                <span className="font-semibold text-[#2F7A4B] text-sm">
+                  Rp{Number(booking.dp_nominal || 0).toLocaleString("id-ID")} (Lunas DP)
+                </span>
               </div>
             </div>
 
