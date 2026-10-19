@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Calendar,
@@ -15,6 +15,7 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { logout } from "@/lib/actions/auth";
 
 const navItems = [
   {
@@ -51,7 +52,6 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -141,9 +141,9 @@ export function Sidebar() {
           <Button
             variant="secondary"
             className="w-full justify-center gap-2"
-            onClick={() => {
+            onClick={async () => {
               if (confirm("Apakah Anda yakin ingin keluar dari sesi admin?")) {
-                router.push("/dashboard");
+                await logout();
               }
             }}
           >
