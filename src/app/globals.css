@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+:root {
+  /* Warna utama */
+  --black: #111111;
+  --gold: #d4ad5c;
+  --cream: #f5eddc;
+
+  /* Tema gelap (admin) */
+  --bg: #111111;
+  --surface: #1a1a1a;
+  --surface-2: #242424;
+  --surface-3: #2e2e2e;
+  --border: #2f2f2f;
+  --border-strong: #444444;
+  --text: #f5eddc;
+  --text-muted: #a8a49b;
+  --text-faint: #6e6b64;
+
+  /* Emas */
+  --gold-hover: #e3c27d;
+  --gold-press: #b8923f;
+  --gold-soft: rgba(212, 173, 92, 0.14);
+  --on-gold: #111111;
+
+  /* Krem dan putih (halaman pelanggan) */
+  --cream-soft: #fbf7ec;
+  --cream-deep: #eadfc8;
+  --white: #ffffff;
+  --ink: #111111;
+  --ink-muted: #5e5a52;
+  --ink-faint: #8f8a7f;
+  --line-light: #ddd2ba;
+
+  /* Status */
+  --success: #7fd39b;
+  --warning: #e8a25f;
+  --danger: #e07a6e;
+  --info: #8db4d9;
+}
+
+/* Halaman pelanggan: tema krem */
+.theme-cream {
+  --bg: var(--cream);
+  --surface: var(--cream-soft);
+  --surface-2: var(--cream-deep);
+  --border: var(--line-light);
+  --text: var(--ink);
+  --text-muted: var(--ink-muted);
+  --text-faint: var(--ink-faint);
+  --gold: var(--gold-press);
+  --success: #2f7a4b;
+  --warning: #a5601c;
+  --danger: #b13c30;
+  --info: #2e5f8a;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+.font-serif,
+h1,
+h2,
+.font-heading {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
