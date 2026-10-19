@@ -150,9 +150,6 @@ export function Sidebar() {
             <LogOut size={16} />
             <span>Keluar</span>
           </Button>
-          <p className="mt-4 text-center text-[11px] text-[#6E6B64]">
-            WEDORA v1.0 • Era Waluyo
-          </p>
         </div>
       </aside>
     </>
