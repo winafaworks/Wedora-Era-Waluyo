@@ -1,21 +1,10 @@
-import React, { Suspense } from "react";
-import { Sidebar } from "@/components/layout/sidebar";
+import React from "react";
+import { AdminShell } from "@/components/layout/admin-shell";
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="min-h-screen bg-[#FBF7EC] text-[#1A1A1A] flex flex-col lg:flex-row">
-      <Suspense fallback={<div className="w-72 bg-[#2C2C2C] hidden lg:block" />}>
-        <Sidebar />
-      </Suspense>
-      <main className="flex-1 lg:ml-72 min-h-screen flex flex-col bg-[#FBF7EC]">
-        <div className="max-w-[1400px] w-full mx-auto p-6 md:p-10 flex-1">
-          {children}
-        </div>
-      </main>
-    </div>
-  );
+  return <AdminShell>{children}</AdminShell>;
 }

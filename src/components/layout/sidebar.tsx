@@ -14,8 +14,11 @@ import {
   LogOut,
   Menu,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { logout } from "@/lib/actions/auth";
+import { useSidebar } from "./sidebar-context";
 
 const navItems = [
   {
@@ -53,6 +56,7 @@ const navItems = [
 export function Sidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const { isCollapsed, toggleSidebar } = useSidebar();
 
   return (
     <>
@@ -94,33 +98,47 @@ export function Sidebar() {
 
       {/* Main Sidebar */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-[#2C2C2C] border-r border-[#3E3E3E] flex flex-col justify-between p-6 transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-50 bg-[#2C2C2C] border-r border-[#3E3E3E] flex flex-col justify-between transition-all duration-300 ease-in-out lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        } ${isCollapsed ? "lg:w-20 p-3.5" : "lg:w-72 p-6"}`}
       >
+        {/* Toggle Collapse Button (Desktop Only) */}
+        <button
+          type="button"
+          onClick={toggleSidebar}
+          className="hidden lg:flex absolute -right-3.5 top-8 z-50 w-7 h-7 bg-[#2C2C2C] border border-[#D4AD5C]/50 hover:border-[#EEB100] text-[#EEB100] hover:bg-[#383838] rounded-full items-center justify-center shadow-lg transition-transform duration-200 hover:scale-110 cursor-pointer"
+          title={isCollapsed ? "Perbesar Sidebar" : "Perkecil Sidebar"}
+          aria-label={isCollapsed ? "Perbesar Sidebar" : "Perkecil Sidebar"}
+        >
+          {isCollapsed ? <ChevronRight size={15} /> : <ChevronLeft size={15} />}
+        </button>
+
         <div>
           {/* Logo Brand */}
-          <div className="mb-8 pt-2">
+          <div className={`mb-8 pt-2 flex ${isCollapsed ? "justify-center" : "items-center"}`}>
             <Link
               href="/dashboard"
-              className="flex items-center gap-3.5 group"
+              className={`flex items-center group ${isCollapsed ? "justify-center" : "gap-3.5"}`}
               onClick={() => setIsOpen(false)}
+              title="ERA WALUYO — Wedora"
             >
               <Image
                 src="/logo_erawaluyo.jpeg"
                 alt="Logo Era Waluyo"
                 width={44}
                 height={44}
-                className="w-11 h-11 rounded-full object-cover border border-[#D4AD5C]/50 shadow-sm shrink-0"
+                className={`${isCollapsed ? "w-10 h-10" : "w-11 h-11"} rounded-full object-cover border border-[#D4AD5C]/50 shadow-sm shrink-0 transition-all duration-300`}
               />
-              <div className="min-w-0">
-                <h1 className="font-brand-logo text-xl font-bold tracking-[0.12em] text-[#D4AD5C] group-hover:text-[#E3C27D] transition-colors leading-tight truncate">
-                  ERA WALUYO
-                </h1>
-                <p className="text-[10px] font-medium tracking-[0.25em] text-[#B8B3A8] uppercase mt-0.5">
-                  Wedora
-                </p>
-              </div>
+              {!isCollapsed && (
+                <div className="min-w-0 transition-opacity duration-200">
+                  <h1 className="font-brand-logo text-xl font-bold tracking-[0.12em] text-[#D4AD5C] group-hover:text-[#E3C27D] transition-colors leading-tight truncate">
+                    ERA WALUYO
+                  </h1>
+                  <p className="text-[10px] font-medium tracking-[0.25em] text-[#B8B3A8] uppercase mt-0.5">
+                    Wedora
+                  </p>
+                </div>
+              )}
             </Link>
           </div>
 
@@ -137,17 +155,20 @@ export function Sidebar() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
-                  className={`flex items-center gap-3.5 h-12 px-4 rounded-xl text-sm transition-all duration-150 ${
+                  title={isCollapsed ? item.name : undefined}
+                  className={`flex items-center h-12 rounded-xl text-sm transition-all duration-200 ${
+                    isCollapsed ? "justify-center px-0 w-full" : "px-4 gap-3.5"
+                  } ${
                     isActive
-                      ? "bg-[rgba(212,173,92,0.16)] text-[#D4AD5C] font-semibold"
+                      ? "bg-[rgba(212,173,92,0.16)] text-[#EEB100] font-semibold"
                       : "text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#383838]"
                   }`}
                 >
                   <Icon
                     size={20}
-                    className={isActive ? "text-[#D4AD5C]" : "text-[#B8B3A8]"}
+                    className={`${isActive ? "text-[#EEB100]" : "text-[#B8B3A8]"} shrink-0`}
                   />
-                  <span>{item.name}</span>
+                  {!isCollapsed && <span className="truncate">{item.name}</span>}
                 </Link>
               );
             })}
@@ -157,15 +178,18 @@ export function Sidebar() {
         {/* Footer / Tombol Keluar */}
         <div className="pt-6 border-t border-[#3E3E3E]">
           <button
-            className="w-full flex items-center justify-center gap-2 h-11 rounded-full border border-[#D4AD5C]/30 text-[#D4AD5C] bg-[#383838] hover:bg-[#444444] hover:border-[#D4AD5C] font-semibold text-sm transition-colors cursor-pointer"
+            className={`w-full flex items-center justify-center h-11 rounded-full border border-[#D4AD5C]/30 text-[#D4AD5C] hover:text-[#EEB100] bg-[#383838] hover:bg-[#444444] hover:border-[#EEB100] font-semibold text-sm transition-all cursor-pointer ${
+              isCollapsed ? "px-0" : "gap-2"
+            }`}
+            title={isCollapsed ? "Keluar dari sesi admin" : undefined}
             onClick={async () => {
               if (confirm("Apakah Anda yakin ingin keluar dari sesi admin?")) {
                 await logout();
               }
             }}
           >
-            <LogOut size={16} />
-            <span>Keluar</span>
+            <LogOut size={16} className="shrink-0" />
+            {!isCollapsed && <span>Keluar</span>}
           </button>
         </div>
       </aside>
