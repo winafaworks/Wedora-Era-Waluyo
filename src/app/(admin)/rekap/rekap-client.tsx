@@ -506,7 +506,7 @@ export default function RekapClient({
               onClick={handlePresetAll}
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
                 selectedYear === "all" && selectedMonth === "all" && !startDate && !endDate
-                  ? "bg-[#D4AD5C] text-[#111111] font-semibold"
+                  ? "bg-[#EEB100] text-[#111111] font-semibold"
                   : "bg-[#F5EDDC] text-[#5E5A52] hover:bg-[#EAE1CF]"
               }`}
             >
@@ -517,7 +517,7 @@ export default function RekapClient({
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
                 selectedYear === new Date().getFullYear().toString() &&
                 selectedMonth === new Date().getMonth().toString()
-                  ? "bg-[#D4AD5C] text-[#111111] font-semibold"
+                  ? "bg-[#EEB100] text-[#111111] font-semibold"
                   : "bg-[#F5EDDC] text-[#5E5A52] hover:bg-[#EAE1CF]"
               }`}
             >
@@ -527,7 +527,7 @@ export default function RekapClient({
               onClick={handlePresetThisYear}
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
                 selectedYear === new Date().getFullYear().toString() && selectedMonth === "all"
-                  ? "bg-[#D4AD5C] text-[#111111] font-semibold"
+                  ? "bg-[#EEB100] text-[#111111] font-semibold"
                   : "bg-[#F5EDDC] text-[#5E5A52] hover:bg-[#EAE1CF]"
               }`}
             >
@@ -936,7 +936,7 @@ export default function RekapClient({
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div className="flex items-center gap-2.5">
                           {idx === 0 && (
-                            <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-[#D4AD5C] text-[#111111]">
+                            <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-[#EEB100] text-[#111111]">
                               Paling Diminati
                             </span>
                           )}
