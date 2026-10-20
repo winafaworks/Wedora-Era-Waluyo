@@ -87,16 +87,25 @@ export type Database = {
           fotografer: string | null
           hiburan: string | null
           id: string
+          items_adat: Json | null
+          items_dekorasi: Json | null
+          items_mua: Json | null
+          jam_adat: string | null
+          jam_akad: string | null
+          jam_resepsi: string | null
           kebaya_baju: string | null
           lokasi: string
+          lokasi_makeup: string | null
           makeup: string | null
           mc: string | null
           nama_pelanggan: string
           no_wa: string
           package_id: string | null
+          sisa_pembayaran: number | null
           status: string | null
           tanggal_acara: string
           token_konfirmasi: string
+          total_biaya: number | null
           ukuran: string | null
           updated_at: string | null
           video: string | null
@@ -112,16 +121,25 @@ export type Database = {
           fotografer?: string | null
           hiburan?: string | null
           id?: string
+          items_adat?: Json | null
+          items_dekorasi?: Json | null
+          items_mua?: Json | null
+          jam_adat?: string | null
+          jam_akad?: string | null
+          jam_resepsi?: string | null
           kebaya_baju?: string | null
           lokasi: string
+          lokasi_makeup?: string | null
           makeup?: string | null
           mc?: string | null
           nama_pelanggan: string
           no_wa: string
           package_id?: string | null
+          sisa_pembayaran?: number | null
           status?: string | null
           tanggal_acara: string
           token_konfirmasi: string
+          total_biaya?: number | null
           ukuran?: string | null
           updated_at?: string | null
           video?: string | null
@@ -137,16 +155,25 @@ export type Database = {
           fotografer?: string | null
           hiburan?: string | null
           id?: string
+          items_adat?: Json | null
+          items_dekorasi?: Json | null
+          items_mua?: Json | null
+          jam_adat?: string | null
+          jam_akad?: string | null
+          jam_resepsi?: string | null
           kebaya_baju?: string | null
           lokasi?: string
+          lokasi_makeup?: string | null
           makeup?: string | null
           mc?: string | null
           nama_pelanggan?: string
           no_wa?: string
           package_id?: string | null
+          sisa_pembayaran?: number | null
           status?: string | null
           tanggal_acara?: string
           token_konfirmasi?: string
+          total_biaya?: number | null
           ukuran?: string | null
           updated_at?: string | null
           video?: string | null
