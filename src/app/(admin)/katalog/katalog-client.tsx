@@ -298,7 +298,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             onClick={() => setActiveTab("all")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
               activeTab === "all"
-                ? "bg-[#D4AD5C] text-[#1A1A1A] shadow-xs"
+                ? "bg-[#EEB100] text-[#111111] shadow-xs"
                 : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
             }`}
           >
@@ -308,7 +308,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             onClick={() => setActiveTab("busana")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
               activeTab === "busana"
-                ? "bg-[#D4AD5C] text-[#1A1A1A] shadow-xs"
+                ? "bg-[#EEB100] text-[#111111] shadow-xs"
                 : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
             }`}
           >
@@ -319,7 +319,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             onClick={() => setActiveTab("dekorasi")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
               activeTab === "dekorasi"
-                ? "bg-[#D4AD5C] text-[#1A1A1A] shadow-xs"
+                ? "bg-[#EEB100] text-[#111111] shadow-xs"
                 : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
             }`}
           >
@@ -330,7 +330,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             onClick={() => setActiveTab("layanan")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
               activeTab === "layanan"
-                ? "bg-[#D4AD5C] text-[#1A1A1A] shadow-xs"
+                ? "bg-[#EEB100] text-[#111111] shadow-xs"
                 : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
             }`}
           >
@@ -696,7 +696,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                 </p>
               </div>
               <div>
-                <label className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D4AD5C] text-[#1A1A1A] text-xs font-semibold hover:bg-[#E3C27D] transition-colors cursor-pointer shadow-sm">
+                <label className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#EEB100] text-[#111111] text-xs font-semibold hover:bg-[#DDA400] active:bg-[#C89400] transition-colors cursor-pointer shadow-sm">
                   <Camera size={16} />
                   <span>{isUploadingPhoto ? "Sedang Mengunggah..." : "Pilih Berkas Foto"}</span>
                   <input
