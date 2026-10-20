@@ -96,6 +96,17 @@ body {
   min-height: 100vh;
 }
 
+/* Ukuran standar heading: heading 28px, heading2 20px */
+h1:not(.font-brand-logo) {
+  font-size: 28px;
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: 20px;
+  line-height: 1.35;
+}
+
 /* Utility font-serif di-override ke Plus Jakarta Sans */
 .font-serif {
   font-family: var(--font-plus-jakarta), "Plus Jakarta Sans", system-ui, sans-serif !important;

@@ -271,10 +271,10 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9]">
         <div>
-          <h1 className="font-sans text-3xl md:text-4xl font-bold text-[#1A1A1A]">
+          <h1 className="font-sans text-[28px] font-bold text-[#1A1A1A]">
             Katalog Busana & Dekorasi
           </h1>
-          <p className="text-sm md:text-base text-[#5E5A52] mt-1">
+          <p className="text-[14px] text-[#5E5A52] mt-1">
             Koleksi kebaya, beskap adat, ukuran, dekorasi, dan layanan vendor Era Waluyo
           </p>
         </div>

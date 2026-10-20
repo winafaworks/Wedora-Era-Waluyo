@@ -93,10 +93,10 @@ function TambahBookingForm() {
             </button>
           </Link>
           <div>
-            <h1 className="font-sans text-3xl font-bold text-[#1A1A1A]">
+            <h1 className="font-sans text-[28px] font-bold text-[#1A1A1A]">
               Catat Booking Baru
             </h1>
-            <p className="text-sm text-[#5E5A52] mt-0.5">
+            <p className="text-[14px] text-[#5E5A52] mt-0.5">
               Input pesanan pernikahan setelah pembayaran uang muka (DP) diterima
             </p>
           </div>
@@ -114,7 +114,7 @@ function TambahBookingForm() {
         <Card className="p-6 md:p-8 space-y-6">
           {/* Bagian 1: Data Utama Pelanggan & Acara */}
           <div>
-            <h2 className="font-sans text-xl font-bold text-[#8A6A22] mb-4 flex items-center gap-2">
+            <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] mb-4 flex items-center gap-2">
               <Sparkles size={18} />
               <span>Data Pelanggan & Waktu Acara</span>
             </h2>
@@ -182,7 +182,7 @@ function TambahBookingForm() {
 
           {/* Bagian 2: Paket & Busana */}
           <div className="pt-6 border-t border-[#E5DEC9]">
-            <h2 className="font-sans text-xl font-bold text-[#8A6A22] mb-4">
+            <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] mb-4">
               Pilihan Paket & Rincian Busana
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -240,7 +240,7 @@ function TambahBookingForm() {
 
           {/* Bagian 3: Layanan Tambahan */}
           <div className="pt-6 border-t border-[#E5DEC9]">
-            <h2 className="font-sans text-xl font-bold text-[#8A6A22] mb-4">
+            <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] mb-4">
               Layanan Vendor & Pendukung
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -318,7 +318,7 @@ function TambahBookingForm() {
 
           {/* Bagian 4: Pembayaran Uang Muka (DP) */}
           <div className="pt-6 border-t border-[#E5DEC9]">
-            <h2 className="font-sans text-xl font-bold text-[#8A6A22] mb-4">
+            <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] mb-4">
               Konfirmasi Pembayaran DP
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">

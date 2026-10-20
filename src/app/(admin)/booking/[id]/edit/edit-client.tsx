@@ -76,10 +76,10 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
             </button>
           </Link>
           <div>
-            <h1 className="font-sans text-3xl font-bold text-[#1A1A1A]">
+            <h1 className="font-sans text-[28px] font-bold text-[#1A1A1A]">
               Ubah Data Booking
             </h1>
-            <p className="text-sm text-[#5E5A52] mt-0.5">
+            <p className="text-[14px] text-[#5E5A52] mt-0.5">
               Perbarui rincian pesanan untuk {booking.nama_pelanggan}
             </p>
           </div>

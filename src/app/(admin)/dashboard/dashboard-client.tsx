@@ -24,10 +24,10 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9]">
         <div>
-          <h1 className="font-sans text-3xl md:text-4xl font-bold text-[#1A1A1A]">
+          <h1 className="font-sans text-[28px] font-bold text-[#1A1A1A]">
             Dashboard
           </h1>
-          <p className="text-sm md:text-base text-[#5E5A52] mt-1">
+          <p className="text-[14px] text-[#5E5A52] mt-1">
             Ringkasan booking pernikahan dan acara Era Waluyo
           </p>
         </div>
@@ -72,7 +72,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
       {/* Tabel Acara Terdekat */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-sans text-2xl font-bold text-[#1A1A1A]">
+          <h2 className="font-sans text-[20px] font-bold text-[#1A1A1A]">
             Acara Terdekat
           </h2>
           <Link
