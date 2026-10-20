@@ -154,19 +154,34 @@ html.dark .bg-\[\#FFFFFF\] {
 
 html.dark .bg-\[\#FAF6ED\],
 html.dark .bg-\[\#FAF7F0\],
-html.dark .bg-\[\#F5EDDC\] {
+html.dark .bg-\[\#F5EDDC\],
+html.dark .bg-\[\#FAFAFA\],
+html.dark .bg-\[\#FFFDF9\],
+html.dark .bg-\[\#FCF8EE\] {
   background-color: #242424 !important;
 }
 
-html.dark .bg-\[\#EAE1CF\] {
-  background-color: #303030 !important;
+/* Opacity container overrides in dark mode */
+html.dark .bg-\[\#F5EDDC\]\/40,
+html.dark .bg-\[\#FAF6ED\]\/50 {
+  background-color: #181818 !important;
+}
+
+html.dark .bg-\[\#FFFFFF\]\/90 {
+  background-color: rgba(30, 30, 30, 0.9) !important;
+}
+
+html.dark .bg-\[\#EAE1CF\],
+html.dark .bg-\[\#E8E2D2\] {
+  background-color: #2e2a22 !important;
 }
 
 /* Border Overrides */
 html.dark .border-\[\#E5DEC9\],
 html.dark .border-\[\#D6CEBE\],
 html.dark .border-\[\#F2ECE1\],
-html.dark .border-\[\#D1C6AD\] {
+html.dark .border-\[\#D1C6AD\],
+html.dark .border-\[\#E8E2D2\] {
   border-color: #332f28 !important;
 }
 
@@ -204,11 +219,27 @@ html.dark select option {
   color: #f5eddc !important;
 }
 
-/* Table Hover and Alternating Rows */
+/* Table Head, Rows and Hover */
+html.dark thead {
+  background-color: #1e1e1e !important;
+}
+
+html.dark thead tr th {
+  color: #b8b3a8 !important;
+  border-color: #332f28 !important;
+}
+
+html.dark tbody tr {
+  background-color: #1b1b1b !important;
+  border-color: #332f28 !important;
+}
+
+html.dark tbody tr:hover,
 html.dark tr.hover\:bg-\[\#FAF6ED\]:hover,
 html.dark tr.hover\:bg-\[\#FAF7F0\]:hover,
+html.dark tr.hover\:bg-\[\#FFFDF9\]:hover,
 html.dark .hover\:bg-\[\#FAF6ED\]:hover {
-  background-color: #282828 !important;
+  background-color: #262626 !important;
 }
 
 /* Card Elevation & Shadows */
@@ -229,6 +260,18 @@ html.dark .bg-\[rgba\(232\,162\,95\,0\.22\)\] {
 }
 html.dark .bg-\[rgba\(224\,122\,110\,0\.22\)\] {
   background-color: rgba(177, 60, 48, 0.22) !important;
+}
+
+/* Alert Boxes in Dark Mode */
+html.dark .bg-\[rgba\(177\,60\,48\,0\.12\)\] {
+  background-color: rgba(177, 60, 48, 0.25) !important;
+  border-color: rgba(224, 122, 110, 0.5) !important;
+}
+
+html.dark .bg-\[rgba\(177\,60\,48\,0\.12\)\] .text-\[\#B13C30\],
+html.dark .bg-\[rgba\(177\,60\,48\,0\.12\)\] span,
+html.dark .bg-\[rgba\(177\,60\,48\,0\.12\)\] strong {
+  color: #ffa39e !important;
 }
 
 

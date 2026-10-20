@@ -739,8 +739,8 @@ export default function ChecklistClient({
                       return (
                         <tr
                           key={item.id}
-                          className={`transition-colors hover:bg-[#FFFDF9] ${
-                            isKrusial ? "bg-[rgba(177,60,48,0.02)]" : ""
+                          className={`transition-colors hover:bg-[#FAF6ED] dark:hover:bg-[#252525] ${
+                            isKrusial ? "bg-[rgba(177,60,48,0.04)] dark:bg-[rgba(177,60,48,0.12)]" : ""
                           }`}
                         >
                           {/* Nomor Urut */}
@@ -750,11 +750,11 @@ export default function ChecklistClient({
 
                           {/* Nama Barang */}
                           <td className="py-3.5 px-4">
-                            <span className="font-semibold text-[#1A1A1A] block">
+                            <span className="font-semibold text-[#1A1A1A] dark:text-[#F5EDDC] block">
                               {item.nama_barang}
                             </span>
                             {isKrusial && (
-                              <span className="inline-flex items-center gap-1 text-[11px] text-[#B13C30] font-medium mt-0.5">
+                              <span className="inline-flex items-center gap-1 text-[11px] text-[#B13C30] dark:text-[#FFA39E] font-medium mt-0.5">
                                 <AlertTriangle size={12} />
                                 Barang di lokasi / belum kembali
                               </span>
@@ -768,8 +768,8 @@ export default function ChecklistClient({
                               disabled={isPending}
                               className={`w-full py-2 px-3 rounded-xl border text-xs font-semibold transition-all inline-flex items-center justify-center gap-2 cursor-pointer shadow-sm ${
                                 item.dimuat
-                                  ? "bg-[rgba(46,95,138,0.12)] border-[#2E5F8A] text-[#2E5F8A]"
-                                  : "bg-[#FFFFFF] border-[#D6CEBE] text-[#5E5A52] hover:bg-[#FAF6ED]"
+                                  ? "bg-[rgba(46,95,138,0.12)] dark:bg-[rgba(46,95,138,0.25)] border-[#2E5F8A] text-[#2E5F8A] dark:text-[#8DB4D9]"
+                                  : "bg-[#FFFFFF] dark:bg-[#222222] border-[#D6CEBE] dark:border-[#38342C] text-[#5E5A52] dark:text-[#B8B3A8] hover:bg-[#FAF6ED] dark:hover:bg-[#2A2A2A]"
                               }`}
                             >
                               <Truck size={15} />
@@ -790,10 +790,10 @@ export default function ChecklistClient({
                               disabled={isPending}
                               className={`w-full py-2 px-3 rounded-xl border text-xs font-semibold transition-all inline-flex items-center justify-center gap-2 cursor-pointer shadow-sm ${
                                 item.kembali
-                                  ? "bg-[rgba(47,122,75,0.14)] border-[#2F7A4B] text-[#2F7A4B]"
+                                  ? "bg-[rgba(47,122,75,0.14)] dark:bg-[rgba(47,122,75,0.25)] border-[#2F7A4B] text-[#2F7A4B] dark:text-[#7FD39B]"
                                   : isKrusial
-                                  ? "bg-[rgba(177,60,48,0.12)] border-[#B13C30] text-[#B13C30] hover:bg-[rgba(177,60,48,0.18)]"
-                                  : "bg-[#FFFFFF] border-[#D6CEBE] text-[#5E5A52] hover:bg-[#FAF6ED]"
+                                  ? "bg-[rgba(177,60,48,0.12)] dark:bg-[rgba(177,60,48,0.25)] border-[#B13C30] dark:border-[#B13C30] text-[#B13C30] dark:text-[#FFA39E] hover:bg-[rgba(177,60,48,0.18)]"
+                                  : "bg-[#FFFFFF] dark:bg-[#222222] border-[#D6CEBE] dark:border-[#38342C] text-[#5E5A52] dark:text-[#B8B3A8] hover:bg-[#FAF6ED] dark:hover:bg-[#2A2A2A]"
                               }`}
                             >
                               <CheckCircle2 size={15} />
@@ -810,17 +810,17 @@ export default function ChecklistClient({
                           {/* Ringkasan Status Badge */}
                           <td className="py-3.5 px-4 text-center">
                             {item.kembali ? (
-                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[rgba(47,122,75,0.14)] text-[#2F7A4B]">
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[rgba(47,122,75,0.14)] dark:bg-[rgba(47,122,75,0.25)] text-[#2F7A4B] dark:text-[#7FD39B]">
                                 <CheckCircle2 size={12} />
                                 Selesai
                               </span>
                             ) : item.dimuat ? (
-                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[rgba(177,60,48,0.14)] text-[#B13C30]">
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[rgba(177,60,48,0.14)] dark:bg-[rgba(177,60,48,0.25)] text-[#B13C30] dark:text-[#FFA39E]">
                                 <AlertTriangle size={12} />
                                 Di Luar
                               </span>
                             ) : (
-                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#FAF6ED] border border-[#E5DEC9] text-[#8A857B]">
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#FAF6ED] dark:bg-[#252525] border border-[#E5DEC9] dark:border-[#38342C] text-[#8A857B] dark:text-[#B8B3A8]">
                                 Menunggu
                               </span>
                             )}
@@ -831,7 +831,7 @@ export default function ChecklistClient({
                             <button
                               onClick={() => handleDeleteItem(item.id, item.nama_barang)}
                               disabled={isPending}
-                              className="p-1.5 rounded-lg text-[#8A857B] hover:text-[#B13C30] hover:bg-[#FAF6ED] transition-colors cursor-pointer"
+                              className="p-1.5 rounded-lg text-[#8A857B] hover:text-[#B13C30] hover:bg-[#FAF6ED] dark:hover:bg-[#282828] transition-colors cursor-pointer"
                               title="Hapus barang"
                             >
                               <Trash2 size={15} />

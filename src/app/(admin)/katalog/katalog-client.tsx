@@ -429,7 +429,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
               >
                 <div>
                   {/* Photo Preview Container */}
-                  <div className="relative w-full h-48 bg-[#F5EDDC]/40 border-b border-[#E5DEC9] flex items-center justify-center overflow-hidden">
+                  <div className="relative w-full h-48 bg-[#F5EDDC]/40 dark:bg-[#181818] border-b border-[#E5DEC9] dark:border-[#332F28] flex items-center justify-center overflow-hidden">
                     {primaryPhoto ? (
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img
@@ -445,7 +445,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                     )}
 
                     {/* Category Tag (Top Left) */}
-                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#FFFFFF]/90 backdrop-blur-sm border border-[#E5DEC9] text-[11px] font-medium text-[#1A1A1A] flex items-center gap-1.5 shadow-xs">
+                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#FFFFFF]/90 dark:bg-[#222222]/90 backdrop-blur-sm border border-[#E5DEC9] dark:border-[#38342C] text-[11px] font-medium text-[#1A1A1A] dark:text-[#F5EDDC] flex items-center gap-1.5 shadow-xs">
                       {categoryIcon}
                       <span>{categoryLabel}</span>
                     </div>
@@ -453,7 +453,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                     {/* Photo Count Tag (Top Right) */}
                     <button
                       onClick={() => handleOpenPhotoModal(item)}
-                      className="absolute top-3 right-3 px-2 py-1 rounded-full bg-[#FFFFFF]/90 backdrop-blur-sm border border-[#E5DEC9] text-[11px] font-semibold text-[#8A6A22] hover:bg-[#FAF6ED] transition-colors flex items-center gap-1 cursor-pointer shadow-xs"
+                      className="absolute top-3 right-3 px-2 py-1 rounded-full bg-[#FFFFFF]/90 dark:bg-[#222222]/90 backdrop-blur-sm border border-[#E5DEC9] dark:border-[#38342C] text-[11px] font-semibold text-[#8A6A22] dark:text-[#EEB100] hover:bg-[#FAF6ED] dark:hover:bg-[#2A2A2A] transition-colors flex items-center gap-1 cursor-pointer shadow-xs"
                       title="Buka Galeri Foto"
                     >
                       <Camera size={12} />
@@ -464,25 +464,25 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                   {/* Card Content Body */}
                   <div className="p-5 space-y-3">
                     <div className="flex items-start justify-between gap-2">
-                      <h3 className="font-sans text-lg font-bold text-[#1A1A1A] leading-snug group-hover:text-[#8A6A22] transition-colors">
+                      <h3 className="font-sans text-lg font-bold text-[#1A1A1A] dark:text-[#F5EDDC] leading-snug group-hover:text-[#8A6A22] dark:group-hover:text-[#EEB100] transition-colors">
                         {item.nama}
                       </h3>
                       {item.ukuran && (
-                        <span className="shrink-0 px-2.5 py-0.5 rounded-full bg-[rgba(212,173,92,0.14)] text-[#8A6A22] text-xs font-semibold flex items-center gap-1 border border-[#D4AD5C]/40">
+                        <span className="shrink-0 px-2.5 py-0.5 rounded-full bg-[rgba(212,173,92,0.14)] text-[#8A6A22] dark:text-[#EEB100] text-xs font-semibold flex items-center gap-1 border border-[#D4AD5C]/40">
                           <Tag size={11} />
                           <span>{item.ukuran}</span>
                         </span>
                       )}
                     </div>
 
-                    <p className="text-xs text-[#5E5A52] line-clamp-3 leading-relaxed">
+                    <p className="text-xs text-[#5E5A52] dark:text-[#B8B3A8] line-clamp-3 leading-relaxed">
                       {item.deskripsi || "Tidak ada rincian deskripsi tambahan."}
                     </p>
                   </div>
                 </div>
 
                 {/* Card Footer Actions */}
-                <div className="p-4 pt-2 border-t border-[#E5DEC9] flex items-center justify-between gap-2 bg-[#FAF6ED]/50">
+                <div className="p-4 pt-2 border-t border-[#E5DEC9] dark:border-[#332F28] flex items-center justify-between gap-2 bg-[#FAF6ED]/50 dark:bg-[#181818]">
                   <Button
                     variant="outline"
                     size="sm"
@@ -495,7 +495,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
 
                   <button
                     onClick={() => handleOpenEditModal(item)}
-                    className="p-2 rounded-xl bg-[#FFFFFF] border border-[#D6CEBE] hover:bg-[#FAF6ED] text-[#5E5A52] hover:text-[#1A1A1A] transition-colors cursor-pointer shadow-xs"
+                    className="p-2 rounded-xl bg-[#FFFFFF] dark:bg-[#242424] border border-[#D6CEBE] dark:border-[#38342C] hover:bg-[#FAF6ED] dark:hover:bg-[#2D2D2D] text-[#5E5A52] dark:text-[#B8B3A8] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] transition-colors cursor-pointer shadow-xs"
                     title="Ubah Item"
                   >
                     <Edit3 size={15} />
@@ -503,7 +503,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
 
                   <button
                     onClick={() => handleDeleteItem(item)}
-                    className="p-2 rounded-xl bg-[#FFFFFF] border border-[#D6CEBE] hover:bg-[rgba(177,60,48,0.1)] text-[#5E5A52] hover:text-[#B13C30] transition-colors cursor-pointer shadow-xs"
+                    className="p-2 rounded-xl bg-[#FFFFFF] dark:bg-[#242424] border border-[#D6CEBE] dark:border-[#38342C] hover:bg-[rgba(177,60,48,0.1)] dark:hover:bg-[rgba(177,60,48,0.2)] text-[#5E5A52] dark:text-[#B8B3A8] hover:text-[#B13C30] dark:hover:text-[#FFA39E] transition-colors cursor-pointer shadow-xs"
                     title="Hapus Item"
                   >
                     <Trash2 size={15} />

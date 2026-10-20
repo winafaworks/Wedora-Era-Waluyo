@@ -407,12 +407,12 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                   onClick={() => setSelectedDate(cell.dateStr)}
                   className={`min-h-[78px] sm:min-h-[105px] p-1.5 sm:p-2 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
                     cell.isCurrentMonth
-                      ? "bg-[#FFFFFF] border-[#E5DEC9]"
-                      : "bg-[#F5EDDC]/40 border-[#E5DEC9]/60 text-[#8A857B]"
+                      ? "bg-[#FFFFFF] dark:bg-[#1C1C1C] border-[#E5DEC9] dark:border-[#332F28]"
+                      : "bg-[#F5EDDC]/30 dark:bg-[#161616]/60 border-[#E5DEC9]/40 dark:border-[#262626] text-[#8A857B] dark:text-[#555555] opacity-60"
                   } ${
                     isSelected
-                      ? "ring-2 ring-[#8A6A22] border-transparent bg-[rgba(212,173,92,0.12)] shadow-md"
-                      : "hover:border-[#C8BFAB]"
+                      ? "ring-2 ring-[#8A6A22] dark:ring-[#EEB100] border-transparent bg-[rgba(212,173,92,0.12)] dark:bg-[rgba(212,173,92,0.2)] shadow-md"
+                      : "hover:border-[#C8BFAB] dark:hover:border-[#443E33]"
                   }`}
                 >
                   {/* Top row: day number + indicator */}
@@ -420,12 +420,12 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                     <span
                       className={`text-xs sm:text-sm font-medium w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full ${
                         cell.isToday
-                          ? "border border-[#8A6A22] text-[#8A6A22] font-bold"
+                          ? "border border-[#8A6A22] dark:border-[#EEB100] text-[#8A6A22] dark:text-[#EEB100] font-bold"
                           : isSelected
-                          ? "text-[#8A6A22] font-bold"
+                          ? "text-[#8A6A22] dark:text-[#EEB100] font-bold"
                           : cell.isCurrentMonth
-                          ? "text-[#1A1A1A]"
-                          : "text-[#8A857B]"
+                          ? "text-[#1A1A1A] dark:text-[#F5EDDC]"
+                          : "text-[#8A857B] dark:text-[#666666]"
                       }`}
                     >
                       {cell.dayNumber}
@@ -526,11 +526,11 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
 
             {/* Conflict Warning Alert */}
             {selectedDateBookings.length > 1 && (
-              <div className="p-3.5 bg-[rgba(177,60,48,0.12)] border border-[#B13C30] rounded-xl text-xs text-[#B13C30] flex items-start gap-2.5">
+              <div className="p-3.5 bg-[rgba(177,60,48,0.12)] dark:bg-[rgba(177,60,48,0.22)] border border-[#B13C30] dark:border-[rgba(224,122,110,0.5)] rounded-xl text-xs text-[#B13C30] dark:text-[#FFA39E] flex items-start gap-2.5">
                 <AlertTriangle size={18} className="shrink-0 mt-0.5" />
                 <div>
                   <strong className="block font-semibold">Peringatan Jadwal Bentrok</strong>
-                  <span>
+                  <span className="text-[#B13C30] dark:text-[#FCA5A5]">
                     Terdapat {selectedDateBookings.length} pesanan acara pada tanggal yang sama.
                     Pastikan koordinasi tim rias, busana, dan kru dekorasi berjalan lancar.
                   </span>
@@ -576,15 +576,15 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                 {selectedDateBookings.map((b, idx) => (
                   <div
                     key={b.id}
-                    className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl space-y-3 hover:border-[#D6CEBE] transition-colors shadow-sm"
+                    className="p-4 bg-[#FFFFFF] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#332F28] rounded-xl space-y-3 hover:border-[#D6CEBE] dark:hover:border-[#4A4438] transition-colors shadow-sm"
                   >
                     {/* Header: Name + Badge */}
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <div className="text-[11px] text-[#5E5A52] font-medium">
+                        <div className="text-[11px] text-[#5E5A52] dark:text-[#A09A8F] font-medium">
                           Acara #{idx + 1}
                         </div>
-                        <h4 className="text-base font-semibold text-[#1A1A1A] mt-0.5">
+                        <h4 className="text-base font-semibold text-[#1A1A1A] dark:text-[#F5EDDC] mt-0.5">
                           {b.nama_pelanggan}
                         </h4>
                       </div>
@@ -593,17 +593,17 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
 
                     {/* Details: Package, Location, Contact */}
                     <div className="space-y-1.5 text-xs">
-                      <div className="text-[#8A6A22] font-semibold flex items-center gap-1.5">
+                      <div className="text-[#8A6A22] dark:text-[#EEB100] font-semibold flex items-center gap-1.5">
                         <Sparkles size={14} className="shrink-0" />
                         <span className="truncate">{b.packages?.nama || "Paket Khusus"}</span>
                       </div>
 
-                      <div className="text-[#5E5A52] flex items-start gap-1.5">
+                      <div className="text-[#5E5A52] dark:text-[#B8B3A8] flex items-start gap-1.5">
                         <MapPin size={14} className="shrink-0 mt-0.5 text-[#8A857B]" />
                         <span className="line-clamp-2">{b.lokasi || "Lokasi belum ditentukan"}</span>
                       </div>
 
-                      <div className="text-[#5E5A52] flex items-center gap-1.5">
+                      <div className="text-[#5E5A52] dark:text-[#B8B3A8] flex items-center gap-1.5">
                         <Phone size={14} className="shrink-0 text-[#8A857B]" />
                         <span>{b.no_wa}</span>
                       </div>

@@ -879,35 +879,35 @@ export default function RekapClient({
                     key={m.name}
                     className={`p-3.5 rounded-xl border transition-all ${
                       isCurrentMonth
-                        ? "bg-[#FCF8EE] border-[#D4AD5C]"
-                        : "bg-[#FAFAFA] border-[#E8E2D2] hover:border-[#D4AD5C]"
+                        ? "bg-[#FCF8EE] dark:bg-[#252219] border-[#D4AD5C] shadow-xs"
+                        : "bg-[#FAFAFA] dark:bg-[#1E1E1E] border-[#E8E2D2] dark:border-[#332F28] hover:border-[#D4AD5C]"
                     }`}
                   >
                     <div className="flex justify-between items-start">
-                      <span className="text-xs font-semibold text-[#1A1A1A]">
+                      <span className="text-xs font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
                         {m.name.slice(0, 3)}
                       </span>
                       {isCurrentMonth && (
-                        <span className="text-[10px] uppercase font-bold text-[#A67C24] bg-[rgba(212,173,92,0.18)] px-1.5 py-0.5 rounded">
+                        <span className="text-[10px] uppercase font-bold text-[#A67C24] dark:text-[#EEB100] bg-[rgba(212,173,92,0.18)] px-1.5 py-0.5 rounded">
                           Kini
                         </span>
                       )}
                     </div>
 
                     <div className="mt-3">
-                      <div className="text-2xl font-bold font-sans text-[#A67C24]">
+                      <div className="text-2xl font-bold font-sans text-[#A67C24] dark:text-[#EEB100]">
                         {m.count}
-                        <span className="text-[11px] font-normal text-[#5E5A52] ml-1">
+                        <span className="text-[11px] font-normal text-[#5E5A52] dark:text-[#B8B3A8] ml-1">
                           acara
                         </span>
                       </div>
-                      <div className="text-[11px] font-medium text-[#5E5A52] mt-1 truncate">
+                      <div className="text-[11px] font-medium text-[#5E5A52] dark:text-[#B8B3A8] mt-1 truncate">
                         DP: Rp{m.totalDp.toLocaleString("id-ID")}
                       </div>
                     </div>
 
                     {/* Progress Bar Visual */}
-                    <div className="w-full bg-[#E8E2D2] h-1.5 rounded-full mt-3 overflow-hidden">
+                    <div className="w-full bg-[#E8E2D2] dark:bg-[#2E2A22] h-1.5 rounded-full mt-3 overflow-hidden">
                       <div
                         className="bg-[#D4AD5C] h-full rounded-full transition-all duration-500"
                         style={{ width: `${heightPercentage}%` }}
