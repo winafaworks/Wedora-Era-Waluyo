@@ -7,12 +7,12 @@ import { Card } from "@/components/ui/card";
 export default function ChecklistPage() {
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#3D3D3D]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#4D4D4D]">
         <div>
           <h1 className="font-serif text-3xl md:text-4xl font-medium text-[#F5EDDC]">
             Checklist Acara
           </h1>
-          <p className="text-sm md:text-base text-[#A8A49B] mt-1">
+          <p className="text-sm md:text-base text-[#B8B3A8] mt-1">
             Pantau status barang dimuat dan kembali untuk mencegah barang tertinggal
           </p>
         </div>
@@ -25,7 +25,7 @@ export default function ChecklistPage() {
         <h2 className="font-serif text-2xl font-medium text-[#F5EDDC]">
           Daftar Kelengkapan Barang Acara
         </h2>
-        <p className="text-sm text-[#A8A49B] max-w-md">
+        <p className="text-sm text-[#B8B3A8] max-w-md">
           Modul penanda barang: Dimuat saat berangkat dan Kembali setelah pembongkaran dengan sorotan khusus untuk barang yang belum kembali.
         </p>
       </Card>

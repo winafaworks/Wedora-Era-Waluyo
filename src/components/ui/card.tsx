@@ -8,7 +8,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 export function Card({ children, className = "", ...props }: CardProps) {
   return (
     <div
-      className={`bg-[#262626] border border-[#3D3D3D] rounded-2xl p-6 ${className}`}
+      className={`bg-[#363636] border border-[#4D4D4D] rounded-2xl p-6 ${className}`}
       {...props}
     >
       {children}
@@ -25,7 +25,7 @@ export interface StatCardProps {
 
 export function StatCard({ title, value, subtitle, icon }: StatCardProps) {
   return (
-    <Card className="flex flex-col justify-between transition-all duration-200 hover:border-[#525252]">
+    <Card className="flex flex-col justify-between transition-all duration-200 hover:border-[#616161]">
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium text-[#A8A49B]">{title}</span>
         {icon && <div className="text-[#D4AD5C] opacity-80">{icon}</div>}

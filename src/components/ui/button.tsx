@@ -20,7 +20,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-semibold rounded-full transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D4AD5C] focus:ring-offset-2 focus:ring-offset-[#1E1E1E] disabled:opacity-40 disabled:cursor-not-allowed";
+      "inline-flex items-center justify-center font-semibold rounded-full transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D4AD5C] focus:ring-offset-2 focus:ring-offset-[#2C2C2C] disabled:opacity-40 disabled:cursor-not-allowed";
 
     const sizeStyles = {
       sm: "h-9 px-4 text-xs tracking-wider",
@@ -34,11 +34,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       secondary:
         "border border-[#D4AD5C] text-[#D4AD5C] bg-transparent hover:bg-[rgba(212,173,92,0.14)] active:bg-[rgba(212,173,92,0.25)]",
       outline:
-        "border border-[#3D3D3D] text-[#F5EDDC] bg-[#262626] hover:bg-[#303030] hover:border-[#525252]",
+        "border border-[#4D4D4D] text-[#F5EDDC] bg-[#363636] hover:bg-[#404040] hover:border-[#616161]",
       danger:
         "border border-[#E07A6E] text-[#E07A6E] bg-transparent hover:bg-[rgba(224,122,110,0.14)]",
       ghost:
-        "text-[#A8A49B] hover:text-[#F5EDDC] hover:bg-[#303030] bg-transparent",
+        "text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#404040] bg-transparent",
     };
 
     return (

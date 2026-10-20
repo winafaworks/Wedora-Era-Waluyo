@@ -32,28 +32,28 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#1E1E1E] text-[#F5EDDC] flex flex-col justify-center items-center p-4 sm:p-6">
+    <div className="min-h-screen bg-[#2C2C2C] text-[#F5EDDC] flex flex-col justify-center items-center p-4 sm:p-6">
       <div className="w-full max-w-[420px] space-y-6">
         {/* Brand Header */}
         <div className="text-center space-y-2">
           <h1 className="font-serif text-4xl font-bold tracking-[0.2em] text-[#D4AD5C]">
             WEDORA
           </h1>
-          <p className="text-xs font-medium tracking-[0.25em] text-[#A8A49B] uppercase">
+          <p className="text-xs font-medium tracking-[0.25em] text-[#B8B3A8] uppercase">
             Era Waluyo Purwokerto
           </p>
-          <p className="text-xs text-[#6E6B64] pt-1">
+          <p className="text-xs text-[#807C74] pt-1">
             Sistem Digital Manajemen Pernikahan & Acara
           </p>
         </div>
 
         {/* Login Card */}
-        <Card className="p-6 sm:p-8 space-y-6 border border-[#3D3D3D] shadow-xl">
+        <Card className="p-6 sm:p-8 space-y-6 border border-[#4D4D4D] shadow-xl">
           <div>
             <h2 className="font-serif text-2xl font-medium text-[#F5EDDC]">
               Masuk Admin
             </h2>
-            <p className="text-xs text-[#A8A49B] mt-1">
+            <p className="text-xs text-[#B8B3A8] mt-1">
               Gunakan akun email resmi Era Waluyo untuk mengakses dashboard
             </p>
           </div>
@@ -68,12 +68,12 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email Field */}
             <div>
-              <label className="block text-xs font-medium text-[#A8A49B] mb-1.5">
+              <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
                 Alamat Email
               </label>
               <div className="relative">
                 <Mail
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6E6B64]"
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#807C74]"
                   size={18}
                 />
                 <input
@@ -82,19 +82,19 @@ export default function LoginPage() {
                   placeholder="admin@erawaluyo.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full h-11 pl-11 pr-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] placeholder-[#6E6B64] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 pl-11 pr-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] placeholder-[#807C74] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
               </div>
             </div>
 
             {/* Password Field */}
             <div>
-              <label className="block text-xs font-medium text-[#A8A49B] mb-1.5">
+              <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
                 Kata Sandi
               </label>
               <div className="relative">
                 <Lock
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6E6B64]"
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#807C74]"
                   size={18}
                 />
                 <input
@@ -103,12 +103,12 @@ export default function LoginPage() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full h-11 pl-11 pr-11 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] placeholder-[#6E6B64] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 pl-11 pr-11 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] placeholder-[#807C74] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#6E6B64] hover:text-[#A8A49B] transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#807C74] hover:text-[#B8B3A8] transition-colors"
                   aria-label="Lihat kata sandi"
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}

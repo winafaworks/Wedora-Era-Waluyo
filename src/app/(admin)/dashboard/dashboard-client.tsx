@@ -22,12 +22,12 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
   return (
     <div className="space-y-8">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#3D3D3D]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#4D4D4D]">
         <div>
           <h1 className="font-serif text-3xl md:text-4xl font-medium text-[#F5EDDC]">
             Dashboard
           </h1>
-          <p className="text-sm md:text-base text-[#A8A49B] mt-1">
+          <p className="text-sm md:text-base text-[#B8B3A8] mt-1">
             Ringkasan booking pernikahan dan acara Era Waluyo
           </p>
         </div>
@@ -92,7 +92,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
               <h3 className="font-serif text-lg font-medium text-[#F5EDDC]">
                 Belum Ada Acara Tercatat
               </h3>
-              <p className="text-xs text-[#A8A49B]">
+              <p className="text-xs text-[#B8B3A8]">
                 Belum ada pesanan yang tersimpan.
               </p>
               <div className="pt-2">
@@ -109,7 +109,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
               {/* Desktop View */}
               <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-left text-sm">
-                  <thead className="bg-[#303030] text-[#A8A49B] text-xs uppercase tracking-wider border-b border-[#3D3D3D]">
+                  <thead className="bg-[#404040] text-[#B8B3A8] text-xs uppercase tracking-wider border-b border-[#4D4D4D]">
                     <tr>
                       <th className="py-4 px-6 font-medium">Tanggal Acara</th>
                       <th className="py-4 px-6 font-medium">Nama Pasangan / Pelanggan</th>
@@ -118,20 +118,20 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
                       <th className="py-4 px-6 font-medium text-right">Aksi</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#3D3D3D]">
+                  <tbody className="divide-y divide-[#4D4D4D]">
                     {upcomingBookings.map((booking) => (
                       <tr
                         key={booking.id}
-                        className="hover:bg-[#303030] transition-colors"
+                        className="hover:bg-[#404040] transition-colors"
                       >
                         <td className="py-4 px-6 font-semibold text-[#F5EDDC]">
                           {booking.tanggal_acara}
                         </td>
                         <td className="py-4 px-6 text-[#F5EDDC]">
                           <div>{booking.nama_pelanggan}</div>
-                          <div className="text-xs text-[#6E6B64]">{booking.no_wa}</div>
+                          <div className="text-xs text-[#807C74]">{booking.no_wa}</div>
                         </td>
-                        <td className="py-4 px-6 text-[#A8A49B]">
+                        <td className="py-4 px-6 text-[#B8B3A8]">
                           {booking.packages?.nama || "-"}
                         </td>
                         <td className="py-4 px-6">
@@ -151,7 +151,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
               </div>
 
               {/* Mobile View */}
-              <div className="divide-y divide-[#3D3D3D] md:hidden">
+              <div className="divide-y divide-[#4D4D4D] md:hidden">
                 {upcomingBookings.map((booking) => (
                   <div key={booking.id} className="p-5 space-y-3">
                     <div className="flex items-start justify-between gap-2">
@@ -165,7 +165,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
                       </div>
                       <StatusBadge status={booking.status} />
                     </div>
-                    <div className="text-xs text-[#A8A49B]">
+                    <div className="text-xs text-[#B8B3A8]">
                       <div>Paket: {booking.packages?.nama || "-"}</div>
                       <div>Kontak: {booking.no_wa}</div>
                     </div>

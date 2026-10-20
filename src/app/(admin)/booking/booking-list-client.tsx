@@ -32,12 +32,12 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#3D3D3D]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#4D4D4D]">
         <div>
           <h1 className="font-serif text-3xl md:text-4xl font-medium text-[#F5EDDC]">
             Data Booking
           </h1>
-          <p className="text-sm md:text-base text-[#A8A49B] mt-1">
+          <p className="text-sm md:text-base text-[#B8B3A8] mt-1">
             Kelola data pesanan acara pernikahan dan status pembayaran DP
           </p>
         </div>
@@ -54,13 +54,13 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
       {/* Filter and Search Bar */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#6E6B64]" size={18} />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#807C74]" size={18} />
           <input
             type="text"
             placeholder="Cari berdasarkan nama pelanggan, nomor WhatsApp, atau lokasi..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full h-11 pl-11 pr-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] placeholder-[#6E6B64] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+            className="w-full h-11 pl-11 pr-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] placeholder-[#807C74] focus:outline-none focus:border-[#D4AD5C] transition-colors"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -68,7 +68,7 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors cursor-pointer"
+              className="h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors cursor-pointer"
             >
               <option value="all">Semua Status</option>
               <option value="belum_dikonfirmasi">Belum Dikonfirmasi</option>
@@ -90,7 +90,7 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
             <h3 className="font-serif text-lg font-medium text-[#F5EDDC]">
               Belum Ada Data Booking
             </h3>
-            <p className="text-xs text-[#A8A49B] max-w-sm mx-auto">
+            <p className="text-xs text-[#B8B3A8] max-w-sm mx-auto">
               {search || statusFilter !== "all"
                 ? "Tidak ada pesanan yang sesuai dengan kata kunci pencarian atau filter yang dipilih."
                 : "Belum ada pesanan pernikahan yang dicatat. Klik tombol di bawah untuk menambah booking pertama."}
@@ -109,7 +109,7 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="bg-[#303030] text-[#A8A49B] text-xs uppercase tracking-wider border-b border-[#3D3D3D]">
+              <thead className="bg-[#404040] text-[#B8B3A8] text-xs uppercase tracking-wider border-b border-[#4D4D4D]">
                 <tr>
                   <th className="py-4 px-6 font-medium">Tanggal</th>
                   <th className="py-4 px-6 font-medium">Pelanggan</th>
@@ -120,20 +120,20 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
                   <th className="py-4 px-6 font-medium text-right">Aksi</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#3D3D3D]">
+              <tbody className="divide-y divide-[#4D4D4D]">
                 {filteredBookings.map((b) => (
-                  <tr key={b.id} className="hover:bg-[#303030] transition-colors">
+                  <tr key={b.id} className="hover:bg-[#404040] transition-colors">
                     <td className="py-4 px-6 font-semibold text-[#F5EDDC]">
                       {b.tanggal_acara}
                     </td>
                     <td className="py-4 px-6 text-[#F5EDDC]">
                       <div>{b.nama_pelanggan}</div>
-                      <div className="text-xs text-[#6E6B64]">{b.no_wa}</div>
+                      <div className="text-xs text-[#807C74]">{b.no_wa}</div>
                     </td>
-                    <td className="py-4 px-6 text-[#A8A49B] max-w-[180px] truncate">
+                    <td className="py-4 px-6 text-[#B8B3A8] max-w-[180px] truncate">
                       {b.lokasi}
                     </td>
-                    <td className="py-4 px-6 text-[#A8A49B]">
+                    <td className="py-4 px-6 text-[#B8B3A8]">
                       {b.packages?.nama || "-"}
                     </td>
                     <td className="py-4 px-6 text-[#D4AD5C] font-medium">

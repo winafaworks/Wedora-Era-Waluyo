@@ -57,18 +57,18 @@ export function Sidebar() {
   return (
     <>
       {/* Mobile Header Bar */}
-      <div className="lg:hidden flex items-center justify-between px-6 py-4 bg-[#262626] border-b border-[#3D3D3D] sticky top-0 z-40">
+      <div className="lg:hidden flex items-center justify-between px-6 py-4 bg-[#363636] border-b border-[#4D4D4D] sticky top-0 z-40">
         <div>
           <span className="font-serif text-2xl font-bold tracking-[0.2em] text-[#D4AD5C]">
             WEDORA
           </span>
-          <span className="block text-[10px] tracking-[0.25em] text-[#A8A49B] font-medium uppercase">
+          <span className="block text-[10px] tracking-[0.25em] text-[#B8B3A8] font-medium uppercase">
             Era Waluyo
           </span>
         </div>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-xl text-[#F5EDDC] bg-[#303030] hover:bg-[#3A3A3A]"
+          className="p-2 rounded-xl text-[#F5EDDC] bg-[#404040] hover:bg-[#4A4A4A]"
           aria-label="Menu navigasi"
         >
           {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -85,7 +85,7 @@ export function Sidebar() {
 
       {/* Main Sidebar */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-[#262626] border-r border-[#3D3D3D] flex flex-col justify-between p-6 transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-[#363636] border-r border-[#4D4D4D] flex flex-col justify-between p-6 transition-transform duration-300 lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -100,7 +100,7 @@ export function Sidebar() {
               <h1 className="font-serif text-3xl font-bold tracking-[0.2em] text-[#D4AD5C] group-hover:text-[#E3C27D] transition-colors">
                 WEDORA
               </h1>
-              <p className="text-[11px] font-medium tracking-[0.25em] text-[#A8A49B] uppercase mt-1">
+              <p className="text-[11px] font-medium tracking-[0.25em] text-[#B8B3A8] uppercase mt-1">
                 Era Waluyo
               </p>
             </Link>
@@ -122,12 +122,12 @@ export function Sidebar() {
                   className={`flex items-center gap-3.5 h-12 px-4 rounded-xl text-sm transition-all duration-150 ${
                     isActive
                       ? "bg-[rgba(212,173,92,0.14)] text-[#D4AD5C] font-semibold"
-                      : "text-[#A8A49B] hover:text-[#F5EDDC] hover:bg-[#303030]"
+                      : "text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#404040]"
                   }`}
                 >
                   <Icon
                     size={20}
-                    className={isActive ? "text-[#D4AD5C]" : "text-[#A8A49B]"}
+                    className={isActive ? "text-[#D4AD5C]" : "text-[#B8B3A8]"}
                   />
                   <span>{item.name}</span>
                 </Link>
@@ -137,7 +137,7 @@ export function Sidebar() {
         </div>
 
         {/* Footer / Tombol Keluar */}
-        <div className="pt-6 border-t border-[#3D3D3D]">
+        <div className="pt-6 border-t border-[#4D4D4D]">
           <Button
             variant="secondary"
             className="w-full justify-center gap-2"
