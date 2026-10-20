@@ -31,7 +31,7 @@ export function StatCard({ title, value, subtitle, icon }: StatCardProps) {
         {icon && <div className="text-[#A67C24] opacity-90">{icon}</div>}
       </div>
       <div className="mt-4">
-        <div className="text-4xl font-sans font-bold text-[#A67C24] tracking-tight tabular-nums">
+        <div className="text-4xl font-sans font-bold text-[#A67C24] tracking-tight">
           {value}
         </div>
         {subtitle && (

@@ -205,7 +205,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
           <div className="space-y-3 text-sm">
             <div>
               <span className="text-xs text-[#5E5A52]">Nominal DP Diterima</span>
-              <p className="text-2xl font-sans font-bold text-[#8A6A22] mt-0.5 tabular-nums">
+              <p className="text-2xl font-sans font-bold text-[#8A6A22] mt-0.5">
                 Rp{Number(booking.dp_nominal || 0).toLocaleString("id-ID")}
               </p>
             </div>

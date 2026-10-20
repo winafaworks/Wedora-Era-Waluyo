@@ -417,7 +417,7 @@ export default function ChecklistClient({
                 <CheckSquare size={18} className="text-[#8A6A22]" />
               </div>
               <div className="mt-3">
-                <div className="text-3xl font-sans font-bold text-[#1A1A1A] tabular-nums">
+                <div className="text-3xl font-sans font-bold text-[#1A1A1A]">
                   {stats.total}
                 </div>
                 <p className="mt-1 text-xs text-[#8A857B]">Daftar perlengkapan acara</p>
@@ -431,7 +431,7 @@ export default function ChecklistClient({
                 <Truck size={18} className="text-[#2E5F8A]" />
               </div>
               <div className="mt-3">
-                <div className="text-3xl font-sans font-bold text-[#2E5F8A] tabular-nums flex items-baseline gap-2">
+                <div className="text-3xl font-sans font-bold text-[#2E5F8A] flex items-baseline gap-2">
                   <span>{stats.sudahDimuat}</span>
                   <span className="text-xs font-semibold text-[#5E5A52]">
                     ({stats.persenDimuat}%)
@@ -448,7 +448,7 @@ export default function ChecklistClient({
                 <CheckCircle2 size={18} className="text-[#2F7A4B]" />
               </div>
               <div className="mt-3">
-                <div className="text-3xl font-sans font-bold text-[#2F7A4B] tabular-nums flex items-baseline gap-2">
+                <div className="text-3xl font-sans font-bold text-[#2F7A4B] flex items-baseline gap-2">
                   <span>{stats.sudahKembali}</span>
                   <span className="text-xs font-semibold text-[#5E5A52]">
                     ({stats.persenKembali}%)
@@ -485,7 +485,7 @@ export default function ChecklistClient({
               </div>
               <div className="mt-3">
                 <div
-                  className={`text-3xl font-sans font-bold tabular-nums ${
+                  className={`text-3xl font-sans font-bold ${
                     stats.totalBelumKembali > 0 ? "text-[#B13C30]" : "text-[#2F7A4B]"
                   }`}
                 >

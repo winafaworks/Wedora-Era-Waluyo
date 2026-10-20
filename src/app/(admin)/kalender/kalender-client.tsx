@@ -266,7 +266,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
         <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
             <span className="text-xs text-[#5E5A52] block">Total Bulan Ini</span>
-            <strong className="text-xl sm:text-2xl font-sans font-bold text-[#8A6A22] block mt-0.5 tabular-nums">
+            <strong className="text-xl sm:text-2xl font-sans font-bold text-[#8A6A22] block mt-0.5">
               {monthStats.totalAcara} Acara
             </strong>
           </div>
@@ -278,7 +278,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
         <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
             <span className="text-xs text-[#5E5A52] block">Dikonfirmasi</span>
-            <strong className="text-xl sm:text-2xl font-sans font-bold text-[#2F7A4B] block mt-0.5 tabular-nums">
+            <strong className="text-xl sm:text-2xl font-sans font-bold text-[#2F7A4B] block mt-0.5">
               {monthStats.dikonfirmasi} Acara
             </strong>
           </div>
@@ -290,7 +290,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
         <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
             <span className="text-xs text-[#5E5A52] block">Belum Konfirmasi</span>
-            <strong className="text-xl sm:text-2xl font-sans font-bold text-[#A5601C] block mt-0.5 tabular-nums">
+            <strong className="text-xl sm:text-2xl font-sans font-bold text-[#A5601C] block mt-0.5">
               {monthStats.belumKonfirmasi} Acara
             </strong>
           </div>
@@ -303,7 +303,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
           <div>
             <span className="text-xs text-[#5E5A52] block">Bentrok Tanggal</span>
             <strong
-              className={`text-xl sm:text-2xl font-sans font-bold block mt-0.5 tabular-nums ${
+              className={`text-xl sm:text-2xl font-sans font-bold block mt-0.5 ${
                 monthStats.bentrokCount > 0 ? "text-[#B13C30]" : "text-[#5E5A52]"
               }`}
             >
