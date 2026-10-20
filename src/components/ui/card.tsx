@@ -22,9 +22,19 @@ export interface StatCardProps {
   subtitle?: string;
   icon?: React.ReactNode;
   className?: string;
+  valueClassName?: string;
+  iconClassName?: string;
 }
 
-export function StatCard({ title, value, subtitle, icon, className = "" }: StatCardProps) {
+export function StatCard({
+  title,
+  value,
+  subtitle,
+  icon,
+  className = "",
+  valueClassName = "text-[#A67C24]",
+  iconClassName = "text-[#A67C24]",
+}: StatCardProps) {
   const valueStr = String(value);
   // Ukuran teks adaptif agar teks nominal panjang (contoh: Rp20.500.000) tidak bertabrakan antar card
   const textSizeClass =
@@ -40,11 +50,11 @@ export function StatCard({ title, value, subtitle, icon, className = "" }: StatC
         <span className="text-sm font-medium text-[#5E5A52] truncate" title={title}>
           {title}
         </span>
-        {icon && <div className="text-[#A67C24] opacity-90 shrink-0">{icon}</div>}
+        {icon && <div className={`${iconClassName} opacity-90 shrink-0`}>{icon}</div>}
       </div>
       <div className="mt-4 min-w-0">
         <div
-          className={`${textSizeClass} font-sans font-bold text-[#A67C24] tracking-tight truncate`}
+          className={`${textSizeClass} font-sans font-bold ${valueClassName} tracking-tight truncate`}
           title={valueStr}
         >
           {value}

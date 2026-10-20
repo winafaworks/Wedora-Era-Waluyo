@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Plus, Calendar, Clock, AlertCircle, Sparkles, ArrowRight, CalendarX } from "lucide-react";
+import { Plus, Calendar, CalendarDays, Clock, AlertCircle, ArrowRight, CalendarX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, StatCard } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/badge";
@@ -47,25 +47,33 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
           title="Total Booking"
           value={stats.totalBooking}
           subtitle="Tercatat dalam sistem"
-          icon={<Sparkles size={20} />}
+          icon={<CalendarDays size={20} />}
+          valueClassName="text-[#EEB100]"
+          iconClassName="text-[#EEB100]"
         />
         <StatCard
           title="Acara Bulan Ini"
           value={stats.acaraBulanIni}
           subtitle="Bulan berjalan"
           icon={<Calendar size={20} />}
+          valueClassName="text-[#2F7A4B]"
+          iconClassName="text-[#2F7A4B]"
         />
         <StatCard
           title="Belum Dikonfirmasi"
           value={stats.belumDikonfirmasi}
           subtitle="Menunggu respon pelanggan"
           icon={<AlertCircle size={20} />}
+          valueClassName="text-[#B13C30]"
+          iconClassName="text-[#B13C30]"
         />
         <StatCard
           title="Acara Mendatang"
           value={stats.acaraMendatang}
           subtitle="Jadwal berikutnya"
           icon={<Clock size={20} />}
+          valueClassName="text-[#EEB100]"
+          iconClassName="text-[#EEB100]"
         />
       </div>
 
