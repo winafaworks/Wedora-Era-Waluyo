@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   title: "WEDORA — Wedding Digital Management | Era Waluyo",
   description:
     "Sistem digital manajemen booking, katalog busana, checklist acara, dan konfirmasi pernikahan Era Waluyo Purwokerto.",
+  icons: {
+    icon: "/logo_erawaluyo.jpeg",
+    shortcut: "/logo_erawaluyo.jpeg",
+    apple: "/logo_erawaluyo.jpeg",
+  },
 };
 
 export default function RootLayout({
