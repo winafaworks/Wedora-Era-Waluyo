@@ -640,8 +640,24 @@ export default function RekapClient({
           </div>
         </div>
 
-        {/* Baris Kedua: Rentang Tanggal Kustom & Pencarian */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 border-t border-[#F2ECE1]">
+        {/* Baris Kedua: Status DP, Rentang Tanggal Kustom & Pencarian Cepat */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1 border-t border-[#F2ECE1]">
+          {/* Status DP */}
+          <div>
+            <label className="block text-xs font-medium text-[#5E5A52] mb-1">
+              Status DP
+            </label>
+            <select
+              value={selectedDp}
+              onChange={(e) => setSelectedDp(e.target.value)}
+              className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer"
+            >
+              <option value="all">Semua Status DP</option>
+              <option value="diterima">DP Diterima</option>
+              <option value="belum">DP Belum Diterima</option>
+            </select>
+          </div>
+
           {/* Dari Tanggal */}
           <div>
             <label className="block text-xs font-medium text-[#5E5A52] mb-1">
@@ -736,41 +752,76 @@ export default function RekapClient({
       ========================================================================= */}
       <div className="space-y-4">
         {/* Navigation Tabs (Disembunyikan saat print) */}
-        <div className="flex border-b border-[#E5DEC9] gap-4 print:hidden">
+        <div className="flex flex-wrap items-center gap-2 p-1.5 bg-[#FAF7F0] border border-[#E5DEC9] rounded-2xl print:hidden shadow-xs">
           <button
+            type="button"
             onClick={() => setActiveTab("bulanan")}
-            className={`pb-3 text-sm font-semibold transition-colors relative cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
               activeTab === "bulanan"
-                ? "text-[#A67C24] border-b-2 border-[#D4AD5C]"
-                : "text-[#5E5A52] hover:text-[#1A1A1A]"
+                ? "bg-[#FFFFFF] text-[#8A6A22] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2]"
+                : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#F2ECE1]"
             }`}
           >
-            Rekap Bulanan
+            <CalendarRange size={16} className={activeTab === "bulanan" ? "text-[#A67C24]" : "text-[#8A857B]"} />
+            <span>Rekap Bulanan</span>
+            <span
+              className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
+                activeTab === "bulanan"
+                  ? "bg-[rgba(212,173,92,0.18)] text-[#8A6A22]"
+                  : "bg-[#EAE2D2] text-[#5E5A52]"
+              }`}
+            >
+              12 Bulan
+            </span>
           </button>
+
           <button
+            type="button"
             onClick={() => setActiveTab("paket")}
-            className={`pb-3 text-sm font-semibold transition-colors relative cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
               activeTab === "paket"
-                ? "text-[#A67C24] border-b-2 border-[#D4AD5C]"
-                : "text-[#5E5A52] hover:text-[#1A1A1A]"
+                ? "bg-[#FFFFFF] text-[#8A6A22] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2]"
+                : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#F2ECE1]"
             }`}
           >
-            Rekap Per Paket Acara
+            <Sparkles size={16} className={activeTab === "paket" ? "text-[#A67C24]" : "text-[#8A857B]"} />
+            <span>Rekap Per Paket Acara</span>
+            <span
+              className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
+                activeTab === "paket"
+                  ? "bg-[rgba(212,173,92,0.18)] text-[#8A6A22]"
+                  : "bg-[#EAE2D2] text-[#5E5A52]"
+              }`}
+            >
+              {packageBreakdown.length} Paket
+            </span>
           </button>
+
           <button
+            type="button"
             onClick={() => setActiveTab("status")}
-            className={`pb-3 text-sm font-semibold transition-colors relative cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
               activeTab === "status"
-                ? "text-[#A67C24] border-b-2 border-[#D4AD5C]"
-                : "text-[#5E5A52] hover:text-[#1A1A1A]"
+                ? "bg-[#FFFFFF] text-[#8A6A22] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2]"
+                : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#F2ECE1]"
             }`}
           >
-            Rekap Status Konfirmasi
+            <CheckCircle2 size={16} className={activeTab === "status" ? "text-[#A67C24]" : "text-[#8A857B]"} />
+            <span>Rekap Status Konfirmasi</span>
+            <span
+              className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
+                activeTab === "status"
+                  ? "bg-[rgba(212,173,92,0.18)] text-[#8A6A22]"
+                  : "bg-[#EAE2D2] text-[#5E5A52]"
+              }`}
+            >
+              4 Status
+            </span>
           </button>
         </div>
 
         {/* TAB 1: REKAP BULANAN */}
-        {(activeTab === "bulanan" || typeof window === "undefined") && (
+        {activeTab === "bulanan" && (
           <Card className="p-6 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
