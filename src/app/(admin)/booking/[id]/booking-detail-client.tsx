@@ -60,21 +60,21 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#4D4D4D]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E5DEC9]">
         <div className="flex items-center gap-4">
           <Link href="/booking">
-            <button className="p-2 rounded-xl bg-[#404040] hover:bg-[#4A4A4A] text-[#B8B3A8] hover:text-[#F5EDDC] transition-colors cursor-pointer">
+            <button className="p-2 rounded-xl bg-[#FFFFFF] border border-[#D6CEBE] hover:bg-[#FAF6ED] text-[#5E5A52] hover:text-[#1A1A1A] transition-colors cursor-pointer shadow-sm">
               <ArrowLeft size={20} />
             </button>
           </Link>
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="font-serif text-3xl font-medium text-[#F5EDDC]">
+              <h1 className="font-serif text-3xl font-medium text-[#1A1A1A]">
                 {booking.nama_pelanggan}
               </h1>
               <StatusBadge status={booking.status} />
             </div>
-            <p className="text-xs text-[#B8B3A8] mt-1">
+            <p className="text-xs text-[#5E5A52] mt-1">
               ID Pesanan: {booking.id.slice(0, 8)} • Dibuat pada:{" "}
               {new Date(booking.dibuat_pada).toLocaleDateString("id-ID")}
             </p>
@@ -103,16 +103,16 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
       </div>
 
       {/* WhatsApp Confirmation Banner */}
-      <Card className="p-6 bg-gradient-to-r from-[#363636] to-[#404040] border-[#D4AD5C]/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-md">
+      <Card className="p-6 bg-gradient-to-r from-[#FFFFFF] to-[#FAF6ED] border-[#D6CEBE] flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
         <div className="space-y-1">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#D4AD5C] flex items-center gap-1.5">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#8A6A22] flex items-center gap-1.5">
             <MessageCircle size={14} />
             Konfirmasi Pesanan Pelanggan
           </span>
-          <p className="text-sm text-[#F5EDDC] font-medium">
+          <p className="text-sm text-[#1A1A1A] font-medium">
             Kirimkan tautan konfirmasi resmi ini kepada calon pengantin via WhatsApp
           </p>
-          <p className="text-xs text-[#B8B3A8] break-all">
+          <p className="text-xs text-[#5E5A52] break-all">
             {confirmationLink}
           </p>
         </div>
@@ -131,8 +131,8 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
       {/* Catatan Koreksi Pelanggan (jika ada) */}
       {booking.customer_notes && booking.customer_notes.length > 0 && (
-        <Card className="p-6 bg-[rgba(232,162,95,0.08)] border-[#E8A25F]/40 space-y-3">
-          <div className="flex items-center gap-2 text-[#E8A25F] font-semibold text-sm">
+        <Card className="p-6 bg-[rgba(232,162,95,0.12)] border-[#E8A25F]/50 space-y-3">
+          <div className="flex items-center gap-2 text-[#A5601C] font-semibold text-sm">
             <AlertTriangle size={18} />
             <span>Catatan Koreksi dari Pelanggan:</span>
           </div>
@@ -140,10 +140,10 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
             {booking.customer_notes.map((note: { id: string; isi: string; dibuat_pada: string }) => (
               <div
                 key={note.id}
-                className="p-3 bg-[#363636] rounded-xl border border-[#4D4D4D] text-xs text-[#F5EDDC]"
+                className="p-3 bg-[#FFFFFF] rounded-xl border border-[#E5DEC9] text-xs text-[#1A1A1A] shadow-sm"
               >
                 <p>{note.isi}</p>
-                <span className="block text-[10px] text-[#B8B3A8] mt-1">
+                <span className="block text-[10px] text-[#5E5A52] mt-1">
                   Waktu: {new Date(note.dibuat_pada).toLocaleString("id-ID")}
                 </span>
               </div>
@@ -156,35 +156,35 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Informasi Acara & Waktu */}
         <Card className="p-6 space-y-4">
-          <h2 className="font-serif text-lg font-medium text-[#D4AD5C] border-b border-[#4D4D4D] pb-2">
+          <h2 className="font-serif text-lg font-medium text-[#8A6A22] border-b border-[#E5DEC9] pb-2">
             Jadwal & Lokasi Acara
           </h2>
           <div className="space-y-3 text-sm">
             <div className="flex items-start gap-3">
-              <Calendar size={18} className="text-[#D4AD5C] shrink-0 mt-0.5" />
+              <Calendar size={18} className="text-[#8A6A22] shrink-0 mt-0.5" />
               <div>
-                <span className="text-xs text-[#B8B3A8]">Tanggal Pelaksanaan</span>
-                <p className="font-semibold text-[#F5EDDC]">
+                <span className="text-xs text-[#5E5A52]">Tanggal Pelaksanaan</span>
+                <p className="font-semibold text-[#1A1A1A]">
                   {booking.tanggal_acara}
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
-              <MapPin size={18} className="text-[#D4AD5C] shrink-0 mt-0.5" />
+              <MapPin size={18} className="text-[#8A6A22] shrink-0 mt-0.5" />
               <div>
-                <span className="text-xs text-[#B8B3A8]">Lokasi Acara</span>
-                <p className="font-semibold text-[#F5EDDC]">
+                <span className="text-xs text-[#5E5A52]">Lokasi Acara</span>
+                <p className="font-semibold text-[#1A1A1A]">
                   {booking.lokasi}
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
-              <Phone size={18} className="text-[#D4AD5C] shrink-0 mt-0.5" />
+              <Phone size={18} className="text-[#8A6A22] shrink-0 mt-0.5" />
               <div>
-                <span className="text-xs text-[#B8B3A8]">Kontak WhatsApp</span>
-                <p className="font-semibold text-[#F5EDDC]">{booking.no_wa}</p>
+                <span className="text-xs text-[#5E5A52]">Kontak WhatsApp</span>
+                <p className="font-semibold text-[#1A1A1A]">{booking.no_wa}</p>
               </div>
             </div>
           </div>
@@ -192,29 +192,29 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
         {/* Informasi Pembayaran DP */}
         <Card className="p-6 space-y-4">
-          <h2 className="font-serif text-lg font-medium text-[#D4AD5C] border-b border-[#4D4D4D] pb-2">
+          <h2 className="font-serif text-lg font-medium text-[#8A6A22] border-b border-[#E5DEC9] pb-2">
             Status Pembayaran DP
           </h2>
           <div className="space-y-3 text-sm">
             <div>
-              <span className="text-xs text-[#B8B3A8]">Nominal DP Diterima</span>
-              <p className="text-2xl font-serif text-[#D4AD5C] font-semibold mt-0.5">
+              <span className="text-xs text-[#5E5A52]">Nominal DP Diterima</span>
+              <p className="text-2xl font-serif text-[#8A6A22] font-semibold mt-0.5">
                 Rp{Number(booking.dp_nominal || 0).toLocaleString("id-ID")}
               </p>
             </div>
 
             <div className="flex items-center gap-2 pt-1 text-xs">
-              <CheckCircle2 size={16} className="text-[#7FD39B]" />
-              <span className="text-[#7FD39B] font-semibold">
+              <CheckCircle2 size={16} className="text-[#2F7A4B]" />
+              <span className="text-[#2F7A4B] font-semibold">
                 Uang Muka (DP) Sah Diterima
               </span>
             </div>
 
-            <div className="flex items-center gap-2 text-xs text-[#B8B3A8]">
+            <div className="flex items-center gap-2 text-xs text-[#5E5A52]">
               <Clock size={16} />
               <span>
                 Status Konfirmasi:{" "}
-                <strong className="text-[#F5EDDC] uppercase">
+                <strong className="text-[#1A1A1A] uppercase">
                   {booking.status.replace("_", " ")}
                 </strong>
               </span>
@@ -224,70 +224,70 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
         {/* Rincian Busana & Paket */}
         <Card className="p-6 space-y-4 md:col-span-2">
-          <h2 className="font-serif text-lg font-medium text-[#D4AD5C] border-b border-[#4D4D4D] pb-2 flex items-center gap-2">
+          <h2 className="font-serif text-lg font-medium text-[#8A6A22] border-b border-[#E5DEC9] pb-2 flex items-center gap-2">
             <Sparkles size={18} />
             <span>Paket Layanan & Busana Pernikahan</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs">
-            <div className="p-3 bg-[#404040] rounded-xl border border-[#4D4D4D]">
-              <span className="text-[#B8B3A8] block">Paket Pilihan</span>
-              <strong className="text-sm text-[#F5EDDC] block mt-0.5">
+            <div className="p-3 bg-[#FBF7EC] rounded-xl border border-[#E5DEC9]">
+              <span className="text-[#5E5A52] block">Paket Pilihan</span>
+              <strong className="text-sm text-[#1A1A1A] block mt-0.5">
                 {booking.packages?.nama || "Paket Khusus"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#404040] rounded-xl border border-[#4D4D4D]">
-              <span className="text-[#B8B3A8] block">Model Busana / Kebaya</span>
-              <strong className="text-sm text-[#F5EDDC] block mt-0.5">
+            <div className="p-3 bg-[#FBF7EC] rounded-xl border border-[#E5DEC9]">
+              <span className="text-[#5E5A52] block">Model Busana / Kebaya</span>
+              <strong className="text-sm text-[#1A1A1A] block mt-0.5">
                 {booking.kebaya_baju || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#404040] rounded-xl border border-[#4D4D4D]">
-              <span className="text-[#B8B3A8] block">Ukuran Baju</span>
-              <strong className="text-sm text-[#F5EDDC] block mt-0.5">
+            <div className="p-3 bg-[#FBF7EC] rounded-xl border border-[#E5DEC9]">
+              <span className="text-[#5E5A52] block">Ukuran Baju</span>
+              <strong className="text-sm text-[#1A1A1A] block mt-0.5">
                 {booking.ukuran || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#404040] rounded-xl border border-[#4D4D4D]">
-              <span className="text-[#B8B3A8] block">Dekorasi Pelaminan</span>
-              <strong className="text-sm text-[#F5EDDC] block mt-0.5">
+            <div className="p-3 bg-[#FBF7EC] rounded-xl border border-[#E5DEC9]">
+              <span className="text-[#5E5A52] block">Dekorasi Pelaminan</span>
+              <strong className="text-sm text-[#1A1A1A] block mt-0.5">
                 {booking.dekorasi || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#404040] rounded-xl border border-[#4D4D4D]">
-              <span className="text-[#B8B3A8] block">Tata Rias (MUA)</span>
-              <strong className="text-sm text-[#F5EDDC] block mt-0.5">
+            <div className="p-3 bg-[#FBF7EC] rounded-xl border border-[#E5DEC9]">
+              <span className="text-[#5E5A52] block">Tata Rias (MUA)</span>
+              <strong className="text-sm text-[#1A1A1A] block mt-0.5">
                 {booking.makeup || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#404040] rounded-xl border border-[#4D4D4D]">
-              <span className="text-[#B8B3A8] block">Master of Ceremony (MC)</span>
-              <strong className="text-sm text-[#F5EDDC] block mt-0.5">
+            <div className="p-3 bg-[#FBF7EC] rounded-xl border border-[#E5DEC9]">
+              <span className="text-[#5E5A52] block">Master of Ceremony (MC)</span>
+              <strong className="text-sm text-[#1A1A1A] block mt-0.5">
                 {booking.mc || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#404040] rounded-xl border border-[#4D4D4D]">
-              <span className="text-[#B8B3A8] block">Dokumentasi Foto</span>
-              <strong className="text-sm text-[#F5EDDC] block mt-0.5">
+            <div className="p-3 bg-[#FBF7EC] rounded-xl border border-[#E5DEC9]">
+              <span className="text-[#5E5A52] block">Dokumentasi Foto</span>
+              <strong className="text-sm text-[#1A1A1A] block mt-0.5">
                 {booking.fotografer || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#404040] rounded-xl border border-[#4D4D4D]">
-              <span className="text-[#B8B3A8] block">Dokumentasi Video</span>
-              <strong className="text-sm text-[#F5EDDC] block mt-0.5">
+            <div className="p-3 bg-[#FBF7EC] rounded-xl border border-[#E5DEC9]">
+              <span className="text-[#5E5A52] block">Dokumentasi Video</span>
+              <strong className="text-sm text-[#1A1A1A] block mt-0.5">
                 {booking.video || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#404040] rounded-xl border border-[#4D4D4D]">
-              <span className="text-[#B8B3A8] block">Hiburan / Musik</span>
-              <strong className="text-sm text-[#F5EDDC] block mt-0.5">
+            <div className="p-3 bg-[#FBF7EC] rounded-xl border border-[#E5DEC9]">
+              <span className="text-[#5E5A52] block">Hiburan / Musik</span>
+              <strong className="text-sm text-[#1A1A1A] block mt-0.5">
                 {booking.hiburan || "-"}
               </strong>
             </div>
@@ -295,8 +295,8 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
           {booking.catatan_khusus && (
             <div className="pt-2 text-xs">
-              <span className="text-[#B8B3A8] block mb-1">Catatan Khusus:</span>
-              <p className="p-3 bg-[#404040] rounded-xl border border-[#4D4D4D] text-[#F5EDDC]">
+              <span className="text-[#5E5A52] block mb-1">Catatan Khusus:</span>
+              <p className="p-3 bg-[#FBF7EC] rounded-xl border border-[#E5DEC9] text-[#1A1A1A]">
                 {booking.catatan_khusus}
               </p>
             </div>

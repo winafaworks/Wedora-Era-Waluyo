@@ -269,12 +269,12 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
   return (
     <div className="space-y-6">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#4D4D4D]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9]">
         <div>
-          <h1 className="font-serif text-3xl md:text-4xl font-medium text-[#F5EDDC]">
+          <h1 className="font-serif text-3xl md:text-4xl font-medium text-[#1A1A1A]">
             Katalog Busana & Dekorasi
           </h1>
-          <p className="text-sm md:text-base text-[#B8B3A8] mt-1">
+          <p className="text-sm md:text-base text-[#5E5A52] mt-1">
             Koleksi kebaya, beskap adat, ukuran, dekorasi, dan layanan vendor Era Waluyo
           </p>
         </div>
@@ -282,7 +282,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
           <Button
             variant="primary"
             onClick={handleOpenAddModal}
-            className="gap-2 shadow-md cursor-pointer"
+            className="gap-2 shadow-sm cursor-pointer"
           >
             <Plus size={18} />
             <span>Tambah Item Baru</span>
@@ -293,13 +293,13 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
       {/* Categories Tabs & Search Filters */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         {/* Tabs */}
-        <div className="flex items-center gap-1.5 p-1 bg-[#363636] border border-[#4D4D4D] rounded-xl overflow-x-auto">
+        <div className="flex items-center gap-1.5 p-1 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl overflow-x-auto shadow-xs">
           <button
             onClick={() => setActiveTab("all")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
               activeTab === "all"
-                ? "bg-[#D4AD5C] text-[#111111] shadow-sm"
-                : "text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#404040]"
+                ? "bg-[#D4AD5C] text-[#1A1A1A] shadow-xs"
+                : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
             }`}
           >
             Semua ({tabCounts.all})
@@ -308,8 +308,8 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             onClick={() => setActiveTab("busana")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
               activeTab === "busana"
-                ? "bg-[#D4AD5C] text-[#111111] shadow-sm"
-                : "text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#404040]"
+                ? "bg-[#D4AD5C] text-[#1A1A1A] shadow-xs"
+                : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
             }`}
           >
             <Shirt size={14} />
@@ -319,8 +319,8 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             onClick={() => setActiveTab("dekorasi")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
               activeTab === "dekorasi"
-                ? "bg-[#D4AD5C] text-[#111111] shadow-sm"
-                : "text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#404040]"
+                ? "bg-[#D4AD5C] text-[#1A1A1A] shadow-xs"
+                : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
             }`}
           >
             <Sparkles size={14} />
@@ -330,8 +330,8 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             onClick={() => setActiveTab("layanan")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
               activeTab === "layanan"
-                ? "bg-[#D4AD5C] text-[#111111] shadow-sm"
-                : "text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#404040]"
+                ? "bg-[#D4AD5C] text-[#1A1A1A] shadow-xs"
+                : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
             }`}
           >
             <Camera size={14} />
@@ -344,7 +344,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
           {/* Search bar */}
           <div className="relative flex-1 sm:w-64">
             <Search
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#807C74]"
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8A857B]"
               size={16}
             />
             <input
@@ -352,7 +352,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
               placeholder="Cari item katalog..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-10 pl-9 pr-3 bg-[#404040] border border-[#4D4D4D] rounded-xl text-xs text-[#F5EDDC] placeholder-[#807C74] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+              className="w-full h-10 pl-9 pr-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-xs text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
             />
           </div>
 
@@ -361,7 +361,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             <select
               value={sizeFilter}
               onChange={(e) => setSizeFilter(e.target.value)}
-              className="h-10 px-3 bg-[#404040] border border-[#4D4D4D] rounded-xl text-xs text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors cursor-pointer"
+              className="h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-xs text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer shadow-sm"
             >
               <option value="all">Semua Ukuran</option>
               <option value="S">Ukuran S</option>
@@ -377,14 +377,14 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
       {/* Catalog Cards Grid */}
       {filteredItems.length === 0 ? (
         <Card className="p-12 text-center flex flex-col items-center justify-center min-h-[300px] space-y-4">
-          <div className="w-14 h-14 rounded-full bg-[#303030] text-[#A8A49B] flex items-center justify-center">
+          <div className="w-14 h-14 rounded-full bg-[#F5EDDC] text-[#5E5A52] flex items-center justify-center">
             <Search size={28} />
           </div>
           <div>
-            <h3 className="font-serif text-xl font-medium text-[#F5EDDC]">
+            <h3 className="font-serif text-xl font-medium text-[#1A1A1A]">
               Tidak Ada Item Katalog Ditemukan
             </h3>
-            <p className="text-xs text-[#A8A49B] max-w-sm mx-auto mt-1">
+            <p className="text-xs text-[#5E5A52] max-w-sm mx-auto mt-1">
               Tidak ada item yang cocok dengan pencarian atau filter yang dipilih. Coba reset kata kunci atau tambah item baru.
             </p>
           </div>
@@ -408,11 +408,11 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
 
             const categoryIcon =
               item.jenis === "busana" ? (
-                <Shirt size={14} className="text-[#D4AD5C]" />
+                <Shirt size={14} className="text-[#8A6A22]" />
               ) : item.jenis === "dekorasi" ? (
-                <Sparkles size={14} className="text-[#7FD39B]" />
+                <Sparkles size={14} className="text-[#2F7A4B]" />
               ) : (
-                <Camera size={14} className="text-[#8DB4D9]" />
+                <Camera size={14} className="text-[#406882]" />
               );
 
             const categoryLabel =
@@ -425,11 +425,11 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             return (
               <Card
                 key={item.id}
-                className="p-0 overflow-hidden flex flex-col justify-between hover:border-[#525252] transition-all group"
+                className="p-0 overflow-hidden flex flex-col justify-between hover:border-[#D6CEBE] transition-all group"
               >
                 <div>
                   {/* Photo Preview Container */}
-                  <div className="relative w-full h-48 bg-[#2C2C2C] border-b border-[#4D4D4D] flex items-center justify-center overflow-hidden">
+                  <div className="relative w-full h-48 bg-[#F5EDDC]/40 border-b border-[#E5DEC9] flex items-center justify-center overflow-hidden">
                     {primaryPhoto ? (
                       /* eslint-disable-next-line @next/next/no-img-element */
                       <img
@@ -438,14 +438,14 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                     ) : (
-                      <div className="flex flex-col items-center justify-center text-[#807C74] space-y-2">
+                      <div className="flex flex-col items-center justify-center text-[#8A857B] space-y-2">
                         <ImageIcon size={36} className="opacity-40" />
-                        <span className="text-xs text-[#807C74]">Belum ada foto</span>
+                        <span className="text-xs text-[#8A857B]">Belum ada foto</span>
                       </div>
                     )}
 
                     {/* Category Tag (Top Left) */}
-                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#2C2C2C]/85 backdrop-blur-sm border border-[#4D4D4D] text-[11px] font-medium text-[#F5EDDC] flex items-center gap-1.5 shadow-sm">
+                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-[#FFFFFF]/90 backdrop-blur-sm border border-[#E5DEC9] text-[11px] font-medium text-[#1A1A1A] flex items-center gap-1.5 shadow-xs">
                       {categoryIcon}
                       <span>{categoryLabel}</span>
                     </div>
@@ -453,7 +453,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                     {/* Photo Count Tag (Top Right) */}
                     <button
                       onClick={() => handleOpenPhotoModal(item)}
-                      className="absolute top-3 right-3 px-2 py-1 rounded-full bg-[#2C2C2C]/85 backdrop-blur-sm border border-[#4D4D4D] text-[11px] font-semibold text-[#D4AD5C] hover:bg-[#404040] transition-colors flex items-center gap-1 cursor-pointer shadow-sm"
+                      className="absolute top-3 right-3 px-2 py-1 rounded-full bg-[#FFFFFF]/90 backdrop-blur-sm border border-[#E5DEC9] text-[11px] font-semibold text-[#8A6A22] hover:bg-[#FAF6ED] transition-colors flex items-center gap-1 cursor-pointer shadow-xs"
                       title="Buka Galeri Foto"
                     >
                       <Camera size={12} />
@@ -464,25 +464,25 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                   {/* Card Content Body */}
                   <div className="p-5 space-y-3">
                     <div className="flex items-start justify-between gap-2">
-                      <h3 className="font-serif text-lg font-semibold text-[#F5EDDC] leading-snug group-hover:text-[#D4AD5C] transition-colors">
+                      <h3 className="font-serif text-lg font-semibold text-[#1A1A1A] leading-snug group-hover:text-[#8A6A22] transition-colors">
                         {item.nama}
                       </h3>
                       {item.ukuran && (
-                        <span className="shrink-0 px-2.5 py-0.5 rounded-full bg-[rgba(212,173,92,0.14)] text-[#D4AD5C] text-xs font-semibold flex items-center gap-1 border border-[#D4AD5C]/30">
+                        <span className="shrink-0 px-2.5 py-0.5 rounded-full bg-[rgba(212,173,92,0.14)] text-[#8A6A22] text-xs font-semibold flex items-center gap-1 border border-[#D4AD5C]/40">
                           <Tag size={11} />
                           <span>{item.ukuran}</span>
                         </span>
                       )}
                     </div>
 
-                    <p className="text-xs text-[#B8B3A8] line-clamp-3 leading-relaxed">
+                    <p className="text-xs text-[#5E5A52] line-clamp-3 leading-relaxed">
                       {item.deskripsi || "Tidak ada rincian deskripsi tambahan."}
                     </p>
                   </div>
                 </div>
 
                 {/* Card Footer Actions */}
-                <div className="p-4 pt-2 border-t border-[#4D4D4D] flex items-center justify-between gap-2 bg-[#2C2C2C]/50">
+                <div className="p-4 pt-2 border-t border-[#E5DEC9] flex items-center justify-between gap-2 bg-[#FAF6ED]/50">
                   <Button
                     variant="outline"
                     size="sm"
@@ -495,7 +495,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
 
                   <button
                     onClick={() => handleOpenEditModal(item)}
-                    className="p-2 rounded-xl bg-[#404040] hover:bg-[#4A4A4A] text-[#B8B3A8] hover:text-[#F5EDDC] transition-colors cursor-pointer"
+                    className="p-2 rounded-xl bg-[#FFFFFF] border border-[#D6CEBE] hover:bg-[#FAF6ED] text-[#5E5A52] hover:text-[#1A1A1A] transition-colors cursor-pointer shadow-xs"
                     title="Ubah Item"
                   >
                     <Edit3 size={15} />
@@ -503,7 +503,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
 
                   <button
                     onClick={() => handleDeleteItem(item)}
-                    className="p-2 rounded-xl bg-[#404040] hover:bg-[rgba(224,122,110,0.2)] text-[#B8B3A8] hover:text-[#E07A6E] transition-colors cursor-pointer"
+                    className="p-2 rounded-xl bg-[#FFFFFF] border border-[#D6CEBE] hover:bg-[rgba(177,60,48,0.1)] text-[#5E5A52] hover:text-[#B13C30] transition-colors cursor-pointer shadow-xs"
                     title="Hapus Item"
                   >
                     <Trash2 size={15} />
@@ -519,27 +519,27 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
       {/* MODAL 1: Tambah / Ubah Item Katalog */}
       {/* ========================================================================= */}
       {isFormModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs">
-          <div className="w-full max-w-lg bg-[#363636] border border-[#4D4D4D] rounded-2xl shadow-2xl p-6 sm:p-7 space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-[#4D4D4D]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
+          <div className="w-full max-w-lg bg-[#FFFFFF] border border-[#E5DEC9] rounded-2xl shadow-2xl p-6 sm:p-7 space-y-5">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E5DEC9]">
               <div>
-                <h3 className="font-serif text-2xl font-medium text-[#F5EDDC]">
+                <h3 className="font-serif text-2xl font-medium text-[#1A1A1A]">
                   {editingItem ? "Ubah Item Katalog" : "Tambah Item Katalog Baru"}
                 </h3>
-                <p className="text-xs text-[#B8B3A8] mt-0.5">
+                <p className="text-xs text-[#5E5A52] mt-0.5">
                   Rincian busana, dekorasi, atau layanan vendor Era Waluyo
                 </p>
               </div>
               <button
                 onClick={() => setIsFormModalOpen(false)}
-                className="p-1.5 rounded-lg text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#404040] transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED] transition-colors cursor-pointer"
               >
                 <X size={20} />
               </button>
             </div>
 
             {formError && (
-              <div className="p-3 bg-[rgba(224,122,110,0.14)] border border-[#E07A6E] rounded-xl text-xs text-[#E07A6E] flex items-center gap-2">
+              <div className="p-3 bg-[rgba(177,60,48,0.12)] border border-[#B13C30] rounded-xl text-xs text-[#B13C30] flex items-center gap-2">
                 <AlertCircle size={16} className="shrink-0" />
                 <span>{formError}</span>
               </div>
@@ -548,8 +548,8 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             <form onSubmit={handleFormSubmit} className="space-y-4">
               {/* Jenis Item */}
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
-                  Jenis Item <span className="text-[#E07A6E]">*</span>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Jenis Item <span className="text-[#B13C30]">*</span>
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   {(["busana", "dekorasi", "layanan"] as const).map((j) => (
@@ -559,8 +559,8 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                       onClick={() => setFormData({ ...formData, jenis: j })}
                       className={`h-10 rounded-xl text-xs font-semibold capitalize transition-all border cursor-pointer ${
                         formData.jenis === j
-                          ? "bg-[rgba(212,173,92,0.18)] text-[#D4AD5C] border-[#D4AD5C]"
-                          : "bg-[#404040] text-[#B8B3A8] border-[#4D4D4D] hover:text-[#F5EDDC]"
+                          ? "bg-[rgba(212,173,92,0.18)] text-[#8A6A22] border-[#8A6A22]"
+                          : "bg-[#FFFFFF] text-[#5E5A52] border-[#D6CEBE] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
                       }`}
                     >
                       {j}
@@ -571,8 +571,8 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
 
               {/* Nama Item */}
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
-                  Nama Item <span className="text-[#E07A6E]">*</span>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Nama Item <span className="text-[#B13C30]">*</span>
                 </label>
                 <input
                   type="text"
@@ -580,20 +580,20 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                   placeholder="Contoh: Kebaya Solo Basahan Beludru Hitam"
                   value={formData.nama}
                   onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
-                  className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] placeholder-[#807C74] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 />
               </div>
 
               {/* Ukuran (Khusus Busana & Dekorasi) */}
               {formData.jenis === "busana" ? (
                 <div>
-                  <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
+                  <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
                     Ukuran Busana
                   </label>
                   <select
                     value={formData.ukuran}
                     onChange={(e) => setFormData({ ...formData, ukuran: e.target.value })}
-                    className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors cursor-pointer"
+                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer shadow-sm"
                   >
                     <option value="S">Ukuran S</option>
                     <option value="M">Ukuran M</option>
@@ -605,7 +605,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                 </div>
               ) : (
                 <div>
-                  <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
+                  <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
                     Dimensi / Spesifikasi (Opsional)
                   </label>
                   <input
@@ -613,14 +613,14 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                     placeholder="Contoh: 8 x 3 Meter"
                     value={formData.ukuran}
                     onChange={(e) => setFormData({ ...formData, ukuran: e.target.value })}
-                    className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] placeholder-[#807C74] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                   />
                 </div>
               )}
 
               {/* Deskripsi */}
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
                   Deskripsi Item
                 </label>
                 <textarea
@@ -628,12 +628,12 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                   placeholder="Rincian bahan, motif, kelengkapan aksesoris, atau detail layanan..."
                   value={formData.deskripsi}
                   onChange={(e) => setFormData({ ...formData, deskripsi: e.target.value })}
-                  className="w-full p-3 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] placeholder-[#807C74] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full p-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 />
               </div>
 
               {/* Actions */}
-              <div className="pt-3 border-t border-[#4D4D4D] flex items-center justify-end gap-3">
+              <div className="pt-3 border-t border-[#E5DEC9] flex items-center justify-end gap-3">
                 <Button
                   type="button"
                   variant="outline"
@@ -655,48 +655,48 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
       {/* MODAL 2: Kelola Galeri Foto Item */}
       {/* ========================================================================= */}
       {isPhotoModalOpen && photoTargetItem && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs">
-          <div className="w-full max-w-2xl bg-[#363636] border border-[#4D4D4D] rounded-2xl shadow-2xl p-6 sm:p-7 space-y-5 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
+          <div className="w-full max-w-2xl bg-[#FFFFFF] border border-[#E5DEC9] rounded-2xl shadow-2xl p-6 sm:p-7 space-y-5 max-h-[90vh] overflow-y-auto">
             {/* Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-[#4D4D4D]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E5DEC9]">
               <div>
-                <span className="text-xs font-semibold text-[#D4AD5C] uppercase tracking-wider">
+                <span className="text-xs font-semibold text-[#8A6A22] uppercase tracking-wider">
                   Galeri Foto Katalog
                 </span>
-                <h3 className="font-serif text-2xl font-medium text-[#F5EDDC]">
+                <h3 className="font-serif text-2xl font-medium text-[#1A1A1A]">
                   {photoTargetItem.nama}
                 </h3>
               </div>
               <button
                 onClick={() => setIsPhotoModalOpen(false)}
-                className="p-1.5 rounded-lg text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#404040] transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED] transition-colors cursor-pointer"
               >
                 <X size={20} />
               </button>
             </div>
 
             {photoError && (
-              <div className="p-3 bg-[rgba(224,122,110,0.14)] border border-[#E07A6E] rounded-xl text-xs text-[#E07A6E] flex items-center gap-2">
+              <div className="p-3 bg-[rgba(177,60,48,0.12)] border border-[#B13C30] rounded-xl text-xs text-[#B13C30] flex items-center gap-2">
                 <AlertCircle size={16} className="shrink-0" />
                 <span>{photoError}</span>
               </div>
             )}
 
             {/* Upload Area */}
-            <div className="p-6 border-2 border-dashed border-[#616161] rounded-2xl bg-[#2C2C2C]/60 text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] text-[#D4AD5C] flex items-center justify-center">
+            <div className="p-6 border-2 border-dashed border-[#D6CEBE] rounded-2xl bg-[#FBF7EC]/60 text-center space-y-3">
+              <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] text-[#8A6A22] flex items-center justify-center">
                 <Upload size={22} />
               </div>
               <div>
-                <p className="text-sm font-medium text-[#F5EDDC]">
+                <p className="text-sm font-medium text-[#1A1A1A]">
                   Unggah Foto Item Katalog
                 </p>
-                <p className="text-xs text-[#B8B3A8] mt-0.5">
+                <p className="text-xs text-[#5E5A52] mt-0.5">
                   Format yang didukung: JPG, PNG, WebP (Maksimal 5 MB)
                 </p>
               </div>
               <div>
-                <label className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D4AD5C] text-[#111111] text-xs font-semibold hover:bg-[#E3C27D] transition-colors cursor-pointer shadow-sm">
+                <label className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D4AD5C] text-[#1A1A1A] text-xs font-semibold hover:bg-[#E3C27D] transition-colors cursor-pointer shadow-sm">
                   <Camera size={16} />
                   <span>{isUploadingPhoto ? "Sedang Mengunggah..." : "Pilih Berkas Foto"}</span>
                   <input
@@ -712,12 +712,12 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
 
             {/* Photos Grid */}
             <div className="space-y-3">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#B8B3A8]">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#5E5A52]">
                 Foto yang Tersedia ({(photoTargetItem.catalog_photos || []).length})
               </h4>
 
               {(photoTargetItem.catalog_photos || []).length === 0 ? (
-                <div className="p-8 text-center text-xs text-[#807C74] bg-[#2C2C2C] rounded-xl border border-[#4D4D4D]">
+                <div className="p-8 text-center text-xs text-[#8A857B] bg-[#FBF7EC] rounded-xl border border-[#E5DEC9]">
                   Belum ada foto yang diunggah untuk item ini.
                 </div>
               ) : (
@@ -725,7 +725,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                   {(photoTargetItem.catalog_photos || []).map((photo, i) => (
                     <div
                       key={photo.id}
-                      className="group relative aspect-square bg-[#2C2C2C] border border-[#4D4D4D] rounded-xl overflow-hidden shadow-sm"
+                      className="group relative aspect-square bg-[#F5EDDC]/40 border border-[#E5DEC9] rounded-xl overflow-hidden shadow-sm"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -735,24 +735,24 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                       />
 
                       {/* Photo Order Badge */}
-                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-xs text-[10px] font-semibold text-[#F5EDDC]">
+                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-[#1A1A1A]/80 backdrop-blur-xs text-[10px] font-semibold text-[#FBF7EC]">
                         Foto #{i + 1}
                       </span>
 
                       {/* Actions Overlay */}
-                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                         <a
                           href={photo.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 rounded-lg bg-[#404040] hover:bg-[#4A4A4A] text-[#F5EDDC] transition-colors"
+                          className="p-2 rounded-lg bg-[#FFFFFF] hover:bg-[#FAF6ED] text-[#1A1A1A] transition-colors shadow-sm"
                           title="Lihat Ukuran Penuh"
                         >
                           <Maximize2 size={16} />
                         </a>
                         <button
                           onClick={() => handleDeletePhoto(photo.id, photo.url)}
-                          className="p-2 rounded-lg bg-[rgba(224,122,110,0.8)] hover:bg-[#E07A6E] text-white transition-colors cursor-pointer"
+                          className="p-2 rounded-lg bg-[#B13C30] hover:bg-[#912d23] text-white transition-colors cursor-pointer shadow-sm"
                           title="Hapus Foto"
                         >
                           <Trash2 size={16} />
@@ -765,7 +765,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             </div>
 
             {/* Footer */}
-            <div className="pt-3 border-t border-[#4D4D4D] flex justify-end">
+            <div className="pt-3 border-t border-[#E5DEC9] flex justify-end">
               <Button
                 variant="outline"
                 size="sm"

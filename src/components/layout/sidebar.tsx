@@ -14,7 +14,6 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { logout } from "@/lib/actions/auth";
 
 const navItems = [
@@ -57,7 +56,7 @@ export function Sidebar() {
   return (
     <>
       {/* Mobile Header Bar */}
-      <div className="lg:hidden flex items-center justify-between px-6 py-4 bg-[#363636] border-b border-[#4D4D4D] sticky top-0 z-40">
+      <div className="lg:hidden flex items-center justify-between px-6 py-4 bg-[#2C2C2C] border-b border-[#3E3E3E] sticky top-0 z-40">
         <div>
           <span className="font-serif text-2xl font-bold tracking-[0.2em] text-[#D4AD5C]">
             WEDORA
@@ -68,7 +67,7 @@ export function Sidebar() {
         </div>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-xl text-[#F5EDDC] bg-[#404040] hover:bg-[#4A4A4A]"
+          className="p-2 rounded-xl text-[#F5EDDC] bg-[#383838] hover:bg-[#444444]"
           aria-label="Menu navigasi"
         >
           {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -85,7 +84,7 @@ export function Sidebar() {
 
       {/* Main Sidebar */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-[#363636] border-r border-[#4D4D4D] flex flex-col justify-between p-6 transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-[#2C2C2C] border-r border-[#3E3E3E] flex flex-col justify-between p-6 transition-transform duration-300 lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -121,8 +120,8 @@ export function Sidebar() {
                   onClick={() => setIsOpen(false)}
                   className={`flex items-center gap-3.5 h-12 px-4 rounded-xl text-sm transition-all duration-150 ${
                     isActive
-                      ? "bg-[rgba(212,173,92,0.14)] text-[#D4AD5C] font-semibold"
-                      : "text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#404040]"
+                      ? "bg-[rgba(212,173,92,0.16)] text-[#D4AD5C] font-semibold"
+                      : "text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#383838]"
                   }`}
                 >
                   <Icon
@@ -137,10 +136,9 @@ export function Sidebar() {
         </div>
 
         {/* Footer / Tombol Keluar */}
-        <div className="pt-6 border-t border-[#4D4D4D]">
-          <Button
-            variant="secondary"
-            className="w-full justify-center gap-2"
+        <div className="pt-6 border-t border-[#3E3E3E]">
+          <button
+            className="w-full flex items-center justify-center gap-2 h-11 rounded-full border border-[#D4AD5C]/30 text-[#D4AD5C] bg-[#383838] hover:bg-[#444444] hover:border-[#D4AD5C] font-semibold text-sm transition-colors cursor-pointer"
             onClick={async () => {
               if (confirm("Apakah Anda yakin ingin keluar dari sesi admin?")) {
                 await logout();
@@ -149,7 +147,7 @@ export function Sidebar() {
           >
             <LogOut size={16} />
             <span>Keluar</span>
-          </Button>
+          </button>
         </div>
       </aside>
     </>

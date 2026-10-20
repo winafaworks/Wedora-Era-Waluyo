@@ -20,7 +20,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-semibold rounded-full transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D4AD5C] focus:ring-offset-2 focus:ring-offset-[#2C2C2C] disabled:opacity-40 disabled:cursor-not-allowed";
+      "inline-flex items-center justify-center font-semibold rounded-full transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D4AD5C] focus:ring-offset-2 focus:ring-offset-[#FBF7EC] disabled:opacity-40 disabled:cursor-not-allowed";
 
     const sizeStyles = {
       sm: "h-9 px-4 text-xs tracking-wider",
@@ -30,15 +30,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variantStyles = {
       primary:
-        "bg-[#D4AD5C] text-[#111111] hover:bg-[#E3C27D] active:bg-[#B8923F] shadow-sm",
+        "bg-[#D4AD5C] text-[#111111] hover:bg-[#C9A04B] active:bg-[#B8923F] shadow-sm",
       secondary:
-        "border border-[#D4AD5C] text-[#D4AD5C] bg-transparent hover:bg-[rgba(212,173,92,0.14)] active:bg-[rgba(212,173,92,0.25)]",
+        "border border-[#D4AD5C] text-[#8A6A22] bg-[rgba(212,173,92,0.08)] hover:bg-[rgba(212,173,92,0.18)] active:bg-[rgba(212,173,92,0.25)]",
       outline:
-        "border border-[#4D4D4D] text-[#F5EDDC] bg-[#363636] hover:bg-[#404040] hover:border-[#616161]",
+        "border border-[#D6CEBE] text-[#1A1A1A] bg-[#FFFFFF] hover:bg-[#F5EDDC] hover:border-[#B8923F] shadow-2xs",
       danger:
-        "border border-[#E07A6E] text-[#E07A6E] bg-transparent hover:bg-[rgba(224,122,110,0.14)]",
+        "border border-[#E07A6E] text-[#B13C30] bg-transparent hover:bg-[rgba(224,122,110,0.1)]",
       ghost:
-        "text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#404040] bg-transparent",
+        "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#F5EDDC] bg-transparent",
     };
 
     return (

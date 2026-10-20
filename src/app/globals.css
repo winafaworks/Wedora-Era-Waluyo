@@ -6,20 +6,28 @@
   --gold: #d4ad5c;
   --cream: #f5eddc;
 
-  /* Tema gelap (admin) */
-  --bg: #2c2c2c;
-  --surface: #363636;
-  --surface-2: #404040;
-  --surface-3: #4a4a4a;
-  --border: #4d4d4d;
-  --border-strong: #616161;
-  --text: #f5eddc;
-  --text-muted: #b8b3a8;
-  --text-faint: #807c74;
+  /* Tema utama WEDORA: Kanvas Putih Tulang & Bilah Sisi #2C2C2C */
+  --bg: #fbf7ec;
+  --surface: #ffffff;
+  --surface-2: #f5eddc;
+  --surface-3: #eae1cd;
+  --border: #e5dec9;
+  --border-strong: #d1c6ad;
+  --text: #1a1a1a;
+  --text-muted: #5e5a52;
+  --text-faint: #8a857b;
+
+  /* Bilah Sisi Gelap */
+  --sidebar-bg: #2c2c2c;
+  --sidebar-surface: #363636;
+  --sidebar-border: #3e3e3e;
+  --sidebar-text: #f5eddc;
+  --sidebar-text-muted: #b8b3a8;
 
   /* Emas */
   --gold-hover: #e3c27d;
   --gold-press: #b8923f;
+  --gold-deep: #a67c24;
   --gold-soft: rgba(212, 173, 92, 0.14);
   --on-gold: #111111;
 

@@ -8,7 +8,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 export function Card({ children, className = "", ...props }: CardProps) {
   return (
     <div
-      className={`bg-[#363636] border border-[#4D4D4D] rounded-2xl p-6 ${className}`}
+      className={`bg-[#FFFFFF] border border-[#E5DEC9] rounded-2xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.03)] ${className}`}
       {...props}
     >
       {children}
@@ -25,17 +25,17 @@ export interface StatCardProps {
 
 export function StatCard({ title, value, subtitle, icon }: StatCardProps) {
   return (
-    <Card className="flex flex-col justify-between transition-all duration-200 hover:border-[#616161]">
+    <Card className="flex flex-col justify-between transition-all duration-200 hover:border-[#D4AD5C] hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium text-[#A8A49B]">{title}</span>
-        {icon && <div className="text-[#D4AD5C] opacity-80">{icon}</div>}
+        <span className="text-sm font-medium text-[#5E5A52]">{title}</span>
+        {icon && <div className="text-[#A67C24] opacity-90">{icon}</div>}
       </div>
       <div className="mt-4">
-        <div className="text-4xl font-serif text-[#D4AD5C] tracking-tight">
+        <div className="text-4xl font-serif text-[#A67C24] tracking-tight font-semibold">
           {value}
         </div>
         {subtitle && (
-          <p className="mt-1 text-xs text-[#6E6B64]">{subtitle}</p>
+          <p className="mt-1 text-xs text-[#8A857B]">{subtitle}</p>
         )}
       </div>
     </Card>

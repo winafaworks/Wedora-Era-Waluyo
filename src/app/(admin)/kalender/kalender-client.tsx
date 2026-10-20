@@ -242,12 +242,12 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
   return (
     <div className="space-y-6">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#4D4D4D]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9]">
         <div>
-          <h1 className="font-serif text-3xl md:text-4xl font-medium text-[#F5EDDC]">
+          <h1 className="font-serif text-3xl md:text-4xl font-medium text-[#1A1A1A]">
             Kalender Booking
           </h1>
-          <p className="text-sm md:text-base text-[#B8B3A8] mt-1">
+          <p className="text-sm md:text-base text-[#5E5A52] mt-1">
             Pantau jadwal ketersediaan tanggal dan acara pernikahan Era Waluyo
           </p>
         </div>
@@ -263,48 +263,48 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
 
       {/* Quick Month Metrics & Legend */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-        <div className="p-4 bg-[#363636] border border-[#4D4D4D] rounded-xl flex items-center justify-between">
+        <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
-            <span className="text-xs text-[#B8B3A8] block">Total Bulan Ini</span>
-            <strong className="text-xl sm:text-2xl font-serif text-[#D4AD5C] block mt-0.5">
+            <span className="text-xs text-[#5E5A52] block">Total Bulan Ini</span>
+            <strong className="text-xl sm:text-2xl font-serif text-[#8A6A22] block mt-0.5">
               {monthStats.totalAcara} Acara
             </strong>
           </div>
-          <div className="w-10 h-10 rounded-full bg-[rgba(212,173,92,0.14)] text-[#D4AD5C] flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-[rgba(212,173,92,0.14)] text-[#8A6A22] flex items-center justify-center">
             <CalendarIcon size={20} />
           </div>
         </div>
 
-        <div className="p-4 bg-[#363636] border border-[#4D4D4D] rounded-xl flex items-center justify-between">
+        <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
-            <span className="text-xs text-[#B8B3A8] block">Dikonfirmasi</span>
-            <strong className="text-xl sm:text-2xl font-serif text-[#7FD39B] block mt-0.5">
+            <span className="text-xs text-[#5E5A52] block">Dikonfirmasi</span>
+            <strong className="text-xl sm:text-2xl font-serif text-[#2F7A4B] block mt-0.5">
               {monthStats.dikonfirmasi} Acara
             </strong>
           </div>
-          <div className="w-10 h-10 rounded-full bg-[rgba(127,211,155,0.14)] text-[#7FD39B] flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-[rgba(47,122,75,0.12)] text-[#2F7A4B] flex items-center justify-center">
             <CheckCircle2 size={20} />
           </div>
         </div>
 
-        <div className="p-4 bg-[#363636] border border-[#4D4D4D] rounded-xl flex items-center justify-between">
+        <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
-            <span className="text-xs text-[#B8B3A8] block">Belum Konfirmasi</span>
-            <strong className="text-xl sm:text-2xl font-serif text-[#E8A25F] block mt-0.5">
+            <span className="text-xs text-[#5E5A52] block">Belum Konfirmasi</span>
+            <strong className="text-xl sm:text-2xl font-serif text-[#A5601C] block mt-0.5">
               {monthStats.belumKonfirmasi} Acara
             </strong>
           </div>
-          <div className="w-10 h-10 rounded-full bg-[rgba(232,162,95,0.14)] text-[#E8A25F] flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-[rgba(165,96,28,0.12)] text-[#A5601C] flex items-center justify-center">
             <Clock size={20} />
           </div>
         </div>
 
-        <div className="p-4 bg-[#363636] border border-[#4D4D4D] rounded-xl flex items-center justify-between">
+        <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
-            <span className="text-xs text-[#B8B3A8] block">Bentrok Tanggal</span>
+            <span className="text-xs text-[#5E5A52] block">Bentrok Tanggal</span>
             <strong
               className={`text-xl sm:text-2xl font-serif block mt-0.5 ${
-                monthStats.bentrokCount > 0 ? "text-[#E07A6E]" : "text-[#B8B3A8]"
+                monthStats.bentrokCount > 0 ? "text-[#B13C30]" : "text-[#5E5A52]"
               }`}
             >
               {monthStats.bentrokCount} Tanggal
@@ -313,8 +313,8 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
           <div
             className={`w-10 h-10 rounded-full flex items-center justify-center ${
               monthStats.bentrokCount > 0
-                ? "bg-[rgba(224,122,110,0.14)] text-[#E07A6E]"
-                : "bg-[#404040] text-[#B8B3A8]"
+                ? "bg-[rgba(177,60,48,0.14)] text-[#B13C30]"
+                : "bg-[#F5EDDC] text-[#5E5A52]"
             }`}
           >
             <AlertTriangle size={20} />
@@ -327,21 +327,21 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
         {/* Calendar View (Left side, 8 cols on desktop) */}
         <Card className="p-4 sm:p-6 lg:col-span-8 space-y-4">
           {/* Calendar Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#4D4D4D]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E5DEC9]">
             <div className="flex items-center gap-2">
               <button
                 onClick={handlePrevMonth}
-                className="p-2 rounded-xl bg-[#404040] hover:bg-[#4A4A4A] text-[#F5EDDC] transition-colors cursor-pointer"
+                className="p-2 rounded-xl bg-[#FFFFFF] border border-[#D6CEBE] hover:bg-[#FAF6ED] text-[#1A1A1A] transition-colors cursor-pointer shadow-sm"
                 aria-label="Bulan Sebelumnya"
               >
                 <ChevronLeft size={20} />
               </button>
-              <h2 className="font-serif text-xl sm:text-2xl font-semibold text-[#F5EDDC] min-w-[190px] text-center">
+              <h2 className="font-serif text-xl sm:text-2xl font-semibold text-[#1A1A1A] min-w-[190px] text-center">
                 {MONTH_NAMES[currentMonth]} {currentYear}
               </h2>
               <button
                 onClick={handleNextMonth}
-                className="p-2 rounded-xl bg-[#404040] hover:bg-[#4A4A4A] text-[#F5EDDC] transition-colors cursor-pointer"
+                className="p-2 rounded-xl bg-[#FFFFFF] border border-[#D6CEBE] hover:bg-[#FAF6ED] text-[#1A1A1A] transition-colors cursor-pointer shadow-sm"
                 aria-label="Bulan Berikutnya"
               >
                 <ChevronRight size={20} />
@@ -360,7 +360,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="h-9 px-3 bg-[#404040] border border-[#4D4D4D] rounded-xl text-xs text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors cursor-pointer"
+                className="h-9 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-xs text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer shadow-sm"
               >
                 <option value="all">Semua Status</option>
                 <option value="dikonfirmasi">Hanya Dikonfirmasi</option>
@@ -371,7 +371,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
           </div>
 
           {/* Day of Week Headers */}
-          <div className="grid grid-cols-7 gap-1 sm:gap-2 text-center text-xs font-semibold text-[#B8B3A8] py-1 uppercase tracking-wider">
+          <div className="grid grid-cols-7 gap-1 sm:gap-2 text-center text-xs font-semibold text-[#5E5A52] py-1 uppercase tracking-wider">
             {DAY_NAMES.map((d) => (
               <div key={d.short} className="py-1">
                 <span className="hidden sm:inline">{d.full}</span>
@@ -393,12 +393,12 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                   onClick={() => setSelectedDate(cell.dateStr)}
                   className={`min-h-[78px] sm:min-h-[105px] p-1.5 sm:p-2 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
                     cell.isCurrentMonth
-                      ? "bg-[#363636] border-[#4D4D4D]"
-                      : "bg-[#2C2C2C]/70 border-[#4D4D4D]/50 text-[#807C74]"
+                      ? "bg-[#FFFFFF] border-[#E5DEC9]"
+                      : "bg-[#F5EDDC]/40 border-[#E5DEC9]/60 text-[#8A857B]"
                   } ${
                     isSelected
-                      ? "ring-2 ring-[#D4AD5C] border-transparent bg-[rgba(212,173,92,0.12)] shadow-md"
-                      : "hover:border-[#616161]"
+                      ? "ring-2 ring-[#8A6A22] border-transparent bg-[rgba(212,173,92,0.12)] shadow-md"
+                      : "hover:border-[#C8BFAB]"
                   }`}
                 >
                   {/* Top row: day number + indicator */}
@@ -406,12 +406,12 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                     <span
                       className={`text-xs sm:text-sm font-medium w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full ${
                         cell.isToday
-                          ? "border border-[#D4AD5C] text-[#D4AD5C] font-bold"
+                          ? "border border-[#8A6A22] text-[#8A6A22] font-bold"
                           : isSelected
-                          ? "text-[#D4AD5C] font-bold"
+                          ? "text-[#8A6A22] font-bold"
                           : cell.isCurrentMonth
-                          ? "text-[#F5EDDC]"
-                          : "text-[#807C74]"
+                          ? "text-[#1A1A1A]"
+                          : "text-[#8A857B]"
                       }`}
                     >
                       {cell.dayNumber}
@@ -421,7 +421,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                     {isConflict && (
                       <span
                         title="Bentrok Tanggal: Lebih dari 1 acara"
-                        className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[rgba(224,122,110,0.2)] text-[#E07A6E] flex items-center gap-0.5"
+                        className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[rgba(177,60,48,0.14)] text-[#B13C30] flex items-center gap-0.5"
                       >
                         <AlertTriangle size={10} />
                         <span className="hidden sm:inline">{cell.bookings.length}</span>
@@ -435,17 +435,17 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                       cell.bookings.slice(0, 2).map((b) => {
                         const statusDotColor =
                           b.status === "dikonfirmasi"
-                            ? "bg-[#7FD39B]"
+                            ? "bg-[#2F7A4B]"
                             : b.status === "perlu_koreksi"
-                            ? "bg-[#E8A25F]"
+                            ? "bg-[#A5601C]"
                             : b.status === "dibatalkan"
-                            ? "bg-[#807C74]"
-                            : "bg-[#D4AD5C]";
+                            ? "bg-[#8A857B]"
+                            : "bg-[#8A6A22]";
 
                         return (
                           <div
                             key={b.id}
-                            className="px-1.5 py-0.5 rounded text-[10px] sm:text-xs truncate bg-[#404040] border border-[#4D4D4D] text-[#F5EDDC] flex items-center gap-1.5"
+                            className="px-1.5 py-0.5 rounded text-[10px] sm:text-xs truncate bg-[#FBF7EC] border border-[#E5DEC9] text-[#1A1A1A] flex items-center gap-1.5 shadow-sm"
                             title={`${b.nama_pelanggan} (${b.packages?.nama || "Paket"})`}
                           >
                             <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${statusDotColor}`} />
@@ -458,7 +458,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                     )}
 
                     {cell.bookings.length > 2 && (
-                      <div className="text-[9px] sm:text-[10px] text-[#B8B3A8] text-center">
+                      <div className="text-[9px] sm:text-[10px] text-[#5E5A52] text-center">
                         +{cell.bookings.length - 2} acara lagi
                       </div>
                     )}
@@ -469,29 +469,29 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
           </div>
 
           {/* Legend footer */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#4D4D4D] text-xs text-[#B8B3A8]">
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#E5DEC9] text-xs text-[#5E5A52]">
             <div className="flex flex-wrap items-center gap-4">
               <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#7FD39B]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#2F7A4B]" />
                 <span>Dikonfirmasi</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#D4AD5C]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#8A6A22]" />
                 <span>Belum Konfirmasi</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#E8A25F]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#A5601C]" />
                 <span>Perlu Koreksi</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[rgba(224,122,110,0.4)] text-[#E07A6E] flex items-center justify-center text-[10px] font-bold">
+                <span className="w-2.5 h-2.5 rounded-full bg-[rgba(177,60,48,0.16)] text-[#B13C30] flex items-center justify-center text-[10px] font-bold">
                   !
                 </span>
-                <span className="text-[#E07A6E]">Bentrok (2+ Acara)</span>
+                <span className="text-[#B13C30]">Bentrok (2+ Acara)</span>
               </div>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-4 h-4 rounded-full border border-[#D4AD5C] inline-block" />
+              <span className="w-4 h-4 rounded-full border border-[#8A6A22] inline-block" />
               <span>Hari Ini</span>
             </div>
           </div>
@@ -500,19 +500,19 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
         {/* Selected Date Details Panel (Right side, 4 cols on desktop) */}
         <div className="lg:col-span-4 space-y-4">
           <Card className="p-5 sm:p-6 space-y-4 sticky top-6">
-            <div className="border-b border-[#4D4D4D] pb-3">
-              <span className="text-xs font-semibold text-[#D4AD5C] uppercase tracking-wider flex items-center gap-1.5">
+            <div className="border-b border-[#E5DEC9] pb-3">
+              <span className="text-xs font-semibold text-[#8A6A22] uppercase tracking-wider flex items-center gap-1.5">
                 <CalendarIcon size={14} />
                 Jadwal Acara Terpilih
               </span>
-              <h3 className="font-serif text-xl sm:text-2xl font-medium text-[#F5EDDC] mt-1">
+              <h3 className="font-serif text-xl sm:text-2xl font-medium text-[#1A1A1A] mt-1">
                 {formattedSelectedDate}
               </h3>
             </div>
 
             {/* Conflict Warning Alert */}
             {selectedDateBookings.length > 1 && (
-              <div className="p-3.5 bg-[rgba(224,122,110,0.12)] border border-[#E07A6E] rounded-xl text-xs text-[#E07A6E] flex items-start gap-2.5">
+              <div className="p-3.5 bg-[rgba(177,60,48,0.12)] border border-[#B13C30] rounded-xl text-xs text-[#B13C30] flex items-start gap-2.5">
                 <AlertTriangle size={18} className="shrink-0 mt-0.5" />
                 <div>
                   <strong className="block font-semibold">Peringatan Jadwal Bentrok</strong>
@@ -527,13 +527,13 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
             {/* List of Bookings on this date */}
             {selectedDateBookings.length === 0 ? (
               <div className="py-8 text-center space-y-3">
-                <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(127,211,155,0.12)] text-[#7FD39B] flex items-center justify-center">
+                <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(47,122,75,0.12)] text-[#2F7A4B] flex items-center justify-center">
                   <Sparkles size={22} />
                 </div>
-                <h4 className="font-serif text-lg font-medium text-[#F5EDDC]">
+                <h4 className="font-serif text-lg font-medium text-[#1A1A1A]">
                   Tanggal Masih Kosong
                 </h4>
-                <p className="text-xs text-[#B8B3A8] max-w-xs mx-auto">
+                <p className="text-xs text-[#5E5A52] max-w-xs mx-auto">
                   Belum ada pesanan pernikahan yang dicatat pada tanggal ini. Siap menerima
                   booking baru dari calon pengantin.
                 </p>
@@ -548,11 +548,11 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
               </div>
             ) : (
               <div className="space-y-3.5">
-                <div className="flex items-center justify-between text-xs text-[#B8B3A8]">
+                <div className="flex items-center justify-between text-xs text-[#5E5A52]">
                   <span>{selectedDateBookings.length} Acara Terjadwal</span>
                   <Link
                     href={`/booking/tambah?tanggal=${selectedDate}`}
-                    className="text-[#D4AD5C] hover:underline flex items-center gap-1 font-medium"
+                    className="text-[#8A6A22] hover:underline flex items-center gap-1 font-medium"
                   >
                     <Plus size={14} />
                     <span>Tambah Acara</span>
@@ -562,15 +562,15 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                 {selectedDateBookings.map((b, idx) => (
                   <div
                     key={b.id}
-                    className="p-4 bg-[#404040] border border-[#4D4D4D] rounded-xl space-y-3 hover:border-[#616161] transition-colors"
+                    className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl space-y-3 hover:border-[#D6CEBE] transition-colors shadow-sm"
                   >
                     {/* Header: Name + Badge */}
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <div className="text-[11px] text-[#B8B3A8] font-medium">
+                        <div className="text-[11px] text-[#5E5A52] font-medium">
                           Acara #{idx + 1}
                         </div>
-                        <h4 className="text-base font-semibold text-[#F5EDDC] mt-0.5">
+                        <h4 className="text-base font-semibold text-[#1A1A1A] mt-0.5">
                           {b.nama_pelanggan}
                         </h4>
                       </div>
@@ -579,24 +579,24 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
 
                     {/* Details: Package, Location, Contact */}
                     <div className="space-y-1.5 text-xs">
-                      <div className="text-[#D4AD5C] font-medium flex items-center gap-1.5">
+                      <div className="text-[#8A6A22] font-semibold flex items-center gap-1.5">
                         <Sparkles size={14} className="shrink-0" />
                         <span className="truncate">{b.packages?.nama || "Paket Khusus"}</span>
                       </div>
 
-                      <div className="text-[#B8B3A8] flex items-start gap-1.5">
-                        <MapPin size={14} className="shrink-0 mt-0.5 text-[#807C74]" />
+                      <div className="text-[#5E5A52] flex items-start gap-1.5">
+                        <MapPin size={14} className="shrink-0 mt-0.5 text-[#8A857B]" />
                         <span className="line-clamp-2">{b.lokasi || "Lokasi belum ditentukan"}</span>
                       </div>
 
-                      <div className="text-[#B8B3A8] flex items-center gap-1.5">
-                        <Phone size={14} className="shrink-0 text-[#807C74]" />
+                      <div className="text-[#5E5A52] flex items-center gap-1.5">
+                        <Phone size={14} className="shrink-0 text-[#8A857B]" />
                         <span>{b.no_wa}</span>
                       </div>
                     </div>
 
                     {/* Quick Action buttons */}
-                    <div className="pt-2 border-t border-[#4D4D4D] flex items-center gap-2">
+                    <div className="pt-2 border-t border-[#E5DEC9] flex items-center gap-2">
                       <Link href={`/booking/${b.id}`} className="flex-1">
                         <Button variant="outline" size="sm" className="w-full gap-1.5 text-xs">
                           <Eye size={14} />

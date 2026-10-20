@@ -85,18 +85,18 @@ function TambahBookingForm() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Top Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-[#4D4D4D]">
+      <div className="flex items-center justify-between pb-4 border-b border-[#E5DEC9]">
         <div className="flex items-center gap-4">
           <Link href="/booking">
-            <button className="p-2 rounded-xl bg-[#404040] hover:bg-[#4A4A4A] text-[#B8B3A8] hover:text-[#F5EDDC] transition-colors cursor-pointer">
+            <button className="p-2 rounded-xl bg-[#FFFFFF] border border-[#D6CEBE] hover:bg-[#FAF6ED] text-[#5E5A52] hover:text-[#1A1A1A] transition-colors cursor-pointer shadow-sm">
               <ArrowLeft size={20} />
             </button>
           </Link>
           <div>
-            <h1 className="font-serif text-3xl font-medium text-[#F5EDDC]">
+            <h1 className="font-serif text-3xl font-medium text-[#1A1A1A]">
               Catat Booking Baru
             </h1>
-            <p className="text-sm text-[#B8B3A8] mt-0.5">
+            <p className="text-sm text-[#5E5A52] mt-0.5">
               Input pesanan pernikahan setelah pembayaran uang muka (DP) diterima
             </p>
           </div>
@@ -104,7 +104,7 @@ function TambahBookingForm() {
       </div>
 
       {errorMsg && (
-        <div className="p-4 rounded-xl bg-[rgba(224,122,110,0.14)] border border-[#E07A6E] text-[#E07A6E] text-sm">
+        <div className="p-4 rounded-xl bg-[rgba(224,122,110,0.12)] border border-[#B13C30] text-[#B13C30] text-sm">
           {errorMsg}
         </div>
       )}
@@ -114,14 +114,14 @@ function TambahBookingForm() {
         <Card className="p-6 md:p-8 space-y-6">
           {/* Bagian 1: Data Utama Pelanggan & Acara */}
           <div>
-            <h2 className="font-serif text-xl font-medium text-[#D4AD5C] mb-4 flex items-center gap-2">
+            <h2 className="font-serif text-xl font-medium text-[#8A6A22] mb-4 flex items-center gap-2">
               <Sparkles size={18} />
               <span>Data Pelanggan & Waktu Acara</span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
-                  Nama Pasangan / Pelanggan <span className="text-[#E07A6E]">*</span>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Nama Pasangan / Pelanggan <span className="text-[#B13C30]">*</span>
                 </label>
                 <input
                   type="text"
@@ -130,13 +130,13 @@ function TambahBookingForm() {
                   placeholder="Contoh: Aulia & Fajar"
                   value={formData.namaPelanggan}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
-                  Nomor WhatsApp <span className="text-[#E07A6E]">*</span>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Nomor WhatsApp <span className="text-[#B13C30]">*</span>
                 </label>
                 <input
                   type="text"
@@ -145,13 +145,13 @@ function TambahBookingForm() {
                   placeholder="Contoh: 081234567890"
                   value={formData.noWa}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
-                  Tanggal Acara <span className="text-[#E07A6E]">*</span>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Tanggal Acara <span className="text-[#B13C30]">*</span>
                 </label>
                 <input
                   type="date"
@@ -159,13 +159,13 @@ function TambahBookingForm() {
                   required
                   value={formData.tanggalAcara}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
-                  Lokasi Pelaksanaan Acara <span className="text-[#E07A6E]">*</span>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Lokasi Pelaksanaan Acara <span className="text-[#B13C30]">*</span>
                 </label>
                 <input
                   type="text"
@@ -174,27 +174,27 @@ function TambahBookingForm() {
                   placeholder="Contoh: Gedung Soetedja / Rumah Mempelai Putri"
                   value={formData.lokasi}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 />
               </div>
             </div>
           </div>
 
           {/* Bagian 2: Paket & Busana */}
-          <div className="pt-6 border-t border-[#4D4D4D]">
-            <h2 className="font-serif text-xl font-medium text-[#D4AD5C] mb-4">
+          <div className="pt-6 border-t border-[#E5DEC9]">
+            <h2 className="font-serif text-xl font-medium text-[#8A6A22] mb-4">
               Pilihan Paket & Rincian Busana
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
                   Paket Layanan
                 </label>
                 <select
                   name="packageId"
                   value={formData.packageId}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 >
                   {packages.map((pkg) => (
                      <option key={pkg.id} value={pkg.id}>
@@ -205,14 +205,14 @@ function TambahBookingForm() {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
                   Ukuran Busana
                 </label>
                 <select
                   name="ukuran"
                   value={formData.ukuran}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 >
                   <option value="S">Ukuran S</option>
                   <option value="M">Ukuran M</option>
@@ -223,7 +223,7 @@ function TambahBookingForm() {
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
                   Model Kebaya / Beskap Adat
                 </label>
                 <input
@@ -232,20 +232,20 @@ function TambahBookingForm() {
                   placeholder="Contoh: Kebaya Solo Basahan Beludru Hitam & Beskap Sikepan Gold"
                   value={formData.kebayaBaju}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 />
               </div>
             </div>
           </div>
 
           {/* Bagian 3: Layanan Tambahan */}
-          <div className="pt-6 border-t border-[#4D4D4D]">
-            <h2 className="font-serif text-xl font-medium text-[#D4AD5C] mb-4">
+          <div className="pt-6 border-t border-[#E5DEC9]">
+            <h2 className="font-serif text-xl font-medium text-[#8A6A22] mb-4">
               Layanan Vendor & Pendukung
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
                   Dekorasi Pelaminan
                 </label>
                 <input
@@ -254,12 +254,12 @@ function TambahBookingForm() {
                   placeholder="Contoh: Gebyok Kayu Ukir 8M + Taman Melati"
                   value={formData.dekorasi}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
                   Tata Rias (MUA)
                 </label>
                 <input
@@ -268,12 +268,12 @@ function TambahBookingForm() {
                   placeholder="Contoh: Tim MUA Era Waluyo Tradisional"
                   value={formData.makeup}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
                   Master of Ceremony (MC)
                 </label>
                 <input
@@ -282,12 +282,12 @@ function TambahBookingForm() {
                   placeholder="Contoh: Kak Deni Purwokerto"
                   value={formData.mc}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
                   Fotografer & Video
                 </label>
                 <input
@@ -296,12 +296,12 @@ function TambahBookingForm() {
                   placeholder="Contoh: Tim Dokumentasi Foto & Cinematic Video"
                   value={formData.fotografer}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 />
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
                   Catatan Khusus / Permintaan Pasangan
                 </label>
                 <textarea
@@ -310,21 +310,21 @@ function TambahBookingForm() {
                   placeholder="Contoh: Akad pukul 08.00 WIB, resepsi mulai 11.00 WIB."
                   value={formData.catatanKhusus}
                   onChange={handleChange}
-                  className="w-full p-3 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full p-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 />
               </div>
             </div>
           </div>
 
           {/* Bagian 4: Pembayaran Uang Muka (DP) */}
-          <div className="pt-6 border-t border-[#4D4D4D]">
-            <h2 className="font-serif text-xl font-medium text-[#D4AD5C] mb-4">
+          <div className="pt-6 border-t border-[#E5DEC9]">
+            <h2 className="font-serif text-xl font-medium text-[#8A6A22] mb-4">
               Konfirmasi Pembayaran DP
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
               <div>
-                <label className="block text-xs font-medium text-[#B8B3A8] mb-1.5">
-                  Nominal DP yang Diterima (Rp) <span className="text-[#E07A6E]">*</span>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Nominal DP yang Diterima (Rp) <span className="text-[#B13C30]">*</span>
                 </label>
                 <input
                   type="number"
@@ -334,7 +334,7 @@ function TambahBookingForm() {
                   step={500000}
                   value={formData.nominalDp}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#404040] border border-[#4D4D4D] rounded-xl text-sm text-[#D4AD5C] font-semibold focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#8A6A22] font-semibold focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
                 />
               </div>
 
@@ -345,14 +345,14 @@ function TambahBookingForm() {
                     name="dpDiterima"
                     checked={formData.dpDiterima}
                     onChange={handleChange}
-                    className="w-5 h-5 rounded border-[#616161] bg-[#404040] text-[#D4AD5C] accent-[#D4AD5C]"
+                    className="w-5 h-5 rounded border-[#D6CEBE] bg-[#FFFFFF] text-[#8A6A22] accent-[#8A6A22]"
                   />
                   <div>
-                    <span className="text-sm font-semibold text-[#F5EDDC] flex items-center gap-1.5">
-                      <CheckCircle2 size={16} className="text-[#7FD39B]" />
+                    <span className="text-sm font-semibold text-[#1A1A1A] flex items-center gap-1.5">
+                      <CheckCircle2 size={16} className="text-[#2F7A4B]" />
                       DP Sudah Sah Diterima
                     </span>
-                    <p className="text-xs text-[#B8B3A8]">
+                    <p className="text-xs text-[#5E5A52]">
                       Sesuai SOP Era Waluyo, tanggal sah dibooking setelah DP masuk.
                     </p>
                   </div>
@@ -362,7 +362,7 @@ function TambahBookingForm() {
           </div>
 
           {/* Action Buttons */}
-          <div className="pt-6 border-t border-[#4D4D4D] flex flex-col sm:flex-row items-center justify-end gap-3">
+          <div className="pt-6 border-t border-[#E5DEC9] flex flex-col sm:flex-row items-center justify-end gap-3">
             <Link href="/booking" className="w-full sm:w-auto">
               <Button type="button" variant="outline" className="w-full sm:w-auto">
                 Batal
@@ -386,7 +386,7 @@ function TambahBookingForm() {
 
 export default function TambahBookingPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-[#B8B3A8]">Memuat formulir booking...</div>}>
+    <Suspense fallback={<div className="p-8 text-[#5E5A52]">Memuat formulir booking...</div>}>
       <TambahBookingForm />
     </Suspense>
   );
