@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-plus-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-serif: var(--font-plus-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
 :root {
   /* Warna utama */
   --black: #111111;
@@ -63,12 +68,26 @@
   --info: #2e5f8a;
 }
 
+/* Default seluruh elemen ke Plus Jakarta Sans */
+*,
+*::before,
+*::after,
+html,
 body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div,
+button,
 input,
 select,
-textarea,
-button {
-  font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+textarea {
+  font-family: var(--font-plus-jakarta), "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 }
 
 body {
@@ -77,21 +96,14 @@ body {
   min-height: 100vh;
 }
 
-/* Seluruh font teks, tombol, formulir, dan judul menggunakan Plus Jakarta Sans */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.font-heading,
+/* Utility font-serif di-override ke Plus Jakarta Sans */
 .font-serif {
-  font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+  font-family: var(--font-plus-jakarta), "Plus Jakarta Sans", system-ui, sans-serif !important;
 }
 
-/* Khusus logo brand WEDORA di pojok kiri atas tetap menggunakan Cormorant Garamond */
+/* SATU-SATUNYA pengecualian: Logo WEDORA di pojok kiri atas */
 .font-brand-logo,
 .font-logo {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif !important;
 }
 

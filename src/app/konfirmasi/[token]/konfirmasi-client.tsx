@@ -61,7 +61,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
             <div className="w-16 h-16 mx-auto rounded-full bg-[rgba(127,211,155,0.2)] flex items-center justify-center text-[#2F7A4B]">
               <CheckCircle2 size={36} />
             </div>
-            <h2 className="font-serif text-2xl font-semibold text-[#111111]">
+            <h2 className="font-sans text-2xl font-bold text-[#111111]">
               Pesanan Telah Dikonfirmasi
             </h2>
             <p className="text-sm text-[#5E5A52] leading-relaxed">
@@ -87,7 +87,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
                 <span className="text-xs font-semibold text-[#B8923F] uppercase tracking-wider">
                   Konfirmasi Kesepakatan Resmi
                 </span>
-                <h2 className="font-serif text-2xl font-medium text-[#111111] mt-1">
+                <h2 className="font-sans text-2xl font-bold text-[#111111] mt-1">
                   Halo, {booking.nama_pelanggan}
                 </h2>
                 <p className="text-xs text-[#5E5A52] mt-1">

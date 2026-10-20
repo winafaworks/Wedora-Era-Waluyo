@@ -244,7 +244,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9]">
         <div>
-          <h1 className="font-serif text-3xl md:text-4xl font-medium text-[#1A1A1A]">
+          <h1 className="font-sans text-3xl md:text-4xl font-bold text-[#1A1A1A]">
             Kalender Booking
           </h1>
           <p className="text-sm md:text-base text-[#5E5A52] mt-1">
@@ -336,7 +336,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
               >
                 <ChevronLeft size={20} />
               </button>
-              <h2 className="font-serif text-xl sm:text-2xl font-semibold text-[#1A1A1A] min-w-[190px] text-center">
+              <h2 className="font-sans text-xl sm:text-2xl font-bold text-[#1A1A1A] min-w-[190px] text-center">
                 {MONTH_NAMES[currentMonth]} {currentYear}
               </h2>
               <button
@@ -505,7 +505,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                 <CalendarIcon size={14} />
                 Jadwal Acara Terpilih
               </span>
-              <h3 className="font-serif text-xl sm:text-2xl font-medium text-[#1A1A1A] mt-1">
+              <h3 className="font-sans text-xl sm:text-2xl font-bold text-[#1A1A1A] mt-1">
                 {formattedSelectedDate}
               </h3>
             </div>
@@ -530,7 +530,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                 <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(47,122,75,0.12)] text-[#2F7A4B] flex items-center justify-center">
                   <Sparkles size={22} />
                 </div>
-                <h4 className="font-serif text-lg font-medium text-[#1A1A1A]">
+                <h4 className="font-sans text-lg font-bold text-[#1A1A1A]">
                   Tanggal Masih Kosong
                 </h4>
                 <p className="text-xs text-[#5E5A52] max-w-xs mx-auto">

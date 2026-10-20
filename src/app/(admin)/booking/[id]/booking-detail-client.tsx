@@ -69,7 +69,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
           </Link>
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="font-serif text-3xl font-medium text-[#1A1A1A]">
+              <h1 className="font-sans text-3xl font-bold text-[#1A1A1A]">
                 {booking.nama_pelanggan}
               </h1>
               <StatusBadge status={booking.status} />
@@ -156,7 +156,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Informasi Acara & Waktu */}
         <Card className="p-6 space-y-4">
-          <h2 className="font-serif text-lg font-medium text-[#8A6A22] border-b border-[#E5DEC9] pb-2">
+          <h2 className="font-sans text-lg font-bold text-[#8A6A22] border-b border-[#E5DEC9] pb-2">
             Jadwal & Lokasi Acara
           </h2>
           <div className="space-y-3 text-sm">
@@ -192,7 +192,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
         {/* Informasi Pembayaran DP */}
         <Card className="p-6 space-y-4">
-          <h2 className="font-serif text-lg font-medium text-[#8A6A22] border-b border-[#E5DEC9] pb-2">
+          <h2 className="font-sans text-lg font-bold text-[#8A6A22] border-b border-[#E5DEC9] pb-2">
             Status Pembayaran DP
           </h2>
           <div className="space-y-3 text-sm">
@@ -224,7 +224,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
         {/* Rincian Busana & Paket */}
         <Card className="p-6 space-y-4 md:col-span-2">
-          <h2 className="font-serif text-lg font-medium text-[#8A6A22] border-b border-[#E5DEC9] pb-2 flex items-center gap-2">
+          <h2 className="font-sans text-lg font-bold text-[#8A6A22] border-b border-[#E5DEC9] pb-2 flex items-center gap-2">
             <Sparkles size={18} />
             <span>Paket Layanan & Busana Pernikahan</span>
           </h2>

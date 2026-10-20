@@ -50,7 +50,7 @@ export default function LoginPage() {
         {/* Login Card */}
         <Card className="p-6 sm:p-8 space-y-6 border border-[#E5DEC9] shadow-[0_4px_20px_rgba(0,0,0,0.05)] bg-[#FFFFFF]">
           <div>
-            <h2 className="font-serif text-2xl font-medium text-[#1A1A1A]">
+            <h2 className="font-sans text-2xl font-bold text-[#1A1A1A]">
               Masuk Admin
             </h2>
             <p className="text-xs text-[#5E5A52] mt-1">

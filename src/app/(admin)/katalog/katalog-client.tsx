@@ -271,7 +271,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9]">
         <div>
-          <h1 className="font-serif text-3xl md:text-4xl font-medium text-[#1A1A1A]">
+          <h1 className="font-sans text-3xl md:text-4xl font-bold text-[#1A1A1A]">
             Katalog Busana & Dekorasi
           </h1>
           <p className="text-sm md:text-base text-[#5E5A52] mt-1">
@@ -381,7 +381,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             <Search size={28} />
           </div>
           <div>
-            <h3 className="font-serif text-xl font-medium text-[#1A1A1A]">
+            <h3 className="font-sans text-xl font-bold text-[#1A1A1A]">
               Tidak Ada Item Katalog Ditemukan
             </h3>
             <p className="text-xs text-[#5E5A52] max-w-sm mx-auto mt-1">
@@ -464,7 +464,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                   {/* Card Content Body */}
                   <div className="p-5 space-y-3">
                     <div className="flex items-start justify-between gap-2">
-                      <h3 className="font-serif text-lg font-semibold text-[#1A1A1A] leading-snug group-hover:text-[#8A6A22] transition-colors">
+                      <h3 className="font-sans text-lg font-bold text-[#1A1A1A] leading-snug group-hover:text-[#8A6A22] transition-colors">
                         {item.nama}
                       </h3>
                       {item.ukuran && (
@@ -523,7 +523,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
           <div className="w-full max-w-lg bg-[#FFFFFF] border border-[#E5DEC9] rounded-2xl shadow-2xl p-6 sm:p-7 space-y-5">
             <div className="flex items-center justify-between pb-3 border-b border-[#E5DEC9]">
               <div>
-                <h3 className="font-serif text-2xl font-medium text-[#1A1A1A]">
+                <h3 className="font-sans text-2xl font-bold text-[#1A1A1A]">
                   {editingItem ? "Ubah Item Katalog" : "Tambah Item Katalog Baru"}
                 </h3>
                 <p className="text-xs text-[#5E5A52] mt-0.5">
@@ -663,7 +663,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                 <span className="text-xs font-semibold text-[#8A6A22] uppercase tracking-wider">
                   Galeri Foto Katalog
                 </span>
-                <h3 className="font-serif text-2xl font-medium text-[#1A1A1A]">
+                <h3 className="font-sans text-2xl font-bold text-[#1A1A1A]">
                   {photoTargetItem.nama}
                 </h3>
               </div>

@@ -24,7 +24,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9]">
         <div>
-          <h1 className="font-serif text-3xl md:text-4xl font-medium text-[#1A1A1A]">
+          <h1 className="font-sans text-3xl md:text-4xl font-bold text-[#1A1A1A]">
             Dashboard
           </h1>
           <p className="text-sm md:text-base text-[#5E5A52] mt-1">
@@ -72,7 +72,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
       {/* Tabel Acara Terdekat */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-serif text-2xl font-medium text-[#1A1A1A]">
+          <h2 className="font-sans text-2xl font-bold text-[#1A1A1A]">
             Acara Terdekat
           </h2>
           <Link
@@ -89,7 +89,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
               <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(212,173,92,0.18)] flex items-center justify-center text-[#8A6A22]">
                 <CalendarX size={24} />
               </div>
-              <h3 className="font-serif text-lg font-medium text-[#1A1A1A]">
+              <h3 className="font-sans text-lg font-bold text-[#1A1A1A]">
                 Belum Ada Acara Tercatat
               </h3>
               <p className="text-xs text-[#5E5A52]">

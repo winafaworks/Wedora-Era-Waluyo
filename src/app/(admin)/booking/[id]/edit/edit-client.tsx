@@ -76,7 +76,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
             </button>
           </Link>
           <div>
-            <h1 className="font-serif text-3xl font-medium text-[#1A1A1A]">
+            <h1 className="font-sans text-3xl font-bold text-[#1A1A1A]">
               Ubah Data Booking
             </h1>
             <p className="text-sm text-[#5E5A52] mt-0.5">

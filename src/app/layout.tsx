@@ -27,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className={`${plusJakarta.variable} ${cormorant.variable}`}>
-      <body className="antialiased min-h-screen">{children}</body>
+      <body className={`${plusJakarta.className} antialiased min-h-screen`}>{children}</body>
     </html>
   );
 }
