@@ -52,11 +52,6 @@ const navItems = [
     href: "/rekap",
     icon: BarChart3,
   },
-  {
-    name: "Pengaturan",
-    href: "/settings",
-    icon: Settings,
-  },
 ];
 
 export function Sidebar() {
@@ -119,70 +114,96 @@ export function Sidebar() {
           {isCollapsed ? <ChevronRight size={15} /> : <ChevronLeft size={15} />}
         </button>
 
-        <div>
-          {/* Logo Brand */}
-          <div className={`mb-8 pt-2 flex ${isCollapsed ? "justify-center" : "items-center"}`}>
-            <Link
-              href="/dashboard"
-              className={`flex items-center group ${isCollapsed ? "justify-center" : "gap-3.5"}`}
-              onClick={() => setIsOpen(false)}
-              title="ERA WALUYO — Wedora"
-            >
-              <Image
-                src="/logo_erawaluyo.jpeg"
-                alt="Logo Era Waluyo"
-                width={44}
-                height={44}
-                className={`${isCollapsed ? "w-10 h-10" : "w-11 h-11"} rounded-full object-cover border border-[#D4AD5C]/50 shadow-sm shrink-0 transition-all duration-300`}
-              />
-              {!isCollapsed && (
-                <div className="min-w-0 transition-opacity duration-200">
-                  <h1 className="font-brand-logo text-xl font-bold tracking-[0.12em] text-[#D4AD5C] group-hover:text-[#E3C27D] transition-colors leading-tight truncate">
-                    ERA WALUYO
-                  </h1>
-                  <p className="text-[10px] font-medium tracking-[0.25em] text-[#B8B3A8] uppercase mt-0.5">
-                    Wedora
-                  </p>
-                </div>
-              )}
-            </Link>
+        <div className="flex-1 flex flex-col justify-between min-h-0">
+          <div>
+            {/* Logo Brand */}
+            <div className={`mb-8 pt-2 flex ${isCollapsed ? "justify-center" : "items-center"}`}>
+              <Link
+                href="/dashboard"
+                className={`flex items-center group ${isCollapsed ? "justify-center" : "gap-3.5"}`}
+                onClick={() => setIsOpen(false)}
+                title="ERA WALUYO — Wedora"
+              >
+                <Image
+                  src="/logo_erawaluyo.jpeg"
+                  alt="Logo Era Waluyo"
+                  width={44}
+                  height={44}
+                  className={`${isCollapsed ? "w-10 h-10" : "w-11 h-11"} rounded-full object-cover border border-[#D4AD5C]/50 shadow-sm shrink-0 transition-all duration-300`}
+                />
+                {!isCollapsed && (
+                  <div className="min-w-0 transition-opacity duration-200">
+                    <h1 className="font-brand-logo text-xl font-bold tracking-[0.12em] text-[#D4AD5C] group-hover:text-[#E3C27D] transition-colors leading-tight truncate">
+                      ERA WALUYO
+                    </h1>
+                    <p className="text-[10px] font-medium tracking-[0.25em] text-[#B8B3A8] uppercase mt-0.5">
+                      Wedora
+                    </p>
+                  </div>
+                )}
+              </Link>
+            </div>
+
+            {/* Navigation Items */}
+            <nav className="space-y-1.5">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const isActive =
+                  pathname === item.href ||
+                  (item.href !== "/dashboard" && pathname.startsWith(item.href));
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    title={isCollapsed ? item.name : undefined}
+                    className={`flex items-center h-12 rounded-xl text-sm transition-all duration-200 ${
+                      isCollapsed ? "justify-center px-0 w-full" : "px-4 gap-3.5"
+                    } ${
+                      isActive
+                        ? "bg-[rgba(212,173,92,0.16)] text-[#EEB100] font-semibold"
+                        : "text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#383838]"
+                    }`}
+                  >
+                    <Icon
+                      size={20}
+                      className={`${isActive ? "text-[#EEB100]" : "text-[#B8B3A8]"} shrink-0`}
+                    />
+                    {!isCollapsed && <span className="truncate">{item.name}</span>}
+                  </Link>
+                );
+              })}
+            </nav>
           </div>
 
-          {/* Navigation Items */}
-          <nav className="space-y-1.5">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive =
-                pathname === item.href ||
-                (item.href !== "/dashboard" && pathname.startsWith(item.href));
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  title={isCollapsed ? item.name : undefined}
-                  className={`flex items-center h-12 rounded-xl text-sm transition-all duration-200 ${
-                    isCollapsed ? "justify-center px-0 w-full" : "px-4 gap-3.5"
-                  } ${
-                    isActive
-                      ? "bg-[rgba(212,173,92,0.16)] text-[#EEB100] font-semibold"
-                      : "text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#383838]"
-                  }`}
-                >
-                  <Icon
-                    size={20}
-                    className={`${isActive ? "text-[#EEB100]" : "text-[#B8B3A8]"} shrink-0`}
-                  />
-                  {!isCollapsed && <span className="truncate">{item.name}</span>}
-                </Link>
-              );
-            })}
-          </nav>
+          {/* Menu Pengaturan di Posisi Paling Bawah, Mepet Batas Garis */}
+          <div className="pt-2 mb-2">
+            <Link
+              href="/settings"
+              onClick={() => setIsOpen(false)}
+              title={isCollapsed ? "Pengaturan" : undefined}
+              className={`flex items-center h-12 rounded-xl text-sm transition-all duration-200 ${
+                isCollapsed ? "justify-center px-0 w-full" : "px-4 gap-3.5"
+              } ${
+                pathname.startsWith("/settings")
+                  ? "bg-[rgba(212,173,92,0.16)] text-[#EEB100] font-semibold"
+                  : "text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#383838]"
+              }`}
+            >
+              <Settings
+                size={20}
+                className={`${
+                  pathname.startsWith("/settings") ? "text-[#EEB100]" : "text-[#B8B3A8]"
+                } shrink-0`}
+              />
+              {!isCollapsed && <span className="truncate">Pengaturan</span>}
+            </Link>
+          </div>
         </div>
 
         {/* Footer / Tombol Keluar */}
-        <div className="pt-6 border-t border-[#3E3E3E]">
+        <div className="pt-4 border-t border-[#3E3E3E]">
           <button
             className={`w-full flex items-center justify-center h-11 rounded-full border border-[#D4AD5C]/30 text-[#D4AD5C] hover:text-[#EEB100] bg-[#383838] hover:bg-[#444444] hover:border-[#EEB100] font-semibold text-sm transition-all cursor-pointer ${
               isCollapsed ? "px-0" : "gap-2"
