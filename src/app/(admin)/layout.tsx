@@ -7,8 +7,8 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-[#111111] text-[#F5EDDC] flex flex-col lg:flex-row">
-      <Suspense fallback={<div className="w-72 bg-[#1A1A1A] hidden lg:block" />}>
+    <div className="min-h-screen bg-[#1E1E1E] text-[#F5EDDC] flex flex-col lg:flex-row">
+      <Suspense fallback={<div className="w-72 bg-[#262626] hidden lg:block" />}>
         <Sidebar />
       </Suspense>
       <main className="flex-1 lg:ml-72 min-h-screen flex flex-col">

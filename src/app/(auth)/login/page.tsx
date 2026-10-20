@@ -32,7 +32,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#111111] text-[#F5EDDC] flex flex-col justify-center items-center p-4 sm:p-6">
+    <div className="min-h-screen bg-[#1E1E1E] text-[#F5EDDC] flex flex-col justify-center items-center p-4 sm:p-6">
       <div className="w-full max-w-[420px] space-y-6">
         {/* Brand Header */}
         <div className="text-center space-y-2">
@@ -48,7 +48,7 @@ export default function LoginPage() {
         </div>
 
         {/* Login Card */}
-        <Card className="p-6 sm:p-8 space-y-6 border border-[#2F2F2F] shadow-xl">
+        <Card className="p-6 sm:p-8 space-y-6 border border-[#3D3D3D] shadow-xl">
           <div>
             <h2 className="font-serif text-2xl font-medium text-[#F5EDDC]">
               Masuk Admin
@@ -82,7 +82,7 @@ export default function LoginPage() {
                   placeholder="admin@erawaluyo.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full h-11 pl-11 pr-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] placeholder-[#6E6B64] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 pl-11 pr-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] placeholder-[#6E6B64] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
               </div>
             </div>
@@ -103,7 +103,7 @@ export default function LoginPage() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full h-11 pl-11 pr-11 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] placeholder-[#6E6B64] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 pl-11 pr-11 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] placeholder-[#6E6B64] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
                 <button
                   type="button"

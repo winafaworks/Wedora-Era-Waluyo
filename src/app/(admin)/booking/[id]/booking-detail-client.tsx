@@ -60,10 +60,10 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#2F2F2F]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#3D3D3D]">
         <div className="flex items-center gap-4">
           <Link href="/booking">
-            <button className="p-2 rounded-xl bg-[#242424] hover:bg-[#2E2E2E] text-[#A8A49B] hover:text-[#F5EDDC] transition-colors cursor-pointer">
+            <button className="p-2 rounded-xl bg-[#303030] hover:bg-[#3A3A3A] text-[#A8A49B] hover:text-[#F5EDDC] transition-colors cursor-pointer">
               <ArrowLeft size={20} />
             </button>
           </Link>
@@ -103,11 +103,11 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
       </div>
 
       {/* WhatsApp Confirmation Banner */}
-      <Card className="p-6 bg-gradient-to-r from-[#1A1A1A] to-[#242424] border-[#D4AD5C]/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-md">
+      <Card className="p-6 bg-gradient-to-r from-[#262626] to-[#303030] border-[#D4AD5C]/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-md">
         <div className="space-y-1">
           <span className="text-xs font-semibold uppercase tracking-wider text-[#D4AD5C] flex items-center gap-1.5">
             <MessageCircle size={14} />
-            Konfirmasi Pesanan Pelanggan (WBS 1.5.2)
+            Konfirmasi Pesanan Pelanggan
           </span>
           <p className="text-sm text-[#F5EDDC] font-medium">
             Kirimkan tautan konfirmasi resmi ini kepada calon pengantin via WhatsApp
@@ -140,7 +140,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
             {booking.customer_notes.map((note: { id: string; isi: string; dibuat_pada: string }) => (
               <div
                 key={note.id}
-                className="p-3 bg-[#1A1A1A] rounded-xl border border-[#2F2F2F] text-xs text-[#F5EDDC]"
+                className="p-3 bg-[#262626] rounded-xl border border-[#3D3D3D] text-xs text-[#F5EDDC]"
               >
                 <p>{note.isi}</p>
                 <span className="block text-[10px] text-[#A8A49B] mt-1">
@@ -156,7 +156,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Informasi Acara & Waktu */}
         <Card className="p-6 space-y-4">
-          <h2 className="font-serif text-lg font-medium text-[#D4AD5C] border-b border-[#2F2F2F] pb-2">
+          <h2 className="font-serif text-lg font-medium text-[#D4AD5C] border-b border-[#3D3D3D] pb-2">
             Jadwal & Lokasi Acara
           </h2>
           <div className="space-y-3 text-sm">
@@ -192,7 +192,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
         {/* Informasi Pembayaran DP */}
         <Card className="p-6 space-y-4">
-          <h2 className="font-serif text-lg font-medium text-[#D4AD5C] border-b border-[#2F2F2F] pb-2">
+          <h2 className="font-serif text-lg font-medium text-[#D4AD5C] border-b border-[#3D3D3D] pb-2">
             Status Pembayaran DP
           </h2>
           <div className="space-y-3 text-sm">
@@ -224,68 +224,68 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
         {/* Rincian Busana & Paket */}
         <Card className="p-6 space-y-4 md:col-span-2">
-          <h2 className="font-serif text-lg font-medium text-[#D4AD5C] border-b border-[#2F2F2F] pb-2 flex items-center gap-2">
+          <h2 className="font-serif text-lg font-medium text-[#D4AD5C] border-b border-[#3D3D3D] pb-2 flex items-center gap-2">
             <Sparkles size={18} />
             <span>Paket Layanan & Busana Pernikahan</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs">
-            <div className="p-3 bg-[#242424] rounded-xl border border-[#2F2F2F]">
+            <div className="p-3 bg-[#303030] rounded-xl border border-[#3D3D3D]">
               <span className="text-[#A8A49B] block">Paket Pilihan</span>
               <strong className="text-sm text-[#F5EDDC] block mt-0.5">
                 {booking.packages?.nama || "Paket Khusus"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#242424] rounded-xl border border-[#2F2F2F]">
+            <div className="p-3 bg-[#303030] rounded-xl border border-[#3D3D3D]">
               <span className="text-[#A8A49B] block">Model Busana / Kebaya</span>
               <strong className="text-sm text-[#F5EDDC] block mt-0.5">
                 {booking.kebaya_baju || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#242424] rounded-xl border border-[#2F2F2F]">
+            <div className="p-3 bg-[#303030] rounded-xl border border-[#3D3D3D]">
               <span className="text-[#A8A49B] block">Ukuran Baju</span>
               <strong className="text-sm text-[#F5EDDC] block mt-0.5">
                 {booking.ukuran || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#242424] rounded-xl border border-[#2F2F2F]">
+            <div className="p-3 bg-[#303030] rounded-xl border border-[#3D3D3D]">
               <span className="text-[#A8A49B] block">Dekorasi Pelaminan</span>
               <strong className="text-sm text-[#F5EDDC] block mt-0.5">
                 {booking.dekorasi || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#242424] rounded-xl border border-[#2F2F2F]">
+            <div className="p-3 bg-[#303030] rounded-xl border border-[#3D3D3D]">
               <span className="text-[#A8A49B] block">Tata Rias (MUA)</span>
               <strong className="text-sm text-[#F5EDDC] block mt-0.5">
                 {booking.makeup || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#242424] rounded-xl border border-[#2F2F2F]">
+            <div className="p-3 bg-[#303030] rounded-xl border border-[#3D3D3D]">
               <span className="text-[#A8A49B] block">Master of Ceremony (MC)</span>
               <strong className="text-sm text-[#F5EDDC] block mt-0.5">
                 {booking.mc || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#242424] rounded-xl border border-[#2F2F2F]">
+            <div className="p-3 bg-[#303030] rounded-xl border border-[#3D3D3D]">
               <span className="text-[#A8A49B] block">Dokumentasi Foto</span>
               <strong className="text-sm text-[#F5EDDC] block mt-0.5">
                 {booking.fotografer || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#242424] rounded-xl border border-[#2F2F2F]">
+            <div className="p-3 bg-[#303030] rounded-xl border border-[#3D3D3D]">
               <span className="text-[#A8A49B] block">Dokumentasi Video</span>
               <strong className="text-sm text-[#F5EDDC] block mt-0.5">
                 {booking.video || "-"}
               </strong>
             </div>
 
-            <div className="p-3 bg-[#242424] rounded-xl border border-[#2F2F2F]">
+            <div className="p-3 bg-[#303030] rounded-xl border border-[#3D3D3D]">
               <span className="text-[#A8A49B] block">Hiburan / Musik</span>
               <strong className="text-sm text-[#F5EDDC] block mt-0.5">
                 {booking.hiburan || "-"}
@@ -296,7 +296,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
           {booking.catatan_khusus && (
             <div className="pt-2 text-xs">
               <span className="text-[#A8A49B] block mb-1">Catatan Khusus:</span>
-              <p className="p-3 bg-[#242424] rounded-xl border border-[#2F2F2F] text-[#F5EDDC]">
+              <p className="p-3 bg-[#303030] rounded-xl border border-[#3D3D3D] text-[#F5EDDC]">
                 {booking.catatan_khusus}
               </p>
             </div>

@@ -57,7 +57,7 @@ export function Sidebar() {
   return (
     <>
       {/* Mobile Header Bar */}
-      <div className="lg:hidden flex items-center justify-between px-6 py-4 bg-[#1A1A1A] border-b border-[#2F2F2F] sticky top-0 z-40">
+      <div className="lg:hidden flex items-center justify-between px-6 py-4 bg-[#262626] border-b border-[#3D3D3D] sticky top-0 z-40">
         <div>
           <span className="font-serif text-2xl font-bold tracking-[0.2em] text-[#D4AD5C]">
             WEDORA
@@ -68,7 +68,7 @@ export function Sidebar() {
         </div>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-xl text-[#F5EDDC] bg-[#242424] hover:bg-[#2E2E2E]"
+          className="p-2 rounded-xl text-[#F5EDDC] bg-[#303030] hover:bg-[#3A3A3A]"
           aria-label="Menu navigasi"
         >
           {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -85,7 +85,7 @@ export function Sidebar() {
 
       {/* Main Sidebar */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-[#1A1A1A] border-r border-[#2F2F2F] flex flex-col justify-between p-6 transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed top-0 bottom-0 left-0 z-50 w-72 bg-[#262626] border-r border-[#3D3D3D] flex flex-col justify-between p-6 transition-transform duration-300 lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -122,7 +122,7 @@ export function Sidebar() {
                   className={`flex items-center gap-3.5 h-12 px-4 rounded-xl text-sm transition-all duration-150 ${
                     isActive
                       ? "bg-[rgba(212,173,92,0.14)] text-[#D4AD5C] font-semibold"
-                      : "text-[#A8A49B] hover:text-[#F5EDDC] hover:bg-[#242424]"
+                      : "text-[#A8A49B] hover:text-[#F5EDDC] hover:bg-[#303030]"
                   }`}
                 >
                   <Icon
@@ -137,7 +137,7 @@ export function Sidebar() {
         </div>
 
         {/* Footer / Tombol Keluar */}
-        <div className="pt-6 border-t border-[#2F2F2F]">
+        <div className="pt-6 border-t border-[#3D3D3D]">
           <Button
             variant="secondary"
             className="w-full justify-center gap-2"

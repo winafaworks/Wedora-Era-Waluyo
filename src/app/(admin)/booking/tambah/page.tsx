@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Save, Sparkles, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,8 +15,11 @@ interface PackageItem {
   deskripsi: string | null;
 }
 
-export default function TambahBookingPage() {
+function TambahBookingForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const prefillTanggal = searchParams.get("tanggal") || "";
+
   const [packages, setPackages] = useState<PackageItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -25,7 +28,7 @@ export default function TambahBookingPage() {
   const [formData, setFormData] = useState({
     namaPelanggan: "",
     noWa: "",
-    tanggalAcara: "",
+    tanggalAcara: prefillTanggal,
     lokasi: "",
     packageId: "",
     kebayaBaju: "",
@@ -82,10 +85,10 @@ export default function TambahBookingPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Top Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-[#2F2F2F]">
+      <div className="flex items-center justify-between pb-4 border-b border-[#3D3D3D]">
         <div className="flex items-center gap-4">
           <Link href="/booking">
-            <button className="p-2 rounded-xl bg-[#242424] hover:bg-[#2E2E2E] text-[#A8A49B] hover:text-[#F5EDDC] transition-colors cursor-pointer">
+            <button className="p-2 rounded-xl bg-[#303030] hover:bg-[#3A3A3A] text-[#A8A49B] hover:text-[#F5EDDC] transition-colors cursor-pointer">
               <ArrowLeft size={20} />
             </button>
           </Link>
@@ -127,7 +130,7 @@ export default function TambahBookingPage() {
                   placeholder="Contoh: Aulia & Fajar"
                   value={formData.namaPelanggan}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
               </div>
 
@@ -142,7 +145,7 @@ export default function TambahBookingPage() {
                   placeholder="Contoh: 081234567890"
                   value={formData.noWa}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
               </div>
 
@@ -156,7 +159,7 @@ export default function TambahBookingPage() {
                   required
                   value={formData.tanggalAcara}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
               </div>
 
@@ -171,14 +174,14 @@ export default function TambahBookingPage() {
                   placeholder="Contoh: Gedung Soetedja / Rumah Mempelai Putri"
                   value={formData.lokasi}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
               </div>
             </div>
           </div>
 
           {/* Bagian 2: Paket & Busana */}
-          <div className="pt-6 border-t border-[#2F2F2F]">
+          <div className="pt-6 border-t border-[#3D3D3D]">
             <h2 className="font-serif text-xl font-medium text-[#D4AD5C] mb-4">
               Pilihan Paket & Rincian Busana
             </h2>
@@ -191,7 +194,7 @@ export default function TambahBookingPage() {
                   name="packageId"
                   value={formData.packageId}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 >
                   {packages.map((pkg) => (
                     <option key={pkg.id} value={pkg.id}>
@@ -209,7 +212,7 @@ export default function TambahBookingPage() {
                   name="ukuran"
                   value={formData.ukuran}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 >
                   <option value="S">Ukuran S</option>
                   <option value="M">Ukuran M</option>
@@ -229,14 +232,14 @@ export default function TambahBookingPage() {
                   placeholder="Contoh: Kebaya Solo Basahan Beludru Hitam & Beskap Sikepan Gold"
                   value={formData.kebayaBaju}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
               </div>
             </div>
           </div>
 
           {/* Bagian 3: Layanan Tambahan */}
-          <div className="pt-6 border-t border-[#2F2F2F]">
+          <div className="pt-6 border-t border-[#3D3D3D]">
             <h2 className="font-serif text-xl font-medium text-[#D4AD5C] mb-4">
               Layanan Vendor & Pendukung
             </h2>
@@ -251,7 +254,7 @@ export default function TambahBookingPage() {
                   placeholder="Contoh: Gebyok Kayu Ukir 8M + Taman Melati"
                   value={formData.dekorasi}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
               </div>
 
@@ -265,7 +268,7 @@ export default function TambahBookingPage() {
                   placeholder="Contoh: Tim MUA Era Waluyo Tradisional"
                   value={formData.makeup}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
               </div>
 
@@ -279,7 +282,7 @@ export default function TambahBookingPage() {
                   placeholder="Contoh: Kak Deni Purwokerto"
                   value={formData.mc}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
               </div>
 
@@ -293,7 +296,7 @@ export default function TambahBookingPage() {
                   placeholder="Contoh: Tim Dokumentasi Foto & Cinematic Video"
                   value={formData.fotografer}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
               </div>
 
@@ -307,14 +310,14 @@ export default function TambahBookingPage() {
                   placeholder="Contoh: Akad pukul 08.00 WIB, resepsi mulai 11.00 WIB."
                   value={formData.catatanKhusus}
                   onChange={handleChange}
-                  className="w-full p-3 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full p-3 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
               </div>
             </div>
           </div>
 
           {/* Bagian 4: Pembayaran Uang Muka (DP) */}
-          <div className="pt-6 border-t border-[#2F2F2F]">
+          <div className="pt-6 border-t border-[#3D3D3D]">
             <h2 className="font-serif text-xl font-medium text-[#D4AD5C] mb-4">
               Konfirmasi Pembayaran DP
             </h2>
@@ -331,7 +334,7 @@ export default function TambahBookingPage() {
                   step={500000}
                   value={formData.nominalDp}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#D4AD5C] font-semibold focus:outline-none focus:border-[#D4AD5C] transition-colors"
+                  className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#D4AD5C] font-semibold focus:outline-none focus:border-[#D4AD5C] transition-colors"
                 />
               </div>
 
@@ -342,7 +345,7 @@ export default function TambahBookingPage() {
                     name="dpDiterima"
                     checked={formData.dpDiterima}
                     onChange={handleChange}
-                    className="w-5 h-5 rounded border-[#444444] bg-[#242424] text-[#D4AD5C] accent-[#D4AD5C]"
+                    className="w-5 h-5 rounded border-[#525252] bg-[#303030] text-[#D4AD5C] accent-[#D4AD5C]"
                   />
                   <div>
                     <span className="text-sm font-semibold text-[#F5EDDC] flex items-center gap-1.5">
@@ -359,7 +362,7 @@ export default function TambahBookingPage() {
           </div>
 
           {/* Action Buttons */}
-          <div className="pt-6 border-t border-[#2F2F2F] flex flex-col sm:flex-row items-center justify-end gap-3">
+          <div className="pt-6 border-t border-[#3D3D3D] flex flex-col sm:flex-row items-center justify-end gap-3">
             <Link href="/booking" className="w-full sm:w-auto">
               <Button type="button" variant="outline" className="w-full sm:w-auto">
                 Batal
@@ -378,5 +381,13 @@ export default function TambahBookingPage() {
         </Card>
       </form>
     </div>
+  );
+}
+
+export default function TambahBookingPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-[#A8A49B]">Memuat formulir booking...</div>}>
+      <TambahBookingForm />
+    </Suspense>
   );
 }

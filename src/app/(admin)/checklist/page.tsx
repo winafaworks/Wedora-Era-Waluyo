@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card";
 export default function ChecklistPage() {
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#2F2F2F]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#3D3D3D]">
         <div>
           <h1 className="font-serif text-3xl md:text-4xl font-medium text-[#F5EDDC]">
             Checklist Acara

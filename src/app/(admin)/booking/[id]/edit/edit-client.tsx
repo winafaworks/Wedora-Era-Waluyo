@@ -68,10 +68,10 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      <div className="flex items-center justify-between pb-4 border-b border-[#2F2F2F]">
+      <div className="flex items-center justify-between pb-4 border-b border-[#3D3D3D]">
         <div className="flex items-center gap-4">
           <Link href={`/booking/${booking.id}`}>
-            <button className="p-2 rounded-xl bg-[#242424] hover:bg-[#2E2E2E] text-[#A8A49B] hover:text-[#F5EDDC] transition-colors cursor-pointer">
+            <button className="p-2 rounded-xl bg-[#303030] hover:bg-[#3A3A3A] text-[#A8A49B] hover:text-[#F5EDDC] transition-colors cursor-pointer">
               <ArrowLeft size={20} />
             </button>
           </Link>
@@ -105,7 +105,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                 required
                 value={formData.namaPelanggan}
                 onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
+                className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
               />
             </div>
 
@@ -119,7 +119,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                 required
                 value={formData.noWa}
                 onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
+                className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
               />
             </div>
 
@@ -133,7 +133,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                 required
                 value={formData.tanggalAcara}
                 onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
+                className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
               />
             </div>
 
@@ -147,7 +147,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                 required
                 value={formData.lokasi}
                 onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
+                className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
               />
             </div>
 
@@ -159,7 +159,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                 name="packageId"
                 value={formData.packageId}
                 onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
+                className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
               >
                 {packages.map((pkg) => (
                   <option key={pkg.id} value={pkg.id}>
@@ -177,7 +177,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                 name="ukuran"
                 value={formData.ukuran}
                 onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
+                className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
               >
                 <option value="S">Ukuran S</option>
                 <option value="M">Ukuran M</option>
@@ -196,7 +196,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                 name="kebayaBaju"
                 value={formData.kebayaBaju}
                 onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
+                className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
               />
             </div>
 
@@ -209,7 +209,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                 name="dekorasi"
                 value={formData.dekorasi}
                 onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
+                className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
               />
             </div>
 
@@ -222,7 +222,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                 name="makeup"
                 value={formData.makeup}
                 onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
+                className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
               />
             </div>
 
@@ -237,7 +237,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                 min={0}
                 value={formData.nominalDp}
                 onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#D4AD5C] font-semibold focus:outline-none focus:border-[#D4AD5C]"
+                className="w-full h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#D4AD5C] font-semibold focus:outline-none focus:border-[#D4AD5C]"
               />
             </div>
 
@@ -250,12 +250,12 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                 rows={2}
                 value={formData.catatanKhusus}
                 onChange={handleChange}
-                className="w-full p-3 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
+                className="w-full p-3 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C]"
               />
             </div>
           </div>
 
-          <div className="pt-6 border-t border-[#2F2F2F] flex items-center justify-end gap-3">
+          <div className="pt-6 border-t border-[#3D3D3D] flex items-center justify-end gap-3">
             <Link href={`/booking/${booking.id}`}>
               <Button type="button" variant="outline">
                 Batal

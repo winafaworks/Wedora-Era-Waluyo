@@ -32,13 +32,13 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#2F2F2F]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#3D3D3D]">
         <div>
           <h1 className="font-serif text-3xl md:text-4xl font-medium text-[#F5EDDC]">
             Data Booking
           </h1>
           <p className="text-sm md:text-base text-[#A8A49B] mt-1">
-            Kelola data pesanan acara pernikahan dan status pembayaran DP (Terhubung Supabase)
+            Kelola data pesanan acara pernikahan dan status pembayaran DP
           </p>
         </div>
         <div>
@@ -60,7 +60,7 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
             placeholder="Cari berdasarkan nama pelanggan, nomor WhatsApp, atau lokasi..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full h-11 pl-11 pr-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] placeholder-[#6E6B64] focus:outline-none focus:border-[#D4AD5C] transition-colors"
+            className="w-full h-11 pl-11 pr-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] placeholder-[#6E6B64] focus:outline-none focus:border-[#D4AD5C] transition-colors"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -68,7 +68,7 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="h-11 px-4 bg-[#242424] border border-[#2F2F2F] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors cursor-pointer"
+              className="h-11 px-4 bg-[#303030] border border-[#3D3D3D] rounded-xl text-sm text-[#F5EDDC] focus:outline-none focus:border-[#D4AD5C] transition-colors cursor-pointer"
             >
               <option value="all">Semua Status</option>
               <option value="belum_dikonfirmasi">Belum Dikonfirmasi</option>
@@ -109,7 +109,7 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="bg-[#242424] text-[#A8A49B] text-xs uppercase tracking-wider border-b border-[#2F2F2F]">
+              <thead className="bg-[#303030] text-[#A8A49B] text-xs uppercase tracking-wider border-b border-[#3D3D3D]">
                 <tr>
                   <th className="py-4 px-6 font-medium">Tanggal</th>
                   <th className="py-4 px-6 font-medium">Pelanggan</th>
@@ -120,9 +120,9 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
                   <th className="py-4 px-6 font-medium text-right">Aksi</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#2F2F2F]">
+              <tbody className="divide-y divide-[#3D3D3D]">
                 {filteredBookings.map((b) => (
-                  <tr key={b.id} className="hover:bg-[#242424] transition-colors">
+                  <tr key={b.id} className="hover:bg-[#303030] transition-colors">
                     <td className="py-4 px-6 font-semibold text-[#F5EDDC]">
                       {b.tanggal_acara}
                     </td>
