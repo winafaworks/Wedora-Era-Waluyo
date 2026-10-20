@@ -263,11 +263,12 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
 
       {/* Quick Month Metrics & Legend */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+        {/* 1. Total Bulan Ini (Gold) */}
         <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
             <span className="text-xs font-medium text-[#5E5A52] block">Total Bulan Ini</span>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-2xl font-sans font-semibold text-[#8A6A22]">
+              <span className="text-2xl font-sans font-semibold text-[#EEB100]">
                 {monthStats.totalAcara}
               </span>
               <span className="text-xs sm:text-sm font-medium text-[#5E5A52]">
@@ -275,11 +276,12 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
               </span>
             </div>
           </div>
-          <div className="w-10 h-10 rounded-full bg-[rgba(212,173,92,0.14)] text-[#8A6A22] flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-full bg-[rgba(238,177,0,0.15)] text-[#EEB100] flex items-center justify-center shrink-0">
             <CalendarIcon size={18} />
           </div>
         </div>
 
+        {/* 2. Dikonfirmasi (Hijau) */}
         <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
             <span className="text-xs font-medium text-[#5E5A52] block">Dikonfirmasi</span>
@@ -297,11 +299,12 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
           </div>
         </div>
 
+        {/* 3. Belum Konfirmasi (Merah) */}
         <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
             <span className="text-xs font-medium text-[#5E5A52] block">Belum Konfirmasi</span>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-2xl font-sans font-semibold text-[#A5601C]">
+              <span className="text-2xl font-sans font-semibold text-[#B13C30]">
                 {monthStats.belumKonfirmasi}
               </span>
               <span className="text-xs sm:text-sm font-medium text-[#5E5A52]">
@@ -309,20 +312,17 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
               </span>
             </div>
           </div>
-          <div className="w-10 h-10 rounded-full bg-[rgba(165,96,28,0.12)] text-[#A5601C] flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-full bg-[rgba(177,60,48,0.12)] text-[#B13C30] flex items-center justify-center shrink-0">
             <Clock size={18} />
           </div>
         </div>
 
+        {/* 4. Bentrok Tanggal (Orange) */}
         <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
             <span className="text-xs font-medium text-[#5E5A52] block">Bentrok Tanggal</span>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span
-                className={`text-2xl font-sans font-semibold ${
-                  monthStats.bentrokCount > 0 ? "text-[#B13C30]" : "text-[#1A1A1A]"
-                }`}
-              >
+              <span className="text-2xl font-sans font-semibold text-[#D97706]">
                 {monthStats.bentrokCount}
               </span>
               <span className="text-xs sm:text-sm font-medium text-[#5E5A52]">
@@ -330,13 +330,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
               </span>
             </div>
           </div>
-          <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
-              monthStats.bentrokCount > 0
-                ? "bg-[rgba(177,60,48,0.14)] text-[#B13C30]"
-                : "bg-[#F5EDDC] text-[#5E5A52]"
-            }`}
-          >
+          <div className="w-10 h-10 rounded-full bg-[rgba(217,119,6,0.14)] text-[#D97706] flex items-center justify-center shrink-0">
             <AlertTriangle size={18} />
           </div>
         </div>
