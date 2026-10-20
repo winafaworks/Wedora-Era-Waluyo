@@ -265,59 +265,79 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
-            <span className="text-xs text-[#5E5A52] block">Total Bulan Ini</span>
-            <strong className="text-xl sm:text-2xl font-sans font-bold text-[#8A6A22] block mt-0.5">
-              {monthStats.totalAcara} Acara
-            </strong>
+            <span className="text-xs font-medium text-[#5E5A52] block">Total Bulan Ini</span>
+            <div className="flex items-baseline gap-1 mt-0.5">
+              <span className="text-2xl font-sans font-semibold text-[#8A6A22]">
+                {monthStats.totalAcara}
+              </span>
+              <span className="text-xs sm:text-sm font-medium text-[#5E5A52]">
+                Acara
+              </span>
+            </div>
           </div>
-          <div className="w-10 h-10 rounded-full bg-[rgba(212,173,92,0.14)] text-[#8A6A22] flex items-center justify-center">
-            <CalendarIcon size={20} />
-          </div>
-        </div>
-
-        <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
-          <div>
-            <span className="text-xs text-[#5E5A52] block">Dikonfirmasi</span>
-            <strong className="text-xl sm:text-2xl font-sans font-bold text-[#2F7A4B] block mt-0.5">
-              {monthStats.dikonfirmasi} Acara
-            </strong>
-          </div>
-          <div className="w-10 h-10 rounded-full bg-[rgba(47,122,75,0.12)] text-[#2F7A4B] flex items-center justify-center">
-            <CheckCircle2 size={20} />
+          <div className="w-10 h-10 rounded-full bg-[rgba(212,173,92,0.14)] text-[#8A6A22] flex items-center justify-center shrink-0">
+            <CalendarIcon size={18} />
           </div>
         </div>
 
         <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
-            <span className="text-xs text-[#5E5A52] block">Belum Konfirmasi</span>
-            <strong className="text-xl sm:text-2xl font-sans font-bold text-[#A5601C] block mt-0.5">
-              {monthStats.belumKonfirmasi} Acara
-            </strong>
+            <span className="text-xs font-medium text-[#5E5A52] block">Dikonfirmasi</span>
+            <div className="flex items-baseline gap-1 mt-0.5">
+              <span className="text-2xl font-sans font-semibold text-[#2F7A4B]">
+                {monthStats.dikonfirmasi}
+              </span>
+              <span className="text-xs sm:text-sm font-medium text-[#5E5A52]">
+                Acara
+              </span>
+            </div>
           </div>
-          <div className="w-10 h-10 rounded-full bg-[rgba(165,96,28,0.12)] text-[#A5601C] flex items-center justify-center">
-            <Clock size={20} />
+          <div className="w-10 h-10 rounded-full bg-[rgba(47,122,75,0.12)] text-[#2F7A4B] flex items-center justify-center shrink-0">
+            <CheckCircle2 size={18} />
           </div>
         </div>
 
         <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
-            <span className="text-xs text-[#5E5A52] block">Bentrok Tanggal</span>
-            <strong
-              className={`text-xl sm:text-2xl font-sans font-bold block mt-0.5 ${
-                monthStats.bentrokCount > 0 ? "text-[#B13C30]" : "text-[#5E5A52]"
-              }`}
-            >
-              {monthStats.bentrokCount} Tanggal
-            </strong>
+            <span className="text-xs font-medium text-[#5E5A52] block">Belum Konfirmasi</span>
+            <div className="flex items-baseline gap-1 mt-0.5">
+              <span className="text-2xl font-sans font-semibold text-[#A5601C]">
+                {monthStats.belumKonfirmasi}
+              </span>
+              <span className="text-xs sm:text-sm font-medium text-[#5E5A52]">
+                Acara
+              </span>
+            </div>
+          </div>
+          <div className="w-10 h-10 rounded-full bg-[rgba(165,96,28,0.12)] text-[#A5601C] flex items-center justify-center shrink-0">
+            <Clock size={18} />
+          </div>
+        </div>
+
+        <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+          <div>
+            <span className="text-xs font-medium text-[#5E5A52] block">Bentrok Tanggal</span>
+            <div className="flex items-baseline gap-1 mt-0.5">
+              <span
+                className={`text-2xl font-sans font-semibold ${
+                  monthStats.bentrokCount > 0 ? "text-[#B13C30]" : "text-[#1A1A1A]"
+                }`}
+              >
+                {monthStats.bentrokCount}
+              </span>
+              <span className="text-xs sm:text-sm font-medium text-[#5E5A52]">
+                Tanggal
+              </span>
+            </div>
           </div>
           <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center ${
+            className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
               monthStats.bentrokCount > 0
                 ? "bg-[rgba(177,60,48,0.14)] text-[#B13C30]"
                 : "bg-[#F5EDDC] text-[#5E5A52]"
             }`}
           >
-            <AlertTriangle size={20} />
+            <AlertTriangle size={18} />
           </div>
         </div>
       </div>
@@ -505,7 +525,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                 <CalendarIcon size={14} />
                 Jadwal Acara Terpilih
               </span>
-              <h3 className="font-sans text-[20px] font-bold text-[#1A1A1A] mt-1">
+              <h3 className="font-sans text-[20px] font-semibold text-[#1A1A1A] mt-1">
                 {formattedSelectedDate}
               </h3>
             </div>
@@ -530,7 +550,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                 <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(47,122,75,0.12)] text-[#2F7A4B] flex items-center justify-center">
                   <Sparkles size={22} />
                 </div>
-                <h4 className="font-sans text-lg font-bold text-[#1A1A1A]">
+                <h4 className="font-sans text-base font-semibold text-[#1A1A1A]">
                   Tanggal Masih Kosong
                 </h4>
                 <p className="text-xs text-[#5E5A52] max-w-xs mx-auto">
