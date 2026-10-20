@@ -1,9 +1,24 @@
 -- ==============================================================================
--- WEDORA — Seed Data Pengembangan (5 Dummy Bookings)
+-- WEDORA — Seed Data Pengembangan (Paket Resmi & 5 Dummy Bookings)
 -- Sesuai format lembar kerja fisik Jadwal Rias Pengantin dan Dekorasi Era Waluyo
 -- ==============================================================================
 
--- 1. Aulia & Fajar (Paket Royal Adat Jawa Lengkap)
+-- Master Paket Layanan Era Waluyo
+insert into public.packages (id, nama, deskripsi, harga_dasar, aktif)
+values
+  ('d78b23f6-e27d-4802-a686-adca1acbb7e8', 'PAKET SIRAMAN', 'Paket prosesi siraman adat pengantin tradisional Era Waluyo.', 5000000, true),
+  ('83d73bc7-3e2b-4b4b-9a7d-76e4f68e3481', 'PAKET MUA', 'Paket tata rias pengantin lengkap (MUA) eksklusif Era Waluyo.', 12500000, true),
+  ('511c7df3-a64e-40f7-8866-21581437fb38', 'PAKET PREMIUM RUMAH 1', 'Paket pernikahan rumah premium 1: tata rias pengantin, busana akad & resepsi, dekorasi pelaminan rumah.', 15000000, true),
+  ('10295c89-6467-42b3-9423-e59e3bbc637f', 'PAKET PREMIUM RUMAH 2', 'Paket pernikahan rumah premium 2: tata rias lengkap, busana pengantin & orang tua, dekorasi pelaminan mewah.', 20000000, true),
+  ('6ad16f1e-36a3-448c-a979-a0f4c0dc4a65', 'PAKET PREMIUM GEDUNG 1', 'Paket pernikahan gedung premium 1: rias & busana pengantin adat/modern, dekorasi pelaminan gedung elegan.', 27500000, true),
+  ('b2a37e87-b777-4a03-ae2b-c1d066184603', 'PAKET PREMIUM GEDUNG 2', 'Paket pernikahan gedung premium 2: rias pengantin eksklusif, busana lengkap resepsi & akad, dekorasi megah, MC & dokumentasi lengkap.', 36000000, true)
+on conflict (id) do update set
+  nama = excluded.nama,
+  deskripsi = excluded.deskripsi,
+  harga_dasar = excluded.harga_dasar,
+  aktif = excluded.aktif;
+
+-- 1. Aulia & Fajar (Paket Premium Rumah 2)
 insert into public.bookings (
   nama_pelanggan,
   no_wa,

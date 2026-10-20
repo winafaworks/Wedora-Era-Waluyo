@@ -22,19 +22,34 @@ export async function getPackages() {
   if (!packages || packages.length === 0) {
     const defaultPackages = [
       {
-        nama: "Paket Basic Melati",
-        deskripsi: "Busana akad nikah pengantin, rias tradisional MUA, dan bunga melati segar.",
-        harga_dasar: 4500000,
+        nama: "PAKET SIRAMAN",
+        deskripsi: "Paket prosesi siraman adat pengantin tradisional Era Waluyo.",
+        harga_dasar: 5000000,
       },
       {
-        nama: "Paket Premium Gold Era Waluyo",
-        deskripsi: "Busana akad & resepsi, dekorasi pelaminan 8 meter, MC, MUA, dan dokumentasi foto.",
+        nama: "PAKET MUA",
+        deskripsi: "Paket tata rias pengantin lengkap (MUA) eksklusif Era Waluyo.",
         harga_dasar: 12500000,
       },
       {
-        nama: "Paket Royal Adat Jawa Lengkap",
-        deskripsi: "Busana Solo/Yogya Basahan beludru, dekorasi gebyok ukir klasik, tata rias paes, MC, foto & video cinematic.",
-        harga_dasar: 18000000,
+        nama: "PAKET PREMIUM RUMAH 1",
+        deskripsi: "Paket pernikahan rumah premium 1: tata rias pengantin, busana akad & resepsi, dekorasi pelaminan rumah.",
+        harga_dasar: 15000000,
+      },
+      {
+        nama: "PAKET PREMIUM RUMAH 2",
+        deskripsi: "Paket pernikahan rumah premium 2: tata rias lengkap, busana pengantin & orang tua, dekorasi pelaminan mewah.",
+        harga_dasar: 20000000,
+      },
+      {
+        nama: "PAKET PREMIUM GEDUNG 1",
+        deskripsi: "Paket pernikahan gedung premium 1: rias & busana pengantin adat/modern, dekorasi pelaminan gedung elegan.",
+        harga_dasar: 27500000,
+      },
+      {
+        nama: "PAKET PREMIUM GEDUNG 2",
+        deskripsi: "Paket pernikahan gedung premium 2: rias pengantin eksklusif, busana lengkap resepsi & akad, dekorasi megah, MC & dokumentasi lengkap.",
+        harga_dasar: 36000000,
       },
     ];
 
