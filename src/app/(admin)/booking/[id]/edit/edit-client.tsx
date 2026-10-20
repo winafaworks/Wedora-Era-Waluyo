@@ -3,10 +3,61 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Save } from "lucide-react";
+import {
+  ArrowLeft,
+  Save,
+  Sparkles,
+  CheckCircle2,
+  Clock,
+  Shirt,
+  Flower2,
+  Flame,
+  Camera,
+  Wallet,
+  Plus,
+  Trash2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { updateBooking } from "@/lib/actions/booking";
+
+interface TableItem {
+  item: string;
+  jumlah: string;
+  keterangan: string;
+  meter?: string;
+}
+
+const DEFAULT_MUA_ITEMS: TableItem[] = [
+  { item: "Sepasang Pengantin", jumlah: "2", keterangan: "" },
+  { item: "Orang Tua / Besan", jumlah: "4", keterangan: "" },
+  { item: "Domas / Manggolo", jumlah: "", keterangan: "" },
+  { item: "Terima Tamu", jumlah: "", keterangan: "" },
+  { item: "Among Tamu", jumlah: "", keterangan: "" },
+  { item: "Patah", jumlah: "", keterangan: "" },
+  { item: "Keluarga / Lain-Lain", jumlah: "", keterangan: "" },
+];
+
+const DEFAULT_DEKORASI_ITEMS: TableItem[] = [
+  { item: "Dekorasi Pelaminan", jumlah: "1", meter: "8", keterangan: "" },
+  { item: "Mini Garden", jumlah: "", keterangan: "" },
+  { item: "Dekorasi Photobooth", jumlah: "", keterangan: "" },
+  { item: "Lighting Dekorasi", jumlah: "", keterangan: "" },
+  { item: "Wedding Gate", jumlah: "", keterangan: "" },
+  { item: "Welcome Sign", jumlah: "", keterangan: "" },
+  { item: "Dekorasi Jalan", jumlah: "", keterangan: "" },
+  { item: "Meja dan Kursi Akad", jumlah: "", keterangan: "" },
+  { item: "Dekorasi Kamar Penganten", jumlah: "", keterangan: "" },
+  { item: "Janur dan Kembar Mayang", jumlah: "", keterangan: "" },
+];
+
+const DEFAULT_ADAT_ITEMS: TableItem[] = [
+  { item: "Siraman", jumlah: "", keterangan: "" },
+  { item: "Midodareni", jumlah: "", keterangan: "" },
+  { item: "MC", jumlah: "1", keterangan: "" },
+  { item: "Cucuk Lampah", jumlah: "", keterangan: "" },
+  { item: "Begalan", jumlah: "", keterangan: "" },
+];
 
 interface EditClientProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,9 +76,13 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
     noWa: booking.no_wa || "",
     tanggalAcara: booking.tanggal_acara || "",
     lokasi: booking.lokasi || "",
+    jamAkad: booking.jam_akad || "",
+    jamAdat: booking.jam_adat || "",
+    jamResepsi: booking.jam_resepsi || "",
+    lokasiMakeup: booking.lokasi_makeup || "",
     packageId: booking.package_id || (packages[0]?.id || ""),
     kebayaBaju: booking.kebaya_baju || "",
-    ukuran: booking.ukuran || "M",
+    ukuran: booking.ukuran || "",
     dekorasi: booking.dekorasi || "",
     mc: booking.mc || "",
     makeup: booking.makeup || "",
@@ -35,9 +90,28 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
     video: booking.video || "",
     hiburan: booking.hiburan || "",
     catatanKhusus: booking.catatan_khusus || "",
+    totalBiaya: Number(booking.total_biaya || (booking.packages?.harga_dasar || 0)),
     nominalDp: Number(booking.dp_nominal || 0),
     dpDiterima: booking.dp_diterima ?? true,
   });
+
+  const [itemsMua, setItemsMua] = useState<TableItem[]>(
+    Array.isArray(booking.items_mua) && booking.items_mua.length > 0
+      ? booking.items_mua
+      : DEFAULT_MUA_ITEMS
+  );
+
+  const [itemsDekorasi, setItemsDekorasi] = useState<TableItem[]>(
+    Array.isArray(booking.items_dekorasi) && booking.items_dekorasi.length > 0
+      ? booking.items_dekorasi
+      : DEFAULT_DEKORASI_ITEMS
+  );
+
+  const [itemsAdat, setItemsAdat] = useState<TableItem[]>(
+    Array.isArray(booking.items_adat) && booking.items_adat.length > 0
+      ? booking.items_adat
+      : DEFAULT_ADAT_ITEMS
+  );
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -51,23 +125,79 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
     }
   };
 
+  const handleItemChange = (
+    setter: React.Dispatch<React.SetStateAction<TableItem[]>>,
+    index: number,
+    field: keyof TableItem,
+    val: string
+  ) => {
+    setter((prev) => {
+      const updated = [...prev];
+      updated[index] = { ...updated[index], [field]: val };
+      return updated;
+    });
+  };
+
+  const handleAddItem = (
+    setter: React.Dispatch<React.SetStateAction<TableItem[]>>,
+    defaultName = "Item Tambahan"
+  ) => {
+    setter((prev) => [...prev, { item: defaultName, jumlah: "", keterangan: "" }]);
+  };
+
+  const handleRemoveItem = (
+    setter: React.Dispatch<React.SetStateAction<TableItem[]>>,
+    index: number
+  ) => {
+    setter((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const sisaPembayaran = Math.max(0, Number(formData.totalBiaya || 0) - Number(formData.nominalDp || 0));
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMsg(null);
 
-    const res = await updateBooking(booking.id, formData);
+    const summaryMua = itemsMua
+      .filter((m) => m.jumlah || m.keterangan)
+      .map((m) => `${m.item} (${m.jumlah || "-"}): ${m.keterangan || "-"}`)
+      .join("; ");
+
+    const summaryDekorasi = itemsDekorasi
+      .filter((d) => d.jumlah || d.keterangan || d.meter)
+      .map((d) => `${d.item}${d.meter ? ` ${d.meter}m` : ""}: ${d.keterangan || "-"}`)
+      .join("; ");
+
+    const summaryAdat = itemsAdat
+      .filter((a) => a.jumlah || a.keterangan)
+      .map((a) => `${a.item}: ${a.keterangan || "-"}`)
+      .join("; ");
+
+    const payload = {
+      ...formData,
+      makeup: summaryMua || formData.makeup,
+      dekorasi: summaryDekorasi || formData.dekorasi,
+      mc: summaryAdat || formData.mc,
+      itemsMua,
+      itemsDekorasi,
+      itemsAdat,
+      sisaPembayaran,
+    };
+
+    const res = await updateBooking(booking.id, payload);
 
     if (res.success) {
       router.push(`/booking/${booking.id}`);
     } else {
       setIsLoading(false);
-      setErrorMsg(res.error || "Gagal memperbarui data pesanan.");
+      setErrorMsg(res.error || "Terjadi kesalahan saat memperbarui booking.");
     }
   };
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
+      {/* Top Header */}
       <div className="flex items-center justify-between pb-4 border-b border-[#E5DEC9]">
         <div className="flex items-center gap-4">
           <Link href={`/booking/${booking.id}`}>
@@ -77,10 +207,10 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
           </Link>
           <div>
             <h1 className="font-sans text-[28px] font-bold text-[#1A1A1A]">
-              Ubah Data Booking
+              Ubah Data Booking & Jadwal
             </h1>
             <p className="text-[14px] text-[#5E5A52] mt-0.5">
-              Perbarui rincian pesanan untuk {booking.nama_pelanggan}
+              Pembaruan rincian pesanan untuk {booking.nama_pelanggan}
             </p>
           </div>
         </div>
@@ -92,178 +222,612 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
         </div>
       )}
 
+      {/* Main Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
-        <Card className="p-6 md:p-8 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                Nama Pasangan / Pelanggan <span className="text-[#B13C30]">*</span>
-              </label>
-              <input
-                type="text"
-                name="namaPelanggan"
-                required
-                value={formData.namaPelanggan}
-                onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] shadow-sm"
-              />
-            </div>
+        <Card className="p-6 md:p-8 space-y-8">
+          {/* =========================================================================
+              BAGIAN 1: DATA CALON PENGANTIN & WAKTU ACARA
+          ========================================================================= */}
+          <div>
+            <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] mb-4 flex items-center gap-2">
+              <Sparkles size={18} />
+              <span>Data Calon Pengantin & Waktu Acara</span>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Nama Capeng (Calon Pengantin) <span className="text-[#B13C30]">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="namaPelanggan"
+                  required
+                  value={formData.namaPelanggan}
+                  onChange={handleChange}
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                />
+              </div>
 
-            <div>
-              <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                Nomor WhatsApp <span className="text-[#B13C30]">*</span>
-              </label>
-              <input
-                type="text"
-                name="noWa"
-                required
-                value={formData.noWa}
-                onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] shadow-sm"
-              />
-            </div>
+              <div>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Nomor HP / WhatsApp <span className="text-[#B13C30]">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="noWa"
+                  required
+                  value={formData.noWa}
+                  onChange={handleChange}
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                />
+              </div>
 
-            <div>
-              <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                Tanggal Acara <span className="text-[#B13C30]">*</span>
-              </label>
-              <input
-                type="date"
-                name="tanggalAcara"
-                required
-                value={formData.tanggalAcara}
-                onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] shadow-sm"
-              />
-            </div>
+              <div>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Hari / Tanggal Acara <span className="text-[#B13C30]">*</span>
+                </label>
+                <input
+                  type="date"
+                  name="tanggalAcara"
+                  required
+                  value={formData.tanggalAcara}
+                  onChange={handleChange}
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm cursor-pointer"
+                />
+              </div>
 
-            <div>
-              <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                Lokasi Pelaksanaan Acara <span className="text-[#B13C30]">*</span>
-              </label>
-              <input
-                type="text"
-                name="lokasi"
-                required
-                value={formData.lokasi}
-                onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] shadow-sm"
-              />
-            </div>
+              <div>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Alamat / Lokasi Pelaksanaan <span className="text-[#B13C30]">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="lokasi"
+                  required
+                  value={formData.lokasi}
+                  onChange={handleChange}
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                />
+              </div>
 
-            <div>
-              <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                Paket Layanan
-              </label>
-              <select
-                name="packageId"
-                value={formData.packageId}
-                onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] shadow-sm"
-              >
-                {packages.map((pkg) => (
-                  <option key={pkg.id} value={pkg.id}>
-                    {pkg.nama} {pkg.harga_dasar ? `(Rp${pkg.harga_dasar.toLocaleString("id-ID")})` : ""}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                Ukuran Busana
-              </label>
-              <select
-                name="ukuran"
-                value={formData.ukuran}
-                onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] shadow-sm"
-              >
-                <option value="S">Ukuran S</option>
-                <option value="M">Ukuran M</option>
-                <option value="L">Ukuran L</option>
-                <option value="XL">Ukuran XL</option>
-                <option value="Custom">Custom / Menyesuaikan</option>
-              </select>
-            </div>
-
-            <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                Model Kebaya / Beskap
-              </label>
-              <input
-                type="text"
-                name="kebayaBaju"
-                value={formData.kebayaBaju}
-                onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] shadow-sm"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                Dekorasi Pelaminan
-              </label>
-              <input
-                type="text"
-                name="dekorasi"
-                value={formData.dekorasi}
-                onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] shadow-sm"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                Tata Rias (MUA)
-              </label>
-              <input
-                type="text"
-                name="makeup"
-                value={formData.makeup}
-                onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] shadow-sm"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                Nominal DP (Rp)
-              </label>
-              <input
-                type="number"
-                name="nominalDp"
-                required
-                min={0}
-                value={formData.nominalDp}
-                onChange={handleChange}
-                className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#8A6A22] font-semibold focus:outline-none focus:border-[#A67C24] shadow-sm"
-              />
-            </div>
-
-            <div className="md:col-span-2">
-              <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                Catatan Khusus
-              </label>
-              <textarea
-                name="catatanKhusus"
-                rows={2}
-                value={formData.catatanKhusus}
-                onChange={handleChange}
-                className="w-full p-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] shadow-sm"
-              />
+              {/* Rangkaian Jam Acara */}
+              <div className="md:col-span-2 p-4 bg-[#FAF7F0] border border-[#E5DEC9] rounded-xl space-y-3">
+                <span className="text-xs font-semibold text-[#8A6A22] uppercase tracking-wider flex items-center gap-1.5">
+                  <Clock size={14} />
+                  <span>Jadwal Jam Rangkaian Acara & Lokasi Makeup</span>
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-xs text-[#5E5A52] mb-1">
+                      Jam Akad
+                    </label>
+                    <input
+                      type="text"
+                      name="jamAkad"
+                      placeholder="Contoh: 09.00 WIB"
+                      value={formData.jamAkad}
+                      onChange={handleChange}
+                      className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-[#5E5A52] mb-1">
+                      Jam Adat
+                    </label>
+                    <input
+                      type="text"
+                      name="jamAdat"
+                      placeholder="Contoh: 10.00 WIB"
+                      value={formData.jamAdat}
+                      onChange={handleChange}
+                      className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-[#5E5A52] mb-1">
+                      Jam Resepsi
+                    </label>
+                    <input
+                      type="text"
+                      name="jamResepsi"
+                      placeholder="Contoh: 11.00 WIB"
+                      value={formData.jamResepsi}
+                      onChange={handleChange}
+                      className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24]"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs text-[#5E5A52] mb-1">
+                    Catatan Lokasi Makeup
+                  </label>
+                  <input
+                    type="text"
+                    name="lokasiMakeup"
+                    placeholder="Contoh: Makeup di Gedung / Makeup di Kamar Pengantin"
+                    value={formData.lokasiMakeup}
+                    onChange={handleChange}
+                    className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24]"
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="pt-6 border-t border-[#E5DEC9] flex items-center justify-end gap-3">
-            <Link href={`/booking/${booking.id}`}>
-              <Button type="button" variant="outline">
+          {/* =========================================================================
+              BAGIAN 2: PILIHAN PAKET & RINCIAN BUSANA
+          ========================================================================= */}
+          <div className="pt-6 border-t border-[#E5DEC9]">
+            <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] mb-4 flex items-center gap-2">
+              <Shirt size={18} />
+              <span>Paket Acara & Rincian Busana Utama</span>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Paket Layanan Era Waluyo
+                </label>
+                <select
+                  name="packageId"
+                  value={formData.packageId}
+                  onChange={handleChange}
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm cursor-pointer"
+                >
+                  {packages.map((pkg) => (
+                    <option key={pkg.id} value={pkg.id}>
+                      {pkg.nama} {pkg.harga_dasar ? `(Rp${pkg.harga_dasar.toLocaleString("id-ID")})` : ""}
+                    </option>
+                  ))}
+                  <option value="">Custom / Tanpa Paket Terdaftar</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Model & Warna Busana Pengantin
+                </label>
+                <input
+                  type="text"
+                  name="kebayaBaju"
+                  placeholder="Contoh: Kebaya Solo Basahan Beludru Hitam & Beskap Sikepan Gold"
+                  value={formData.kebayaBaju}
+                  onChange={handleChange}
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Ukuran Busana & Kelengkapan Kain/Sandal
+                </label>
+                <input
+                  type="text"
+                  name="ukuran"
+                  placeholder="Contoh: Pengantin Cewe M / Cowo L2; Sandal padi no 39; Blangkon no 7 tirto"
+                  value={formData.ukuran}
+                  onChange={handleChange}
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* =========================================================================
+              BAGIAN 3: TABEL ITEM MUA (TATA RIAS & BUSANA)
+          ========================================================================= */}
+          <div className="pt-6 border-t border-[#E5DEC9]">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] flex items-center gap-2">
+                  <Sparkles size={18} />
+                  <span>Item MUA (Tata Rias & Busana)</span>
+                </h2>
+                <p className="text-xs text-[#5E5A52]">
+                  Sesuai Tabel 1 lembar fisik: Pengantin, Orang Tua, Domas, Among Tamu, dll.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleAddItem(setItemsMua, "Baris Tambahan MUA")}
+                className="text-xs text-[#8A6A22] hover:text-[#B8923F] inline-flex items-center gap-1 font-semibold cursor-pointer"
+              >
+                <Plus size={14} />
+                <span>Tambah Baris</span>
+              </button>
+            </div>
+
+            <div className="overflow-x-auto border border-[#E5DEC9] rounded-xl">
+              <table className="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr className="bg-[#FAF7F0] border-b border-[#E5DEC9] text-[#5E5A52]">
+                    <th className="py-2.5 px-3 w-10 text-center">No</th>
+                    <th className="py-2.5 px-3 w-44">Item MUA</th>
+                    <th className="py-2.5 px-3 w-20 text-center">Jml</th>
+                    <th className="py-2.5 px-3">Keterangan (Rias / Hairdo / Busana)</th>
+                    <th className="py-2.5 px-2 w-10 text-center"></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#EFE9DC]">
+                  {itemsMua.map((m, idx) => (
+                    <tr key={idx} className="hover:bg-[#FAF7F0]/60">
+                      <td className="py-2 px-3 text-center text-[#8A857B]">{idx + 1}</td>
+                      <td className="py-2 px-3 font-medium text-[#1A1A1A]">
+                        <input
+                          type="text"
+                          value={m.item}
+                          onChange={(e) => handleItemChange(setItemsMua, idx, "item", e.target.value)}
+                          className="w-full bg-transparent border-0 font-medium focus:outline-none focus:ring-1 focus:ring-[#A67C24] rounded px-1"
+                        />
+                      </td>
+                      <td className="py-2 px-3">
+                        <input
+                          type="text"
+                          placeholder="0"
+                          value={m.jumlah}
+                          onChange={(e) => handleItemChange(setItemsMua, idx, "jumlah", e.target.value)}
+                          className="w-full text-center bg-[#FFFFFF] border border-[#D6CEBE] rounded px-1.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                        />
+                      </td>
+                      <td className="py-2 px-3">
+                        <input
+                          type="text"
+                          placeholder="Keterangan rias / busana..."
+                          value={m.keterangan}
+                          onChange={(e) => handleItemChange(setItemsMua, idx, "keterangan", e.target.value)}
+                          className="w-full bg-[#FFFFFF] border border-[#D6CEBE] rounded px-2.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                        />
+                      </td>
+                      <td className="py-2 px-2 text-center">
+                        {idx >= 7 && (
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveItem(setItemsMua, idx)}
+                            className="text-[#B13C30] hover:text-[#8E281E] p-1 cursor-pointer"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* =========================================================================
+              BAGIAN 4: TABEL ITEM DEKORASI
+          ========================================================================= */}
+          <div className="pt-6 border-t border-[#E5DEC9]">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] flex items-center gap-2">
+                  <Flower2 size={18} />
+                  <span>Item Dekorasi Pelaminan & Lokasi</span>
+                </h2>
+                <p className="text-xs text-[#5E5A52]">
+                  Sesuai Tabel 2 lembar fisik: Pelaminan, Mini Garden, Photobooth, Gate, Janur, dll.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleAddItem(setItemsDekorasi, "Item Dekorasi Baru")}
+                className="text-xs text-[#8A6A22] hover:text-[#B8923F] inline-flex items-center gap-1 font-semibold cursor-pointer"
+              >
+                <Plus size={14} />
+                <span>Tambah Baris</span>
+              </button>
+            </div>
+
+            <div className="overflow-x-auto border border-[#E5DEC9] rounded-xl">
+              <table className="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr className="bg-[#FAF7F0] border-b border-[#E5DEC9] text-[#5E5A52]">
+                    <th className="py-2.5 px-3 w-10 text-center">No</th>
+                    <th className="py-2.5 px-3 w-48">Item Dekorasi</th>
+                    <th className="py-2.5 px-3 w-28">Ukuran / Jml</th>
+                    <th className="py-2.5 px-3">Keterangan Khusus</th>
+                    <th className="py-2.5 px-2 w-10 text-center"></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#EFE9DC]">
+                  {itemsDekorasi.map((d, idx) => (
+                    <tr key={idx} className="hover:bg-[#FAF7F0]/60">
+                      <td className="py-2 px-3 text-center text-[#8A857B]">{idx + 1}</td>
+                      <td className="py-2 px-3 font-medium text-[#1A1A1A]">
+                        <input
+                          type="text"
+                          value={d.item}
+                          onChange={(e) => handleItemChange(setItemsDekorasi, idx, "item", e.target.value)}
+                          className="w-full bg-transparent border-0 font-medium focus:outline-none focus:ring-1 focus:ring-[#A67C24] rounded px-1"
+                        />
+                      </td>
+                      <td className="py-2 px-3">
+                        {idx === 0 ? (
+                          <div className="flex items-center gap-1">
+                            <input
+                              type="text"
+                              value={d.meter || ""}
+                              onChange={(e) => handleItemChange(setItemsDekorasi, idx, "meter", e.target.value)}
+                              placeholder="8"
+                              className="w-12 text-center bg-[#FFFFFF] border border-[#D6CEBE] rounded px-1.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                            />
+                            <span className="text-[#5E5A52] text-[11px]">meter</span>
+                          </div>
+                        ) : (
+                          <input
+                            type="text"
+                            placeholder="Ya / 1 set"
+                            value={d.jumlah}
+                            onChange={(e) => handleItemChange(setItemsDekorasi, idx, "jumlah", e.target.value)}
+                            className="w-full bg-[#FFFFFF] border border-[#D6CEBE] rounded px-1.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                          />
+                        )}
+                      </td>
+                      <td className="py-2 px-3">
+                        <input
+                          type="text"
+                          placeholder="Keterangan warna, tema, atau perlengkapan..."
+                          value={d.keterangan}
+                          onChange={(e) => handleItemChange(setItemsDekorasi, idx, "keterangan", e.target.value)}
+                          className="w-full bg-[#FFFFFF] border border-[#D6CEBE] rounded px-2.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                        />
+                      </td>
+                      <td className="py-2 px-2 text-center">
+                        {idx >= 10 && (
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveItem(setItemsDekorasi, idx)}
+                            className="text-[#B13C30] hover:text-[#8E281E] p-1 cursor-pointer"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* =========================================================================
+              BAGIAN 5: TABEL ITEM ADAT
+          ========================================================================= */}
+          <div className="pt-6 border-t border-[#E5DEC9]">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] flex items-center gap-2">
+                  <Flame size={18} />
+                  <span>Item Upacara Adat</span>
+                </h2>
+                <p className="text-xs text-[#5E5A52]">
+                  Sesuai Tabel 3 lembar fisik: Siraman, Midodareni, Cucuk Lampah, Begalan, MC.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleAddItem(setItemsAdat, "Item Adat Tambahan")}
+                className="text-xs text-[#8A6A22] hover:text-[#B8923F] inline-flex items-center gap-1 font-semibold cursor-pointer"
+              >
+                <Plus size={14} />
+                <span>Tambah Baris</span>
+              </button>
+            </div>
+
+            <div className="overflow-x-auto border border-[#E5DEC9] rounded-xl">
+              <table className="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr className="bg-[#FAF7F0] border-b border-[#E5DEC9] text-[#5E5A52]">
+                    <th className="py-2.5 px-3 w-10 text-center">No</th>
+                    <th className="py-2.5 px-3 w-48">Item Upacara Adat</th>
+                    <th className="py-2.5 px-3 w-20 text-center">Jml</th>
+                    <th className="py-2.5 px-3">Keterangan / Rincian Busana & Petugas</th>
+                    <th className="py-2.5 px-2 w-10 text-center"></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#EFE9DC]">
+                  {itemsAdat.map((a, idx) => (
+                    <tr key={idx} className="hover:bg-[#FAF7F0]/60">
+                      <td className="py-2 px-3 text-center text-[#8A857B]">{idx + 1}</td>
+                      <td className="py-2 px-3 font-medium text-[#1A1A1A]">
+                        <input
+                          type="text"
+                          value={a.item}
+                          onChange={(e) => handleItemChange(setItemsAdat, idx, "item", e.target.value)}
+                          className="w-full bg-transparent border-0 font-medium focus:outline-none focus:ring-1 focus:ring-[#A67C24] rounded px-1"
+                        />
+                      </td>
+                      <td className="py-2 px-3">
+                        <input
+                          type="text"
+                          placeholder="Ya / 1"
+                          value={a.jumlah}
+                          onChange={(e) => handleItemChange(setItemsAdat, idx, "jumlah", e.target.value)}
+                          className="w-full text-center bg-[#FFFFFF] border border-[#D6CEBE] rounded px-1.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                        />
+                      </td>
+                      <td className="py-2 px-3">
+                        <input
+                          type="text"
+                          placeholder="Keterangan busana bapak/ibu atau detail adat..."
+                          value={a.keterangan}
+                          onChange={(e) => handleItemChange(setItemsAdat, idx, "keterangan", e.target.value)}
+                          className="w-full bg-[#FFFFFF] border border-[#D6CEBE] rounded px-2.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                        />
+                      </td>
+                      <td className="py-2 px-2 text-center">
+                        {idx >= 5 && (
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveItem(setItemsAdat, idx)}
+                            className="text-[#B13C30] hover:text-[#8E281E] p-1 cursor-pointer"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* =========================================================================
+              BAGIAN 6: VENDOR DOKUMENTASI, HIBURAN, & CATATAN KHUSUS
+          ========================================================================= */}
+          <div className="pt-6 border-t border-[#E5DEC9]">
+            <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] mb-4 flex items-center gap-2">
+              <Camera size={18} />
+              <span>Dokumentasi, Hiburan & Catatan Khusus</span>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Fotografer & Dokumentasi
+                </label>
+                <input
+                  type="text"
+                  name="fotografer"
+                  value={formData.fotografer}
+                  onChange={handleChange}
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Video Cinematic
+                </label>
+                <input
+                  type="text"
+                  name="video"
+                  value={formData.video}
+                  onChange={handleChange}
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Hiburan / Sound System
+                </label>
+                <input
+                  type="text"
+                  name="hiburan"
+                  value={formData.hiburan}
+                  onChange={handleChange}
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  Catatan Tambahan & Keterangan Khusus
+                </label>
+                <textarea
+                  name="catatanKhusus"
+                  rows={2}
+                  value={formData.catatanKhusus}
+                  onChange={handleChange}
+                  className="w-full p-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* =========================================================================
+              BAGIAN 7: RINCIAN KEUANGAN (TOTAL, DP, & SISA PELUNASAN)
+          ========================================================================= */}
+          <div className="pt-6 border-t border-[#E5DEC9]">
+            <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] mb-4 flex items-center gap-2">
+              <Wallet size={18} />
+              <span>Rincian Biaya & Pembayaran DP</span>
+            </h2>
+
+            <div className="p-5 bg-gradient-to-r from-[#FAF7F0] to-[#FFFFFF] border border-[#D6CEBE] rounded-2xl space-y-4 shadow-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                    Total Biaya Paket / Acara (Rp) <span className="text-[#B13C30]">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    name="totalBiaya"
+                    required
+                    min={0}
+                    step={100000}
+                    value={formData.totalBiaya}
+                    onChange={handleChange}
+                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-base text-[#1A1A1A] font-bold focus:outline-none focus:border-[#A67C24] transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                    Uang Muka / DP Diterima (Rp) <span className="text-[#B13C30]">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    name="nominalDp"
+                    required
+                    min={0}
+                    step={100000}
+                    value={formData.nominalDp}
+                    onChange={handleChange}
+                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-base text-[#2F7A4B] font-bold focus:outline-none focus:border-[#A67C24] transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                    Sisa Pelunasan (Otomatis)
+                  </label>
+                  <div className="w-full h-11 px-4 bg-[#F5EDDC]/50 border border-[#D6CEBE] rounded-xl text-base text-[#8A6A22] font-bold flex items-center">
+                    Rp{sisaPembayaran.toLocaleString("id-ID")}
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-[#E8E2D2]">
+                <label className="flex items-center gap-3 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    name="dpDiterima"
+                    checked={formData.dpDiterima}
+                    onChange={handleChange}
+                    className="w-5 h-5 rounded border-[#D6CEBE] bg-[#FFFFFF] text-[#8A6A22] accent-[#8A6A22]"
+                  />
+                  <div>
+                    <span className="text-sm font-semibold text-[#1A1A1A] flex items-center gap-1.5">
+                      <CheckCircle2 size={16} className="text-[#2F7A4B]" />
+                      DP Sah Diterima (Syarat Sah Booking)
+                    </span>
+                    <p className="text-xs text-[#5E5A52]">
+                      Sesuai SOP Era Waluyo, tanggal baru sah dicatat setelah pembayaran uang muka diterima.
+                    </p>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          {/* Tombol Aksi */}
+          <div className="pt-6 border-t border-[#E5DEC9] flex flex-col sm:flex-row items-center justify-end gap-3">
+            <Link href={`/booking/${booking.id}`} className="w-full sm:w-auto">
+              <Button type="button" variant="outline" className="w-full sm:w-auto">
                 Batal
               </Button>
             </Link>
-            <Button type="submit" variant="primary" disabled={isLoading} className="gap-2">
+            <Button
+              type="submit"
+              variant="primary"
+              disabled={isLoading}
+              className="w-full sm:w-auto gap-2 px-6 shadow-sm"
+            >
               <Save size={18} />
-              <span>{isLoading ? "Menyimpan Perubahan..." : "Simpan Perubahan"}</span>
+              <span>{isLoading ? "Menyimpan Data..." : "Simpan Perubahan"}</span>
             </Button>
           </div>
         </Card>

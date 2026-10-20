@@ -156,6 +156,10 @@ export async function createBooking(input: BookingInput) {
   const tokenKonfirmasi = crypto.randomBytes(24).toString("hex");
   const supabase = createAdminClient();
 
+  const totalBiaya = parsed.data.totalBiaya || 0;
+  const nominalDp = parsed.data.nominalDp || 0;
+  const sisaPembayaran = totalBiaya > 0 ? Math.max(0, totalBiaya - nominalDp) : 0;
+
   const { data, error } = await supabase
     .from("bookings")
     .insert({
@@ -163,6 +167,10 @@ export async function createBooking(input: BookingInput) {
       no_wa: parsed.data.noWa,
       tanggal_acara: parsed.data.tanggalAcara,
       lokasi: parsed.data.lokasi,
+      jam_akad: parsed.data.jamAkad || null,
+      jam_adat: parsed.data.jamAdat || null,
+      jam_resepsi: parsed.data.jamResepsi || null,
+      lokasi_makeup: parsed.data.lokasiMakeup || null,
       package_id: parsed.data.packageId || null,
       kebaya_baju: parsed.data.kebayaBaju || null,
       ukuran: parsed.data.ukuran || null,
@@ -173,7 +181,12 @@ export async function createBooking(input: BookingInput) {
       video: parsed.data.video || null,
       hiburan: parsed.data.hiburan || null,
       catatan_khusus: parsed.data.catatanKhusus || null,
-      dp_nominal: parsed.data.nominalDp,
+      items_mua: parsed.data.itemsMua || [],
+      items_dekorasi: parsed.data.itemsDekorasi || [],
+      items_adat: parsed.data.itemsAdat || [],
+      total_biaya: totalBiaya,
+      dp_nominal: nominalDp,
+      sisa_pembayaran: sisaPembayaran,
       dp_diterima: parsed.data.dpDiterima,
       status: "belum_dikonfirmasi",
       token_konfirmasi: tokenKonfirmasi,
@@ -202,6 +215,10 @@ export async function updateBooking(id: string, input: BookingInput) {
     };
   }
 
+  const totalBiaya = parsed.data.totalBiaya || 0;
+  const nominalDp = parsed.data.nominalDp || 0;
+  const sisaPembayaran = totalBiaya > 0 ? Math.max(0, totalBiaya - nominalDp) : 0;
+
   const supabase = createAdminClient();
   const { error } = await supabase
     .from("bookings")
@@ -210,6 +227,10 @@ export async function updateBooking(id: string, input: BookingInput) {
       no_wa: parsed.data.noWa,
       tanggal_acara: parsed.data.tanggalAcara,
       lokasi: parsed.data.lokasi,
+      jam_akad: parsed.data.jamAkad || null,
+      jam_adat: parsed.data.jamAdat || null,
+      jam_resepsi: parsed.data.jamResepsi || null,
+      lokasi_makeup: parsed.data.lokasiMakeup || null,
       package_id: parsed.data.packageId || null,
       kebaya_baju: parsed.data.kebayaBaju || null,
       ukuran: parsed.data.ukuran || null,
@@ -220,7 +241,12 @@ export async function updateBooking(id: string, input: BookingInput) {
       video: parsed.data.video || null,
       hiburan: parsed.data.hiburan || null,
       catatan_khusus: parsed.data.catatanKhusus || null,
-      dp_nominal: parsed.data.nominalDp,
+      items_mua: parsed.data.itemsMua || [],
+      items_dekorasi: parsed.data.itemsDekorasi || [],
+      items_adat: parsed.data.itemsAdat || [],
+      total_biaya: totalBiaya,
+      dp_nominal: nominalDp,
+      sisa_pembayaran: sisaPembayaran,
       dp_diterima: parsed.data.dpDiterima,
       updated_at: new Date().toISOString(),
     })

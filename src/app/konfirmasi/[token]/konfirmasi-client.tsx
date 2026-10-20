@@ -125,6 +125,24 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
                     </div>
                   </div>
                 </div>
+
+                {/* Jam Rangkaian Acara */}
+                {(booking.jam_akad || booking.jam_adat || booking.jam_resepsi) && (
+                  <div className="p-3 bg-white border border-[#DDD2BA] rounded-xl grid grid-cols-3 gap-2 text-xs text-center">
+                    <div>
+                      <span className="text-[#5E5A52] block text-[10px]">Akad</span>
+                      <strong className="text-[#111111]">{booking.jam_akad || "-"}</strong>
+                    </div>
+                    <div>
+                      <span className="text-[#5E5A52] block text-[10px]">Adat</span>
+                      <strong className="text-[#111111]">{booking.jam_adat || "-"}</strong>
+                    </div>
+                    <div>
+                      <span className="text-[#5E5A52] block text-[10px]">Resepsi</span>
+                      <strong className="text-[#111111]">{booking.jam_resepsi || "-"}</strong>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Rincian Busana & Dekorasi */}
@@ -132,7 +150,10 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
                 <div className="font-semibold text-[#111111]">Rincian Layanan Disepakati:</div>
                 <ul className="space-y-1.5 text-[#5E5A52] list-disc list-inside">
                   {booking.kebaya_baju && (
-                    <li><strong>Busana / Kebaya:</strong> {booking.kebaya_baju} (Ukuran: {booking.ukuran || "M"})</li>
+                    <li><strong>Busana / Kebaya:</strong> {booking.kebaya_baju}</li>
+                  )}
+                  {booking.ukuran && (
+                    <li><strong>Ukuran Busana / Kain:</strong> {booking.ukuran}</li>
                   )}
                   {booking.dekorasi && (
                     <li><strong>Dekorasi:</strong> {booking.dekorasi}</li>
@@ -158,11 +179,29 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
                 </ul>
               </div>
 
-              <div className="pt-4 border-t border-[#EADFC8] flex items-center justify-between text-xs">
-                <span className="text-[#5E5A52]">Uang Muka (DP) Tercatat:</span>
-                <span className="font-semibold text-[#2F7A4B] text-sm">
-                  Rp{Number(booking.dp_nominal || 0).toLocaleString("id-ID")} (Lunas DP)
-                </span>
+              <div className="pt-4 border-t border-[#EADFC8] space-y-2 text-xs">
+                {Number(booking.total_biaya || 0) > 0 && (
+                  <div className="flex items-center justify-between text-[#5E5A52]">
+                    <span>Total Biaya Acara:</span>
+                    <span className="font-bold text-[#111111] text-sm">
+                      Rp{Number(booking.total_biaya).toLocaleString("id-ID")}
+                    </span>
+                  </div>
+                )}
+                <div className="flex items-center justify-between text-[#5E5A52]">
+                  <span>Uang Muka (DP) Diterima:</span>
+                  <span className="font-semibold text-[#2F7A4B] text-sm">
+                    Rp{Number(booking.dp_nominal || 0).toLocaleString("id-ID")} (Lunas DP)
+                  </span>
+                </div>
+                {Number(booking.total_biaya || 0) > 0 && (
+                  <div className="flex items-center justify-between text-[#5E5A52] pt-1 border-t border-dashed border-[#DDD2BA]">
+                    <span>Sisa Pelunasan:</span>
+                    <span className="font-bold text-[#B8923F] text-sm">
+                      Rp{Number(booking.sisa_pembayaran || Math.max(0, (booking.total_biaya || 0) - (booking.dp_nominal || 0))).toLocaleString("id-ID")}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
 
