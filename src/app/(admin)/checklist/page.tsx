@@ -1,34 +1,39 @@
-"use client";
+import React, { Suspense } from "react";
+import { getChecklistBookings, getChecklistItems } from "@/lib/actions/checklist";
+import ChecklistClient from "./checklist-client";
 
-import React from "react";
-import { CheckSquare } from "lucide-react";
-import { Card } from "@/components/ui/card";
+export const instant = false;
+
+export const metadata = {
+  title: "Checklist Acara | WEDORA Era Waluyo",
+  description:
+    "Pantau status barang dimuat dan kembali untuk mencegah barang tertinggal pada acara pernikahan Era Waluyo Purwokerto",
+};
+
+async function ChecklistLoader() {
+  const bookings = await getChecklistBookings();
+  const initialBookingId = bookings.length > 0 ? bookings[0].id : null;
+  const initialItems = initialBookingId ? await getChecklistItems(initialBookingId) : [];
+
+  return (
+    <ChecklistClient
+      bookings={bookings}
+      initialItems={initialItems}
+      initialSelectedBookingId={initialBookingId}
+    />
+  );
+}
 
 export default function ChecklistPage() {
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9]">
-        <div>
-          <h1 className="font-sans text-[28px] font-bold text-[#1A1A1A]">
-            Checklist Acara
-          </h1>
-          <p className="text-[14px] text-[#5E5A52] mt-1">
-            Pantau status barang dimuat dan kembali untuk mencegah barang tertinggal
-          </p>
+    <Suspense
+      fallback={
+        <div className="py-16 text-center text-[#8A857B] text-sm">
+          Memuat data checklist acara...
         </div>
-      </div>
-
-      <Card className="p-8 text-center flex flex-col items-center justify-center min-h-[320px] space-y-4">
-        <div className="w-16 h-16 rounded-full bg-[rgba(212,173,92,0.14)] flex items-center justify-center text-[#8A6A22]">
-          <CheckSquare size={32} />
-        </div>
-        <h2 className="font-sans text-[20px] font-bold text-[#1A1A1A]">
-          Daftar Kelengkapan Barang Acara
-        </h2>
-        <p className="text-[14px] text-[#5E5A52] max-w-md">
-          Modul penanda barang: Dimuat saat berangkat dan Kembali setelah pembongkaran dengan sorotan khusus untuk barang yang belum kembali.
-        </p>
-      </Card>
-    </div>
+      }
+    >
+      <ChecklistLoader />
+    </Suspense>
   );
 }

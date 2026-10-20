@@ -15,6 +15,7 @@ import {
   CheckCircle2,
   Clock,
   AlertTriangle,
+  CheckSquare,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -83,6 +84,12 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
         {/* Action Buttons */}
         <div className="flex items-center gap-2">
+          <Link href="/checklist">
+            <Button variant="outline" size="sm" className="gap-1.5 bg-[#FFFFFF]">
+              <CheckSquare size={16} className="text-[#8A6A22]" />
+              <span>Checklist</span>
+            </Button>
+          </Link>
           <Link href={`/booking/${booking.id}/edit`}>
             <Button variant="outline" size="sm" className="gap-1.5">
               <Edit3 size={16} />
