@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -57,13 +58,22 @@ export function Sidebar() {
     <>
       {/* Mobile Header Bar */}
       <div className="lg:hidden flex items-center justify-between px-6 py-4 bg-[#2C2C2C] border-b border-[#3E3E3E] sticky top-0 z-40">
-        <div>
-          <span className="font-brand-logo text-2xl font-bold tracking-[0.2em] text-[#D4AD5C]">
-            WEDORA
-          </span>
-          <span className="block text-[10px] tracking-[0.25em] text-[#B8B3A8] font-medium uppercase">
-            Era Waluyo
-          </span>
+        <div className="flex items-center gap-3">
+          <Image
+            src="/logo_erawaluyo.jpeg"
+            alt="Logo Era Waluyo"
+            width={34}
+            height={34}
+            className="w-8 h-8 rounded-full object-cover border border-[#D4AD5C]/50 shrink-0"
+          />
+          <div>
+            <span className="font-brand-logo text-lg font-bold tracking-[0.12em] text-[#D4AD5C] block leading-tight">
+              ERA WALUYO
+            </span>
+            <span className="block text-[9px] tracking-[0.25em] text-[#B8B3A8] font-medium uppercase">
+              Wedora
+            </span>
+          </div>
         </div>
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -93,15 +103,24 @@ export function Sidebar() {
           <div className="mb-8 pt-2">
             <Link
               href="/dashboard"
-              className="block group"
+              className="flex items-center gap-3.5 group"
               onClick={() => setIsOpen(false)}
             >
-              <h1 className="font-brand-logo text-3xl font-bold tracking-[0.2em] text-[#D4AD5C] group-hover:text-[#E3C27D] transition-colors">
-                WEDORA
-              </h1>
-              <p className="text-[11px] font-medium tracking-[0.25em] text-[#B8B3A8] uppercase mt-1">
-                Era Waluyo
-              </p>
+              <Image
+                src="/logo_erawaluyo.jpeg"
+                alt="Logo Era Waluyo"
+                width={44}
+                height={44}
+                className="w-11 h-11 rounded-full object-cover border border-[#D4AD5C]/50 shadow-sm shrink-0"
+              />
+              <div className="min-w-0">
+                <h1 className="font-brand-logo text-xl font-bold tracking-[0.12em] text-[#D4AD5C] group-hover:text-[#E3C27D] transition-colors leading-tight truncate">
+                  ERA WALUYO
+                </h1>
+                <p className="text-[10px] font-medium tracking-[0.25em] text-[#B8B3A8] uppercase mt-0.5">
+                  Wedora
+                </p>
+              </div>
             </Link>
           </div>
 
