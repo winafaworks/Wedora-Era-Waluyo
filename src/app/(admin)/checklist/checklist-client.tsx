@@ -19,9 +19,11 @@ import {
   ArrowRight,
   Clock,
   ChevronDown,
+  Download,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { generateChecklistPdf } from "@/lib/pdf/checklist-pdf";
 import {
   ChecklistItemData,
   ChecklistBookingOption,
@@ -240,9 +242,38 @@ export default function ChecklistClient({
     });
   }, [items, filterTab, searchQuery]);
 
-  // Fungsi cetak checklist
-  const handlePrint = () => {
-    window.print();
+  // Fungsi cetak dokumen checklist ke PDF (tampilan dokumen rapi khusus cetak)
+  const handlePrintPdf = () => {
+    if (!currentBooking) {
+      alert("Silakan pilih jadwal acara terlebih dahulu.");
+      return;
+    }
+    if (items.length === 0) {
+      alert("Belum ada data barang checklist untuk acara ini.");
+      return;
+    }
+    generateChecklistPdf({
+      booking: currentBooking,
+      items,
+      action: "print",
+    });
+  };
+
+  // Fungsi unduh dokumen checklist langsung sebagai file .pdf
+  const handleDownloadPdf = () => {
+    if (!currentBooking) {
+      alert("Silakan pilih jadwal acara terlebih dahulu.");
+      return;
+    }
+    if (items.length === 0) {
+      alert("Belum ada data barang checklist untuk acara ini.");
+      return;
+    }
+    generateChecklistPdf({
+      booking: currentBooking,
+      items,
+      action: "download",
+    });
   };
 
   // Format jam / tanggal pendek untuk timestamp
@@ -275,15 +306,29 @@ export default function ChecklistClient({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2">
           <Button
             variant="outline"
             size="sm"
-            onClick={handlePrint}
+            onClick={handleDownloadPdf}
+            disabled={!currentBooking || items.length === 0}
             className="gap-2 bg-[#FFFFFF]"
+            title="Unduh file dokumen PDF checklist"
           >
-            <Printer size={16} />
-            <span>Cetak Checklist</span>
+            <Download size={15} />
+            <span>Unduh PDF</span>
+          </Button>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handlePrintPdf}
+            disabled={!currentBooking || items.length === 0}
+            className="gap-2 bg-[#FFFFFF] border-[#D4AD5C] text-[#8A6A22] hover:bg-[#FAF6ED]"
+            title="Buka dokumen PDF checklist rapi untuk dicetak"
+          >
+            <Printer size={15} />
+            <span>Cetak PDF</span>
           </Button>
 
           <Button

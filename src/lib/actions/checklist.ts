@@ -18,6 +18,7 @@ export interface ChecklistItemData {
 export interface ChecklistBookingOption {
   id: string;
   nama_pelanggan: string;
+  no_wa?: string;
   tanggal_acara: string;
   lokasi: string;
   status: string | null;
@@ -103,6 +104,7 @@ export async function getChecklistBookings(): Promise<ChecklistBookingOption[]> 
     .select(`
       id,
       nama_pelanggan,
+      no_wa,
       tanggal_acara,
       lokasi,
       status,

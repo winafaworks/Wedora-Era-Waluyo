@@ -119,3 +119,116 @@ h2 {
   font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif !important;
 }
 
+/* =========================================================================
+   DARK THEME SYSTEM (LUXURY MIDNIGHT CHARCOAL & GOLD)
+========================================================================= */
+html.dark {
+  --bg: #121212;
+  --surface: #1b1b1b;
+  --surface-2: #242424;
+  --surface-3: #2e2e2e;
+  --border: #332f28;
+  --border-strong: #474136;
+  --text: #f5eddc;
+  --text-muted: #b8b3a8;
+  --text-faint: #8a857b;
+
+  --sidebar-bg: #181818;
+  --sidebar-surface: #222222;
+  --sidebar-border: #2a2a2a;
+}
+
+html.dark body {
+  background-color: #121212 !important;
+  color: #f5eddc !important;
+}
+
+/* Canvas & Container Overrides */
+html.dark .bg-\[\#FBF7EC\] {
+  background-color: #121212 !important;
+}
+
+html.dark .bg-\[\#FFFFFF\] {
+  background-color: #1b1b1b !important;
+}
+
+html.dark .bg-\[\#FAF6ED\],
+html.dark .bg-\[\#FAF7F0\],
+html.dark .bg-\[\#F5EDDC\] {
+  background-color: #242424 !important;
+}
+
+html.dark .bg-\[\#EAE1CF\] {
+  background-color: #303030 !important;
+}
+
+/* Border Overrides */
+html.dark .border-\[\#E5DEC9\],
+html.dark .border-\[\#D6CEBE\],
+html.dark .border-\[\#F2ECE1\],
+html.dark .border-\[\#D1C6AD\] {
+  border-color: #332f28 !important;
+}
+
+html.dark .divide-\[\#E5DEC9\] > * + *,
+html.dark .divide-\[\#D6CEBE\] > * + * {
+  border-color: #332f28 !important;
+}
+
+/* Text Overrides */
+html.dark .text-\[\#1A1A1A\],
+html.dark .text-\[\#111111\] {
+  color: #f5eddc !important;
+}
+
+html.dark .text-\[\#5E5A52\] {
+  color: #b8b3a8 !important;
+}
+
+/* Form Inputs, Textarea, Select */
+html.dark input:not([type="checkbox"]):not([type="radio"]),
+html.dark textarea,
+html.dark select {
+  background-color: #242424 !important;
+  color: #f5eddc !important;
+  border-color: #3d382f !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #7a756b !important;
+}
+
+html.dark select option {
+  background-color: #1f1f1f !important;
+  color: #f5eddc !important;
+}
+
+/* Table Hover and Alternating Rows */
+html.dark tr.hover\:bg-\[\#FAF6ED\]:hover,
+html.dark tr.hover\:bg-\[\#FAF7F0\]:hover,
+html.dark .hover\:bg-\[\#FAF6ED\]:hover {
+  background-color: #282828 !important;
+}
+
+/* Card Elevation & Shadows */
+html.dark .shadow-\[0_2px_8px_rgba\(0\,0\,0\,0\.03\)\],
+html.dark .shadow-\[0_4px_16px_rgba\(0\,0\,0\,0\.06\)\] {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Status Badges Subtle Darkness */
+html.dark .bg-\[rgba\(212\,173\,92\,0\.18\)\] {
+  background-color: rgba(212, 173, 92, 0.12) !important;
+}
+html.dark .bg-\[rgba\(127\,211\,155\,0\.22\)\] {
+  background-color: rgba(47, 122, 75, 0.22) !important;
+}
+html.dark .bg-\[rgba\(232\,162\,95\,0\.22\)\] {
+  background-color: rgba(165, 96, 28, 0.22) !important;
+}
+html.dark .bg-\[rgba\(224\,122\,110\,0\.22\)\] {
+  background-color: rgba(177, 60, 48, 0.22) !important;
+}
+
+

@@ -11,6 +11,7 @@ import {
   Shirt,
   CheckSquare,
   BarChart3,
+  Settings,
   LogOut,
   Menu,
   X,
@@ -50,6 +51,11 @@ const navItems = [
     name: "Rekap Booking",
     href: "/rekap",
     icon: BarChart3,
+  },
+  {
+    name: "Pengaturan",
+    href: "/settings",
+    icon: Settings,
   },
 ];
 

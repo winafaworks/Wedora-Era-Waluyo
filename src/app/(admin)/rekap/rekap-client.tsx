@@ -723,6 +723,8 @@ export default function RekapClient({
           value={metrics.totalAcara}
           subtitle={`Periode: ${periodLabel}`}
           icon={<CalendarRange size={20} />}
+          valueClassName="text-[#A67C24]"
+          iconClassName="text-[#A67C24]"
         />
 
         <StatCard
@@ -730,6 +732,8 @@ export default function RekapClient({
           value={`Rp${metrics.totalDpMasuk.toLocaleString("id-ID")}`}
           subtitle="Akumulasi pembayaran DP diterima"
           icon={<Wallet size={20} />}
+          valueClassName="text-[#A67C24]"
+          iconClassName="text-[#A67C24]"
         />
 
         <StatCard
@@ -737,6 +741,8 @@ export default function RekapClient({
           value={`Rp${metrics.totalEstimasiOmzet.toLocaleString("id-ID")}`}
           subtitle="Potensi omzet harga dasar paket"
           icon={<TrendingUp size={20} />}
+          valueClassName="text-[#2F7A4B]"
+          iconClassName="text-[#2F7A4B]"
         />
 
         <StatCard
@@ -744,6 +750,16 @@ export default function RekapClient({
           value={`${metrics.konfirmasiRate}%`}
           subtitle={`${metrics.totalDikonfirmasi} dari ${metrics.totalAcara} terkonfirmasi`}
           icon={<CheckCircle2 size={20} />}
+          valueClassName={
+            metrics.konfirmasiRate >= 50
+              ? "text-[#2F7A4B]"
+              : "text-[#B13C30]"
+          }
+          iconClassName={
+            metrics.konfirmasiRate >= 50
+              ? "text-[#2F7A4B]"
+              : "text-[#B13C30]"
+          }
         />
       </div>
 
