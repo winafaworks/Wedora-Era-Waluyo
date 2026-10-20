@@ -8,7 +8,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 export function Card({ children, className = "", ...props }: CardProps) {
   return (
     <div
-      className={`bg-[#FFFFFF] border border-[#E5DEC9] rounded-2xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.03)] ${className}`}
+      className={`bg-[#FFFFFF] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#332F28] rounded-2xl p-6 shadow-[0_2px_8px_rgba(0,0,0,0.03)] ${className}`}
       {...props}
     >
       {children}
@@ -45,9 +45,9 @@ export function StatCard({
       : "text-3xl sm:text-4xl";
 
   return (
-    <Card className={`flex flex-col justify-between transition-all duration-200 hover:border-[#D4AD5C] hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] min-w-0 ${className}`}>
+    <Card className={`flex flex-col justify-between transition-all duration-200 hover:border-[#D4AD5C] dark:hover:border-[#EEB100] hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] min-w-0 ${className}`}>
       <div className="flex items-center justify-between gap-2">
-        <span className="text-sm font-medium text-[#5E5A52] truncate" title={title}>
+        <span className="text-sm font-medium text-[#5E5A52] dark:text-[#A8A296] truncate" title={title}>
           {title}
         </span>
         {icon && <div className={`${iconClassName} opacity-90 shrink-0`}>{icon}</div>}
@@ -60,7 +60,7 @@ export function StatCard({
           {value}
         </div>
         {subtitle && (
-          <p className="mt-1 text-xs text-[#8A857B] line-clamp-1" title={subtitle}>
+          <p className="mt-1 text-xs text-[#8A857B] dark:text-[#888888] line-clamp-1" title={subtitle}>
             {subtitle}
           </p>
         )}

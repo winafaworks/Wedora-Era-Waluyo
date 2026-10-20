@@ -455,12 +455,12 @@ export default function RekapClient({
       {/* =========================================================================
           TOP HEADER & ACTIONS (Disembunyikan saat print)
       ========================================================================= */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9] print:hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9] dark:border-[#332F28] print:hidden">
         <div>
-          <h1 className="font-sans text-[28px] font-bold text-[#1A1A1A]">
+          <h1 className="font-sans text-[28px] font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
             Rekap Booking & Pembayaran
           </h1>
-          <p className="text-[14px] text-[#5E5A52] mt-1">
+          <p className="text-[14px] text-[#5E5A52] dark:text-[#A8A296] mt-1">
             Laporan bulanan, per paket, status konfirmasi, dan ringkasan pembayaran DP Era Waluyo
           </p>
         </div>
@@ -490,24 +490,24 @@ export default function RekapClient({
           FILTER CARD (Disembunyikan saat print)
       ========================================================================= */}
       <Card className="space-y-4 print:hidden">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-[#E5DEC9] pb-3">
-          <div className="flex items-center gap-2 text-sm font-semibold text-[#1A1A1A]">
-            <Filter size={18} className="text-[#A67C24]" />
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-[#E5DEC9] dark:border-[#332F28] pb-3">
+          <div className="flex items-center gap-2 text-sm font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
+            <Filter size={18} className="text-[#A67C24] dark:text-[#EEB100]" />
             <span>Filter & Periode Laporan</span>
-            <span className="text-xs font-normal text-[#5E5A52] ml-1">
+            <span className="text-xs font-normal text-[#5E5A52] dark:text-[#A8A296] ml-1">
               ({filteredBookings.length} pesanan ditemukan)
             </span>
           </div>
 
           {/* Quick Presets */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs text-[#8A857B] font-medium mr-1">Cepat:</span>
+            <span className="text-xs text-[#8A857B] dark:text-[#888888] font-medium mr-1">Cepat:</span>
             <button
               onClick={handlePresetAll}
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
                 selectedYear === "all" && selectedMonth === "all" && !startDate && !endDate
                   ? "bg-[#EEB100] text-[#111111] font-semibold"
-                  : "bg-[#F5EDDC] text-[#5E5A52] hover:bg-[#EAE1CF]"
+                  : "bg-[#F5EDDC] dark:bg-[#2A2A2A] text-[#5E5A52] dark:text-[#A8A296] hover:bg-[#EAE1CF] dark:hover:bg-[#333333]"
               }`}
             >
               Semua Waktu
@@ -518,7 +518,7 @@ export default function RekapClient({
                 selectedYear === new Date().getFullYear().toString() &&
                 selectedMonth === new Date().getMonth().toString()
                   ? "bg-[#EEB100] text-[#111111] font-semibold"
-                  : "bg-[#F5EDDC] text-[#5E5A52] hover:bg-[#EAE1CF]"
+                  : "bg-[#F5EDDC] dark:bg-[#2A2A2A] text-[#5E5A52] dark:text-[#A8A296] hover:bg-[#EAE1CF] dark:hover:bg-[#333333]"
               }`}
             >
               Bulan Ini
@@ -528,7 +528,7 @@ export default function RekapClient({
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer ${
                 selectedYear === new Date().getFullYear().toString() && selectedMonth === "all"
                   ? "bg-[#EEB100] text-[#111111] font-semibold"
-                  : "bg-[#F5EDDC] text-[#5E5A52] hover:bg-[#EAE1CF]"
+                  : "bg-[#F5EDDC] dark:bg-[#2A2A2A] text-[#5E5A52] dark:text-[#A8A296] hover:bg-[#EAE1CF] dark:hover:bg-[#333333]"
               }`}
             >
               Tahun Ini ({new Date().getFullYear()})
@@ -543,7 +543,7 @@ export default function RekapClient({
               search) && (
               <button
                 onClick={handlePresetAll}
-                className="px-2.5 py-1.5 text-xs text-[#B13C30] hover:text-[#912B20] inline-flex items-center gap-1 font-medium transition-colors ml-1 cursor-pointer"
+                className="px-2.5 py-1.5 text-xs text-[#B13C30] dark:text-[#FFA39E] hover:text-[#912B20] dark:hover:text-[#FF7875] inline-flex items-center gap-1 font-medium transition-colors ml-1 cursor-pointer"
                 title="Reset semua filter"
               >
                 <RotateCcw size={12} />
@@ -557,7 +557,7 @@ export default function RekapClient({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
           {/* 1. Tahun */}
           <div>
-            <label className="block text-xs font-medium text-[#5E5A52] mb-1">
+            <label className="block text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] mb-1">
               Tahun Acara
             </label>
             <select
@@ -567,7 +567,7 @@ export default function RekapClient({
                 setStartDate("");
                 setEndDate("");
               }}
-              className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             >
               <option value="all">Semua Tahun</option>
               {availableYears.map((yr) => (
@@ -580,7 +580,7 @@ export default function RekapClient({
 
           {/* 2. Bulan */}
           <div>
-            <label className="block text-xs font-medium text-[#5E5A52] mb-1">
+            <label className="block text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] mb-1">
               Bulan Acara
             </label>
             <select
@@ -590,7 +590,7 @@ export default function RekapClient({
                 setStartDate("");
                 setEndDate("");
               }}
-              className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             >
               <option value="all">Semua Bulan</option>
               {MONTH_NAMES.map((name, index) => (
@@ -603,13 +603,13 @@ export default function RekapClient({
 
           {/* 3. Paket Acara */}
           <div>
-            <label className="block text-xs font-medium text-[#5E5A52] mb-1">
+            <label className="block text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] mb-1">
               Paket Acara
             </label>
             <select
               value={selectedPackage}
               onChange={(e) => setSelectedPackage(e.target.value)}
-              className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             >
               <option value="all">Semua Paket</option>
               {packages.map((pkg) => (
@@ -623,13 +623,13 @@ export default function RekapClient({
 
           {/* 4. Status Konfirmasi */}
           <div>
-            <label className="block text-xs font-medium text-[#5E5A52] mb-1">
+            <label className="block text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] mb-1">
               Status Konfirmasi
             </label>
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             >
               <option value="all">Semua Status</option>
               <option value="dikonfirmasi">Dikonfirmasi Pelanggan</option>
@@ -641,16 +641,16 @@ export default function RekapClient({
         </div>
 
         {/* Baris Kedua: Status DP, Rentang Tanggal Kustom & Pencarian Cepat */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1 border-t border-[#F2ECE1]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1 border-t border-[#F2ECE1] dark:border-[#332F28]">
           {/* Status DP */}
           <div>
-            <label className="block text-xs font-medium text-[#5E5A52] mb-1">
+            <label className="block text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] mb-1">
               Status DP
             </label>
             <select
               value={selectedDp}
               onChange={(e) => setSelectedDp(e.target.value)}
-              className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             >
               <option value="all">Semua Status DP</option>
               <option value="diterima">DP Diterima</option>
@@ -660,7 +660,7 @@ export default function RekapClient({
 
           {/* Dari Tanggal */}
           <div>
-            <label className="block text-xs font-medium text-[#5E5A52] mb-1">
+            <label className="block text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] mb-1">
               Dari Tanggal (Kustom)
             </label>
             <input
@@ -671,13 +671,13 @@ export default function RekapClient({
                 setSelectedYear("all");
                 setSelectedMonth("all");
               }}
-              className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             />
           </div>
 
           {/* Sampai Tanggal */}
           <div>
-            <label className="block text-xs font-medium text-[#5E5A52] mb-1">
+            <label className="block text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] mb-1">
               Sampai Tanggal (Kustom)
             </label>
             <input
@@ -688,26 +688,26 @@ export default function RekapClient({
                 setSelectedYear("all");
                 setSelectedMonth("all");
               }}
-              className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             />
           </div>
 
           {/* Pencarian Nama / Lokasi */}
           <div>
-            <label className="block text-xs font-medium text-[#5E5A52] mb-1">
+            <label className="block text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] mb-1">
               Pencarian Cepat
             </label>
             <div className="relative">
               <Search
                 size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8A857B]"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8A857B] dark:text-[#888888]"
               />
               <input
                 type="text"
                 placeholder="Nama pelanggan, no WA, lokasi..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full h-10 pl-9 pr-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors"
+                className="w-full h-10 pl-9 pr-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] placeholder-[#8A857B] dark:placeholder-[#666666] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors"
               />
             </div>
           </div>
@@ -723,8 +723,8 @@ export default function RekapClient({
           value={metrics.totalAcara}
           subtitle={`Periode: ${periodLabel}`}
           icon={<CalendarRange size={20} />}
-          valueClassName="text-[#A67C24]"
-          iconClassName="text-[#A67C24]"
+          valueClassName="text-[#A67C24] dark:text-[#EEB100]"
+          iconClassName="text-[#A67C24] dark:text-[#EEB100]"
         />
 
         <StatCard
@@ -732,8 +732,8 @@ export default function RekapClient({
           value={`Rp${metrics.totalDpMasuk.toLocaleString("id-ID")}`}
           subtitle="Akumulasi pembayaran DP diterima"
           icon={<Wallet size={20} />}
-          valueClassName="text-[#A67C24]"
-          iconClassName="text-[#A67C24]"
+          valueClassName="text-[#A67C24] dark:text-[#EEB100]"
+          iconClassName="text-[#A67C24] dark:text-[#EEB100]"
         />
 
         <StatCard
@@ -741,8 +741,8 @@ export default function RekapClient({
           value={`Rp${metrics.totalEstimasiOmzet.toLocaleString("id-ID")}`}
           subtitle="Potensi omzet harga dasar paket"
           icon={<TrendingUp size={20} />}
-          valueClassName="text-[#2F7A4B]"
-          iconClassName="text-[#2F7A4B]"
+          valueClassName="text-[#2F7A4B] dark:text-[#7FD39B]"
+          iconClassName="text-[#2F7A4B] dark:text-[#7FD39B]"
         />
 
         <StatCard
@@ -752,13 +752,13 @@ export default function RekapClient({
           icon={<CheckCircle2 size={20} />}
           valueClassName={
             metrics.konfirmasiRate >= 50
-              ? "text-[#2F7A4B]"
-              : "text-[#B13C30]"
+              ? "text-[#2F7A4B] dark:text-[#7FD39B]"
+              : "text-[#B13C30] dark:text-[#FFA39E]"
           }
           iconClassName={
             metrics.konfirmasiRate >= 50
-              ? "text-[#2F7A4B]"
-              : "text-[#B13C30]"
+              ? "text-[#2F7A4B] dark:text-[#7FD39B]"
+              : "text-[#B13C30] dark:text-[#FFA39E]"
           }
         />
       </div>
@@ -768,23 +768,23 @@ export default function RekapClient({
       ========================================================================= */}
       <div className="space-y-4">
         {/* Navigation Tabs (Disembunyikan saat print) */}
-        <div className="flex flex-wrap items-center gap-2 p-1.5 bg-[#FAF7F0] border border-[#E5DEC9] rounded-2xl print:hidden shadow-xs">
+        <div className="flex flex-wrap items-center gap-2 p-1.5 bg-[#FAF7F0] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#332F28] rounded-2xl print:hidden shadow-xs">
           <button
             type="button"
             onClick={() => setActiveTab("bulanan")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
               activeTab === "bulanan"
-                ? "bg-[#FFFFFF] text-[#8A6A22] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2]"
-                : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#F2ECE1]"
+                ? "bg-[#FFFFFF] dark:bg-[#2A2A2A] text-[#8A6A22] dark:text-[#EEB100] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2] dark:border-[#3D382F]"
+                : "text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] hover:bg-[#F2ECE1] dark:hover:bg-[#2A2A2A]"
             }`}
           >
-            <CalendarRange size={16} className={activeTab === "bulanan" ? "text-[#A67C24]" : "text-[#8A857B]"} />
+            <CalendarRange size={16} className={activeTab === "bulanan" ? "text-[#A67C24] dark:text-[#EEB100]" : "text-[#8A857B] dark:text-[#777777]"} />
             <span>Rekap Bulanan</span>
             <span
               className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
                 activeTab === "bulanan"
-                  ? "bg-[rgba(212,173,92,0.18)] text-[#8A6A22]"
-                  : "bg-[#EAE2D2] text-[#5E5A52]"
+                  ? "bg-[rgba(212,173,92,0.18)] dark:bg-[rgba(212,173,92,0.22)] text-[#8A6A22] dark:text-[#EEB100]"
+                  : "bg-[#EAE2D2] dark:bg-[#2E2A22] text-[#5E5A52] dark:text-[#A8A296]"
               }`}
             >
               12 Bulan
@@ -796,17 +796,17 @@ export default function RekapClient({
             onClick={() => setActiveTab("paket")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
               activeTab === "paket"
-                ? "bg-[#FFFFFF] text-[#8A6A22] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2]"
-                : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#F2ECE1]"
+                ? "bg-[#FFFFFF] dark:bg-[#2A2A2A] text-[#8A6A22] dark:text-[#EEB100] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2] dark:border-[#3D382F]"
+                : "text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] hover:bg-[#F2ECE1] dark:hover:bg-[#2A2A2A]"
             }`}
           >
-            <Sparkles size={16} className={activeTab === "paket" ? "text-[#A67C24]" : "text-[#8A857B]"} />
+            <Sparkles size={16} className={activeTab === "paket" ? "text-[#A67C24] dark:text-[#EEB100]" : "text-[#8A857B] dark:text-[#777777]"} />
             <span>Rekap Per Paket Acara</span>
             <span
               className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
                 activeTab === "paket"
-                  ? "bg-[rgba(212,173,92,0.18)] text-[#8A6A22]"
-                  : "bg-[#EAE2D2] text-[#5E5A52]"
+                  ? "bg-[rgba(212,173,92,0.18)] dark:bg-[rgba(212,173,92,0.22)] text-[#8A6A22] dark:text-[#EEB100]"
+                  : "bg-[#EAE2D2] dark:bg-[#2E2A22] text-[#5E5A52] dark:text-[#A8A296]"
               }`}
             >
               {packageBreakdown.length} Paket
@@ -818,17 +818,17 @@ export default function RekapClient({
             onClick={() => setActiveTab("status")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
               activeTab === "status"
-                ? "bg-[#FFFFFF] text-[#8A6A22] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2]"
-                : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#F2ECE1]"
+                ? "bg-[#FFFFFF] dark:bg-[#2A2A2A] text-[#8A6A22] dark:text-[#EEB100] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2] dark:border-[#3D382F]"
+                : "text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] hover:bg-[#F2ECE1] dark:hover:bg-[#2A2A2A]"
             }`}
           >
-            <CheckCircle2 size={16} className={activeTab === "status" ? "text-[#A67C24]" : "text-[#8A857B]"} />
+            <CheckCircle2 size={16} className={activeTab === "status" ? "text-[#A67C24] dark:text-[#EEB100]" : "text-[#8A857B] dark:text-[#777777]"} />
             <span>Rekap Status Konfirmasi</span>
             <span
               className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
                 activeTab === "status"
-                  ? "bg-[rgba(212,173,92,0.18)] text-[#8A6A22]"
-                  : "bg-[#EAE2D2] text-[#5E5A52]"
+                  ? "bg-[rgba(212,173,92,0.18)] dark:bg-[rgba(212,173,92,0.22)] text-[#8A6A22] dark:text-[#EEB100]"
+                  : "bg-[#EAE2D2] dark:bg-[#2E2A22] text-[#5E5A52] dark:text-[#A8A296]"
               }`}
             >
               4 Status
@@ -841,17 +841,17 @@ export default function RekapClient({
           <Card className="p-6 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <h3 className="font-sans text-lg font-bold text-[#1A1A1A]">
+                <h3 className="font-sans text-lg font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
                   Distribusi Acara & Tren Pembayaran DP Per Bulan
                 </h3>
-                <p className="text-xs text-[#5E5A52]">
+                <p className="text-xs text-[#5E5A52] dark:text-[#A8A296]">
                   {selectedYear !== "all"
                     ? `Performa booking tahun ${selectedYear}`
                     : "Akumulasi bulanan dari seluruh data yang terfilter"}
                 </p>
               </div>
               {monthlyBreakdown.busiestMonth && (
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(212,173,92,0.14)] text-[#8A6A22] text-xs font-semibold">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(212,173,92,0.14)] dark:bg-[rgba(212,173,92,0.22)] text-[#8A6A22] dark:text-[#EEB100] text-xs font-semibold">
                   <Sparkles size={14} />
                   <span>
                     Bulan Terpadat: {monthlyBreakdown.busiestMonth.name} (
@@ -909,7 +909,7 @@ export default function RekapClient({
                     {/* Progress Bar Visual */}
                     <div className="w-full bg-[#E8E2D2] dark:bg-[#2E2A22] h-1.5 rounded-full mt-3 overflow-hidden">
                       <div
-                        className="bg-[#D4AD5C] h-full rounded-full transition-all duration-500"
+                        className="bg-[#D4AD5C] dark:bg-[#EEB100] h-full rounded-full transition-all duration-500"
                         style={{ width: `${heightPercentage}%` }}
                       />
                     </div>
@@ -924,16 +924,16 @@ export default function RekapClient({
         {activeTab === "paket" && (
           <Card className="p-6 space-y-6">
             <div>
-              <h3 className="font-sans text-lg font-bold text-[#1A1A1A]">
+              <h3 className="font-sans text-lg font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
                 Pangsa & Minat Paket Acara Era Waluyo
               </h3>
-              <p className="text-xs text-[#5E5A52]">
+              <p className="text-xs text-[#5E5A52] dark:text-[#A8A296]">
                 Evaluasi paket yang paling sering dipesan oleh pelanggan
               </p>
             </div>
 
             {packageBreakdown.length === 0 ? (
-              <div className="p-8 text-center text-sm text-[#5E5A52]">
+              <div className="p-8 text-center text-sm text-[#5E5A52] dark:text-[#A8A296]">
                 Belum ada data pemesanan paket pada filter ini.
               </div>
             ) : (
@@ -947,7 +947,7 @@ export default function RekapClient({
                   return (
                     <div
                       key={pkg.id}
-                      className="p-4 rounded-xl border border-[#E8E2D2] bg-[#FAFAFA] space-y-3"
+                      className="p-4 rounded-xl border border-[#E8E2D2] dark:border-[#332F28] bg-[#FAFAFA] dark:bg-[#1E1E1E] space-y-3"
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div className="flex items-center gap-2.5">
@@ -956,25 +956,25 @@ export default function RekapClient({
                               Paling Diminati
                             </span>
                           )}
-                          <h4 className="font-sans font-bold text-base text-[#1A1A1A]">
+                          <h4 className="font-sans font-bold text-base text-[#1A1A1A] dark:text-[#F5EDDC]">
                             {pkg.nama}
                           </h4>
                           {pkg.hargaDasar > 0 && (
-                            <span className="text-xs text-[#8A6A22] font-semibold bg-[rgba(212,173,92,0.14)] px-2 py-0.5 rounded-full">
+                            <span className="text-xs text-[#8A6A22] dark:text-[#EEB100] font-semibold bg-[rgba(212,173,92,0.14)] dark:bg-[rgba(212,173,92,0.22)] px-2 py-0.5 rounded-full">
                               Rp{pkg.hargaDasar.toLocaleString("id-ID")}
                             </span>
                           )}
                         </div>
                         <div className="flex items-center gap-4 text-xs">
                           <div>
-                            <span className="text-[#5E5A52]">Pemesanan: </span>
-                            <span className="font-bold text-[#1A1A1A]">
+                            <span className="text-[#5E5A52] dark:text-[#A8A296]">Pemesanan: </span>
+                            <span className="font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
                               {pkg.count} acara ({sharePercentage}%)
                             </span>
                           </div>
                           <div>
-                            <span className="text-[#5E5A52]">Total DP: </span>
-                            <span className="font-bold text-[#2F7A4B]">
+                            <span className="text-[#5E5A52] dark:text-[#A8A296]">Total DP: </span>
+                            <span className="font-bold text-[#2F7A4B] dark:text-[#7FD39B]">
                               Rp{pkg.totalDp.toLocaleString("id-ID")}
                             </span>
                           </div>
@@ -982,9 +982,9 @@ export default function RekapClient({
                       </div>
 
                       {/* Visual progress bar */}
-                      <div className="w-full bg-[#E8E2D2] h-2 rounded-full overflow-hidden">
+                      <div className="w-full bg-[#E8E2D2] dark:bg-[#2E2A22] h-2 rounded-full overflow-hidden">
                         <div
-                          className="bg-[#D4AD5C] h-full rounded-full transition-all duration-500"
+                          className="bg-[#D4AD5C] dark:bg-[#EEB100] h-full rounded-full transition-all duration-500"
                           style={{ width: `${sharePercentage}%` }}
                         />
                       </div>
@@ -1000,10 +1000,10 @@ export default function RekapClient({
         {activeTab === "status" && (
           <Card className="p-6 space-y-6">
             <div>
-              <h3 className="font-sans text-lg font-bold text-[#1A1A1A]">
+              <h3 className="font-sans text-lg font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
                 Status Verifikasi Kesepakatan Pelanggan
               </h3>
-              <p className="text-xs text-[#5E5A52]">
+              <p className="text-xs text-[#5E5A52] dark:text-[#A8A296]">
                 Ringkasan kesiapan acara berdasarkan respon link konfirmasi
               </p>
             </div>
@@ -1018,25 +1018,25 @@ export default function RekapClient({
                 return (
                   <div
                     key={sb.status}
-                    className="p-4 rounded-xl border border-[#E8E2D2] bg-[#FAFAFA] flex flex-col justify-between"
+                    className="p-4 rounded-xl border border-[#E8E2D2] dark:border-[#332F28] bg-[#FAFAFA] dark:bg-[#1E1E1E] flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2">
                         <StatusBadge status={sb.badgeType} />
-                        <span className="text-xs font-bold text-[#5E5A52]">
+                        <span className="text-xs font-bold text-[#5E5A52] dark:text-[#A8A296]">
                           {pct}%
                         </span>
                       </div>
-                      <p className="text-xs text-[#5E5A52] mt-2">
+                      <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] mt-2">
                         {sb.description}
                       </p>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-[#E8E2D2] flex items-baseline justify-between">
-                      <span className="text-xs text-[#8A857B]">Jumlah</span>
-                      <span className="text-2xl font-bold font-sans text-[#1A1A1A]">
+                    <div className="mt-4 pt-3 border-t border-[#E8E2D2] dark:border-[#332F28] flex items-baseline justify-between">
+                      <span className="text-xs text-[#8A857B] dark:text-[#888888]">Jumlah</span>
+                      <span className="text-2xl font-bold font-sans text-[#1A1A1A] dark:text-[#F5EDDC]">
                         {sb.count}{" "}
-                        <span className="text-xs font-normal text-[#5E5A52]">
+                        <span className="text-xs font-normal text-[#5E5A52] dark:text-[#A8A296]">
                           acara
                         </span>
                       </span>
@@ -1054,10 +1054,10 @@ export default function RekapClient({
       ========================================================================= */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-sans text-[20px] font-bold text-[#1A1A1A]">
+          <h2 className="font-sans text-[20px] font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
             Rincian Pesanan Acara
           </h2>
-          <span className="text-xs text-[#5E5A52]">
+          <span className="text-xs text-[#5E5A52] dark:text-[#A8A296]">
             Menampilkan {filteredBookings.length} data
           </span>
         </div>
@@ -1065,13 +1065,13 @@ export default function RekapClient({
         <Card className="p-0 overflow-hidden shadow-sm">
           {filteredBookings.length === 0 ? (
             <div className="p-12 text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] flex items-center justify-center text-[#8A6A22]">
+              <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] dark:bg-[rgba(212,173,92,0.22)] flex items-center justify-center text-[#8A6A22] dark:text-[#EEB100]">
                 <PackageCheck size={24} />
               </div>
-              <h3 className="font-sans text-lg font-bold text-[#1A1A1A]">
+              <h3 className="font-sans text-lg font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
                 Tidak Ada Data Booking
               </h3>
-              <p className="text-xs text-[#5E5A52] max-w-sm mx-auto">
+              <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] max-w-sm mx-auto">
                 Tidak ada data pemesanan yang sesuai dengan filter atau rentang tanggal yang dipilih.
               </p>
               <Button
@@ -1086,7 +1086,7 @@ export default function RekapClient({
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-[#E5DEC9] bg-[#FAF7F0] text-[13px] font-semibold text-[#5E5A52]">
+                  <tr className="border-b border-[#E5DEC9] dark:border-[#332F28] bg-[#FAF7F0] dark:bg-[#1E1E1E] text-[13px] font-semibold text-[#5E5A52] dark:text-[#B8B3A8]">
                     <th className="py-3.5 px-4 w-12 text-center">No</th>
                     <th className="py-3.5 px-4">Tanggal Acara</th>
                     <th className="py-3.5 px-4">Nama Pelanggan</th>
@@ -1100,7 +1100,7 @@ export default function RekapClient({
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#EFE9DC] text-sm text-[#1A1A1A]">
+                <tbody className="divide-y divide-[#EFE9DC] dark:divide-[#2E2A22] text-sm text-[#1A1A1A] dark:text-[#EAE5D9]">
                   {filteredBookings.map((b, index) => {
                     const formattedDate = new Date(
                       b.tanggal_acara
@@ -1113,32 +1113,32 @@ export default function RekapClient({
                     return (
                       <tr
                         key={b.id}
-                        className="hover:bg-[#FAF7F0] transition-colors"
+                        className="hover:bg-[#FAF7F0] dark:hover:bg-[#252525] transition-colors"
                       >
-                        <td className="py-3.5 px-4 text-center text-xs text-[#8A857B]">
+                        <td className="py-3.5 px-4 text-center text-xs text-[#8A857B] dark:text-[#888888]">
                           {index + 1}
                         </td>
-                        <td className="py-3.5 px-4 font-semibold text-[#1A1A1A] whitespace-nowrap">
+                        <td className="py-3.5 px-4 font-semibold text-[#1A1A1A] dark:text-[#F5EDDC] whitespace-nowrap">
                           {formattedDate}
                         </td>
                         <td className="py-3.5 px-4">
-                          <div className="font-medium text-[#1A1A1A]">
+                          <div className="font-medium text-[#1A1A1A] dark:text-[#F5EDDC]">
                             {b.nama_pelanggan}
                           </div>
-                          <div className="text-xs text-[#8A857B]">{b.no_wa}</div>
+                          <div className="text-xs text-[#8A857B] dark:text-[#888888]">{b.no_wa}</div>
                         </td>
                         <td className="py-3.5 px-4">
                           {b.packages ? (
-                            <span className="inline-block text-xs font-medium text-[#5E5A52] bg-[#F2ECE1] px-2 py-0.5 rounded">
+                            <span className="inline-block text-xs font-medium text-[#5E5A52] dark:text-[#D1C8B8] bg-[#F2ECE1] dark:bg-[#2A2A2A] border border-transparent dark:border-[#3D382F] px-2 py-0.5 rounded">
                               {b.packages.nama}
                             </span>
                           ) : (
-                            <span className="text-xs text-[#8A857B] italic">
+                            <span className="text-xs text-[#8A857B] dark:text-[#888888] italic">
                               Custom
                             </span>
                           )}
                         </td>
-                        <td className="py-3.5 px-4 text-xs text-[#5E5A52] max-w-[180px] truncate">
+                        <td className="py-3.5 px-4 text-xs text-[#5E5A52] dark:text-[#A8A296] max-w-[180px] truncate">
                           {b.lokasi || "-"}
                         </td>
                         <td className="py-3.5 px-4 whitespace-nowrap">
@@ -1150,24 +1150,24 @@ export default function RekapClient({
                         </td>
                         <td className="py-3.5 px-4 whitespace-nowrap">
                           {b.dp_diterima ? (
-                            <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#2F7A4B] bg-[rgba(127,211,155,0.18)] px-2 py-0.5 rounded-full">
+                            <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#2F7A4B] dark:text-[#7FD39B] bg-[rgba(127,211,155,0.18)] dark:bg-[rgba(47,122,75,0.25)] px-2 py-0.5 rounded-full">
                               <CheckCircle2 size={12} />
                               <span>Diterima</span>
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#A5601C] bg-[rgba(232,162,95,0.18)] px-2 py-0.5 rounded-full">
+                            <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#A5601C] dark:text-[#FFA940] bg-[rgba(232,162,95,0.18)] dark:bg-[rgba(165,96,28,0.25)] px-2 py-0.5 rounded-full">
                               <Clock size={12} />
                               <span>Belum</span>
                             </span>
                           )}
                         </td>
-                        <td className="py-3.5 px-4 text-right font-semibold text-[#1A1A1A] whitespace-nowrap">
+                        <td className="py-3.5 px-4 text-right font-semibold text-[#1A1A1A] dark:text-[#F5EDDC] whitespace-nowrap">
                           Rp{Number(b.dp_nominal || 0).toLocaleString("id-ID")}
                         </td>
                         <td className="py-3.5 px-4 text-center print:hidden">
                           <Link
                             href={`/booking/${b.id}`}
-                            className="inline-flex items-center gap-1 text-xs font-semibold text-[#8A6A22] hover:text-[#B8923F] p-1.5 rounded-lg hover:bg-[rgba(212,173,92,0.12)] transition-colors"
+                            className="inline-flex items-center gap-1 text-xs font-semibold text-[#8A6A22] dark:text-[#EEB100] hover:text-[#B8923F] dark:hover:text-[#FFD666] p-1.5 rounded-lg hover:bg-[rgba(212,173,92,0.12)] dark:hover:bg-[rgba(212,173,92,0.2)] transition-colors"
                             title="Buka rincian booking"
                           >
                             <span>Detail</span>
@@ -1179,14 +1179,14 @@ export default function RekapClient({
                   })}
                 </tbody>
                 <tfoot>
-                  <tr className="bg-[#FAF7F0] border-t-2 border-[#D6CEBE] text-sm font-bold text-[#1A1A1A]">
+                  <tr className="bg-[#FAF7F0] dark:bg-[#1E1E1E] border-t-2 border-[#D6CEBE] dark:border-[#332F28] text-sm font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
                     <td colSpan={2} className="py-4 px-4">
                       TOTAL ({filteredBookings.length} Acara)
                     </td>
-                    <td colSpan={5} className="py-4 px-4 text-xs text-[#5E5A52]">
+                    <td colSpan={5} className="py-4 px-4 text-xs text-[#5E5A52] dark:text-[#A8A296] font-normal">
                       Akumulasi DP yang sudah berstatus diterima
                     </td>
-                    <td className="py-4 px-4 text-right text-base text-[#2F7A4B]">
+                    <td className="py-4 px-4 text-right text-base text-[#2F7A4B] dark:text-[#7FD39B]">
                       Rp{metrics.totalDpMasuk.toLocaleString("id-ID")}
                     </td>
                     <td className="print:hidden"></td>
