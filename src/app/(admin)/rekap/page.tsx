@@ -1,34 +1,40 @@
-"use client";
+import React, { Suspense } from "react";
+import { Metadata } from "next";
+import { getRekapData } from "@/lib/actions/rekap";
+import RekapClient from "./rekap-client";
 
-import React from "react";
-import { BarChart3 } from "lucide-react";
-import { Card } from "@/components/ui/card";
+export const metadata: Metadata = {
+  title: "Rekap Booking & Pembayaran | WEDORA Era Waluyo",
+  description: "Laporan rekapitulasi pemesanan acara pernikahan, tren bulanan, evaluasi paket, dan pencatatan pembayaran DP Era Waluyo.",
+};
+
+async function RekapContent() {
+  const { bookings, packages } = await getRekapData();
+  return <RekapClient initialBookings={bookings} packages={packages} />;
+}
 
 export default function RekapPage() {
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9]">
-        <div>
-          <h1 className="font-sans text-[28px] font-bold text-[#1A1A1A]">
-            Rekap Booking & Pembayaran
-          </h1>
-          <p className="text-[14px] text-[#5E5A52] mt-1">
-            Laporan bulanan, per paket, dan status konfirmasi pesanan
-          </p>
+    <Suspense
+      fallback={
+        <div className="space-y-6">
+          <div className="pb-2 border-b border-[#E5DEC9]">
+            <h1 className="font-sans text-[28px] font-bold text-[#1A1A1A]">
+              Rekap Booking & Pembayaran
+            </h1>
+            <p className="text-[14px] text-[#5E5A52] mt-1">
+              Memuat data rekapitulasi...
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-pulse">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-32 bg-[#EFE9DC] rounded-2xl" />
+            ))}
+          </div>
         </div>
-      </div>
-
-      <Card className="p-8 text-center flex flex-col items-center justify-center min-h-[320px] space-y-4">
-        <div className="w-16 h-16 rounded-full bg-[rgba(212,173,92,0.14)] flex items-center justify-center text-[#8A6A22]">
-          <BarChart3 size={32} />
-        </div>
-        <h2 className="font-sans text-[20px] font-bold text-[#1A1A1A]">
-          Laporan Rekapitulasi Data
-        </h2>
-        <p className="text-[14px] text-[#5E5A52] max-w-md">
-          Modul rekap pendapatan DP, jumlah pesanan bulanan, dan evaluasi paket paling diminati.
-        </p>
-      </Card>
-    </div>
+      }
+    >
+      <RekapContent />
+    </Suspense>
   );
 }
