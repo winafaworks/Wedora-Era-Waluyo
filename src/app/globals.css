@@ -63,16 +63,35 @@
   --info: #2e5f8a;
 }
 
+body,
+input,
+select,
+textarea,
+button {
+  font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+}
+
 body {
   background-color: var(--bg);
   color: var(--text);
-  font-family: var(--font-inter), system-ui, sans-serif;
   min-height: 100vh;
 }
 
-.font-serif,
+/* Seluruh font teks, tombol, formulir, dan judul menggunakan Plus Jakarta Sans */
 h1,
 h2,
-.font-heading {
+h3,
+h4,
+h5,
+h6,
+.font-heading,
+.font-serif {
+  font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+}
+
+/* Khusus logo brand WEDORA di pojok kiri atas tetap menggunakan Cormorant Garamond */
+.font-brand-logo,
+.font-logo {
   font-family: var(--font-cormorant), Georgia, serif;
 }
+

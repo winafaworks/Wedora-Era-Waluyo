@@ -58,7 +58,7 @@ export function Sidebar() {
       {/* Mobile Header Bar */}
       <div className="lg:hidden flex items-center justify-between px-6 py-4 bg-[#2C2C2C] border-b border-[#3E3E3E] sticky top-0 z-40">
         <div>
-          <span className="font-serif text-2xl font-bold tracking-[0.2em] text-[#D4AD5C]">
+          <span className="font-brand-logo text-2xl font-bold tracking-[0.2em] text-[#D4AD5C]">
             WEDORA
           </span>
           <span className="block text-[10px] tracking-[0.25em] text-[#B8B3A8] font-medium uppercase">
@@ -96,7 +96,7 @@ export function Sidebar() {
               className="block group"
               onClick={() => setIsOpen(false)}
             >
-              <h1 className="font-serif text-3xl font-bold tracking-[0.2em] text-[#D4AD5C] group-hover:text-[#E3C27D] transition-colors">
+              <h1 className="font-brand-logo text-3xl font-bold tracking-[0.2em] text-[#D4AD5C] group-hover:text-[#E3C27D] transition-colors">
                 WEDORA
               </h1>
               <p className="text-[11px] font-medium tracking-[0.25em] text-[#B8B3A8] uppercase mt-1">

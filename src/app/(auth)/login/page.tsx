@@ -36,7 +36,7 @@ export default function LoginPage() {
       <div className="w-full max-w-[420px] space-y-6">
         {/* Brand Header */}
         <div className="text-center space-y-2">
-          <h1 className="font-serif text-4xl font-bold tracking-[0.2em] text-[#8A6A22]">
+          <h1 className="font-brand-logo text-4xl font-bold tracking-[0.2em] text-[#8A6A22]">
             WEDORA
           </h1>
           <p className="text-xs font-semibold tracking-[0.25em] text-[#5E5A52] uppercase">

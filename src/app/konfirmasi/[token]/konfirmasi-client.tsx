@@ -36,7 +36,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
       <div className="w-full max-w-[560px] space-y-6">
         {/* Header Resmi Era Waluyo */}
         <div className="text-center space-y-2 py-4 border-b border-[#DDD2BA]">
-          <h1 className="font-serif text-3xl font-bold tracking-[0.2em] text-[#B8923F]">
+          <h1 className="font-brand-logo text-3xl font-bold tracking-[0.2em] text-[#B8923F]">
             ERA WALUYO
           </h1>
           <p className="text-xs uppercase tracking-[0.2em] text-[#5E5A52] font-medium">
