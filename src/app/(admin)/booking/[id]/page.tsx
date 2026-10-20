@@ -15,7 +15,7 @@ async function BookingDetailContent({ params }: PageProps) {
     notFound();
   }
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3001";
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
   return <BookingDetailClient booking={booking} appUrl={appUrl} />;
 }
 

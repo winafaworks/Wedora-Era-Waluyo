@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -28,11 +27,19 @@ interface BookingDetailProps {
   appUrl: string;
 }
 
+const emptySubscribe = () => () => {};
+
 export default function BookingDetailClient({ booking, appUrl }: BookingDetailProps) {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const confirmationLink = `${appUrl}/konfirmasi/${booking.token_konfirmasi}`;
+  const currentOrigin = useSyncExternalStore(
+    emptySubscribe,
+    () => window.location.origin,
+    () => appUrl
+  );
+
+  const confirmationLink = `${currentOrigin}/konfirmasi/${booking.token_konfirmasi}`;
 
   // WhatsApp click-to-chat URL sesuai prd.md bagian 6.8
   const cleanPhone = booking.no_wa.replace(/\D/g, "").replace(/^0/, "62");
