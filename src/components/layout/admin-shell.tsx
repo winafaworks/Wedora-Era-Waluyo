@@ -9,7 +9,9 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-[#FBF7EC] text-[#1A1A1A] flex flex-col lg:flex-row">
-      <Sidebar />
+      <React.Suspense fallback={null}>
+        <Sidebar />
+      </React.Suspense>
       <main
         className={`flex-1 min-h-screen flex flex-col bg-[#FBF7EC] transition-all duration-300 ease-in-out ${
           isCollapsed ? "lg:ml-20" : "lg:ml-72"
