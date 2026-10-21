@@ -725,6 +725,7 @@ export default function RekapClient({
           icon={<CalendarRange size={20} />}
           valueClassName="text-[#EEB100]"
           iconClassName="text-[#EEB100]"
+          className="bg-[rgba(238,177,0,0.06)] dark:bg-[rgba(238,177,0,0.12)] border-[rgba(238,177,0,0.25)] dark:border-[rgba(238,177,0,0.3)]"
         />
 
         <StatCard
@@ -734,6 +735,7 @@ export default function RekapClient({
           icon={<Wallet size={20} />}
           valueClassName="text-[#EEB100]"
           iconClassName="text-[#EEB100]"
+          className="bg-[rgba(238,177,0,0.06)] dark:bg-[rgba(238,177,0,0.12)] border-[rgba(238,177,0,0.25)] dark:border-[rgba(238,177,0,0.3)]"
         />
 
         <StatCard
@@ -743,6 +745,7 @@ export default function RekapClient({
           icon={<TrendingUp size={20} />}
           valueClassName="text-[#2F7A4B] dark:text-[#7FD39B]"
           iconClassName="text-[#2F7A4B] dark:text-[#7FD39B]"
+          className="bg-[rgba(47,122,75,0.06)] dark:bg-[rgba(16,185,129,0.12)] border-[rgba(47,122,75,0.25)] dark:border-[rgba(16,185,129,0.3)]"
         />
 
         <StatCard
@@ -759,6 +762,11 @@ export default function RekapClient({
             metrics.konfirmasiRate >= 50
               ? "text-[#2F7A4B] dark:text-[#7FD39B]"
               : "text-[#B13C30] dark:text-[#FFA39E]"
+          }
+          className={
+            metrics.konfirmasiRate >= 50
+              ? "bg-[rgba(47,122,75,0.06)] dark:bg-[rgba(16,185,129,0.12)] border-[rgba(47,122,75,0.25)] dark:border-[rgba(16,185,129,0.3)]"
+              : "bg-[rgba(177,60,48,0.08)] dark:bg-[rgba(239,68,68,0.14)] border-[#B13C30]/40 dark:border-[#EF4444]/40"
           }
         />
       </div>

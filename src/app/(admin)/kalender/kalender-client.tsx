@@ -264,14 +264,14 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
       {/* Quick Month Metrics & Legend */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         {/* 1. Total Bulan Ini (Gold) */}
-        <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div className="p-4 bg-[rgba(238,177,0,0.06)] dark:bg-[rgba(238,177,0,0.12)] border border-[rgba(238,177,0,0.25)] dark:border-[rgba(238,177,0,0.3)] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
-            <span className="text-xs font-medium text-[#5E5A52] block">Total Bulan Ini</span>
+            <span className="text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] block">Total Bulan Ini</span>
             <div className="flex items-baseline gap-1 mt-0.5">
               <span className="text-2xl font-sans font-semibold text-[#EEB100]">
                 {monthStats.totalAcara}
               </span>
-              <span className="text-xs sm:text-sm font-medium text-[#5E5A52]">
+              <span className="text-xs sm:text-sm font-medium text-[#5E5A52] dark:text-[#A8A296]">
                 Acara
               </span>
             </div>
@@ -282,55 +282,55 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
         </div>
 
         {/* 2. Dikonfirmasi (Hijau) */}
-        <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div className="p-4 bg-[rgba(47,122,75,0.06)] dark:bg-[rgba(16,185,129,0.12)] border border-[rgba(47,122,75,0.25)] dark:border-[rgba(16,185,129,0.3)] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
-            <span className="text-xs font-medium text-[#5E5A52] block">Dikonfirmasi</span>
+            <span className="text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] block">Dikonfirmasi</span>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-2xl font-sans font-semibold text-[#2F7A4B]">
+              <span className="text-2xl font-sans font-semibold text-[#2F7A4B] dark:text-[#7FD39B]">
                 {monthStats.dikonfirmasi}
               </span>
-              <span className="text-xs sm:text-sm font-medium text-[#5E5A52]">
+              <span className="text-xs sm:text-sm font-medium text-[#5E5A52] dark:text-[#A8A296]">
                 Acara
               </span>
             </div>
           </div>
-          <div className="w-10 h-10 rounded-full bg-[rgba(47,122,75,0.12)] text-[#2F7A4B] flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-full bg-[rgba(47,122,75,0.12)] text-[#2F7A4B] dark:text-[#7FD39B] flex items-center justify-center shrink-0">
             <CheckCircle2 size={18} />
           </div>
         </div>
 
         {/* 3. Belum Konfirmasi (Merah) */}
-        <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div className="p-4 bg-[rgba(177,60,48,0.08)] dark:bg-[rgba(239,68,68,0.14)] border border-[#B13C30]/35 dark:border-[#EF4444]/40 rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
-            <span className="text-xs font-medium text-[#5E5A52] block">Belum Konfirmasi</span>
+            <span className="text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] block">Belum Konfirmasi</span>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-2xl font-sans font-semibold text-[#B13C30]">
+              <span className="text-2xl font-sans font-semibold text-[#B13C30] dark:text-[#FFA39E]">
                 {monthStats.belumKonfirmasi}
               </span>
-              <span className="text-xs sm:text-sm font-medium text-[#5E5A52]">
+              <span className="text-xs sm:text-sm font-medium text-[#5E5A52] dark:text-[#A8A296]">
                 Acara
               </span>
             </div>
           </div>
-          <div className="w-10 h-10 rounded-full bg-[rgba(177,60,48,0.12)] text-[#B13C30] flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-full bg-[rgba(177,60,48,0.12)] text-[#B13C30] dark:text-[#FFA39E] flex items-center justify-center shrink-0">
             <Clock size={18} />
           </div>
         </div>
 
         {/* 4. Bentrok Tanggal (Orange) */}
-        <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div className="p-4 bg-[rgba(217,119,6,0.06)] dark:bg-[rgba(245,158,11,0.10)] border border-[#D97706]/30 dark:border-[#F59E0B]/30 rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
-            <span className="text-xs font-medium text-[#5E5A52] block">Bentrok Tanggal</span>
+            <span className="text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] block">Bentrok Tanggal</span>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-2xl font-sans font-semibold text-[#D97706]">
+              <span className="text-2xl font-sans font-semibold text-[#D97706] dark:text-[#FBBF24]">
                 {monthStats.bentrokCount}
               </span>
-              <span className="text-xs sm:text-sm font-medium text-[#5E5A52]">
+              <span className="text-xs sm:text-sm font-medium text-[#5E5A52] dark:text-[#A8A296]">
                 Tanggal
               </span>
             </div>
           </div>
-          <div className="w-10 h-10 rounded-full bg-[rgba(217,119,6,0.14)] text-[#D97706] flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-full bg-[rgba(217,119,6,0.14)] text-[#D97706] dark:text-[#FBBF24] flex items-center justify-center shrink-0">
             <AlertTriangle size={18} />
           </div>
         </div>

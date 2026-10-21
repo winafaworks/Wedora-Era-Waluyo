@@ -456,50 +456,50 @@ export default function ChecklistClient({
           {/* 4 Ringkasan Kelengkapan Barang Sesuai PRD (Disorot untuk Belum Kembali) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Total Barang */}
-            <Card className="p-5 flex flex-col justify-between">
+            <Card className="p-5 flex flex-col justify-between bg-[rgba(238,177,0,0.06)] dark:bg-[rgba(238,177,0,0.12)] border-[rgba(238,177,0,0.25)] dark:border-[rgba(238,177,0,0.3)]">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-[#5E5A52]">Total Barang</span>
+                <span className="text-xs font-medium text-[#5E5A52] dark:text-[#A8A296]">Total Barang</span>
                 <CheckSquare size={18} className="text-[#EEB100]" />
               </div>
               <div className="mt-3">
-                <div className="text-3xl font-sans font-bold text-[#1A1A1A]">
+                <div className="text-3xl font-sans font-bold text-[#EEB100]">
                   {stats.total}
                 </div>
-                <p className="mt-1 text-xs text-[#8A857B]">Daftar perlengkapan acara</p>
+                <p className="mt-1 text-xs text-[#8A857B] dark:text-[#888888]">Daftar perlengkapan acara</p>
               </div>
             </Card>
 
             {/* Sudah Dimuat */}
-            <Card className="p-5 flex flex-col justify-between">
+            <Card className="p-5 flex flex-col justify-between bg-[rgba(46,95,138,0.06)] dark:bg-[rgba(59,130,246,0.12)] border-[rgba(46,95,138,0.25)] dark:border-[rgba(59,130,246,0.3)]">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-[#5E5A52]">Sudah Dimuat</span>
-                <Truck size={18} className="text-[#2E5F8A]" />
+                <span className="text-xs font-medium text-[#5E5A52] dark:text-[#A8A296]">Sudah Dimuat</span>
+                <Truck size={18} className="text-[#2E5F8A] dark:text-[#60A5FA]" />
               </div>
               <div className="mt-3">
-                <div className="text-3xl font-sans font-bold text-[#2E5F8A] flex items-baseline gap-2">
+                <div className="text-3xl font-sans font-bold text-[#2E5F8A] dark:text-[#60A5FA] flex items-baseline gap-2">
                   <span>{stats.sudahDimuat}</span>
-                  <span className="text-xs font-semibold text-[#5E5A52]">
+                  <span className="text-xs font-semibold text-[#5E5A52] dark:text-[#A8A296]">
                     ({stats.persenDimuat}%)
                   </span>
                 </div>
-                <p className="mt-1 text-xs text-[#8A857B]">Siap / dibawa ke lokasi</p>
+                <p className="mt-1 text-xs text-[#8A857B] dark:text-[#888888]">Siap / dibawa ke lokasi</p>
               </div>
             </Card>
 
             {/* Sudah Kembali */}
-            <Card className="p-5 flex flex-col justify-between">
+            <Card className="p-5 flex flex-col justify-between bg-[rgba(47,122,75,0.06)] dark:bg-[rgba(16,185,129,0.12)] border-[rgba(47,122,75,0.25)] dark:border-[rgba(16,185,129,0.3)]">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-[#5E5A52]">Sudah Kembali</span>
-                <CheckCircle2 size={18} className="text-[#2F7A4B]" />
+                <span className="text-xs font-medium text-[#5E5A52] dark:text-[#A8A296]">Sudah Kembali</span>
+                <CheckCircle2 size={18} className="text-[#2F7A4B] dark:text-[#34D399]" />
               </div>
               <div className="mt-3">
-                <div className="text-3xl font-sans font-bold text-[#2F7A4B] flex items-baseline gap-2">
+                <div className="text-3xl font-sans font-bold text-[#2F7A4B] dark:text-[#34D399] flex items-baseline gap-2">
                   <span>{stats.sudahKembali}</span>
-                  <span className="text-xs font-semibold text-[#5E5A52]">
+                  <span className="text-xs font-semibold text-[#5E5A52] dark:text-[#A8A296]">
                     ({stats.persenKembali}%)
                   </span>
                 </div>
-                <p className="mt-1 text-xs text-[#8A857B]">Tiba aman di galeri Era Waluyo</p>
+                <p className="mt-1 text-xs text-[#8A857B] dark:text-[#888888]">Tiba aman di galeri Era Waluyo</p>
               </div>
             </Card>
 
@@ -507,14 +507,14 @@ export default function ChecklistClient({
             <Card
               className={`p-5 flex flex-col justify-between transition-all ${
                 stats.totalBelumKembali > 0
-                  ? "bg-[rgba(177,60,48,0.06)] border-[#B13C30] shadow-sm"
-                  : "bg-[#FFFFFF] border-[#E5DEC9]"
+                  ? "bg-[rgba(177,60,48,0.08)] dark:bg-[rgba(239,68,68,0.15)] border-[#B13C30]/40 dark:border-[#EF4444]/40 shadow-sm"
+                  : "bg-[rgba(47,122,75,0.06)] dark:bg-[rgba(16,185,129,0.12)] border-[rgba(47,122,75,0.25)] dark:border-[rgba(16,185,129,0.3)]"
               }`}
             >
               <div className="flex items-center justify-between">
                 <span
                   className={`text-xs font-bold uppercase tracking-wider ${
-                    stats.totalBelumKembali > 0 ? "text-[#B13C30]" : "text-[#5E5A52]"
+                    stats.totalBelumKembali > 0 ? "text-[#B13C30] dark:text-[#F87171]" : "text-[#5E5A52] dark:text-[#A8A296]"
                   }`}
                 >
                   Belum Kembali
@@ -523,15 +523,15 @@ export default function ChecklistClient({
                   size={18}
                   className={
                     stats.totalBelumKembali > 0
-                      ? "text-[#B13C30] animate-pulse"
-                      : "text-[#8A857B]"
+                      ? "text-[#B13C30] dark:text-[#F87171] animate-pulse"
+                      : "text-[#8A857B] dark:text-[#888888]"
                   }
                 />
               </div>
               <div className="mt-3">
                 <div
                   className={`text-3xl font-sans font-bold ${
-                    stats.totalBelumKembali > 0 ? "text-[#B13C30]" : "text-[#2F7A4B]"
+                    stats.totalBelumKembali > 0 ? "text-[#B13C30] dark:text-[#F87171]" : "text-[#2F7A4B] dark:text-[#34D399]"
                   }`}
                 >
                   {stats.totalBelumKembali}
@@ -539,8 +539,8 @@ export default function ChecklistClient({
                 <p
                   className={`mt-1 text-xs font-medium ${
                     stats.totalBelumKembali > 0
-                      ? "text-[#B13C30]"
-                      : "text-[#2F7A4B]"
+                      ? "text-[#B13C30] dark:text-[#F87171]"
+                      : "text-[#2F7A4B] dark:text-[#34D399]"
                   }`}
                 >
                   {stats.totalBelumKembali > 0
