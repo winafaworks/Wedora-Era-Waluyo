@@ -356,3 +356,32 @@ export async function confirmBookingByCustomer(
   revalidatePath(`/booking/${booking.id}`);
   return { success: true, status: newStatus };
 }
+
+// 10. Aksi Pencarian Nama Pengantin & Acara untuk Topbar
+export async function searchBookingsAndChecklists(query: string) {
+  if (!query || query.trim().length === 0) return [];
+  const supabase = createAdminClient();
+  const q = query.trim();
+  const { data, error } = await supabase
+    .from("bookings")
+    .select(`
+      id,
+      nama_pelanggan,
+      tanggal_acara,
+      lokasi,
+      status,
+      packages (
+        nama
+      )
+    `)
+    .or(`nama_pelanggan.ilike.%${q}%,lokasi.ilike.%${q}%`)
+    .order("tanggal_acara", { ascending: false })
+    .limit(8);
+
+  if (error || !data) {
+    return [];
+  }
+
+  return data;
+}
+

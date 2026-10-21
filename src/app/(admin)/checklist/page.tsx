@@ -10,13 +10,26 @@ export const metadata = {
     "Pantau status barang dimuat dan kembali untuk mencegah barang tertinggal pada acara pernikahan Era Waluyo Purwokerto",
 };
 
-async function ChecklistLoader() {
+async function ChecklistLoader({
+  searchParams,
+}: {
+  searchParams: Promise<{ bookingId?: string }>;
+}) {
+  const resolvedSearchParams = await searchParams;
   const bookings = await getChecklistBookings();
-  const initialBookingId = bookings.length > 0 ? bookings[0].id : null;
+  const matchedBooking = resolvedSearchParams?.bookingId
+    ? bookings.find((b) => b.id === resolvedSearchParams.bookingId)
+    : null;
+  const initialBookingId = matchedBooking
+    ? matchedBooking.id
+    : bookings.length > 0
+    ? bookings[0].id
+    : null;
   const initialItems = initialBookingId ? await getChecklistItems(initialBookingId) : [];
 
   return (
     <ChecklistClient
+      key={initialBookingId || "empty"}
       bookings={bookings}
       initialItems={initialItems}
       initialSelectedBookingId={initialBookingId}
@@ -24,7 +37,11 @@ async function ChecklistLoader() {
   );
 }
 
-export default function ChecklistPage() {
+export default async function ChecklistPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ bookingId?: string }>;
+}) {
   return (
     <Suspense
       fallback={
@@ -33,7 +50,7 @@ export default function ChecklistPage() {
         </div>
       }
     >
-      <ChecklistLoader />
+      <ChecklistLoader searchParams={searchParams} />
     </Suspense>
   );
 }
