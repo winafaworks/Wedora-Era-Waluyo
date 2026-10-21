@@ -358,7 +358,7 @@ export default function ChecklistClient({
       {/* Booking Selector Dropdown & Info Acara */}
       {bookings.length === 0 ? (
         <Card className="p-10 text-center space-y-4">
-          <div className="w-14 h-14 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] text-[#8A6A22] flex items-center justify-center">
+          <div className="w-14 h-14 mx-auto rounded-full bg-[rgba(238,177,0,0.15)] text-[#EEB100] flex items-center justify-center">
             <Calendar size={28} />
           </div>
           <div>
@@ -420,31 +420,31 @@ export default function ChecklistClient({
             {/* Banner Informasi Acara Terpilih */}
             {currentBooking && (
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 text-xs">
-                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#FAF6ED] border border-[#E5DEC9]">
-                  <Calendar size={18} className="text-[#8A6A22] shrink-0" />
+                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#FAF6ED] dark:bg-[#252525] border border-[#E5DEC9] dark:border-[#38342C]">
+                  <Calendar size={18} className="text-[#EEB100] shrink-0" />
                   <div>
                     <span className="text-[#8A857B] block text-[11px]">Tanggal Acara</span>
-                    <strong className="text-[#1A1A1A] text-sm font-semibold">
+                    <strong className="text-[#1A1A1A] dark:text-[#F5EDDC] text-sm font-semibold">
                       {currentBooking.tanggal_acara}
                     </strong>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#FAF6ED] border border-[#E5DEC9]">
-                  <MapPin size={18} className="text-[#8A6A22] shrink-0" />
+                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#FAF6ED] dark:bg-[#252525] border border-[#E5DEC9] dark:border-[#38342C]">
+                  <MapPin size={18} className="text-[#EEB100] shrink-0" />
                   <div className="truncate">
                     <span className="text-[#8A857B] block text-[11px]">Lokasi Acara</span>
-                    <strong className="text-[#1A1A1A] text-sm font-semibold truncate block">
+                    <strong className="text-[#1A1A1A] dark:text-[#F5EDDC] text-sm font-semibold truncate block">
                       {currentBooking.lokasi}
                     </strong>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#FAF6ED] border border-[#E5DEC9]">
-                  <PackageIcon size={18} className="text-[#8A6A22] shrink-0" />
+                <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#FAF6ED] dark:bg-[#252525] border border-[#E5DEC9] dark:border-[#38342C]">
+                  <PackageIcon size={18} className="text-[#EEB100] shrink-0" />
                   <div className="truncate">
                     <span className="text-[#8A857B] block text-[11px]">Paket Acara</span>
-                    <strong className="text-[#1A1A1A] text-sm font-semibold truncate block">
+                    <strong className="text-[#1A1A1A] dark:text-[#F5EDDC] text-sm font-semibold truncate block">
                       {currentBooking.packages?.nama || "Paket Khusus Era Waluyo"}
                     </strong>
                   </div>

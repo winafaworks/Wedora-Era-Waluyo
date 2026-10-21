@@ -723,8 +723,8 @@ export default function RekapClient({
           value={metrics.totalAcara}
           subtitle={`Periode: ${periodLabel}`}
           icon={<CalendarRange size={20} />}
-          valueClassName="text-[#A67C24] dark:text-[#EEB100]"
-          iconClassName="text-[#A67C24] dark:text-[#EEB100]"
+          valueClassName="text-[#EEB100]"
+          iconClassName="text-[#EEB100]"
         />
 
         <StatCard
@@ -732,8 +732,8 @@ export default function RekapClient({
           value={`Rp${metrics.totalDpMasuk.toLocaleString("id-ID")}`}
           subtitle="Akumulasi pembayaran DP diterima"
           icon={<Wallet size={20} />}
-          valueClassName="text-[#A67C24] dark:text-[#EEB100]"
-          iconClassName="text-[#A67C24] dark:text-[#EEB100]"
+          valueClassName="text-[#EEB100]"
+          iconClassName="text-[#EEB100]"
         />
 
         <StatCard

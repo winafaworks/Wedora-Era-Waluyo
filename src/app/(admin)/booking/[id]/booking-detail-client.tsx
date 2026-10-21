@@ -175,7 +175,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
           </h2>
           <div className="space-y-3 text-sm">
             <div className="flex items-start gap-3">
-              <Calendar size={18} className="text-[#8A6A22] shrink-0 mt-0.5" />
+              <Calendar size={18} className="text-[#EEB100] shrink-0 mt-0.5" />
               <div>
                 <span className="text-xs text-[#5E5A52]">Hari / Tanggal Acara</span>
                 <p className="font-semibold text-[#1A1A1A]">
@@ -185,7 +185,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
             </div>
 
             <div className="flex items-start gap-3">
-              <MapPin size={18} className="text-[#8A6A22] shrink-0 mt-0.5" />
+              <MapPin size={18} className="text-[#EEB100] shrink-0 mt-0.5" />
               <div>
                 <span className="text-xs text-[#5E5A52]">Lokasi Pelaksanaan</span>
                 <p className="font-semibold text-[#1A1A1A]">
@@ -195,7 +195,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
             </div>
 
             <div className="flex items-start gap-3">
-              <Phone size={18} className="text-[#8A6A22] shrink-0 mt-0.5" />
+              <Phone size={18} className="text-[#EEB100] shrink-0 mt-0.5" />
               <div>
                 <span className="text-xs text-[#5E5A52]">Kontak WhatsApp</span>
                 <p className="font-semibold text-[#1A1A1A]">{booking.no_wa}</p>

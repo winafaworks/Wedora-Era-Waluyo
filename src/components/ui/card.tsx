@@ -32,8 +32,8 @@ export function StatCard({
   subtitle,
   icon,
   className = "",
-  valueClassName = "text-[#A67C24]",
-  iconClassName = "text-[#A67C24]",
+  valueClassName = "text-[#EEB100]",
+  iconClassName = "text-[#EEB100]",
 }: StatCardProps) {
   const valueStr = String(value);
   // Ukuran teks adaptif agar teks nominal panjang (contoh: Rp20.500.000) tidak bertabrakan antar card
