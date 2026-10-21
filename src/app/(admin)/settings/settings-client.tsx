@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useSyncExternalStore } from "react";
+import React, { useState, useMemo, useRef, useSyncExternalStore } from "react";
 import {
   Sun,
   Moon,
@@ -12,6 +12,7 @@ import {
   Info,
   Layers,
   Eye,
+  EyeOff,
   Save,
   RotateCcw,
   CheckCircle2,
@@ -20,6 +21,11 @@ import {
   Smartphone,
   Tag,
   ExternalLink,
+  Lock,
+  Key,
+  LogOut,
+  AlertTriangle,
+  User,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -35,10 +41,23 @@ import {
   WA_AVAILABLE_VARIABLES,
   DEFAULT_WA_TEMPLATE,
 } from "@/lib/whatsapp";
+import { updatePassword, logout } from "@/lib/actions/auth";
+
+export interface SecurityDetails {
+  id?: string;
+  email?: string;
+  role?: string;
+  lastSignInAt?: string | null;
+  createdAt?: string | null;
+}
+
+interface SettingsClientProps {
+  initialSecurityDetails?: SecurityDetails | null;
+}
 
 const emptySubscribe = () => () => {};
 
-export default function SettingsClient() {
+export default function SettingsClient({ initialSecurityDetails }: SettingsClientProps) {
   const { theme, resolvedTheme, setTheme } = useTheme();
 
   // Ambil initial tab dari URL query jika ada (misal /settings?tab=whatsapp)
@@ -75,6 +94,87 @@ export default function SettingsClient() {
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // State Keamanan Akun & Form Password
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showCurrentPass, setShowCurrentPass] = useState(false);
+  const [showNewPass, setShowNewPass] = useState(false);
+  const [showConfirmPass, setShowConfirmPass] = useState(false);
+  const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [passwordSuccess, setPasswordSuccess] = useState<string | null>(null);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await logout();
+    } catch {
+      setIsLoggingOut(false);
+      setShowLogoutConfirm(false);
+    }
+  };
+
+  // Indikator Kekuatan Password Baru
+  const passwordStrength = useMemo(() => {
+    if (!newPassword) {
+      return { score: 0, label: "Belum diisi", color: "text-[#8A857B]", width: "w-0", bg: "bg-gray-300" };
+    }
+    let score = 0;
+    if (newPassword.length >= 8) score++;
+    if (newPassword.length >= 10) score++;
+    if (/[0-9]/.test(newPassword)) score++;
+    if (/[a-zA-Z]/.test(newPassword)) score++;
+    if (/[^a-zA-Z0-9]/.test(newPassword)) score++;
+
+    if (score <= 2) {
+      return { score: 1, label: "Lemah (min. 8 karakter)", color: "text-[#B13C30]", width: "w-1/3", bg: "bg-[#B13C30]" };
+    }
+    if (score <= 4) {
+      return { score: 2, label: "Sedang", color: "text-[#EEB100]", width: "w-2/3", bg: "bg-[#EEB100]" };
+    }
+    return { score: 3, label: "Sangat Kuat & Aman", color: "text-[#2F7A4B] dark:text-[#7FD39B]", width: "w-full", bg: "bg-[#2F7A4B]" };
+  }, [newPassword]);
+
+  const handleUpdatePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPasswordError(null);
+    setPasswordSuccess(null);
+
+    if (newPassword.length < 8) {
+      setPasswordError("Kata sandi baru minimal harus 8 karakter.");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setPasswordError("Konfirmasi kata sandi baru tidak cocok dengan kata sandi baru.");
+      return;
+    }
+
+    setIsUpdatingPassword(true);
+    try {
+      const res = await updatePassword({
+        currentPassword: currentPassword || undefined,
+        newPassword,
+      });
+
+      if (!res.success) {
+        setPasswordError(res.error || "Gagal memperbarui kata sandi.");
+      } else {
+        setPasswordSuccess(res.message || "Kata sandi akun admin berhasil diperbarui!");
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+      }
+    } catch (err: unknown) {
+      setPasswordError((err as Error).message || "Terjadi kesalahan saat memperbarui kata sandi.");
+    } finally {
+      setIsUpdatingPassword(false);
+    }
+  };
 
   const themeOptions: {
     id: Theme;
@@ -168,17 +268,14 @@ export default function SettingsClient() {
 
         <button
           onClick={() => setActiveTab("security")}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer opacity-75 hover:opacity-100 ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
             activeTab === "security"
-              ? "bg-[#EEB100] text-[#111111]"
+              ? "bg-[#EEB100] text-[#111111] shadow-xs"
               : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
           }`}
         >
           <Shield size={16} />
           <span>Keamanan Akun</span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#EAE1CF] text-[#5E5A52]">
-            Tahap 2
-          </span>
         </button>
       </div>
 
@@ -732,29 +829,358 @@ export default function SettingsClient() {
         </div>
       )}
 
-      {/* Tab Content: Placeholder for Security */}
+      {/* Tab Content: Keamanan Akun */}
       {activeTab === "security" && (
-        <Card className="p-12 text-center space-y-4">
-          <div className="w-14 h-14 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] text-[#EEB100] flex items-center justify-center">
-            <Shield size={28} />
+        <div className="space-y-8 animate-in fade-in duration-200">
+          {/* Header Banner */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#FAF6ED] via-[#FFFFFF] to-[#FAF6ED] dark:from-[#252525] dark:via-[#1E1E1E] dark:to-[#252525] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5">
+              <div className="w-11 h-11 rounded-xl bg-[#EEB100]/15 text-[#EEB100] flex items-center justify-center shrink-0">
+                <Shield size={22} />
+              </div>
+              <div>
+                <h3 className="font-sans text-base font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                  Keamanan & Kredensial Administrator
+                </h3>
+                <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] mt-0.5">
+                  Kelola kata sandi akun, pantau status autentikasi, dan lindungi akses sistem operasional WEDORA.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 self-stretch sm:self-auto justify-end">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] border border-[#2F7A4B]/25">
+                <CheckCircle2 size={13} />
+                Sistem Terlindungi
+              </span>
+            </div>
           </div>
-          <div>
-            <h3 className="font-sans text-[20px] font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
-              Keamanan Akun Admin
-            </h3>
-            <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] mt-1 max-w-md mx-auto">
-              Fitur ubah kata sandi admin dan autentikasi multi-faktor dijadwalkan pada pembaruan tahap berikutnya.
-            </p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Kolom Kiri: Form Ubah Kata Sandi */}
+            <div className="lg:col-span-7 space-y-6">
+              <Card className="p-6 space-y-6 border-[#E5DEC9] dark:border-[#38342C]">
+                <div>
+                  <div className="flex items-center gap-2 text-[#EEB100]">
+                    <Key size={18} />
+                    <h2 className="font-sans text-lg font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                      Perbarui Kata Sandi
+                    </h2>
+                  </div>
+                  <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] mt-1">
+                    Gunakan kombinasi minimal 8 karakter dengan huruf, angka, dan simbol untuk keamanan maksimal.
+                  </p>
+                </div>
+
+                {/* Notifikasi Sukses */}
+                {passwordSuccess && (
+                  <div className="p-3.5 rounded-xl bg-[#2F7A4B]/10 border border-[#2F7A4B]/30 flex items-start gap-2.5 text-xs text-[#2F7A4B] dark:text-[#7FD39B]">
+                    <CheckCircle2 size={16} className="shrink-0 mt-0.5" />
+                    <div className="space-y-0.5">
+                      <p className="font-semibold">Berhasil!</p>
+                      <p>{passwordSuccess}</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Notifikasi Error */}
+                {passwordError && (
+                  <div className="p-3.5 rounded-xl bg-[#B13C30]/10 border border-[#B13C30]/30 flex items-start gap-2.5 text-xs text-[#B13C30] dark:text-[#F87171]">
+                    <AlertTriangle size={16} className="shrink-0 mt-0.5" />
+                    <div className="space-y-0.5">
+                      <p className="font-semibold">Terjadi Kesalahan</p>
+                      <p>{passwordError}</p>
+                    </div>
+                  </div>
+                )}
+
+                <form onSubmit={handleUpdatePassword} className="space-y-4">
+                  {/* Kata Sandi Lama */}
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                      Kata Sandi Saat Ini <span className="text-[#8A857B] font-normal">(opsional verifikasi)</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showCurrentPass ? "text" : "password"}
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        placeholder="Masukkan kata sandi lama Anda"
+                        autoComplete="current-password"
+                        className="w-full h-10 px-3.5 pr-10 text-xs rounded-xl bg-[#FAF7F0] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:ring-2 focus:ring-[#EEB100]/50"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowCurrentPass(!showCurrentPass)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8A857B] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] p-1 cursor-pointer"
+                        title={showCurrentPass ? "Sembunyikan" : "Tampilkan"}
+                      >
+                        {showCurrentPass ? <EyeOff size={15} /> : <Eye size={15} />}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Kata Sandi Baru */}
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                      Kata Sandi Baru <span className="text-[#B13C30]">*</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showNewPass ? "text" : "password"}
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        placeholder="Minimal 8 karakter baru"
+                        autoComplete="new-password"
+                        required
+                        className="w-full h-10 px-3.5 pr-10 text-xs rounded-xl bg-[#FAF7F0] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:ring-2 focus:ring-[#EEB100]/50"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowNewPass(!showNewPass)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8A857B] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] p-1 cursor-pointer"
+                        title={showNewPass ? "Sembunyikan" : "Tampilkan"}
+                      >
+                        {showNewPass ? <EyeOff size={15} /> : <Eye size={15} />}
+                      </button>
+                    </div>
+
+                    {/* Password Strength Meter */}
+                    {newPassword && (
+                      <div className="space-y-1.5 pt-1.5">
+                        <div className="h-1.5 w-full bg-[#E5DEC9] dark:bg-[#38342C] rounded-full overflow-hidden">
+                          <div
+                            className={`h-full transition-all duration-300 ${passwordStrength.bg} ${passwordStrength.width}`}
+                          />
+                        </div>
+                        <div className="flex items-center justify-between text-[11px]">
+                          <span className="text-[#5E5A52] dark:text-[#A8A296]">Kekuatan Sandi:</span>
+                          <span className={`font-semibold ${passwordStrength.color}`}>
+                            {passwordStrength.label}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Konfirmasi Kata Sandi Baru */}
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                      Konfirmasi Kata Sandi Baru <span className="text-[#B13C30]">*</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showConfirmPass ? "text" : "password"}
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder="Ketik ulang kata sandi baru"
+                        autoComplete="new-password"
+                        required
+                        className="w-full h-10 px-3.5 pr-10 text-xs rounded-xl bg-[#FAF7F0] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:ring-2 focus:ring-[#EEB100]/50"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPass(!showConfirmPass)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8A857B] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] p-1 cursor-pointer"
+                        title={showConfirmPass ? "Sembunyikan" : "Tampilkan"}
+                      >
+                        {showConfirmPass ? <EyeOff size={15} /> : <Eye size={15} />}
+                      </button>
+                    </div>
+
+                    {confirmPassword && (
+                      <p
+                        className={`text-[11px] font-medium flex items-center gap-1 ${
+                          newPassword === confirmPassword
+                            ? "text-[#2F7A4B] dark:text-[#7FD39B]"
+                            : "text-[#B13C30]"
+                        }`}
+                      >
+                        {newPassword === confirmPassword ? (
+                          <>
+                            <Check size={13} /> Kata sandi cocok
+                          </>
+                        ) : (
+                          <>
+                            <AlertTriangle size={13} /> Kata sandi belum cocok
+                          </>
+                        )}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Tombol Aksi */}
+                  <div className="flex items-center gap-3 pt-3">
+                    <Button
+                      type="submit"
+                      disabled={isUpdatingPassword || !newPassword || newPassword !== confirmPassword}
+                      className="gap-2 bg-[#EEB100] text-[#111111] font-semibold hover:bg-[#D4AD5C] shadow-sm disabled:opacity-50 cursor-pointer text-xs h-10 px-5"
+                    >
+                      <Lock size={15} />
+                      <span>{isUpdatingPassword ? "Menyimpan..." : "Perbarui Kata Sandi"}</span>
+                    </Button>
+
+                    {(currentPassword || newPassword || confirmPassword) && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => {
+                          setCurrentPassword("");
+                          setNewPassword("");
+                          setConfirmPassword("");
+                          setPasswordError(null);
+                        }}
+                        className="text-xs h-10 border-[#E5DEC9] dark:border-[#38342C] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] cursor-pointer"
+                      >
+                        Batal
+                      </Button>
+                    )}
+                  </div>
+                </form>
+              </Card>
+
+              {/* Pedoman Keamanan */}
+              <div className="p-4 rounded-2xl bg-[#FAF6ED] dark:bg-[#252525] border border-[#E5DEC9] dark:border-[#38342C] space-y-2.5">
+                <h4 className="text-xs font-bold text-[#1A1A1A] dark:text-[#F5EDDC] flex items-center gap-2">
+                  <Shield size={14} className="text-[#EEB100]" />
+                  Pedoman Keamanan Akun
+                </h4>
+                <ul className="text-xs text-[#5E5A52] dark:text-[#A8A296] space-y-1.5 list-disc list-inside">
+                  <li>Gunakan kata sandi unik yang tidak digunakan di layanan lain.</li>
+                  <li>Kombinasikan huruf kapital, angka, dan karakter khusus seperti <code>@, #, !</code>.</li>
+                  <li>Jangan bagikan kredensial login kepada pihak lain di luar tim administrator.</li>
+                  <li>Selalu klik <strong>Keluar Akun</strong> jika mengakses dari komputer publik atau bersama.</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Kolom Kanan: Profil & Sesi Login */}
+            <div className="lg:col-span-5 space-y-6">
+              {/* Card Informasi Akun */}
+              <Card className="p-6 space-y-5 border-[#E5DEC9] dark:border-[#38342C]">
+                <div className="flex items-center gap-2 text-[#EEB100]">
+                  <User size={18} />
+                  <h3 className="font-sans text-base font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                    Profil Administrator
+                  </h3>
+                </div>
+
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-[#FAF7F0] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C]">
+                  <div className="w-13 h-13 rounded-2xl bg-[#EEB100]/20 border border-[#EEB100]/40 text-[#EEB100] flex items-center justify-center font-serif text-lg font-bold tracking-wider shrink-0">
+                    EW
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <p className="font-semibold text-sm text-[#1A1A1A] dark:text-[#F5EDDC] truncate">
+                        Admin WEDORA
+                      </p>
+                      <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-[#EEB100]/20 text-[#1A1A1A] dark:text-[#EEB100] border border-[#EEB100]/30">
+                        {initialSecurityDetails?.role || "Administrator"}
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] truncate mt-0.5">
+                      {initialSecurityDetails?.email || "admin@erawaluyo.com"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-3 text-xs border-t border-[#E5DEC9] dark:border-[#38342C] pt-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[#5E5A52] dark:text-[#A8A296]">Status Autentikasi:</span>
+                    <span className="font-semibold text-[#2F7A4B] dark:text-[#7FD39B] flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-full bg-[#2F7A4B] animate-pulse"></span>
+                      Aktif & Terverifikasi
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[#5E5A52] dark:text-[#A8A296]">ID Pengguna:</span>
+                    <span className="font-mono text-[11px] text-[#1A1A1A] dark:text-[#F5EDDC] bg-[#FAF7F0] dark:bg-[#1E1E1E] px-2 py-0.5 rounded border border-[#E5DEC9] dark:border-[#38342C] max-w-[170px] truncate" title={initialSecurityDetails?.id || "admin-system"}>
+                      {initialSecurityDetails?.id ? `${initialSecurityDetails.id.slice(0, 8)}...` : "admin-system"}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[#5E5A52] dark:text-[#A8A296]">Penyedia Akun:</span>
+                    <span className="text-[#1A1A1A] dark:text-[#F5EDDC] font-medium">Supabase Auth</span>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Card Sesi Login Aktif */}
+              <Card className="p-6 space-y-4 border-[#E5DEC9] dark:border-[#38342C]">
+                <div className="flex items-center gap-2 text-[#EEB100]">
+                  <Laptop size={18} />
+                  <h3 className="font-sans text-base font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                    Sesi & Perangkat Aktif
+                  </h3>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-[#FAF7F0] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] flex items-center justify-center shrink-0 mt-0.5">
+                    <Laptop size={16} />
+                  </div>
+                  <div className="text-xs space-y-0.5 min-w-0">
+                    <p className="font-semibold text-[#1A1A1A] dark:text-[#F5EDDC] flex items-center gap-1.5">
+                      Peramban Saat Ini (Browser)
+                      <span className="text-[10px] px-1.5 py-0.2 bg-[#2F7A4B]/20 text-[#2F7A4B] dark:text-[#7FD39B] rounded font-bold">
+                        Sesi Ini
+                      </span>
+                    </p>
+                    <p className="text-[#5E5A52] dark:text-[#A8A296] text-[11px]">
+                      {initialSecurityDetails?.lastSignInAt
+                        ? `Masuk: ${new Date(initialSecurityDetails.lastSignInAt).toLocaleString("id-ID", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}`
+                        : "Sesi terotentikasi aktif"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-[#E5DEC9] dark:border-[#38342C]">
+                  {!showLogoutConfirm ? (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setShowLogoutConfirm(true)}
+                      className="w-full gap-2 text-xs h-10 border-[#B13C30]/40 text-[#B13C30] hover:bg-[#B13C30]/10 hover:text-[#B13C30] cursor-pointer"
+                    >
+                      <LogOut size={15} />
+                      <span>Keluar dari Akun (Logout)</span>
+                    </Button>
+                  ) : (
+                    <div className="p-3 rounded-xl bg-[#B13C30]/10 border border-[#B13C30]/30 space-y-2.5">
+                      <p className="text-xs font-semibold text-[#B13C30] dark:text-[#F87171] flex items-center gap-1.5">
+                        <AlertTriangle size={14} />
+                        Yakin ingin keluar dari sesi admin?
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          type="button"
+                          onClick={handleLogout}
+                          disabled={isLoggingOut}
+                          className="flex-1 text-xs h-8 bg-[#B13C30] text-white hover:bg-[#8F2D23] cursor-pointer"
+                        >
+                          {isLoggingOut ? "Mengeluarkan..." : "Ya, Keluar"}
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setShowLogoutConfirm(false)}
+                          disabled={isLoggingOut}
+                          className="flex-1 text-xs h-8 border-[#E5DEC9] dark:border-[#38342C] text-[#5E5A52] dark:text-[#A8A296] cursor-pointer"
+                        >
+                          Batal
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </Card>
+            </div>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setActiveTab("appearance")}
-            className="text-xs"
-          >
-            Kembali ke Pengaturan Tema
-          </Button>
-        </Card>
+        </div>
       )}
     </div>
   );

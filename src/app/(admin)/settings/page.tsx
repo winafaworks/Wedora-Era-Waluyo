@@ -1,13 +1,29 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Metadata } from "next";
 import SettingsClient from "./settings-client";
+import { getAccountSecurityDetails } from "@/lib/actions/auth";
 
 export const metadata: Metadata = {
   title: "Pengaturan Sistem | WEDORA Era Waluyo",
   description:
-    "Pengaturan tema antarmuka (mode terang & gelap), profil usaha, dan konfigurasi sistem manajemen pernikahan WEDORA.",
+    "Pengaturan tema antarmuka (mode terang & gelap), template pesan WhatsApp, dan keamanan akun administrator WEDORA.",
 };
 
+async function SettingsLoader() {
+  const securityDetails = await getAccountSecurityDetails();
+  return <SettingsClient initialSecurityDetails={securityDetails} />;
+}
+
 export default function SettingsPage() {
-  return <SettingsClient />;
+  return (
+    <Suspense
+      fallback={
+        <div className="py-16 text-center text-[#A8A49B]">
+          Memuat pengaturan sistem...
+        </div>
+      }
+    >
+      <SettingsLoader />
+    </Suspense>
+  );
 }
