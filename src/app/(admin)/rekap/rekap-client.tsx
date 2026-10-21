@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Card, StatCard } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/badge";
 import { BookingStatus } from "@/types";
+import { generateRekapPdf } from "@/lib/pdf/rekap-pdf";
 
 interface PackageItem {
   id: string;
@@ -409,11 +410,6 @@ export default function RekapClient({
     document.body.removeChild(link);
   };
 
-  // Cetak Laporan
-  const handlePrint = () => {
-    window.print();
-  };
-
   // Format label periode untuk tampilan
   const periodLabel = useMemo(() => {
     if (startDate && endDate) {
@@ -431,31 +427,40 @@ export default function RekapClient({
     return `Bulan ${MONTH_NAMES[Number(selectedMonth)]}`;
   }, [selectedYear, selectedMonth, startDate, endDate]);
 
+  // Cetak Laporan menjadi dokumen PDF ringkas (seperti pada checklist acara)
+  const handlePrint = () => {
+    if (filteredBookings.length === 0) {
+      alert("Tidak ada data booking untuk dicetak sesuai filter saat ini.");
+      return;
+    }
+    generateRekapPdf({
+      bookings: filteredBookings,
+      metrics,
+      periodLabel,
+      action: "print",
+    });
+  };
+
+  // Unduh Dokumen PDF Ringkas
+  const handleDownloadPdf = () => {
+    if (filteredBookings.length === 0) {
+      alert("Tidak ada data booking untuk diunduh sesuai filter saat ini.");
+      return;
+    }
+    generateRekapPdf({
+      bookings: filteredBookings,
+      metrics,
+      periodLabel,
+      action: "download",
+    });
+  };
+
   return (
     <div className="space-y-8">
       {/* =========================================================================
-          PRINT ONLY HEADER (Tampil hanya saat mencetak / print to PDF)
+          TOP HEADER & ACTIONS
       ========================================================================= */}
-      <div className="hidden print:block mb-8 border-b-2 border-black pb-4 text-black">
-        <div className="flex justify-between items-start">
-          <div>
-            <h1 className="text-2xl font-bold tracking-wider">WEDORA — ERA WALUYO</h1>
-            <p className="text-xs uppercase tracking-widest text-gray-600">
-              Tata Rias & Busana Pengantin Tradisional / Modern
-            </p>
-          </div>
-          <div className="text-right text-xs">
-            <p className="font-semibold">Laporan Rekapitulasi Booking & Keuangan DP</p>
-            <p>Periode: {periodLabel}</p>
-            <p>Dicetak: {new Date().toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" })}</p>
-          </div>
-        </div>
-      </div>
-
-      {/* =========================================================================
-          TOP HEADER & ACTIONS (Disembunyikan saat print)
-      ========================================================================= */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9] dark:border-[#332F28] print:hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9] dark:border-[#332F28]">
         <div>
           <h1 className="font-sans text-[28px] font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
             Rekap Booking & Pembayaran
@@ -464,21 +469,30 @@ export default function RekapClient({
             Laporan bulanan, per paket, status konfirmasi, dan ringkasan pembayaran DP Era Waluyo
           </p>
         </div>
-        <div className="flex items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2">
           <Button
             variant="outline"
             onClick={handleExportCsv}
-            className="gap-2 text-xs md:text-sm h-10 px-4 cursor-pointer"
+            className="gap-2 text-xs md:text-sm h-10 px-3.5 cursor-pointer"
             title="Download spreadsheet CSV data rekap"
           >
             <Download size={16} />
             <span>Ekspor CSV</span>
           </Button>
           <Button
+            variant="outline"
+            onClick={handleDownloadPdf}
+            className="gap-2 text-xs md:text-sm h-10 px-3.5 cursor-pointer"
+            title="Unduh dokumen PDF ringkas rekapitulasi"
+          >
+            <Download size={16} />
+            <span>Unduh PDF</span>
+          </Button>
+          <Button
             variant="primary"
             onClick={handlePrint}
             className="gap-2 text-xs md:text-sm h-10 px-4 cursor-pointer shadow-sm"
-            title="Cetak Laporan atau Simpan sebagai PDF"
+            title="Buka dokumen PDF ringkas untuk langsung dicetak"
           >
             <Printer size={16} />
             <span>Cetak Laporan</span>
