@@ -513,8 +513,8 @@ export default function ChecklistClient({
             >
               <div className="flex items-center justify-between">
                 <span
-                  className={`text-xs font-bold uppercase tracking-wider ${
-                    stats.totalBelumKembali > 0 ? "text-[#B13C30] dark:text-[#F87171]" : "text-[#5E5A52] dark:text-[#A8A296]"
+                  className={`text-sm font-semibold ${
+                    stats.totalBelumKembali > 0 ? "text-[#B13C30] dark:text-[#F87171]" : "text-[#4A463E] dark:text-[#A8A296]"
                   }`}
                 >
                   Belum Kembali

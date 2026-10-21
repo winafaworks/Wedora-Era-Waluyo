@@ -756,17 +756,27 @@ export default function RekapClient({
           valueClassName={
             metrics.konfirmasiRate >= 50
               ? "text-[#2F7A4B] dark:text-[#7FD39B]"
-              : "text-[#B13C30] dark:text-[#FFA39E]"
+              : "text-[#B13C30] dark:text-[#F87171]"
           }
           iconClassName={
             metrics.konfirmasiRate >= 50
               ? "text-[#2F7A4B] dark:text-[#7FD39B]"
-              : "text-[#B13C30] dark:text-[#FFA39E]"
+              : "text-[#B13C30] dark:text-[#F87171]"
+          }
+          titleClassName={
+            metrics.konfirmasiRate >= 50
+              ? "text-[#5E5A52] dark:text-[#A8A296]"
+              : "text-[#B13C30] dark:text-[#F87171] font-semibold"
+          }
+          subtitleClassName={
+            metrics.konfirmasiRate >= 50
+              ? "text-[#8A857B] dark:text-[#888888]"
+              : "text-[#B13C30] dark:text-[#F87171]"
           }
           className={
             metrics.konfirmasiRate >= 50
               ? "bg-[rgba(47,122,75,0.22)] dark:bg-[rgba(16,185,129,0.12)] border-[rgba(47,122,75,0.45)] dark:border-[rgba(16,185,129,0.3)]"
-              : "bg-[rgba(177,60,48,0.22)] dark:bg-[rgba(239,68,68,0.14)] border-[#B13C30]/50 dark:border-[#EF4444]/40"
+              : "bg-[rgba(177,60,48,0.22)] dark:bg-[rgba(239,68,68,0.15)] border-[#B13C30]/50 dark:border-[#EF4444]/40"
           }
         />
       </div>

@@ -29,6 +29,8 @@ export interface StatCardProps {
   className?: string;
   valueClassName?: string;
   iconClassName?: string;
+  titleClassName?: string;
+  subtitleClassName?: string;
 }
 
 export function StatCard({
@@ -39,6 +41,8 @@ export function StatCard({
   className = "",
   valueClassName = "text-[#EEB100]",
   iconClassName = "text-[#EEB100]",
+  titleClassName = "text-[#5E5A52] dark:text-[#A8A296]",
+  subtitleClassName = "text-[#8A857B] dark:text-[#888888]",
 }: StatCardProps) {
   const valueStr = String(value);
   // Ukuran teks adaptif agar teks nominal panjang (contoh: Rp20.500.000) tidak bertabrakan antar card
@@ -52,7 +56,7 @@ export function StatCard({
   return (
     <Card className={`flex flex-col justify-between transition-all duration-200 hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)] min-w-0 ${className}`}>
       <div className="flex items-center justify-between gap-2">
-        <span className="text-sm font-medium text-[#5E5A52] dark:text-[#A8A296] truncate" title={title}>
+        <span className={`text-sm font-medium truncate ${titleClassName}`} title={title}>
           {title}
         </span>
         {icon && <div className={`${iconClassName} opacity-90 shrink-0`}>{icon}</div>}
@@ -65,7 +69,7 @@ export function StatCard({
           {value}
         </div>
         {subtitle && (
-          <p className="mt-1 text-xs text-[#8A857B] dark:text-[#888888] line-clamp-1" title={subtitle}>
+          <p className={`mt-1 text-xs line-clamp-1 ${subtitleClassName}`} title={subtitle}>
             {subtitle}
           </p>
         )}

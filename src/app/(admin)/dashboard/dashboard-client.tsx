@@ -66,9 +66,11 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
           value={stats.belumDikonfirmasi}
           subtitle="Menunggu respon pelanggan"
           icon={<AlertCircle size={20} />}
-          className="bg-[rgba(177,60,48,0.22)] dark:bg-[rgba(239,68,68,0.14)] border-[#B13C30]/50 dark:border-[#EF4444]/40"
-          valueClassName="text-[#B13C30] dark:text-[#FFA39E]"
-          iconClassName="text-[#B13C30] dark:text-[#FFA39E]"
+          className="bg-[rgba(177,60,48,0.22)] dark:bg-[rgba(239,68,68,0.15)] border-[#B13C30]/50 dark:border-[#EF4444]/40"
+          valueClassName="text-[#B13C30] dark:text-[#F87171]"
+          iconClassName="text-[#B13C30] dark:text-[#F87171]"
+          titleClassName="text-[#B13C30] dark:text-[#F87171] font-semibold"
+          subtitleClassName="text-[#B13C30] dark:text-[#F87171]"
         />
         <StatCard
           title="Acara Mendatang"

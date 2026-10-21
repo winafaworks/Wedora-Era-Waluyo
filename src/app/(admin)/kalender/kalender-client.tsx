@@ -300,19 +300,19 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
         </div>
 
         {/* 3. Belum Konfirmasi (Merah) */}
-        <div className="p-4 bg-[rgba(177,60,48,0.22)] dark:bg-[rgba(239,68,68,0.14)] border border-[#B13C30]/50 dark:border-[#EF4444]/40 rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div className="p-4 bg-[rgba(177,60,48,0.22)] dark:bg-[rgba(239,68,68,0.15)] border border-[#B13C30]/50 dark:border-[#EF4444]/40 rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
-            <span className="text-xs font-semibold text-[#4A463E] dark:text-[#A8A296] block">Belum Konfirmasi</span>
+            <span className="text-xs font-semibold text-[#B13C30] dark:text-[#F87171] block">Belum Konfirmasi</span>
             <div className="flex items-baseline gap-1 mt-0.5">
-              <span className="text-2xl font-sans font-semibold text-[#B13C30] dark:text-[#FFA39E]">
+              <span className="text-2xl font-sans font-semibold text-[#B13C30] dark:text-[#F87171]">
                 {monthStats.belumKonfirmasi}
               </span>
-              <span className="text-xs sm:text-sm font-medium text-[#6B655B] dark:text-[#A8A296]">
+              <span className="text-xs sm:text-sm font-medium text-[#B13C30] dark:text-[#F87171]">
                 Acara
               </span>
             </div>
           </div>
-          <div className="w-10 h-10 rounded-full bg-[rgba(177,60,48,0.18)] text-[#B13C30] dark:text-[#FFA39E] flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-full bg-[rgba(177,60,48,0.18)] text-[#B13C30] dark:text-[#F87171] flex items-center justify-center shrink-0">
             <Clock size={18} />
           </div>
         </div>
