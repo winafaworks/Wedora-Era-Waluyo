@@ -230,13 +230,13 @@ export function Topbar() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 py-3 flex items-center justify-between gap-3 sm:gap-4">
         {/* Sisi Kiri: Badge Tanggal & Kolom Pencarian */}
         <div className="flex items-center gap-2.5 sm:gap-4 flex-1 min-w-0 max-w-2xl">
-          {/* Badge Tanggal Hari Ini - Warna gelap tetap seperti tema sidebar */}
+          {/* Badge Tanggal Hari Ini - Ringkas ikon di mobile agar input pencarian luas, lengkap teks di tablet/desktop */}
           <div
-            className="flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl bg-[#383838] border border-[#484848] text-xs sm:text-sm font-semibold text-[#F5EDDC] shrink-0 shadow-xs"
-            title="Tanggal hari ini"
+            className="flex items-center gap-2 px-2.5 sm:px-3.5 py-2 rounded-xl bg-[#383838] border border-[#484848] text-xs sm:text-sm font-semibold text-[#F5EDDC] shrink-0 shadow-xs"
+            title={`Tanggal hari ini: ${formattedDate}`}
           >
             <Calendar size={15} className="text-[#D4AD5C] shrink-0" />
-            <span className="whitespace-nowrap">{formattedDate || "Memuat..."}</span>
+            <span className="hidden sm:inline whitespace-nowrap">{formattedDate || "Memuat..."}</span>
           </div>
 
           {/* Kolom Pencarian Cepat Nama Pengantin & Checklist Acara */}
@@ -276,15 +276,25 @@ export function Topbar() {
               ) : null}
             </form>
 
-            {/* Dropdown Hasil Pencarian Langsung Ke Halaman Dituju */}
+            {/* Backdrop penutup di layar mobile */}
             {isSearchOpen && searchQuery.trim() && (
-              <div className="absolute left-0 right-0 top-full mt-2 bg-[#2C2C2C] border border-[#3E3E3E] rounded-2xl shadow-2xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+              <div
+                className="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 sm:hidden animate-in fade-in duration-150"
+                onClick={() => setIsSearchOpen(false)}
+              />
+            )}
+
+            {/* Dropdown Hasil Pencarian: Full ke kanan dan ke kiri di mobile (fixed left-3 right-3) */}
+            {isSearchOpen && searchQuery.trim() && (
+              <div className="fixed left-3 right-3 top-[60px] sm:absolute sm:left-0 sm:right-0 sm:top-full sm:mt-2 bg-[#2C2C2C] border border-[#3E3E3E] rounded-2xl shadow-2xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                 <div className="px-4 py-2.5 bg-[#242424] border-b border-[#3E3E3E] flex items-center justify-between text-xs text-[#B8B3A8]">
-                  <span>Hasil pencarian: &quot;{searchQuery}&quot;</span>
-                  <span>{searchResults.length} ditemukan</span>
+                  <span className="font-medium truncate mr-2">
+                    Hasil pencarian: &quot;{searchQuery}&quot;
+                  </span>
+                  <span className="shrink-0">{searchResults.length} ditemukan</span>
                 </div>
 
-                <div className="max-h-80 overflow-y-auto divide-y divide-[#383838]">
+                <div className="max-h-[60vh] sm:max-h-80 overflow-y-auto divide-y divide-[#383838]">
                   {searchResults.length === 0 && !isSearching ? (
                     <div className="p-5 text-center text-xs text-[#8A857B]">
                       Tidak ditemukan nama pengantin atau acara dengan kata kunci tersebut.
@@ -298,22 +308,22 @@ export function Topbar() {
                           onClick={() => handleSelectResult(`/booking/${b.id}`)}
                           className="w-full text-left p-2.5 rounded-xl hover:bg-[#383838] transition-colors flex items-center justify-between group cursor-pointer"
                         >
-                          <div className="flex items-center gap-3 min-w-0">
+                          <div className="flex items-center gap-3 min-w-0 flex-1">
                             <div className="w-8 h-8 rounded-full bg-[rgba(212,173,92,0.18)] text-[#D4AD5C] flex items-center justify-center shrink-0">
                               <User size={16} />
                             </div>
-                            <div className="truncate">
-                              <span className="block text-xs font-bold text-[#F5EDDC] group-hover:text-[#EEB100] transition-colors truncate">
+                            <div className="truncate min-w-0 flex-1">
+                              <span className="block text-xs sm:text-sm font-bold text-[#F5EDDC] group-hover:text-[#EEB100] transition-colors truncate">
                                 {b.nama_pelanggan}
                               </span>
-                              <span className="block text-[11px] text-[#A8A296] truncate">
+                              <span className="block text-[11px] sm:text-xs text-[#A8A296] truncate">
                                 Acara: {b.tanggal_acara} • {b.lokasi || "Lokasi Era Waluyo"}
                               </span>
                             </div>
                           </div>
-                          <span className="text-[10px] font-semibold text-[#D4AD5C] bg-[#1E1E1E] px-2 py-1 rounded-lg border border-[#3E3E3E] flex items-center gap-1 shrink-0 ml-2">
+                          <span className="text-[10px] sm:text-xs font-semibold text-[#D4AD5C] bg-[#1E1E1E] px-2.5 py-1.5 rounded-lg border border-[#3E3E3E] flex items-center gap-1 shrink-0 ml-2">
                             <span>Data Booking</span>
-                            <ArrowRight size={11} />
+                            <ArrowRight size={12} />
                           </span>
                         </button>
 
@@ -323,22 +333,22 @@ export function Topbar() {
                           onClick={() => handleSelectResult(`/checklist?bookingId=${b.id}`)}
                           className="w-full text-left p-2.5 rounded-xl hover:bg-[#383838] transition-colors flex items-center justify-between group cursor-pointer"
                         >
-                          <div className="flex items-center gap-3 min-w-0">
+                          <div className="flex items-center gap-3 min-w-0 flex-1">
                             <div className="w-8 h-8 rounded-full bg-[rgba(47,122,75,0.25)] text-[#7FD39B] flex items-center justify-center shrink-0">
                               <CheckSquare size={16} />
                             </div>
-                            <div className="truncate">
-                              <span className="block text-xs font-bold text-[#F5EDDC] group-hover:text-[#7FD39B] transition-colors truncate">
+                            <div className="truncate min-w-0 flex-1">
+                              <span className="block text-xs sm:text-sm font-bold text-[#F5EDDC] group-hover:text-[#7FD39B] transition-colors truncate">
                                 Checklist Acara: {b.nama_pelanggan}
                               </span>
-                              <span className="block text-[11px] text-[#A8A296] truncate">
+                              <span className="block text-[11px] sm:text-xs text-[#A8A296] truncate">
                                 Paket: {b.packages?.nama || "Perlengkapan Acara"}
                               </span>
                             </div>
                           </div>
-                          <span className="text-[10px] font-semibold text-[#7FD39B] bg-[#1E1E1E] px-2 py-1 rounded-lg border border-[#3E3E3E] flex items-center gap-1 shrink-0 ml-2">
+                          <span className="text-[10px] sm:text-xs font-semibold text-[#7FD39B] bg-[#1E1E1E] px-2.5 py-1.5 rounded-lg border border-[#3E3E3E] flex items-center gap-1 shrink-0 ml-2">
                             <span>Buka Checklist</span>
-                            <ArrowRight size={11} />
+                            <ArrowRight size={12} />
                           </span>
                         </button>
                       </div>
