@@ -5,6 +5,7 @@ import {
   Shirt,
   Sparkles,
   Camera,
+  Crown,
   Plus,
   Search,
   Edit3,
@@ -32,9 +33,43 @@ interface KatalogClientProps {
   initialItems: CatalogItem[];
 }
 
+export type CatalogCategory = "all" | "wanita" | "aksesori" | "pria" | "lainnya";
+
+export function getCatalogCategory(item: CatalogItem): "wanita" | "aksesori" | "pria" | "lainnya" {
+  const text = `${item.nama} ${item.deskripsi || ""}`.toLowerCase();
+  if (
+    text.includes("mahkota") ||
+    text.includes("siger") ||
+    text.includes("cunduk") ||
+    text.includes("tiara") ||
+    text.includes("aksesori") ||
+    text.includes("hiasan kepala")
+  ) {
+    return "aksesori";
+  }
+  if (
+    text.includes("beskap") ||
+    text.includes("pria") ||
+    text.includes("jas") ||
+    text.includes("sikepan")
+  ) {
+    return "pria";
+  }
+  if (
+    text.includes("kebaya") ||
+    text.includes("gaun") ||
+    text.includes("wanita") ||
+    text.includes("kutubaru") ||
+    item.jenis === "busana"
+  ) {
+    return "wanita";
+  }
+  return "lainnya";
+}
+
 export default function KatalogClient({ initialItems }: KatalogClientProps) {
   const [items, setItems] = useState<CatalogItem[]>(initialItems);
-  const [activeTab, setActiveTab] = useState<"all" | "busana" | "dekorasi" | "layanan">("all");
+  const [activeTab, setActiveTab] = useState<CatalogCategory>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sizeFilter, setSizeFilter] = useState("all");
 
@@ -62,8 +97,11 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
   const filteredItems = useMemo(() => {
     return items.filter((item) => {
       // Tab filter
-      if (activeTab !== "all" && item.jenis !== activeTab) {
-        return false;
+      if (activeTab !== "all") {
+        const cat = getCatalogCategory(item);
+        if (cat !== activeTab) {
+          return false;
+        }
       }
 
       // Size filter (only for busana)
@@ -90,22 +128,25 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
 
   // Counts for tabs
   const tabCounts = useMemo(() => {
-    let busana = 0;
-    let dekorasi = 0;
-    let layanan = 0;
+    let wanita = 0;
+    let aksesori = 0;
+    let pria = 0;
+    let lainnya = 0;
     for (const item of items) {
-      if (item.jenis === "busana") busana++;
-      else if (item.jenis === "dekorasi") dekorasi++;
-      else if (item.jenis === "layanan") layanan++;
+      const cat = getCatalogCategory(item);
+      if (cat === "wanita") wanita++;
+      else if (cat === "aksesori") aksesori++;
+      else if (cat === "pria") pria++;
+      else lainnya++;
     }
-    return { all: items.length, busana, dekorasi, layanan };
+    return { all: items.length, wanita, aksesori, pria, lainnya };
   }, [items]);
 
   // Open Add Item Modal
   const handleOpenAddModal = () => {
     setEditingItem(null);
     setFormData({
-      jenis: activeTab !== "all" ? activeTab : "busana",
+      jenis: activeTab === "aksesori" ? "dekorasi" : "busana",
       nama: "",
       ukuran: "L",
       deskripsi: "",
@@ -298,45 +339,58 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             onClick={() => setActiveTab("all")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
               activeTab === "all"
-                ? "bg-[#EEB100] text-[#111111] shadow-xs"
+                ? "bg-[#EEB100] text-black shadow-xs"
                 : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
             }`}
           >
             Semua ({tabCounts.all})
           </button>
           <button
-            onClick={() => setActiveTab("busana")}
+            onClick={() => setActiveTab("wanita")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
-              activeTab === "busana"
-                ? "bg-[#EEB100] text-[#111111] shadow-xs"
-                : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
-            }`}
-          >
-            <Shirt size={14} />
-            <span>Busana ({tabCounts.busana})</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("dekorasi")}
-            className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
-              activeTab === "dekorasi"
-                ? "bg-[#EEB100] text-[#111111] shadow-xs"
+              activeTab === "wanita"
+                ? "bg-[#EEB100] text-black shadow-xs"
                 : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
             }`}
           >
             <Sparkles size={14} />
-            <span>Dekorasi ({tabCounts.dekorasi})</span>
+            <span>Busana Wanita ({tabCounts.wanita})</span>
           </button>
           <button
-            onClick={() => setActiveTab("layanan")}
+            onClick={() => setActiveTab("aksesori")}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
-              activeTab === "layanan"
-                ? "bg-[#EEB100] text-[#111111] shadow-xs"
+              activeTab === "aksesori"
+                ? "bg-[#EEB100] text-black shadow-xs"
                 : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
             }`}
           >
-            <Camera size={14} />
-            <span>Layanan ({tabCounts.layanan})</span>
+            <Crown size={14} />
+            <span>Aksesori & Mahkota ({tabCounts.aksesori})</span>
           </button>
+          <button
+            onClick={() => setActiveTab("pria")}
+            className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+              activeTab === "pria"
+                ? "bg-[#EEB100] text-black shadow-xs"
+                : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
+            }`}
+          >
+            <Shirt size={14} />
+            <span>Busana Pria ({tabCounts.pria})</span>
+          </button>
+          {tabCounts.lainnya > 0 && (
+            <button
+              onClick={() => setActiveTab("lainnya")}
+              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+                activeTab === "lainnya"
+                  ? "bg-[#EEB100] text-black shadow-xs"
+                  : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
+              }`}
+            >
+              <Tag size={14} />
+              <span>Lainnya ({tabCounts.lainnya})</span>
+            </button>
+          )}
         </div>
 
         {/* Search & Filter Controls */}
@@ -356,8 +410,8 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             />
           </div>
 
-          {/* Size Filter (shown when activeTab is all or busana) */}
-          {(activeTab === "all" || activeTab === "busana") && (
+          {/* Size Filter (shown when activeTab is all, wanita, or pria) */}
+          {(activeTab === "all" || activeTab === "wanita" || activeTab === "pria") && (
             <select
               value={sizeFilter}
               onChange={(e) => setSizeFilter(e.target.value)}
@@ -406,21 +460,26 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             const photos = item.catalog_photos || [];
             const primaryPhoto = photos[0]?.url;
 
+            const cat = getCatalogCategory(item);
             const categoryIcon =
-              item.jenis === "busana" ? (
-                <Shirt size={14} className="text-[#EEB100]" />
-              ) : item.jenis === "dekorasi" ? (
-                <Sparkles size={14} className="text-[#2F7A4B]" />
+              cat === "wanita" ? (
+                <Sparkles size={14} className="text-[#EEB100]" />
+              ) : cat === "aksesori" ? (
+                <Crown size={14} className="text-[#D4AD5C]" />
+              ) : cat === "pria" ? (
+                <Shirt size={14} className="text-[#406882]" />
               ) : (
-                <Camera size={14} className="text-[#406882]" />
+                <Tag size={14} className="text-[#2F7A4B]" />
               );
 
             const categoryLabel =
-              item.jenis === "busana"
-                ? "Busana & Kebaya"
-                : item.jenis === "dekorasi"
-                ? "Dekorasi Pelaminan"
-                : "Layanan Vendor";
+              cat === "wanita"
+                ? "Busana Pengantin Wanita"
+                : cat === "aksesori"
+                ? "Aksesori & Hiasan Kepala"
+                : cat === "pria"
+                ? "Busana Pengantin Pria"
+                : "Koleksi Pelengkap";
 
             return (
               <Card
