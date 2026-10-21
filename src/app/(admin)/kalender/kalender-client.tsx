@@ -264,7 +264,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
       {/* Quick Month Metrics & Legend */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         {/* 1. Total Bulan Ini (Gold) */}
-        <div className="p-4 bg-[rgba(238,177,0,0.06)] dark:bg-[rgba(238,177,0,0.12)] border border-[rgba(238,177,0,0.25)] dark:border-[rgba(238,177,0,0.3)] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div className="p-4 bg-[rgba(238,177,0,0.16)] dark:bg-[rgba(238,177,0,0.12)] border border-[rgba(238,177,0,0.35)] dark:border-[rgba(238,177,0,0.3)] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
             <span className="text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] block">Total Bulan Ini</span>
             <div className="flex items-baseline gap-1 mt-0.5">
@@ -282,7 +282,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
         </div>
 
         {/* 2. Dikonfirmasi (Hijau) */}
-        <div className="p-4 bg-[rgba(47,122,75,0.06)] dark:bg-[rgba(16,185,129,0.12)] border border-[rgba(47,122,75,0.25)] dark:border-[rgba(16,185,129,0.3)] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div className="p-4 bg-[rgba(47,122,75,0.14)] dark:bg-[rgba(16,185,129,0.12)] border border-[rgba(47,122,75,0.35)] dark:border-[rgba(16,185,129,0.3)] rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
             <span className="text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] block">Dikonfirmasi</span>
             <div className="flex items-baseline gap-1 mt-0.5">
@@ -300,7 +300,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
         </div>
 
         {/* 3. Belum Konfirmasi (Merah) */}
-        <div className="p-4 bg-[rgba(177,60,48,0.08)] dark:bg-[rgba(239,68,68,0.14)] border border-[#B13C30]/35 dark:border-[#EF4444]/40 rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div className="p-4 bg-[rgba(177,60,48,0.14)] dark:bg-[rgba(239,68,68,0.14)] border border-[#B13C30]/40 dark:border-[#EF4444]/40 rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
             <span className="text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] block">Belum Konfirmasi</span>
             <div className="flex items-baseline gap-1 mt-0.5">
@@ -318,7 +318,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
         </div>
 
         {/* 4. Bentrok Tanggal (Orange) */}
-        <div className="p-4 bg-[rgba(217,119,6,0.06)] dark:bg-[rgba(245,158,11,0.10)] border border-[#D97706]/30 dark:border-[#F59E0B]/30 rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div className="p-4 bg-[rgba(217,119,6,0.14)] dark:bg-[rgba(245,158,11,0.10)] border border-[#D97706]/40 dark:border-[#F59E0B]/30 rounded-xl flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
           <div>
             <span className="text-xs font-medium text-[#5E5A52] dark:text-[#A8A296] block">Bentrok Tanggal</span>
             <div className="flex items-baseline gap-1 mt-0.5">

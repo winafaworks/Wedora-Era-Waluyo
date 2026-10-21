@@ -48,7 +48,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
           value={stats.totalBooking}
           subtitle="Tercatat dalam sistem"
           icon={<CalendarDays size={20} />}
-          className="bg-[rgba(238,177,0,0.06)] dark:bg-[rgba(238,177,0,0.12)] border-[rgba(238,177,0,0.25)] dark:border-[rgba(238,177,0,0.3)]"
+          className="bg-[rgba(238,177,0,0.16)] dark:bg-[rgba(238,177,0,0.12)] border-[rgba(238,177,0,0.35)] dark:border-[rgba(238,177,0,0.3)]"
           valueClassName="text-[#EEB100]"
           iconClassName="text-[#EEB100]"
         />
@@ -57,7 +57,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
           value={stats.acaraBulanIni}
           subtitle="Bulan berjalan"
           icon={<Calendar size={20} />}
-          className="bg-[rgba(47,122,75,0.06)] dark:bg-[rgba(16,185,129,0.12)] border-[rgba(47,122,75,0.25)] dark:border-[rgba(16,185,129,0.3)]"
+          className="bg-[rgba(47,122,75,0.14)] dark:bg-[rgba(16,185,129,0.12)] border-[rgba(47,122,75,0.35)] dark:border-[rgba(16,185,129,0.3)]"
           valueClassName="text-[#2F7A4B] dark:text-[#7FD39B]"
           iconClassName="text-[#2F7A4B] dark:text-[#7FD39B]"
         />
@@ -66,7 +66,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
           value={stats.belumDikonfirmasi}
           subtitle="Menunggu respon pelanggan"
           icon={<AlertCircle size={20} />}
-          className="bg-[rgba(177,60,48,0.08)] dark:bg-[rgba(239,68,68,0.14)] border-[#B13C30]/40 dark:border-[#EF4444]/40"
+          className="bg-[rgba(177,60,48,0.14)] dark:bg-[rgba(239,68,68,0.14)] border-[#B13C30]/40 dark:border-[#EF4444]/40"
           valueClassName="text-[#B13C30] dark:text-[#FFA39E]"
           iconClassName="text-[#B13C30] dark:text-[#FFA39E]"
         />
@@ -75,7 +75,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
           value={stats.acaraMendatang}
           subtitle="Jadwal berikutnya"
           icon={<Clock size={20} />}
-          className="bg-[rgba(238,177,0,0.06)] dark:bg-[rgba(238,177,0,0.12)] border-[rgba(238,177,0,0.25)] dark:border-[rgba(238,177,0,0.3)]"
+          className="bg-[rgba(238,177,0,0.16)] dark:bg-[rgba(238,177,0,0.12)] border-[rgba(238,177,0,0.35)] dark:border-[rgba(238,177,0,0.3)]"
           valueClassName="text-[#EEB100]"
           iconClassName="text-[#EEB100]"
         />
