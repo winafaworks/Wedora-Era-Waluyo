@@ -57,50 +57,50 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
 
         {isAlreadyConfirmed ? (
           /* State Konfirmasi Berhasil */
-          <div className="bg-[#FBF7EC] border border-[#DDD2BA] rounded-2xl p-8 text-center space-y-4 shadow-sm">
-            <div className="w-16 h-16 mx-auto rounded-full bg-[rgba(127,211,155,0.2)] flex items-center justify-center text-[#2F7A4B]">
+          <div className="bg-[#FBF7EC] dark:bg-[#1E1E1E] border border-[#DDD2BA] dark:border-[#38342C] rounded-2xl p-8 text-center space-y-4 shadow-sm">
+            <div className="w-16 h-16 mx-auto rounded-full bg-[rgba(127,211,155,0.2)] flex items-center justify-center text-[#2F7A4B] dark:text-[#7FD39B]">
               <CheckCircle2 size={36} />
             </div>
-            <h2 className="font-sans text-[20px] font-bold text-[#111111]">
+            <h2 className="font-sans text-[20px] font-bold text-[#111111] dark:text-[#F5EDDC]">
               Pesanan Telah Dikonfirmasi
             </h2>
-            <p className="text-[14px] text-[#5E5A52] leading-relaxed">
+            <p className="text-[14px] text-[#5E5A52] dark:text-[#A8A49B] leading-relaxed">
               Terima kasih Kak <strong>{booking.nama_pelanggan}</strong>. Rincian kesepakatan acara pernikahan telah tersimpan resmi dan terkonfirmasi di sistem Era Waluyo.
             </p>
             {koreksi && (
-              <div className="p-4 bg-[#FFFFFF] rounded-xl border border-[#DDD2BA] text-left text-xs text-[#5E5A52]">
-                <strong className="block text-[#111111] mb-1 font-semibold">
+              <div className="p-4 bg-[#FFFFFF] dark:bg-[#252525] rounded-xl border border-[#DDD2BA] dark:border-[#38342C] text-left text-xs text-[#5E5A52] dark:text-[#A8A49B]">
+                <strong className="block text-[#111111] dark:text-[#F5EDDC] mb-1 font-semibold">
                   Catatan Koreksi Anda:
                 </strong>
                 {koreksi}
               </div>
             )}
-            <div className="pt-2 text-[11px] text-[#8F8A7F]">
+            <div className="pt-2 text-[11px] text-[#8F8A7F] dark:text-[#777777]">
               Waktu Konfirmasi: {new Date().toLocaleDateString("id-ID")}
             </div>
           </div>
         ) : (
           /* Form & Rincian Pesanan */
           <div className="space-y-6">
-            <div className="bg-[#FBF7EC] border border-[#DDD2BA] rounded-2xl p-6 space-y-4 shadow-sm">
+            <div className="bg-[#FBF7EC] dark:bg-[#1E1E1E] border border-[#DDD2BA] dark:border-[#38342C] rounded-2xl p-6 space-y-4 shadow-sm">
               <div>
                 <span className="text-xs font-semibold text-[#EEB100] uppercase tracking-wider">
                   Konfirmasi Kesepakatan Resmi
                 </span>
-                <h2 className="font-sans text-[20px] font-bold text-[#111111] mt-1">
+                <h2 className="font-sans text-[20px] font-bold text-[#111111] dark:text-[#F5EDDC] mt-1">
                   Halo, {booking.nama_pelanggan}
                 </h2>
-                <p className="text-[14px] text-[#5E5A52] mt-1">
+                <p className="text-[14px] text-[#5E5A52] dark:text-[#A8A49B] mt-1">
                   Mohon periksa rincian pesanan Anda di bawah ini dengan teliti sebelum menyetujui.
                 </p>
               </div>
 
-              <div className="space-y-3 pt-3 border-t border-[#EADFC8] text-sm">
+              <div className="space-y-3 pt-3 border-t border-[#EADFC8] dark:border-[#38342C] text-sm">
                 <div className="flex items-start gap-3">
                   <Calendar size={18} className="text-[#EEB100] mt-0.5 shrink-0" />
                   <div>
-                    <div className="text-xs text-[#5E5A52]">Tanggal Acara</div>
-                    <div className="font-semibold text-[#111111]">
+                    <div className="text-xs text-[#5E5A52] dark:text-[#A8A49B]">Tanggal Acara</div>
+                    <div className="font-semibold text-[#111111] dark:text-[#F5EDDC]">
                       {booking.tanggal_acara}
                     </div>
                   </div>
@@ -109,8 +109,8 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
                 <div className="flex items-start gap-3">
                   <MapPin size={18} className="text-[#EEB100] mt-0.5 shrink-0" />
                   <div>
-                    <div className="text-xs text-[#5E5A52]">Lokasi Pelaksanaan</div>
-                    <div className="font-semibold text-[#111111]">
+                    <div className="text-xs text-[#5E5A52] dark:text-[#A8A49B]">Lokasi Pelaksanaan</div>
+                    <div className="font-semibold text-[#111111] dark:text-[#F5EDDC]">
                       {booking.lokasi}
                     </div>
                   </div>
@@ -119,8 +119,8 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
                 <div className="flex items-start gap-3">
                   <Sparkles size={18} className="text-[#EEB100] mt-0.5 shrink-0" />
                   <div>
-                    <div className="text-xs text-[#5E5A52]">Paket Pilihan</div>
-                    <div className="font-semibold text-[#111111]">
+                    <div className="text-xs text-[#5E5A52] dark:text-[#A8A49B]">Paket Pilihan</div>
+                    <div className="font-semibold text-[#111111] dark:text-[#F5EDDC]">
                       {booking.packages?.nama || "Paket Khusus Era Waluyo"}
                     </div>
                   </div>
@@ -128,27 +128,27 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
 
                 {/* Jam Rangkaian Acara */}
                 {(booking.jam_akad || booking.jam_adat || booking.jam_resepsi) && (
-                  <div className="p-3 bg-white border border-[#DDD2BA] rounded-xl grid grid-cols-3 gap-2 text-xs text-center">
+                  <div className="p-3 bg-white dark:bg-[#252525] border border-[#DDD2BA] dark:border-[#38342C] rounded-xl grid grid-cols-3 gap-2 text-xs text-center">
                     <div>
-                      <span className="text-[#5E5A52] block text-[10px]">Akad</span>
-                      <strong className="text-[#111111]">{booking.jam_akad || "-"}</strong>
+                      <span className="text-[#5E5A52] dark:text-[#A8A49B] block text-[10px]">Akad</span>
+                      <strong className="text-[#111111] dark:text-[#F5EDDC]">{booking.jam_akad || "-"}</strong>
                     </div>
                     <div>
-                      <span className="text-[#5E5A52] block text-[10px]">Adat</span>
-                      <strong className="text-[#111111]">{booking.jam_adat || "-"}</strong>
+                      <span className="text-[#5E5A52] dark:text-[#A8A49B] block text-[10px]">Adat</span>
+                      <strong className="text-[#111111] dark:text-[#F5EDDC]">{booking.jam_adat || "-"}</strong>
                     </div>
                     <div>
-                      <span className="text-[#5E5A52] block text-[10px]">Resepsi</span>
-                      <strong className="text-[#111111]">{booking.jam_resepsi || "-"}</strong>
+                      <span className="text-[#5E5A52] dark:text-[#A8A49B] block text-[10px]">Resepsi</span>
+                      <strong className="text-[#111111] dark:text-[#F5EDDC]">{booking.jam_resepsi || "-"}</strong>
                     </div>
                   </div>
                 )}
               </div>
 
               {/* Rincian Busana & Dekorasi */}
-              <div className="pt-4 border-t border-[#EADFC8] space-y-2 text-xs">
-                <div className="font-semibold text-[#111111]">Rincian Layanan Disepakati:</div>
-                <ul className="space-y-1.5 text-[#5E5A52] list-disc list-inside">
+              <div className="pt-4 border-t border-[#EADFC8] dark:border-[#38342C] space-y-2 text-xs">
+                <div className="font-semibold text-[#111111] dark:text-[#F5EDDC]">Rincian Layanan Disepakati:</div>
+                <ul className="space-y-1.5 text-[#5E5A52] dark:text-[#A8A49B] list-disc list-inside">
                   {booking.kebaya_baju && (
                     <li><strong>Busana / Kebaya:</strong> {booking.kebaya_baju}</li>
                   )}
@@ -179,23 +179,23 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
                 </ul>
               </div>
 
-              <div className="pt-4 border-t border-[#EADFC8] space-y-2 text-xs">
+              <div className="pt-4 border-t border-[#EADFC8] dark:border-[#38342C] space-y-2 text-xs">
                 {Number(booking.total_biaya || 0) > 0 && (
-                  <div className="flex items-center justify-between text-[#5E5A52]">
+                  <div className="flex items-center justify-between text-[#5E5A52] dark:text-[#A8A49B]">
                     <span>Total Biaya Acara:</span>
-                    <span className="font-bold text-[#111111] text-sm">
+                    <span className="font-bold text-[#111111] dark:text-[#F5EDDC] text-sm">
                       Rp{Number(booking.total_biaya).toLocaleString("id-ID")}
                     </span>
                   </div>
                 )}
-                <div className="flex items-center justify-between text-[#5E5A52]">
+                <div className="flex items-center justify-between text-[#5E5A52] dark:text-[#A8A49B]">
                   <span>Uang Muka (DP) Diterima:</span>
-                  <span className="font-semibold text-[#2F7A4B] text-sm">
+                  <span className="font-semibold text-[#2F7A4B] dark:text-[#7FD39B] text-sm">
                     Rp{Number(booking.dp_nominal || 0).toLocaleString("id-ID")} (Lunas DP)
                   </span>
                 </div>
                 {Number(booking.total_biaya || 0) > 0 && (
-                  <div className="flex items-center justify-between text-[#5E5A52] pt-1 border-t border-dashed border-[#DDD2BA]">
+                  <div className="flex items-center justify-between text-[#5E5A52] dark:text-[#A8A49B] pt-1 border-t border-dashed border-[#DDD2BA] dark:border-[#38342C]">
                     <span>Sisa Pelunasan:</span>
                     <span className="font-bold text-[#EEB100] text-sm">
                       Rp{Number(booking.sisa_pembayaran || Math.max(0, (booking.total_biaya || 0) - (booking.dp_nominal || 0))).toLocaleString("id-ID")}
@@ -206,10 +206,10 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
             </div>
 
             {/* Kolom Catatan / Koreksi Pelanggan */}
-            <div className="bg-[#FBF7EC] border border-[#DDD2BA] rounded-2xl p-6 space-y-3 shadow-sm">
+            <div className="bg-[#FBF7EC] dark:bg-[#1E1E1E] border border-[#DDD2BA] dark:border-[#38342C] rounded-2xl p-6 space-y-3 shadow-sm">
               <label
                 htmlFor="koreksi"
-                className="block text-sm font-semibold text-[#111111] flex items-center gap-2"
+                className="block text-sm font-semibold text-[#111111] dark:text-[#F5EDDC] flex items-center gap-2"
               >
                 <MessageSquare size={16} className="text-[#EEB100]" />
                 <span>Ada rincian yang perlu diperbaiki? (Opsional)</span>
@@ -220,7 +220,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
                 onChange={(e) => setKoreksi(e.target.value)}
                 placeholder="Tuliskan di sini jika ada perubahan jam, ukuran baju, atau catatan lainnya..."
                 rows={3}
-                className="w-full p-3 bg-white border border-[#DDD2BA] rounded-xl text-sm text-[#111111] placeholder-[#8F8A7F] focus:outline-none focus:border-[#EEB100] transition-colors"
+                className="w-full p-3 bg-white dark:bg-[#252525] border border-[#DDD2BA] dark:border-[#38342C] rounded-xl text-sm text-[#111111] dark:text-[#F5EDDC] placeholder-[#8F8A7F] dark:placeholder-[#777777] focus:outline-none focus:border-[#EEB100] transition-colors"
               />
             </div>
 
@@ -233,7 +233,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
               >
                 {isSubmitting ? "Menyimpan Konfirmasi..." : "Saya Setuju & Konfirmasi Pesanan"}
               </button>
-              <p className="text-center text-[11px] text-[#8F8A7F] mt-3">
+              <p className="text-center text-[11px] text-[#8F8A7F] dark:text-[#777777] mt-3">
                 Dengan menekan tombol di atas, Anda menyetujui rincian pesanan untuk diproses oleh Era Waluyo.
               </p>
             </div>

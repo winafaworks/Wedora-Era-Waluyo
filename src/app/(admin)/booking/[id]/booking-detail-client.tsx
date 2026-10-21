@@ -203,18 +203,18 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
             </div>
 
             {/* Jam Rangkaian Acara */}
-            <div className="pt-2 border-t border-[#EFE9DC] grid grid-cols-3 gap-2 text-xs">
-              <div className="p-2 bg-[#FBF7EC] rounded-lg">
-                <span className="text-[#5E5A52] block">Akad</span>
-                <strong className="text-[#1A1A1A]">{booking.jam_akad || "-"}</strong>
+            <div className="pt-2 border-t border-[#EFE9DC] dark:border-[#332F28] grid grid-cols-3 gap-2 text-xs">
+              <div className="p-2 bg-[#FBF7EC] dark:bg-[#252525] rounded-lg">
+                <span className="text-[#5E5A52] dark:text-[#A8A49B] block">Akad</span>
+                <strong className="text-[#1A1A1A] dark:text-[#F5EDDC]">{booking.jam_akad || "-"}</strong>
               </div>
-              <div className="p-2 bg-[#FBF7EC] rounded-lg">
-                <span className="text-[#5E5A52] block">Adat</span>
-                <strong className="text-[#1A1A1A]">{booking.jam_adat || "-"}</strong>
+              <div className="p-2 bg-[#FBF7EC] dark:bg-[#252525] rounded-lg">
+                <span className="text-[#5E5A52] dark:text-[#A8A49B] block">Adat</span>
+                <strong className="text-[#1A1A1A] dark:text-[#F5EDDC]">{booking.jam_adat || "-"}</strong>
               </div>
-              <div className="p-2 bg-[#FBF7EC] rounded-lg">
-                <span className="text-[#5E5A52] block">Resepsi</span>
-                <strong className="text-[#1A1A1A]">{booking.jam_resepsi || "-"}</strong>
+              <div className="p-2 bg-[#FBF7EC] dark:bg-[#252525] rounded-lg">
+                <span className="text-[#5E5A52] dark:text-[#A8A49B] block">Resepsi</span>
+                <strong className="text-[#1A1A1A] dark:text-[#F5EDDC]">{booking.jam_resepsi || "-"}</strong>
               </div>
             </div>
 

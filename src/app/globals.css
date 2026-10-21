@@ -191,9 +191,15 @@ html.dark .bg-\[\#E8E2D2\] {
   background-color: #2e2a22 !important;
 }
 
+html.dark .bg-white {
+  background-color: #242424 !important;
+}
+
 /* Border Overrides */
 html.dark .border-\[\#E5DEC9\],
 html.dark .border-\[\#D6CEBE\],
+html.dark .border-\[\#DDD2BA\],
+html.dark .border-\[\#EADFC8\],
 html.dark .border-\[\#F2ECE1\],
 html.dark .border-\[\#D1C6AD\],
 html.dark .border-\[\#E8E2D2\] {
