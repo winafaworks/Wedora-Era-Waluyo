@@ -125,10 +125,10 @@ h2 {
    DARK THEME SYSTEM (LUXURY MIDNIGHT CHARCOAL & GOLD)
 ========================================================================= */
 html.dark {
-  --bg: #121212;
-  --surface: #1b1b1b;
-  --surface-2: #242424;
-  --surface-3: #2e2e2e;
+  --bg: #1e1e1e;
+  --surface: #252525;
+  --surface-2: #2d2d2d;
+  --surface-3: #353535;
   --border: #332f28;
   --border-strong: #474136;
   --text: #f5eddc;
@@ -141,17 +141,17 @@ html.dark {
 }
 
 html.dark body {
-  background-color: #121212 !important;
+  background-color: #1e1e1e !important;
   color: #f5eddc !important;
 }
 
 /* Canvas & Container Overrides */
 html.dark .bg-\[\#FBF7EC\] {
-  background-color: #121212 !important;
+  background-color: #1e1e1e !important;
 }
 
 html.dark .bg-\[\#FFFFFF\] {
-  background-color: #1b1b1b !important;
+  background-color: #1e1e1e !important;
 }
 
 html.dark .bg-\[\#FAF6ED\],
@@ -251,7 +251,7 @@ html.dark thead tr th {
 }
 
 html.dark tbody tr {
-  background-color: #1b1b1b !important;
+  background-color: #1e1e1e !important;
   border-color: #332f28 !important;
 }
 
