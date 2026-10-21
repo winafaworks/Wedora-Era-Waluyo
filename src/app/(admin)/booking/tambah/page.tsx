@@ -769,11 +769,11 @@ function TambahBookingForm() {
               <span>Rincian Biaya & Pembayaran DP</span>
             </h2>
 
-            <div className="p-5 bg-gradient-to-r from-[#FAF7F0] to-[#FFFFFF] border border-[#D6CEBE] rounded-2xl space-y-4 shadow-sm">
+            <div className="p-5 bg-gradient-to-r from-[#FAF7F0] to-[#FFFFFF] dark:from-[#242424] dark:to-[#1C1C1C] border border-[#D6CEBE] dark:border-[#38342C] rounded-2xl space-y-4 shadow-sm">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                    Total Biaya Paket / Acara (Rp) <span className="text-[#B13C30]">*</span>
+                  <label className="block text-xs font-medium text-[#5E5A52] dark:text-[#A8A49B] mb-1.5">
+                    Total Biaya Paket / Acara (Rp) <span className="text-[#B13C30] dark:text-[#FFA39E]">*</span>
                   </label>
                   <input
                     type="number"
@@ -783,13 +783,13 @@ function TambahBookingForm() {
                     step={100000}
                     value={formData.totalBiaya}
                     onChange={handleChange}
-                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-base text-[#1A1A1A] font-bold focus:outline-none focus:border-[#EEB100] transition-colors"
+                    className="w-full h-11 px-4 bg-[#FFFFFF] dark:bg-[#242424] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-base text-[#1A1A1A] dark:text-[#F5EDDC] font-bold focus:outline-none focus:border-[#EEB100] transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                    Uang Muka / DP Diterima (Rp) <span className="text-[#B13C30]">*</span>
+                  <label className="block text-xs font-medium text-[#5E5A52] dark:text-[#A8A49B] mb-1.5">
+                    Uang Muka / DP Diterima (Rp) <span className="text-[#B13C30] dark:text-[#FFA39E]">*</span>
                   </label>
                   <input
                     type="number"
@@ -799,35 +799,35 @@ function TambahBookingForm() {
                     step={100000}
                     value={formData.nominalDp}
                     onChange={handleChange}
-                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-base text-[#2F7A4B] font-bold focus:outline-none focus:border-[#EEB100] transition-colors"
+                    className="w-full h-11 px-4 bg-[#FFFFFF] dark:bg-[#242424] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-base text-[#2F7A4B] dark:text-[#7FD39B] font-bold focus:outline-none focus:border-[#EEB100] transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
+                  <label className="block text-xs font-medium text-[#5E5A52] dark:text-[#A8A49B] mb-1.5">
                     Sisa Pelunasan (Otomatis)
                   </label>
-                  <div className="w-full h-11 px-4 bg-[#F5EDDC]/50 border border-[#D6CEBE] rounded-xl text-base text-[#EEB100] font-bold flex items-center">
+                  <div className="w-full h-11 px-4 bg-[#F5EDDC]/50 dark:bg-[#242424] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-base text-[#EEB100] font-bold flex items-center">
                     Rp{sisaPembayaran.toLocaleString("id-ID")}
                   </div>
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-[#E8E2D2]">
+              <div className="pt-2 border-t border-[#E8E2D2] dark:border-[#38342C]">
                 <label className="flex items-center gap-3 cursor-pointer select-none">
                   <input
                     type="checkbox"
                     name="dpDiterima"
                     checked={formData.dpDiterima}
                     onChange={handleChange}
-                    className="w-5 h-5 rounded border-[#D6CEBE] bg-[#FFFFFF] text-[#EEB100] accent-[#EEB100]"
+                    className="w-5 h-5 rounded border-[#D6CEBE] dark:border-[#38342C] bg-[#FFFFFF] dark:bg-[#242424] text-[#EEB100] accent-[#EEB100]"
                   />
                   <div>
-                    <span className="text-sm font-semibold text-[#1A1A1A] flex items-center gap-1.5">
-                      <CheckCircle2 size={16} className="text-[#2F7A4B]" />
+                    <span className="text-sm font-semibold text-[#1A1A1A] dark:text-[#F5EDDC] flex items-center gap-1.5">
+                      <CheckCircle2 size={16} className="text-[#2F7A4B] dark:text-[#7FD39B]" />
                       DP Sah Diterima (Syarat Sah Booking)
                     </span>
-                    <p className="text-xs text-[#5E5A52]">
+                    <p className="text-xs text-[#5E5A52] dark:text-[#A8A49B]">
                       Sesuai SOP Era Waluyo, tanggal baru sah dicatat setelah pembayaran uang muka diterima.
                     </p>
                   </div>

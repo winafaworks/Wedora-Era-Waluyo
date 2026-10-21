@@ -165,8 +165,21 @@ html.dark .bg-\[\#FCF8EE\] {
 
 /* Opacity container overrides in dark mode */
 html.dark .bg-\[\#F5EDDC\]\/40,
+html.dark .bg-\[\#F5EDDC\]\/50,
 html.dark .bg-\[\#FAF6ED\]\/50 {
   background-color: #181818 !important;
+}
+
+/* Gradient Overrides in dark mode */
+html.dark .from-\[\#FAF7F0\],
+html.dark .from-\[\#FFFFFF\] {
+  --tw-gradient-from: #222222 !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+html.dark .to-\[\#FFFFFF\],
+html.dark .to-\[\#FAF6ED\] {
+  --tw-gradient-to: #181818 !important;
 }
 
 html.dark .bg-\[\#FFFFFF\]\/90 {

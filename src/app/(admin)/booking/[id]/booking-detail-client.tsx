@@ -117,7 +117,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
       </div>
 
       {/* WhatsApp Confirmation Banner */}
-      <Card className="p-6 bg-gradient-to-r from-[#FFFFFF] to-[#FAF6ED] border-[#D6CEBE] flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
+      <Card className="p-6 bg-gradient-to-r from-[#FFFFFF] to-[#FAF6ED] dark:from-[#242424] dark:to-[#1E1E1E] border-[#D6CEBE] dark:border-[#332F28] flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
         <div className="space-y-1">
           <span className="text-xs font-semibold uppercase tracking-wider text-[#EEB100] flex items-center gap-1.5">
             <MessageCircle size={14} />
