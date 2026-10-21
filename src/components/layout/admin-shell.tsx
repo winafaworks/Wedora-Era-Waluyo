@@ -3,24 +3,28 @@
 import React from "react";
 import { SidebarProvider, useSidebar } from "./sidebar-context";
 import { Sidebar } from "./sidebar";
+import { Topbar } from "./topbar";
 
 function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const { isCollapsed } = useSidebar();
 
   return (
-    <div className="min-h-screen bg-[#FBF7EC] text-[#1A1A1A] flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-[#FBF7EC] dark:bg-[#1E1E1E] text-[#1A1A1A] dark:text-[#F5EDDC] flex flex-col lg:flex-row">
       <React.Suspense fallback={null}>
         <Sidebar />
       </React.Suspense>
-      <main
-        className={`flex-1 min-h-screen flex flex-col bg-[#FBF7EC] transition-all duration-300 ease-in-out ${
+      <div
+        className={`flex-1 min-h-screen flex flex-col bg-[#FBF7EC] dark:bg-[#1E1E1E] transition-all duration-300 ease-in-out ${
           isCollapsed ? "lg:ml-20" : "lg:ml-72"
         }`}
       >
-        <div className="max-w-[1400px] w-full mx-auto p-6 md:p-10 flex-1 transition-all duration-300">
+        <React.Suspense fallback={null}>
+          <Topbar />
+        </React.Suspense>
+        <main className="max-w-[1400px] w-full mx-auto p-6 md:p-10 flex-1 transition-all duration-300">
           {children}
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }
