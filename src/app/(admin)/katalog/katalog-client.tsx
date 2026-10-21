@@ -352,7 +352,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
               placeholder="Cari item katalog..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-10 pl-9 pr-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-xs text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+              className="w-full h-10 pl-9 pr-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-xs text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm"
             />
           </div>
 
@@ -361,7 +361,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             <select
               value={sizeFilter}
               onChange={(e) => setSizeFilter(e.target.value)}
-              className="h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-xs text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer shadow-sm"
+              className="h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-xs text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors cursor-pointer shadow-sm"
             >
               <option value="all">Semua Ukuran</option>
               <option value="S">Ukuran S</option>
@@ -408,7 +408,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
 
             const categoryIcon =
               item.jenis === "busana" ? (
-                <Shirt size={14} className="text-[#8A6A22]" />
+                <Shirt size={14} className="text-[#EEB100]" />
               ) : item.jenis === "dekorasi" ? (
                 <Sparkles size={14} className="text-[#2F7A4B]" />
               ) : (
@@ -453,7 +453,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                     {/* Photo Count Tag (Top Right) */}
                     <button
                       onClick={() => handleOpenPhotoModal(item)}
-                      className="absolute top-3 right-3 px-2 py-1 rounded-full bg-[#FFFFFF]/90 dark:bg-[#222222]/90 backdrop-blur-sm border border-[#E5DEC9] dark:border-[#38342C] text-[11px] font-semibold text-[#8A6A22] dark:text-[#EEB100] hover:bg-[#FAF6ED] dark:hover:bg-[#2A2A2A] transition-colors flex items-center gap-1 cursor-pointer shadow-xs"
+                      className="absolute top-3 right-3 px-2 py-1 rounded-full bg-[#FFFFFF]/90 dark:bg-[#222222]/90 backdrop-blur-sm border border-[#E5DEC9] dark:border-[#38342C] text-[11px] font-semibold text-[#EEB100] dark:text-[#EEB100] hover:bg-[#FAF6ED] dark:hover:bg-[#2A2A2A] transition-colors flex items-center gap-1 cursor-pointer shadow-xs"
                       title="Buka Galeri Foto"
                     >
                       <Camera size={12} />
@@ -464,11 +464,11 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                   {/* Card Content Body */}
                   <div className="p-5 space-y-3">
                     <div className="flex items-start justify-between gap-2">
-                      <h3 className="font-sans text-lg font-bold text-[#1A1A1A] dark:text-[#F5EDDC] leading-snug group-hover:text-[#8A6A22] dark:group-hover:text-[#EEB100] transition-colors">
+                      <h3 className="font-sans text-lg font-bold text-[#1A1A1A] dark:text-[#F5EDDC] leading-snug group-hover:text-[#EEB100] dark:group-hover:text-[#EEB100] transition-colors">
                         {item.nama}
                       </h3>
                       {item.ukuran && (
-                        <span className="shrink-0 px-2.5 py-0.5 rounded-full bg-[rgba(212,173,92,0.14)] text-[#8A6A22] dark:text-[#EEB100] text-xs font-semibold flex items-center gap-1 border border-[#D4AD5C]/40">
+                        <span className="shrink-0 px-2.5 py-0.5 rounded-full bg-[rgba(212,173,92,0.14)] text-[#EEB100] dark:text-[#EEB100] text-xs font-semibold flex items-center gap-1 border border-[#D4AD5C]/40">
                           <Tag size={11} />
                           <span>{item.ukuran}</span>
                         </span>
@@ -559,7 +559,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                       onClick={() => setFormData({ ...formData, jenis: j })}
                       className={`h-10 rounded-xl text-xs font-semibold capitalize transition-all border cursor-pointer ${
                         formData.jenis === j
-                          ? "bg-[rgba(212,173,92,0.18)] text-[#8A6A22] border-[#8A6A22]"
+                          ? "bg-[rgba(212,173,92,0.18)] text-[#EEB100] border-[#EEB100]"
                           : "bg-[#FFFFFF] text-[#5E5A52] border-[#D6CEBE] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
                       }`}
                     >
@@ -580,7 +580,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                   placeholder="Contoh: Kebaya Solo Basahan Beludru Hitam"
                   value={formData.nama}
                   onChange={(e) => setFormData({ ...formData, nama: e.target.value })}
-                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm"
                 />
               </div>
 
@@ -593,7 +593,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                   <select
                     value={formData.ukuran}
                     onChange={(e) => setFormData({ ...formData, ukuran: e.target.value })}
-                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer shadow-sm"
+                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors cursor-pointer shadow-sm"
                   >
                     <option value="S">Ukuran S</option>
                     <option value="M">Ukuran M</option>
@@ -613,7 +613,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                     placeholder="Contoh: 8 x 3 Meter"
                     value={formData.ukuran}
                     onChange={(e) => setFormData({ ...formData, ukuran: e.target.value })}
-                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm"
                   />
                 </div>
               )}
@@ -628,7 +628,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                   placeholder="Rincian bahan, motif, kelengkapan aksesoris, atau detail layanan..."
                   value={formData.deskripsi}
                   onChange={(e) => setFormData({ ...formData, deskripsi: e.target.value })}
-                  className="w-full p-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                  className="w-full p-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm"
                 />
               </div>
 
@@ -660,7 +660,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             {/* Header */}
             <div className="flex items-center justify-between pb-3 border-b border-[#E5DEC9]">
               <div>
-                <span className="text-xs font-semibold text-[#8A6A22] uppercase tracking-wider">
+                <span className="text-xs font-semibold text-[#EEB100] uppercase tracking-wider">
                   Galeri Foto Katalog
                 </span>
                 <h3 className="font-sans text-2xl font-bold text-[#1A1A1A]">
@@ -684,7 +684,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
 
             {/* Upload Area */}
             <div className="p-6 border-2 border-dashed border-[#D6CEBE] rounded-2xl bg-[#FBF7EC]/60 text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] text-[#8A6A22] flex items-center justify-center">
+              <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] text-[#EEB100] flex items-center justify-center">
                 <Upload size={22} />
               </div>
               <div>

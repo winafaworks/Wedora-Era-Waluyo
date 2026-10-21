@@ -492,7 +492,7 @@ export default function RekapClient({
       <Card className="space-y-4 print:hidden">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-[#E5DEC9] dark:border-[#332F28] pb-3">
           <div className="flex items-center gap-2 text-sm font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
-            <Filter size={18} className="text-[#A67C24] dark:text-[#EEB100]" />
+            <Filter size={18} className="text-[#EEB100] dark:text-[#EEB100]" />
             <span>Filter & Periode Laporan</span>
             <span className="text-xs font-normal text-[#5E5A52] dark:text-[#A8A296] ml-1">
               ({filteredBookings.length} pesanan ditemukan)
@@ -567,7 +567,7 @@ export default function RekapClient({
                 setStartDate("");
                 setEndDate("");
               }}
-              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#EEB100] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             >
               <option value="all">Semua Tahun</option>
               {availableYears.map((yr) => (
@@ -590,7 +590,7 @@ export default function RekapClient({
                 setStartDate("");
                 setEndDate("");
               }}
-              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#EEB100] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             >
               <option value="all">Semua Bulan</option>
               {MONTH_NAMES.map((name, index) => (
@@ -609,7 +609,7 @@ export default function RekapClient({
             <select
               value={selectedPackage}
               onChange={(e) => setSelectedPackage(e.target.value)}
-              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#EEB100] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             >
               <option value="all">Semua Paket</option>
               {packages.map((pkg) => (
@@ -629,7 +629,7 @@ export default function RekapClient({
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#EEB100] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             >
               <option value="all">Semua Status</option>
               <option value="dikonfirmasi">Dikonfirmasi Pelanggan</option>
@@ -650,7 +650,7 @@ export default function RekapClient({
             <select
               value={selectedDp}
               onChange={(e) => setSelectedDp(e.target.value)}
-              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#EEB100] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             >
               <option value="all">Semua Status DP</option>
               <option value="diterima">DP Diterima</option>
@@ -671,7 +671,7 @@ export default function RekapClient({
                 setSelectedYear("all");
                 setSelectedMonth("all");
               }}
-              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#EEB100] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             />
           </div>
 
@@ -688,7 +688,7 @@ export default function RekapClient({
                 setSelectedYear("all");
                 setSelectedMonth("all");
               }}
-              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
+              className="w-full h-10 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#EEB100] dark:focus:border-[#EEB100] transition-colors cursor-pointer"
             />
           </div>
 
@@ -707,7 +707,7 @@ export default function RekapClient({
                 placeholder="Nama pelanggan, no WA, lokasi..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full h-10 pl-9 pr-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] placeholder-[#8A857B] dark:placeholder-[#666666] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors"
+                className="w-full h-10 pl-9 pr-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] placeholder-[#8A857B] dark:placeholder-[#666666] focus:outline-none focus:border-[#EEB100] dark:focus:border-[#EEB100] transition-colors"
               />
             </div>
           </div>
@@ -774,16 +774,16 @@ export default function RekapClient({
             onClick={() => setActiveTab("bulanan")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
               activeTab === "bulanan"
-                ? "bg-[#FFFFFF] dark:bg-[#2A2A2A] text-[#8A6A22] dark:text-[#EEB100] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2] dark:border-[#3D382F]"
+                ? "bg-[#FFFFFF] dark:bg-[#2A2A2A] text-[#EEB100] dark:text-[#EEB100] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2] dark:border-[#3D382F]"
                 : "text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] hover:bg-[#F2ECE1] dark:hover:bg-[#2A2A2A]"
             }`}
           >
-            <CalendarRange size={16} className={activeTab === "bulanan" ? "text-[#A67C24] dark:text-[#EEB100]" : "text-[#8A857B] dark:text-[#777777]"} />
+            <CalendarRange size={16} className={activeTab === "bulanan" ? "text-[#EEB100] dark:text-[#EEB100]" : "text-[#8A857B] dark:text-[#777777]"} />
             <span>Rekap Bulanan</span>
             <span
               className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
                 activeTab === "bulanan"
-                  ? "bg-[rgba(212,173,92,0.18)] dark:bg-[rgba(212,173,92,0.22)] text-[#8A6A22] dark:text-[#EEB100]"
+                  ? "bg-[rgba(212,173,92,0.18)] dark:bg-[rgba(212,173,92,0.22)] text-[#EEB100] dark:text-[#EEB100]"
                   : "bg-[#EAE2D2] dark:bg-[#2E2A22] text-[#5E5A52] dark:text-[#A8A296]"
               }`}
             >
@@ -796,16 +796,16 @@ export default function RekapClient({
             onClick={() => setActiveTab("paket")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
               activeTab === "paket"
-                ? "bg-[#FFFFFF] dark:bg-[#2A2A2A] text-[#8A6A22] dark:text-[#EEB100] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2] dark:border-[#3D382F]"
+                ? "bg-[#FFFFFF] dark:bg-[#2A2A2A] text-[#EEB100] dark:text-[#EEB100] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2] dark:border-[#3D382F]"
                 : "text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] hover:bg-[#F2ECE1] dark:hover:bg-[#2A2A2A]"
             }`}
           >
-            <Sparkles size={16} className={activeTab === "paket" ? "text-[#A67C24] dark:text-[#EEB100]" : "text-[#8A857B] dark:text-[#777777]"} />
+            <Sparkles size={16} className={activeTab === "paket" ? "text-[#EEB100] dark:text-[#EEB100]" : "text-[#8A857B] dark:text-[#777777]"} />
             <span>Rekap Per Paket Acara</span>
             <span
               className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
                 activeTab === "paket"
-                  ? "bg-[rgba(212,173,92,0.18)] dark:bg-[rgba(212,173,92,0.22)] text-[#8A6A22] dark:text-[#EEB100]"
+                  ? "bg-[rgba(212,173,92,0.18)] dark:bg-[rgba(212,173,92,0.22)] text-[#EEB100] dark:text-[#EEB100]"
                   : "bg-[#EAE2D2] dark:bg-[#2E2A22] text-[#5E5A52] dark:text-[#A8A296]"
               }`}
             >
@@ -818,16 +818,16 @@ export default function RekapClient({
             onClick={() => setActiveTab("status")}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
               activeTab === "status"
-                ? "bg-[#FFFFFF] dark:bg-[#2A2A2A] text-[#8A6A22] dark:text-[#EEB100] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2] dark:border-[#3D382F]"
+                ? "bg-[#FFFFFF] dark:bg-[#2A2A2A] text-[#EEB100] dark:text-[#EEB100] shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-[#E8E2D2] dark:border-[#3D382F]"
                 : "text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] hover:bg-[#F2ECE1] dark:hover:bg-[#2A2A2A]"
             }`}
           >
-            <CheckCircle2 size={16} className={activeTab === "status" ? "text-[#A67C24] dark:text-[#EEB100]" : "text-[#8A857B] dark:text-[#777777]"} />
+            <CheckCircle2 size={16} className={activeTab === "status" ? "text-[#EEB100] dark:text-[#EEB100]" : "text-[#8A857B] dark:text-[#777777]"} />
             <span>Rekap Status Konfirmasi</span>
             <span
               className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${
                 activeTab === "status"
-                  ? "bg-[rgba(212,173,92,0.18)] dark:bg-[rgba(212,173,92,0.22)] text-[#8A6A22] dark:text-[#EEB100]"
+                  ? "bg-[rgba(212,173,92,0.18)] dark:bg-[rgba(212,173,92,0.22)] text-[#EEB100] dark:text-[#EEB100]"
                   : "bg-[#EAE2D2] dark:bg-[#2E2A22] text-[#5E5A52] dark:text-[#A8A296]"
               }`}
             >
@@ -851,7 +851,7 @@ export default function RekapClient({
                 </p>
               </div>
               {monthlyBreakdown.busiestMonth && (
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(212,173,92,0.14)] dark:bg-[rgba(212,173,92,0.22)] text-[#8A6A22] dark:text-[#EEB100] text-xs font-semibold">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(212,173,92,0.14)] dark:bg-[rgba(212,173,92,0.22)] text-[#EEB100] dark:text-[#EEB100] text-xs font-semibold">
                   <Sparkles size={14} />
                   <span>
                     Bulan Terpadat: {monthlyBreakdown.busiestMonth.name} (
@@ -888,14 +888,14 @@ export default function RekapClient({
                         {m.name.slice(0, 3)}
                       </span>
                       {isCurrentMonth && (
-                        <span className="text-[10px] uppercase font-bold text-[#A67C24] dark:text-[#EEB100] bg-[rgba(212,173,92,0.18)] px-1.5 py-0.5 rounded">
+                        <span className="text-[10px] uppercase font-bold text-[#EEB100] dark:text-[#EEB100] bg-[rgba(212,173,92,0.18)] px-1.5 py-0.5 rounded">
                           Kini
                         </span>
                       )}
                     </div>
 
                     <div className="mt-3">
-                      <div className="text-2xl font-bold font-sans text-[#A67C24] dark:text-[#EEB100]">
+                      <div className="text-2xl font-bold font-sans text-[#EEB100] dark:text-[#EEB100]">
                         {m.count}
                         <span className="text-[11px] font-normal text-[#5E5A52] dark:text-[#B8B3A8] ml-1">
                           acara
@@ -960,7 +960,7 @@ export default function RekapClient({
                             {pkg.nama}
                           </h4>
                           {pkg.hargaDasar > 0 && (
-                            <span className="text-xs text-[#8A6A22] dark:text-[#EEB100] font-semibold bg-[rgba(212,173,92,0.14)] dark:bg-[rgba(212,173,92,0.22)] px-2 py-0.5 rounded-full">
+                            <span className="text-xs text-[#EEB100] dark:text-[#EEB100] font-semibold bg-[rgba(212,173,92,0.14)] dark:bg-[rgba(212,173,92,0.22)] px-2 py-0.5 rounded-full">
                               Rp{pkg.hargaDasar.toLocaleString("id-ID")}
                             </span>
                           )}
@@ -1065,7 +1065,7 @@ export default function RekapClient({
         <Card className="p-0 overflow-hidden shadow-sm">
           {filteredBookings.length === 0 ? (
             <div className="p-12 text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] dark:bg-[rgba(212,173,92,0.22)] flex items-center justify-center text-[#8A6A22] dark:text-[#EEB100]">
+              <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] dark:bg-[rgba(212,173,92,0.22)] flex items-center justify-center text-[#EEB100] dark:text-[#EEB100]">
                 <PackageCheck size={24} />
               </div>
               <h3 className="font-sans text-lg font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
@@ -1167,7 +1167,7 @@ export default function RekapClient({
                         <td className="py-3.5 px-4 text-center print:hidden">
                           <Link
                             href={`/booking/${b.id}`}
-                            className="inline-flex items-center gap-1 text-xs font-semibold text-[#8A6A22] dark:text-[#EEB100] hover:text-[#B8923F] dark:hover:text-[#FFD666] p-1.5 rounded-lg hover:bg-[rgba(212,173,92,0.12)] dark:hover:bg-[rgba(212,173,92,0.2)] transition-colors"
+                            className="inline-flex items-center gap-1 text-xs font-semibold text-[#EEB100] dark:text-[#EEB100] hover:text-[#DDA400] dark:hover:text-[#FFD666] p-1.5 rounded-lg hover:bg-[rgba(212,173,92,0.12)] dark:hover:bg-[rgba(212,173,92,0.2)] transition-colors"
                             title="Buka rincian booking"
                           >
                             <span>Detail</span>

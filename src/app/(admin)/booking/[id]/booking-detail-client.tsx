@@ -93,7 +93,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
         <div className="flex items-center gap-2">
           <Link href="/checklist">
             <Button variant="outline" size="sm" className="gap-1.5 bg-[#FFFFFF]">
-              <CheckSquare size={16} className="text-[#8A6A22]" />
+              <CheckSquare size={16} className="text-[#EEB100]" />
               <span>Checklist</span>
             </Button>
           </Link>
@@ -119,7 +119,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
       {/* WhatsApp Confirmation Banner */}
       <Card className="p-6 bg-gradient-to-r from-[#FFFFFF] to-[#FAF6ED] border-[#D6CEBE] flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
         <div className="space-y-1">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#8A6A22] flex items-center gap-1.5">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#EEB100] flex items-center gap-1.5">
             <MessageCircle size={14} />
             Konfirmasi Pesanan Pelanggan
           </span>
@@ -170,7 +170,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Informasi Acara & Waktu */}
         <Card className="p-6 space-y-4">
-          <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] border-b border-[#E5DEC9] pb-2">
+          <h2 className="font-sans text-[20px] font-bold text-[#EEB100] border-b border-[#E5DEC9] pb-2">
             Jadwal & Lokasi Acara
           </h2>
           <div className="space-y-3 text-sm">
@@ -229,7 +229,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
         {/* Informasi Pembayaran & Pelunasan */}
         <Card className="p-6 space-y-4">
-          <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] border-b border-[#E5DEC9] pb-2">
+          <h2 className="font-sans text-[20px] font-bold text-[#EEB100] border-b border-[#E5DEC9] pb-2">
             Rincian Biaya & Pelunasan
           </h2>
           <div className="space-y-3 text-sm">
@@ -250,7 +250,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
             <div className="p-3 bg-[#FAF7F0] border border-[#E5DEC9] rounded-xl flex items-center justify-between">
               <span className="text-xs text-[#5E5A52] font-medium">Sisa Pelunasan:</span>
-              <span className="text-base font-bold text-[#8A6A22]">
+              <span className="text-base font-bold text-[#EEB100]">
                 Rp{Number(booking.sisa_pembayaran || Math.max(0, (booking.total_biaya || 0) - (booking.dp_nominal || 0))).toLocaleString("id-ID")}
               </span>
             </div>
@@ -277,7 +277,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
         {/* Tabel Rincian MUA jika ada */}
         {Array.isArray(booking.items_mua) && booking.items_mua.some((m: { jumlah?: string; keterangan?: string }) => m.jumlah || m.keterangan) && (
           <Card className="p-6 space-y-3 md:col-span-2">
-            <h3 className="font-sans text-base font-bold text-[#8A6A22] border-b border-[#E5DEC9] pb-2 flex items-center gap-2">
+            <h3 className="font-sans text-base font-bold text-[#EEB100] border-b border-[#E5DEC9] pb-2 flex items-center gap-2">
               <Sparkles size={16} />
               <span>Tabel 1: Item MUA (Tata Rias & Busana)</span>
             </h3>
@@ -311,7 +311,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
         {/* Tabel Rincian Dekorasi jika ada */}
         {Array.isArray(booking.items_dekorasi) && booking.items_dekorasi.some((d: { jumlah?: string; meter?: string; keterangan?: string }) => d.jumlah || d.meter || d.keterangan) && (
           <Card className="p-6 space-y-3 md:col-span-2">
-            <h3 className="font-sans text-base font-bold text-[#8A6A22] border-b border-[#E5DEC9] pb-2 flex items-center gap-2">
+            <h3 className="font-sans text-base font-bold text-[#EEB100] border-b border-[#E5DEC9] pb-2 flex items-center gap-2">
               <Sparkles size={16} />
               <span>Tabel 2: Item Dekorasi Pelaminan & Lokasi</span>
             </h3>
@@ -345,7 +345,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
         {/* Tabel Rincian Adat jika ada */}
         {Array.isArray(booking.items_adat) && booking.items_adat.some((a: { jumlah?: string; keterangan?: string }) => a.jumlah || a.keterangan) && (
           <Card className="p-6 space-y-3 md:col-span-2">
-            <h3 className="font-sans text-base font-bold text-[#8A6A22] border-b border-[#E5DEC9] pb-2 flex items-center gap-2">
+            <h3 className="font-sans text-base font-bold text-[#EEB100] border-b border-[#E5DEC9] pb-2 flex items-center gap-2">
               <Sparkles size={16} />
               <span>Tabel 3: Item Upacara Adat</span>
             </h3>
@@ -378,7 +378,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
         {/* Rincian Busana & Vendor Pendukung */}
         <Card className="p-6 space-y-4 md:col-span-2">
-          <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] border-b border-[#E5DEC9] pb-2 flex items-center gap-2">
+          <h2 className="font-sans text-[20px] font-bold text-[#EEB100] border-b border-[#E5DEC9] pb-2 flex items-center gap-2">
             <Sparkles size={18} />
             <span>Paket Layanan & Vendor Pendukung</span>
           </h2>

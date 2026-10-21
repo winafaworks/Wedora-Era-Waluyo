@@ -32,7 +32,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       primary:
         "bg-[#EEB100] text-[#111111] hover:bg-[#DDA400] active:bg-[#C89400] shadow-sm",
       secondary:
-        "border border-[#D4AD5C] text-[#8A6A22] dark:text-[#EEB100] bg-[rgba(212,173,92,0.08)] dark:bg-[rgba(212,173,92,0.12)] hover:bg-[rgba(212,173,92,0.18)] dark:hover:bg-[rgba(212,173,92,0.22)] active:bg-[rgba(212,173,92,0.25)]",
+        "border border-[#D4AD5C] text-[#EEB100] dark:text-[#EEB100] bg-[rgba(212,173,92,0.08)] dark:bg-[rgba(212,173,92,0.12)] hover:bg-[rgba(212,173,92,0.18)] dark:hover:bg-[rgba(212,173,92,0.22)] active:bg-[rgba(212,173,92,0.25)]",
       outline:
         "border border-[#D6CEBE] dark:border-[#3E382E] text-[#1A1A1A] dark:text-[#F5EDDC] bg-[#FFFFFF] dark:bg-[#222222] hover:bg-[#F5EDDC] dark:hover:bg-[#2C2C2C] hover:border-[#B8923F] shadow-2xs",
       danger:

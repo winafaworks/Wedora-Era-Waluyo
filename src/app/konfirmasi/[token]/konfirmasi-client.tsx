@@ -36,7 +36,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
       <div className="w-full max-w-[560px] space-y-6">
         {/* Header Resmi Era Waluyo */}
         <div className="text-center space-y-2 py-4 border-b border-[#DDD2BA]">
-          <h1 className="font-brand-logo text-3xl font-bold tracking-[0.2em] text-[#B8923F]">
+          <h1 className="font-brand-logo text-3xl font-bold tracking-[0.2em] text-[#EEB100]">
             ERA WALUYO
           </h1>
           <p className="text-xs uppercase tracking-[0.2em] text-[#5E5A52] font-medium">
@@ -84,7 +84,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
           <div className="space-y-6">
             <div className="bg-[#FBF7EC] border border-[#DDD2BA] rounded-2xl p-6 space-y-4 shadow-sm">
               <div>
-                <span className="text-xs font-semibold text-[#B8923F] uppercase tracking-wider">
+                <span className="text-xs font-semibold text-[#EEB100] uppercase tracking-wider">
                   Konfirmasi Kesepakatan Resmi
                 </span>
                 <h2 className="font-sans text-[20px] font-bold text-[#111111] mt-1">
@@ -97,7 +97,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
 
               <div className="space-y-3 pt-3 border-t border-[#EADFC8] text-sm">
                 <div className="flex items-start gap-3">
-                  <Calendar size={18} className="text-[#B8923F] mt-0.5 shrink-0" />
+                  <Calendar size={18} className="text-[#EEB100] mt-0.5 shrink-0" />
                   <div>
                     <div className="text-xs text-[#5E5A52]">Tanggal Acara</div>
                     <div className="font-semibold text-[#111111]">
@@ -107,7 +107,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <MapPin size={18} className="text-[#B8923F] mt-0.5 shrink-0" />
+                  <MapPin size={18} className="text-[#EEB100] mt-0.5 shrink-0" />
                   <div>
                     <div className="text-xs text-[#5E5A52]">Lokasi Pelaksanaan</div>
                     <div className="font-semibold text-[#111111]">
@@ -117,7 +117,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Sparkles size={18} className="text-[#B8923F] mt-0.5 shrink-0" />
+                  <Sparkles size={18} className="text-[#EEB100] mt-0.5 shrink-0" />
                   <div>
                     <div className="text-xs text-[#5E5A52]">Paket Pilihan</div>
                     <div className="font-semibold text-[#111111]">
@@ -197,7 +197,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
                 {Number(booking.total_biaya || 0) > 0 && (
                   <div className="flex items-center justify-between text-[#5E5A52] pt-1 border-t border-dashed border-[#DDD2BA]">
                     <span>Sisa Pelunasan:</span>
-                    <span className="font-bold text-[#B8923F] text-sm">
+                    <span className="font-bold text-[#EEB100] text-sm">
                       Rp{Number(booking.sisa_pembayaran || Math.max(0, (booking.total_biaya || 0) - (booking.dp_nominal || 0))).toLocaleString("id-ID")}
                     </span>
                   </div>
@@ -211,7 +211,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
                 htmlFor="koreksi"
                 className="block text-sm font-semibold text-[#111111] flex items-center gap-2"
               >
-                <MessageSquare size={16} className="text-[#B8923F]" />
+                <MessageSquare size={16} className="text-[#EEB100]" />
                 <span>Ada rincian yang perlu diperbaiki? (Opsional)</span>
               </label>
               <textarea
@@ -220,7 +220,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
                 onChange={(e) => setKoreksi(e.target.value)}
                 placeholder="Tuliskan di sini jika ada perubahan jam, ukuran baju, atau catatan lainnya..."
                 rows={3}
-                className="w-full p-3 bg-white border border-[#DDD2BA] rounded-xl text-sm text-[#111111] placeholder-[#8F8A7F] focus:outline-none focus:border-[#B8923F] transition-colors"
+                className="w-full p-3 bg-white border border-[#DDD2BA] rounded-xl text-sm text-[#111111] placeholder-[#8F8A7F] focus:outline-none focus:border-[#EEB100] transition-colors"
               />
             </div>
 
@@ -229,7 +229,7 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
               <button
                 onClick={handleKonfirmasi}
                 disabled={isSubmitting}
-                className="w-full h-12 bg-[#B8923F] hover:bg-[#A68032] active:bg-[#8F6C27] text-white font-semibold rounded-full shadow-md transition-colors cursor-pointer disabled:opacity-50 text-base"
+                className="w-full h-12 bg-[#EEB100] hover:bg-[#DDA400] active:bg-[#C89400] text-[#111111] font-semibold rounded-full shadow-md transition-colors cursor-pointer disabled:opacity-50 text-base"
               >
                 {isSubmitting ? "Menyimpan Konfirmasi..." : "Saya Setuju & Konfirmasi Pesanan"}
               </button>

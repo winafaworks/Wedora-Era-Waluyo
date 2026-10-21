@@ -15,8 +15,8 @@ export function StatusBadge({ status, label, className = "" }: BadgeProps) {
     belum_dikonfirmasi: {
       defaultLabel: "Belum Dikonfirmasi",
       bg: "bg-[rgba(212,173,92,0.18)] dark:bg-[rgba(212,173,92,0.14)]",
-      text: "text-[#8A6A22] dark:text-[#EEB100]",
-      dot: "bg-[#8A6A22] dark:bg-[#EEB100]",
+      text: "text-[#EEB100] dark:text-[#EEB100]",
+      dot: "bg-[#EEB100] dark:bg-[#EEB100]",
     },
     dikonfirmasi: {
       defaultLabel: "Dikonfirmasi",

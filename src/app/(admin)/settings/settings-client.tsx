@@ -45,7 +45,7 @@ export default function SettingsClient() {
       previewSurface: "bg-[#FFFFFF]",
       previewBorder: "border-[#E5DEC9]",
       previewText: "text-[#1A1A1A]",
-      previewGold: "text-[#A67C24]",
+      previewGold: "text-[#EEB100]",
     },
     {
       id: "dark",
@@ -67,7 +67,7 @@ export default function SettingsClient() {
       previewSurface: "bg-[#FFFFFF]/90",
       previewBorder: "border-[#D4AD5C]",
       previewText: "text-[#1A1A1A]",
-      previewGold: "text-[#A67C24]",
+      previewGold: "text-[#EEB100]",
     },
   ];
 
@@ -75,7 +75,7 @@ export default function SettingsClient() {
     <div className="space-y-8 max-w-5xl">
       {/* Header */}
       <div className="pb-4 border-b border-[#E5DEC9]">
-        <div className="flex items-center gap-2.5 text-[#8A6A22]">
+        <div className="flex items-center gap-2.5 text-[#EEB100]">
           <Palette size={22} />
           <span className="text-xs font-semibold uppercase tracking-wider">
             Konfigurasi Aplikasi
@@ -164,7 +164,7 @@ export default function SettingsClient() {
                 </p>
               </div>
 
-              <div className="text-xs text-[#8A6A22] font-semibold flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[rgba(212,173,92,0.14)] border border-[#E5DEC9]">
+              <div className="text-xs text-[#EEB100] font-semibold flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[rgba(212,173,92,0.14)] border border-[#E5DEC9]">
                 <Sparkles size={13} />
                 <span>Aktif: {resolvedTheme === "dark" ? "Mode Gelap" : "Mode Terang"}</span>
               </div>
@@ -216,7 +216,7 @@ export default function SettingsClient() {
                             </div>
                           </div>
                           <div className="w-4 h-4 rounded-full bg-[#EEB100]/30 flex items-center justify-center">
-                            <Sparkles size={8} className="text-[#A67C24]" />
+                            <Sparkles size={8} className="text-[#EEB100]" />
                           </div>
                         </div>
                       </div>
@@ -228,7 +228,7 @@ export default function SettingsClient() {
                             className={`p-2 rounded-xl border ${
                               isSelected
                                 ? "bg-[#EEB100] text-[#111111] border-[#EEB100]"
-                                : "bg-[#FAF6ED] text-[#8A6A22] border-[#E5DEC9]"
+                                : "bg-[#FAF6ED] text-[#EEB100] border-[#E5DEC9]"
                             }`}
                           >
                             <IconComponent size={18} />
@@ -257,7 +257,7 @@ export default function SettingsClient() {
                       </span>
                       <span
                         className={`font-semibold ${
-                          isSelected ? "text-[#8A6A22]" : "text-[#5E5A52] group-hover:text-[#1A1A1A]"
+                          isSelected ? "text-[#EEB100]" : "text-[#5E5A52] group-hover:text-[#1A1A1A]"
                         }`}
                       >
                         {isSelected ? "Aktif ✓" : "Pilih"}
@@ -271,7 +271,7 @@ export default function SettingsClient() {
 
           {/* Section 2: Live Preview Komponen */}
           <Card className="p-6 space-y-4">
-            <div className="flex items-center gap-2 text-[#8A6A22]">
+            <div className="flex items-center gap-2 text-[#EEB100]">
               <Eye size={18} />
               <h3 className="font-sans text-[17px] font-bold text-[#1A1A1A]">
                 Pratinjau Langsung Komponen (Live Preview)
@@ -286,7 +286,7 @@ export default function SettingsClient() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="p-4 bg-[#FFFFFF] border border-[#E5DEC9] rounded-xl shadow-xs space-y-1">
                   <span className="text-xs text-[#5E5A52]">Contoh Kartu Angka</span>
-                  <div className="text-2xl font-bold text-[#A67C24]">7 Acara</div>
+                  <div className="text-2xl font-bold text-[#EEB100]">7 Acara</div>
                   <span className="text-[11px] text-[#8A857B]">Periode Berjalan</span>
                 </div>
 
@@ -326,7 +326,7 @@ export default function SettingsClient() {
 
           {/* Section 3: Kerapatan Tampilan */}
           <Card className="p-6 space-y-4">
-            <div className="flex items-center gap-2 text-[#8A6A22]">
+            <div className="flex items-center gap-2 text-[#EEB100]">
               <Layers size={18} />
               <h3 className="font-sans text-[17px] font-bold text-[#1A1A1A]">
                 Kerapatan Tampilan Tabel (Density)
@@ -348,7 +348,7 @@ export default function SettingsClient() {
               >
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-bold text-[#1A1A1A]">Nyaman (Comfortable)</span>
-                  {density === "comfortable" && <Check size={16} className="text-[#8A6A22]" />}
+                  {density === "comfortable" && <Check size={16} className="text-[#EEB100]" />}
                 </div>
                 <p className="text-xs text-[#8A857B] mt-1">
                   Spasi baris lega, nyaman dibaca untuk pemakaian harian.
@@ -366,7 +366,7 @@ export default function SettingsClient() {
               >
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-bold text-[#1A1A1A]">Ringkas (Compact)</span>
-                  {density === "compact" && <Check size={16} className="text-[#8A6A22]" />}
+                  {density === "compact" && <Check size={16} className="text-[#EEB100]" />}
                 </div>
                 <p className="text-xs text-[#8A857B] mt-1">
                   Spasi baris lebih rapat, muat lebih banyak data dalam satu layar monitor.
@@ -378,7 +378,7 @@ export default function SettingsClient() {
           {/* Section 4: Informasi Versi Aplikasi */}
           <div className="p-4 rounded-xl bg-[#FAF6ED] border border-[#E5DEC9] flex items-center justify-between text-xs text-[#5E5A52]">
             <div className="flex items-center gap-2">
-              <Info size={16} className="text-[#8A6A22] shrink-0" />
+              <Info size={16} className="text-[#EEB100] shrink-0" />
               <span>
                 <strong>WEDORA Sistem Manajemen Digital</strong> — Versi 1.2.0 (Build 2026.10)
               </span>
@@ -391,7 +391,7 @@ export default function SettingsClient() {
       {/* Tab Content: Placeholder for Upcoming Tabs */}
       {activeTab !== "appearance" && (
         <Card className="p-12 text-center space-y-4">
-          <div className="w-14 h-14 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] text-[#8A6A22] flex items-center justify-center">
+          <div className="w-14 h-14 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] text-[#EEB100] flex items-center justify-center">
             {activeTab === "profile" && <Building2 size={28} />}
             {activeTab === "whatsapp" && <MessageSquare size={28} />}
             {activeTab === "security" && <Shield size={28} />}

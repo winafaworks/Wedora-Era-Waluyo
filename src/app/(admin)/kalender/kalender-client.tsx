@@ -374,7 +374,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="h-9 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-xs text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors cursor-pointer shadow-sm"
+                className="h-9 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-xs text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors cursor-pointer shadow-sm"
               >
                 <option value="all">Semua Status</option>
                 <option value="dikonfirmasi">Hanya Dikonfirmasi</option>
@@ -411,7 +411,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                       : "bg-[#F5EDDC]/30 dark:bg-[#161616]/60 border-[#E5DEC9]/40 dark:border-[#262626] text-[#8A857B] dark:text-[#555555] opacity-60"
                   } ${
                     isSelected
-                      ? "ring-2 ring-[#8A6A22] dark:ring-[#EEB100] border-transparent bg-[rgba(212,173,92,0.12)] dark:bg-[rgba(212,173,92,0.2)] shadow-md"
+                      ? "ring-2 ring-[#EEB100] dark:ring-[#EEB100] border-transparent bg-[rgba(212,173,92,0.12)] dark:bg-[rgba(212,173,92,0.2)] shadow-md"
                       : "hover:border-[#C8BFAB] dark:hover:border-[#443E33]"
                   }`}
                 >
@@ -420,9 +420,9 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                     <span
                       className={`text-xs sm:text-sm font-medium w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full ${
                         cell.isToday
-                          ? "border border-[#8A6A22] dark:border-[#EEB100] text-[#8A6A22] dark:text-[#EEB100] font-bold"
+                          ? "border border-[#EEB100] dark:border-[#EEB100] text-[#EEB100] dark:text-[#EEB100] font-bold"
                           : isSelected
-                          ? "text-[#8A6A22] dark:text-[#EEB100] font-bold"
+                          ? "text-[#EEB100] dark:text-[#EEB100] font-bold"
                           : cell.isCurrentMonth
                           ? "text-[#1A1A1A] dark:text-[#F5EDDC]"
                           : "text-[#8A857B] dark:text-[#666666]"
@@ -454,7 +454,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                             ? "bg-[#A5601C]"
                             : b.status === "dibatalkan"
                             ? "bg-[#8A857B]"
-                            : "bg-[#8A6A22]";
+                            : "bg-[#EEB100]";
 
                         return (
                           <div
@@ -490,7 +490,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                 <span>Dikonfirmasi</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#8A6A22]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#EEB100]" />
                 <span>Belum Konfirmasi</span>
               </div>
               <div className="flex items-center gap-1.5">
@@ -505,7 +505,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
               </div>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-4 h-4 rounded-full border border-[#8A6A22] inline-block" />
+              <span className="w-4 h-4 rounded-full border border-[#EEB100] inline-block" />
               <span>Hari Ini</span>
             </div>
           </div>
@@ -515,7 +515,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
         <div className="lg:col-span-4 space-y-4">
           <Card className="p-5 sm:p-6 space-y-4 sticky top-6">
             <div className="border-b border-[#E5DEC9] pb-3">
-              <span className="text-xs font-semibold text-[#8A6A22] uppercase tracking-wider flex items-center gap-1.5">
+              <span className="text-xs font-semibold text-[#EEB100] uppercase tracking-wider flex items-center gap-1.5">
                 <CalendarIcon size={14} />
                 Jadwal Acara Terpilih
               </span>
@@ -566,7 +566,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                   <span>{selectedDateBookings.length} Acara Terjadwal</span>
                   <Link
                     href={`/booking/tambah?tanggal=${selectedDate}`}
-                    className="text-[#8A6A22] hover:underline flex items-center gap-1 font-medium"
+                    className="text-[#EEB100] hover:underline flex items-center gap-1 font-medium"
                   >
                     <Plus size={14} />
                     <span>Tambah Acara</span>
@@ -593,7 +593,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
 
                     {/* Details: Package, Location, Contact */}
                     <div className="space-y-1.5 text-xs">
-                      <div className="text-[#8A6A22] dark:text-[#EEB100] font-semibold flex items-center gap-1.5">
+                      <div className="text-[#EEB100] dark:text-[#EEB100] font-semibold flex items-center gap-1.5">
                         <Sparkles size={14} className="shrink-0" />
                         <span className="truncate">{b.packages?.nama || "Paket Khusus"}</span>
                       </div>

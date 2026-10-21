@@ -36,7 +36,7 @@ export default function LoginPage() {
       <div className="w-full max-w-[420px] space-y-6">
         {/* Brand Header */}
         <div className="text-center space-y-2">
-          <h1 className="font-brand-logo text-4xl font-bold tracking-[0.2em] text-[#8A6A22]">
+          <h1 className="font-brand-logo text-4xl font-bold tracking-[0.2em] text-[#EEB100]">
             WEDORA
           </h1>
           <p className="text-xs font-semibold tracking-[0.25em] text-[#5E5A52] uppercase">
@@ -82,7 +82,7 @@ export default function LoginPage() {
                   placeholder="admin@erawaluyo.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full h-11 pl-11 pr-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-xs"
+                  className="w-full h-11 pl-11 pr-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#EEB100] transition-colors shadow-xs"
                 />
               </div>
             </div>
@@ -103,7 +103,7 @@ export default function LoginPage() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full h-11 pl-11 pr-11 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] transition-colors shadow-xs"
+                  className="w-full h-11 pl-11 pr-11 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#EEB100] transition-colors shadow-xs"
                 />
                 <button
                   type="button"

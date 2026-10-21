@@ -85,7 +85,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
           </h2>
           <Link
             href="/booking"
-            className="text-xs md:text-sm text-[#8A6A22] dark:text-[#EEB100] hover:text-[#B8923F] dark:hover:text-[#FFD666] inline-flex items-center gap-1 font-semibold"
+            className="text-xs md:text-sm text-[#EEB100] dark:text-[#EEB100] hover:text-[#DDA400] dark:hover:text-[#FFD666] inline-flex items-center gap-1 font-semibold"
           >
             Lihat semua booking <ArrowRight size={14} />
           </Link>
@@ -94,7 +94,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
         <Card className="p-0 overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.03)] border-[#E5DEC9] dark:border-[#332F28]">
           {upcomingBookings.length === 0 ? (
             <div className="p-10 text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(212,173,92,0.18)] dark:bg-[rgba(212,173,92,0.22)] flex items-center justify-center text-[#8A6A22] dark:text-[#EEB100]">
+              <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(212,173,92,0.18)] dark:bg-[rgba(212,173,92,0.22)] flex items-center justify-center text-[#EEB100] dark:text-[#EEB100]">
                 <CalendarX size={24} />
               </div>
               <h3 className="font-sans text-lg font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
@@ -164,7 +164,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
                   <div key={booking.id} className="p-5 space-y-3">
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <span className="text-xs font-semibold text-[#8A6A22] dark:text-[#EEB100]">
+                        <span className="text-xs font-semibold text-[#EEB100] dark:text-[#EEB100]">
                           {booking.tanggal_acara}
                         </span>
                         <h3 className="text-base font-semibold text-[#1A1A1A] dark:text-[#F5EDDC] mt-0.5">

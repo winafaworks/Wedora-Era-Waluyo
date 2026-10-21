@@ -324,7 +324,7 @@ export default function ChecklistClient({
             size="sm"
             onClick={handlePrintPdf}
             disabled={!currentBooking || items.length === 0}
-            className="gap-2 bg-[#FFFFFF] border-[#D4AD5C] text-[#8A6A22] hover:bg-[#FAF6ED]"
+            className="gap-2 bg-[#FFFFFF] border-[#D4AD5C] text-[#EEB100] hover:bg-[#FAF6ED]"
             title="Buka dokumen PDF checklist rapi untuk dicetak"
           >
             <Printer size={15} />
@@ -382,14 +382,14 @@ export default function ChecklistClient({
           <Card className="p-5 sm:p-6 bg-[#FFFFFF] border border-[#E5DEC9] space-y-4">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#E5DEC9]">
               <div className="space-y-1.5 flex-1 max-w-xl">
-                <label className="block text-xs font-semibold text-[#8A6A22] uppercase tracking-wider">
+                <label className="block text-xs font-semibold text-[#EEB100] uppercase tracking-wider">
                   Pilih Jadwal Acara Pernikahan
                 </label>
                 <div className="relative">
                   <select
                     value={selectedBookingId}
                     onChange={(e) => handleSelectBooking(e.target.value)}
-                    className="w-full h-11 pl-4 pr-10 bg-[#FAF6ED] border border-[#D6CEBE] rounded-xl text-sm font-semibold text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] cursor-pointer appearance-none shadow-sm"
+                    className="w-full h-11 pl-4 pr-10 bg-[#FAF6ED] border border-[#D6CEBE] rounded-xl text-sm font-semibold text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] cursor-pointer appearance-none shadow-sm"
                   >
                     {bookings.map((b) => (
                       <option key={b.id} value={b.id}>
@@ -408,7 +408,7 @@ export default function ChecklistClient({
                 <div className="flex items-center gap-3">
                   <Link
                     href={`/booking/${currentBooking.id}`}
-                    className="text-xs font-semibold text-[#8A6A22] hover:text-[#A67C24] inline-flex items-center gap-1.5 py-2 px-3 rounded-lg border border-[#E5DEC9] bg-[#FAF6ED]"
+                    className="text-xs font-semibold text-[#EEB100] hover:text-[#EEB100] inline-flex items-center gap-1.5 py-2 px-3 rounded-lg border border-[#E5DEC9] bg-[#FAF6ED]"
                   >
                     <span>Buka Rincian Booking</span>
                     <ArrowRight size={14} />
@@ -459,7 +459,7 @@ export default function ChecklistClient({
             <Card className="p-5 flex flex-col justify-between">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-medium text-[#5E5A52]">Total Barang</span>
-                <CheckSquare size={18} className="text-[#8A6A22]" />
+                <CheckSquare size={18} className="text-[#EEB100]" />
               </div>
               <div className="mt-3">
                 <div className="text-3xl font-sans font-bold text-[#1A1A1A]">
@@ -557,7 +557,7 @@ export default function ChecklistClient({
               <form onSubmit={handleAddItem} className="space-y-3">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-[#1A1A1A] flex items-center gap-1.5">
-                    <Sparkles size={16} className="text-[#8A6A22]" />
+                    <Sparkles size={16} className="text-[#EEB100]" />
                     Tambah Barang Baru ke Checklist Acara
                   </h3>
                   <button
@@ -576,7 +576,7 @@ export default function ChecklistClient({
                     placeholder="Contoh: Kabel Extension 20M, Bunga Melati Tambahan, dll."
                     value={newItemName}
                     onChange={(e) => setNewItemName(e.target.value)}
-                    className="flex-1 h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] shadow-sm"
+                    className="flex-1 h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] shadow-sm"
                   />
                   <Button
                     type="submit"
@@ -644,7 +644,7 @@ export default function ChecklistClient({
                 placeholder="Cari nama barang..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="h-9 px-3.5 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-xs text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#A67C24] shadow-sm w-44 sm:w-56"
+                className="h-9 px-3.5 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-xs text-[#1A1A1A] placeholder-[#8A857B] focus:outline-none focus:border-[#EEB100] shadow-sm w-44 sm:w-56"
               />
 
               {/* Tombol Aksi Massal */}
@@ -703,7 +703,7 @@ export default function ChecklistClient({
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery("")}
-                    className="text-xs text-[#8A6A22] font-semibold underline"
+                    className="text-xs text-[#EEB100] font-semibold underline"
                   >
                     Hapus pencarian
                   </button>

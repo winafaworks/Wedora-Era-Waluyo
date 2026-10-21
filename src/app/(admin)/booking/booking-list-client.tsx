@@ -60,7 +60,7 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
             placeholder="Cari berdasarkan nama pelanggan, nomor WhatsApp, atau lokasi..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full h-11 pl-11 pr-4 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] placeholder-[#8A857B] dark:placeholder-[#666666] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors shadow-sm"
+            className="w-full h-11 pl-11 pr-4 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] placeholder-[#8A857B] dark:placeholder-[#666666] focus:outline-none focus:border-[#EEB100] dark:focus:border-[#EEB100] transition-colors shadow-sm"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -68,7 +68,7 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="h-11 px-4 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#A67C24] dark:focus:border-[#EEB100] transition-colors cursor-pointer shadow-sm"
+              className="h-11 px-4 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#EEB100] dark:focus:border-[#EEB100] transition-colors cursor-pointer shadow-sm"
             >
               <option value="all">Semua Status</option>
               <option value="belum_dikonfirmasi">Belum Dikonfirmasi</option>
@@ -84,7 +84,7 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
       <Card className="p-0 overflow-hidden border-[#E5DEC9] dark:border-[#332F28]">
         {filteredBookings.length === 0 ? (
           <div className="p-12 text-center space-y-3">
-            <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] dark:bg-[rgba(212,173,92,0.22)] flex items-center justify-center text-[#8A6A22] dark:text-[#EEB100]">
+            <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] dark:bg-[rgba(212,173,92,0.22)] flex items-center justify-center text-[#EEB100] dark:text-[#EEB100]">
               <CalendarX size={24} />
             </div>
             <h3 className="font-sans text-lg font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
@@ -136,7 +136,7 @@ export default function BookingListClient({ initialBookings }: BookingListProps)
                     <td className="py-4 px-6 text-[#5E5A52] dark:text-[#D1C8B8]">
                       {b.packages?.nama || "-"}
                     </td>
-                    <td className="py-4 px-6 text-[#8A6A22] dark:text-[#EEB100] font-semibold">
+                    <td className="py-4 px-6 text-[#EEB100] dark:text-[#EEB100] font-semibold">
                       Rp{Number(b.dp_nominal || 0).toLocaleString("id-ID")}
                     </td>
                     <td className="py-4 px-6">

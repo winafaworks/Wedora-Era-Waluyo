@@ -229,7 +229,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
               BAGIAN 1: DATA CALON PENGANTIN & WAKTU ACARA
           ========================================================================= */}
           <div>
-            <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] mb-4 flex items-center gap-2">
+            <h2 className="font-sans text-[20px] font-bold text-[#EEB100] mb-4 flex items-center gap-2">
               <Sparkles size={18} />
               <span>Data Calon Pengantin & Waktu Acara</span>
             </h2>
@@ -244,7 +244,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                   required
                   value={formData.namaPelanggan}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm"
                 />
               </div>
 
@@ -258,7 +258,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                   required
                   value={formData.noWa}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm"
                 />
               </div>
 
@@ -272,7 +272,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                   required
                   value={formData.tanggalAcara}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm cursor-pointer"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm cursor-pointer"
                 />
               </div>
 
@@ -286,13 +286,13 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                   required
                   value={formData.lokasi}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm"
                 />
               </div>
 
               {/* Rangkaian Jam Acara */}
               <div className="md:col-span-2 p-4 bg-[#FAF7F0] border border-[#E5DEC9] rounded-xl space-y-3">
-                <span className="text-xs font-semibold text-[#8A6A22] uppercase tracking-wider flex items-center gap-1.5">
+                <span className="text-xs font-semibold text-[#EEB100] uppercase tracking-wider flex items-center gap-1.5">
                   <Clock size={14} />
                   <span>Jadwal Jam Rangkaian Acara & Lokasi Makeup</span>
                 </span>
@@ -307,7 +307,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                       placeholder="Contoh: 09.00 WIB"
                       value={formData.jamAkad}
                       onChange={handleChange}
-                      className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24]"
+                      className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100]"
                     />
                   </div>
                   <div>
@@ -320,7 +320,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                       placeholder="Contoh: 10.00 WIB"
                       value={formData.jamAdat}
                       onChange={handleChange}
-                      className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24]"
+                      className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100]"
                     />
                   </div>
                   <div>
@@ -333,7 +333,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                       placeholder="Contoh: 11.00 WIB"
                       value={formData.jamResepsi}
                       onChange={handleChange}
-                      className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24]"
+                      className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100]"
                     />
                   </div>
                 </div>
@@ -347,7 +347,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                     placeholder="Contoh: Makeup di Gedung / Makeup di Kamar Pengantin"
                     value={formData.lokasiMakeup}
                     onChange={handleChange}
-                    className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24]"
+                    className="w-full h-10 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-lg text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100]"
                   />
                 </div>
               </div>
@@ -358,7 +358,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
               BAGIAN 2: PILIHAN PAKET & RINCIAN BUSANA
           ========================================================================= */}
           <div className="pt-6 border-t border-[#E5DEC9]">
-            <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] mb-4 flex items-center gap-2">
+            <h2 className="font-sans text-[20px] font-bold text-[#EEB100] mb-4 flex items-center gap-2">
               <Shirt size={18} />
               <span>Paket Acara & Rincian Busana Utama</span>
             </h2>
@@ -371,7 +371,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                   name="packageId"
                   value={formData.packageId}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm cursor-pointer"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm cursor-pointer"
                 >
                   {packages.map((pkg) => (
                     <option key={pkg.id} value={pkg.id}>
@@ -392,7 +392,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                   placeholder="Contoh: Kebaya Solo Basahan Beludru Hitam & Beskap Sikepan Gold"
                   value={formData.kebayaBaju}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm"
                 />
               </div>
 
@@ -406,7 +406,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                   placeholder="Contoh: Pengantin Cewe M / Cowo L2; Sandal padi no 39; Blangkon no 7 tirto"
                   value={formData.ukuran}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm"
                 />
               </div>
             </div>
@@ -418,7 +418,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
           <div className="pt-6 border-t border-[#E5DEC9]">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] flex items-center gap-2">
+                <h2 className="font-sans text-[20px] font-bold text-[#EEB100] flex items-center gap-2">
                   <Sparkles size={18} />
                   <span>Item MUA (Tata Rias & Busana)</span>
                 </h2>
@@ -429,7 +429,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
               <button
                 type="button"
                 onClick={() => handleAddItem(setItemsMua, "Baris Tambahan MUA")}
-                className="text-xs text-[#8A6A22] hover:text-[#B8923F] inline-flex items-center gap-1 font-semibold cursor-pointer"
+                className="text-xs text-[#EEB100] hover:text-[#DDA400] inline-flex items-center gap-1 font-semibold cursor-pointer"
               >
                 <Plus size={14} />
                 <span>Tambah Baris</span>
@@ -456,7 +456,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                           type="text"
                           value={m.item}
                           onChange={(e) => handleItemChange(setItemsMua, idx, "item", e.target.value)}
-                          className="w-full bg-transparent border-0 font-medium focus:outline-none focus:ring-1 focus:ring-[#A67C24] rounded px-1"
+                          className="w-full bg-transparent border-0 font-medium focus:outline-none focus:ring-1 focus:ring-[#EEB100] rounded px-1"
                         />
                       </td>
                       <td className="py-2 px-3">
@@ -465,7 +465,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                           placeholder="0"
                           value={m.jumlah}
                           onChange={(e) => handleItemChange(setItemsMua, idx, "jumlah", e.target.value)}
-                          className="w-full text-center bg-[#FFFFFF] border border-[#D6CEBE] rounded px-1.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                          className="w-full text-center bg-[#FFFFFF] border border-[#D6CEBE] rounded px-1.5 py-1 text-xs focus:outline-none focus:border-[#EEB100]"
                         />
                       </td>
                       <td className="py-2 px-3">
@@ -474,7 +474,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                           placeholder="Keterangan rias / busana..."
                           value={m.keterangan}
                           onChange={(e) => handleItemChange(setItemsMua, idx, "keterangan", e.target.value)}
-                          className="w-full bg-[#FFFFFF] border border-[#D6CEBE] rounded px-2.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                          className="w-full bg-[#FFFFFF] border border-[#D6CEBE] rounded px-2.5 py-1 text-xs focus:outline-none focus:border-[#EEB100]"
                         />
                       </td>
                       <td className="py-2 px-2 text-center">
@@ -501,7 +501,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
           <div className="pt-6 border-t border-[#E5DEC9]">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] flex items-center gap-2">
+                <h2 className="font-sans text-[20px] font-bold text-[#EEB100] flex items-center gap-2">
                   <Flower2 size={18} />
                   <span>Item Dekorasi Pelaminan & Lokasi</span>
                 </h2>
@@ -512,7 +512,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
               <button
                 type="button"
                 onClick={() => handleAddItem(setItemsDekorasi, "Item Dekorasi Baru")}
-                className="text-xs text-[#8A6A22] hover:text-[#B8923F] inline-flex items-center gap-1 font-semibold cursor-pointer"
+                className="text-xs text-[#EEB100] hover:text-[#DDA400] inline-flex items-center gap-1 font-semibold cursor-pointer"
               >
                 <Plus size={14} />
                 <span>Tambah Baris</span>
@@ -539,7 +539,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                           type="text"
                           value={d.item}
                           onChange={(e) => handleItemChange(setItemsDekorasi, idx, "item", e.target.value)}
-                          className="w-full bg-transparent border-0 font-medium focus:outline-none focus:ring-1 focus:ring-[#A67C24] rounded px-1"
+                          className="w-full bg-transparent border-0 font-medium focus:outline-none focus:ring-1 focus:ring-[#EEB100] rounded px-1"
                         />
                       </td>
                       <td className="py-2 px-3">
@@ -550,7 +550,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                               value={d.meter || ""}
                               onChange={(e) => handleItemChange(setItemsDekorasi, idx, "meter", e.target.value)}
                               placeholder="8"
-                              className="w-12 text-center bg-[#FFFFFF] border border-[#D6CEBE] rounded px-1.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                              className="w-12 text-center bg-[#FFFFFF] border border-[#D6CEBE] rounded px-1.5 py-1 text-xs focus:outline-none focus:border-[#EEB100]"
                             />
                             <span className="text-[#5E5A52] text-[11px]">meter</span>
                           </div>
@@ -560,7 +560,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                             placeholder="Ya / 1 set"
                             value={d.jumlah}
                             onChange={(e) => handleItemChange(setItemsDekorasi, idx, "jumlah", e.target.value)}
-                            className="w-full bg-[#FFFFFF] border border-[#D6CEBE] rounded px-1.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                            className="w-full bg-[#FFFFFF] border border-[#D6CEBE] rounded px-1.5 py-1 text-xs focus:outline-none focus:border-[#EEB100]"
                           />
                         )}
                       </td>
@@ -570,7 +570,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                           placeholder="Keterangan warna, tema, atau perlengkapan..."
                           value={d.keterangan}
                           onChange={(e) => handleItemChange(setItemsDekorasi, idx, "keterangan", e.target.value)}
-                          className="w-full bg-[#FFFFFF] border border-[#D6CEBE] rounded px-2.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                          className="w-full bg-[#FFFFFF] border border-[#D6CEBE] rounded px-2.5 py-1 text-xs focus:outline-none focus:border-[#EEB100]"
                         />
                       </td>
                       <td className="py-2 px-2 text-center">
@@ -597,7 +597,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
           <div className="pt-6 border-t border-[#E5DEC9]">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] flex items-center gap-2">
+                <h2 className="font-sans text-[20px] font-bold text-[#EEB100] flex items-center gap-2">
                   <Flame size={18} />
                   <span>Item Upacara Adat</span>
                 </h2>
@@ -608,7 +608,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
               <button
                 type="button"
                 onClick={() => handleAddItem(setItemsAdat, "Item Adat Tambahan")}
-                className="text-xs text-[#8A6A22] hover:text-[#B8923F] inline-flex items-center gap-1 font-semibold cursor-pointer"
+                className="text-xs text-[#EEB100] hover:text-[#DDA400] inline-flex items-center gap-1 font-semibold cursor-pointer"
               >
                 <Plus size={14} />
                 <span>Tambah Baris</span>
@@ -635,7 +635,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                           type="text"
                           value={a.item}
                           onChange={(e) => handleItemChange(setItemsAdat, idx, "item", e.target.value)}
-                          className="w-full bg-transparent border-0 font-medium focus:outline-none focus:ring-1 focus:ring-[#A67C24] rounded px-1"
+                          className="w-full bg-transparent border-0 font-medium focus:outline-none focus:ring-1 focus:ring-[#EEB100] rounded px-1"
                         />
                       </td>
                       <td className="py-2 px-3">
@@ -644,7 +644,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                           placeholder="Ya / 1"
                           value={a.jumlah}
                           onChange={(e) => handleItemChange(setItemsAdat, idx, "jumlah", e.target.value)}
-                          className="w-full text-center bg-[#FFFFFF] border border-[#D6CEBE] rounded px-1.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                          className="w-full text-center bg-[#FFFFFF] border border-[#D6CEBE] rounded px-1.5 py-1 text-xs focus:outline-none focus:border-[#EEB100]"
                         />
                       </td>
                       <td className="py-2 px-3">
@@ -653,7 +653,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                           placeholder="Keterangan busana bapak/ibu atau detail adat..."
                           value={a.keterangan}
                           onChange={(e) => handleItemChange(setItemsAdat, idx, "keterangan", e.target.value)}
-                          className="w-full bg-[#FFFFFF] border border-[#D6CEBE] rounded px-2.5 py-1 text-xs focus:outline-none focus:border-[#A67C24]"
+                          className="w-full bg-[#FFFFFF] border border-[#D6CEBE] rounded px-2.5 py-1 text-xs focus:outline-none focus:border-[#EEB100]"
                         />
                       </td>
                       <td className="py-2 px-2 text-center">
@@ -678,7 +678,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
               BAGIAN 6: VENDOR DOKUMENTASI, HIBURAN, & CATATAN KHUSUS
           ========================================================================= */}
           <div className="pt-6 border-t border-[#E5DEC9]">
-            <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] mb-4 flex items-center gap-2">
+            <h2 className="font-sans text-[20px] font-bold text-[#EEB100] mb-4 flex items-center gap-2">
               <Camera size={18} />
               <span>Dokumentasi, Hiburan & Catatan Khusus</span>
             </h2>
@@ -692,7 +692,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                   name="fotografer"
                   value={formData.fotografer}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm"
                 />
               </div>
 
@@ -705,7 +705,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                   name="video"
                   value={formData.video}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm"
                 />
               </div>
 
@@ -718,7 +718,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                   name="hiburan"
                   value={formData.hiburan}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                  className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm"
                 />
               </div>
 
@@ -731,7 +731,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                   rows={2}
                   value={formData.catatanKhusus}
                   onChange={handleChange}
-                  className="w-full p-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#A67C24] transition-colors shadow-sm"
+                  className="w-full p-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-sm text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors shadow-sm"
                 />
               </div>
             </div>
@@ -741,7 +741,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
               BAGIAN 7: RINCIAN KEUANGAN (TOTAL, DP, & SISA PELUNASAN)
           ========================================================================= */}
           <div className="pt-6 border-t border-[#E5DEC9]">
-            <h2 className="font-sans text-[20px] font-bold text-[#8A6A22] mb-4 flex items-center gap-2">
+            <h2 className="font-sans text-[20px] font-bold text-[#EEB100] mb-4 flex items-center gap-2">
               <Wallet size={18} />
               <span>Rincian Biaya & Pembayaran DP</span>
             </h2>
@@ -760,7 +760,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                     step={100000}
                     value={formData.totalBiaya}
                     onChange={handleChange}
-                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-base text-[#1A1A1A] font-bold focus:outline-none focus:border-[#A67C24] transition-colors"
+                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-base text-[#1A1A1A] font-bold focus:outline-none focus:border-[#EEB100] transition-colors"
                   />
                 </div>
 
@@ -776,7 +776,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                     step={100000}
                     value={formData.nominalDp}
                     onChange={handleChange}
-                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-base text-[#2F7A4B] font-bold focus:outline-none focus:border-[#A67C24] transition-colors"
+                    className="w-full h-11 px-4 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-base text-[#2F7A4B] font-bold focus:outline-none focus:border-[#EEB100] transition-colors"
                   />
                 </div>
 
@@ -784,7 +784,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                   <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
                     Sisa Pelunasan (Otomatis)
                   </label>
-                  <div className="w-full h-11 px-4 bg-[#F5EDDC]/50 border border-[#D6CEBE] rounded-xl text-base text-[#8A6A22] font-bold flex items-center">
+                  <div className="w-full h-11 px-4 bg-[#F5EDDC]/50 border border-[#D6CEBE] rounded-xl text-base text-[#EEB100] font-bold flex items-center">
                     Rp{sisaPembayaran.toLocaleString("id-ID")}
                   </div>
                 </div>
@@ -797,7 +797,7 @@ export default function EditBookingClient({ booking, packages }: EditClientProps
                     name="dpDiterima"
                     checked={formData.dpDiterima}
                     onChange={handleChange}
-                    className="w-5 h-5 rounded border-[#D6CEBE] bg-[#FFFFFF] text-[#8A6A22] accent-[#8A6A22]"
+                    className="w-5 h-5 rounded border-[#D6CEBE] bg-[#FFFFFF] text-[#EEB100] accent-[#EEB100]"
                   />
                   <div>
                     <span className="text-sm font-semibold text-[#1A1A1A] flex items-center gap-1.5">
