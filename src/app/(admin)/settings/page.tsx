@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { Metadata } from "next";
+import { connection } from "next/server";
 import SettingsClient from "./settings-client";
 import { getAccountSecurityDetails } from "@/lib/actions/auth";
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 };
 
 async function SettingsLoader() {
+  await connection();
   const securityDetails = await getAccountSecurityDetails();
   return <SettingsClient initialSecurityDetails={securityDetails} />;
 }
