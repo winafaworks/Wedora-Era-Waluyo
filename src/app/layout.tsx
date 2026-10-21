@@ -41,7 +41,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("wedora-theme");var d=window.matchMedia("(prefers-color-scheme: dark)").matches;if(t==="dark"||((!t||t==="system")&&d)){document.documentElement.classList.add("dark");}else{document.documentElement.classList.remove("dark");}}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("wedora-theme");var d=window.matchMedia("(prefers-color-scheme: dark)").matches;if(t==="light"||(t==="system"&&!d)){document.documentElement.classList.remove("dark");}else{document.documentElement.classList.add("dark");}}catch(e){}})()`,
           }}
         />
       </head>
