@@ -7,7 +7,6 @@ import {
   Laptop,
   Check,
   Palette,
-  Building2,
   MessageSquare,
   Shield,
   Sparkles,
@@ -22,7 +21,7 @@ import { useTheme, Theme } from "@/components/theme/theme-provider";
 
 export default function SettingsClient() {
   const { theme, resolvedTheme, setTheme } = useTheme();
-  const [activeTab, setActiveTab] = useState<"appearance" | "profile" | "whatsapp" | "security">("appearance");
+  const [activeTab, setActiveTab] = useState<"appearance" | "whatsapp" | "security">("appearance");
   const [density, setDensity] = useState<"comfortable" | "compact">("comfortable");
 
   const themeOptions: {
@@ -101,21 +100,6 @@ export default function SettingsClient() {
         >
           <Palette size={16} />
           <span>Tampilan & Tema</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab("profile")}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer opacity-75 hover:opacity-100 ${
-            activeTab === "profile"
-              ? "bg-[#EEB100] text-[#111111]"
-              : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
-          }`}
-        >
-          <Building2 size={16} />
-          <span>Profil & Rekening</span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#EAE1CF] text-[#5E5A52]">
-            Tahap 2
-          </span>
         </button>
 
         <button
@@ -392,7 +376,6 @@ export default function SettingsClient() {
       {activeTab !== "appearance" && (
         <Card className="p-12 text-center space-y-4">
           <div className="w-14 h-14 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] text-[#EEB100] flex items-center justify-center">
-            {activeTab === "profile" && <Building2 size={28} />}
             {activeTab === "whatsapp" && <MessageSquare size={28} />}
             {activeTab === "security" && <Shield size={28} />}
           </div>
@@ -402,9 +385,7 @@ export default function SettingsClient() {
             </h3>
             <p className="text-xs text-[#5E5A52] mt-1 max-w-md mx-auto">
               Tab ini akan memuat form pengaturan{" "}
-              {activeTab === "profile"
-                ? "nama galeri, alamat studio, nomor rekening bank, dan kop surat"
-                : activeTab === "whatsapp"
+              {activeTab === "whatsapp"
                 ? "kustomisasi template pesan otomatis WhatsApp ke calon pengantin"
                 : "ubah kata sandi admin dan keamanan akun"}
               .
