@@ -1,14 +1,20 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useSyncExternalStore } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useSyncExternalStore,
+  useCallback,
+  useMemo,
+} from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import {
   Calendar,
   Search,
   Bell,
   Check,
-  Clock,
+  CheckCircle2,
   AlertTriangle,
   X,
   User,
@@ -16,7 +22,11 @@ import {
   ArrowRight,
   Loader2,
 } from "lucide-react";
-import { searchBookingsAndChecklists } from "@/lib/actions/booking";
+import {
+  searchBookingsAndChecklists,
+  getAdminNotifications,
+  AdminNotification,
+} from "@/lib/actions/booking";
 
 const emptySubscribe = () => () => {};
 
@@ -50,8 +60,10 @@ export function Topbar() {
   const [isSearching, setIsSearching] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
+  // State Notifikasi Real-Time Konfirmasi & Koreksi
   const [isNotifOpen, setIsNotifOpen] = useState(false);
-  const [hasUnread, setHasUnread] = useState(true);
+  const [notifications, setNotifications] = useState<AdminNotification[]>([]);
+  const [readIds, setReadIds] = useState<string[]>([]);
 
   const formattedDate = useSyncExternalStore(
     emptySubscribe,
@@ -61,6 +73,71 @@ export function Topbar() {
 
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
+
+  // Ambil notifikasi konfirmasi & koreksi dari server
+  const fetchNotifications = useCallback(async () => {
+    try {
+      const data = await getAdminNotifications();
+      setNotifications(data);
+    } catch (err) {
+      console.error("Gagal memuat notifikasi:", err);
+    }
+  }, []);
+
+  // Muat status read dari localStorage & mulai polling berkala
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      try {
+        const saved = localStorage.getItem("wedora_read_notifications");
+        if (saved) {
+          setReadIds(JSON.parse(saved));
+        }
+      } catch {
+        // ignore
+      }
+      fetchNotifications();
+    }, 0);
+
+    // Poll setiap 30 detik agar notifikasi konfirmasi/koreksi otomatis muncul
+    const interval = setInterval(fetchNotifications, 30000);
+    return () => {
+      clearTimeout(timer);
+      clearInterval(interval);
+    };
+  }, [fetchNotifications]);
+
+  // Hitung jumlah notifikasi yang belum dibaca
+  const unreadCount = useMemo(() => {
+    const readSet = new Set(readIds);
+    return notifications.filter((n) => !readSet.has(n.id)).length;
+  }, [notifications, readIds]);
+
+  // Aksi tandai semua sudah dibaca
+  const handleMarkAllRead = () => {
+    const allIds = notifications.map((n) => n.id);
+    const updated = Array.from(new Set([...readIds, ...allIds]));
+    setReadIds(updated);
+    try {
+      localStorage.setItem("wedora_read_notifications", JSON.stringify(updated));
+    } catch {
+      // ignore
+    }
+  };
+
+  // Klik sebuah notifikasi -> tandai dibaca & buka detail pesanan
+  const handleNotificationClick = (n: AdminNotification) => {
+    if (!readIds.includes(n.id)) {
+      const updated = [...readIds, n.id];
+      setReadIds(updated);
+      try {
+        localStorage.setItem("wedora_read_notifications", JSON.stringify(updated));
+      } catch {
+        // ignore
+      }
+    }
+    setIsNotifOpen(false);
+    router.push(`/booking/${n.booking_id}`);
+  };
 
   // Handle input search change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -146,29 +223,6 @@ export function Topbar() {
     setSearchQuery("");
     router.push(targetUrl);
   };
-
-  const sampleNotifications = [
-    {
-      id: "1",
-      title: "Jadwal Acara Terdekat",
-      desc: "Acara pernikahan terdekat dalam 7 hari ke depan memerlukan verifikasi checklist.",
-      time: "Hari ini",
-      href: "/checklist",
-      icon: Clock,
-      color: "text-[#EEB100]",
-      bg: "bg-[rgba(238,177,0,0.15)]",
-    },
-    {
-      id: "2",
-      title: "Konfirmasi Pesanan",
-      desc: "Terdapat pesanan booking baru yang menunggu konfirmasi dari pelanggan.",
-      time: "Kemarin",
-      href: "/booking",
-      icon: AlertTriangle,
-      color: "text-[#B13C30]",
-      bg: "bg-[rgba(177,60,48,0.15)]",
-    },
-  ];
 
   return (
     // Topbar dengan posisi fixed/sticky permanen, warna tetap #2C2C2C konsisten dengan sidebar
@@ -296,25 +350,29 @@ export function Topbar() {
           </div>
         </div>
 
-        {/* Sisi Kanan: Notifikasi (Tanpa profile sesuai instruksi) */}
+        {/* Sisi Kanan: Notifikasi Konfirmasi & Koreksi Pelanggan */}
         <div className="flex items-center relative" ref={notifRef}>
           <button
             type="button"
             onClick={() => {
               setIsNotifOpen(!isNotifOpen);
-              setHasUnread(false);
+              if (!isNotifOpen) {
+                fetchNotifications();
+              }
             }}
             className={`relative p-2.5 rounded-xl border transition-all cursor-pointer shadow-xs ${
               isNotifOpen
                 ? "bg-[#383838] border-[#D4AD5C] text-[#D4AD5C]"
                 : "bg-[#383838] border-[#484848] text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#444444]"
             }`}
-            title="Notifikasi"
+            title="Notifikasi konfirmasi & koreksi pelanggan"
             aria-label="Buka notifikasi"
           >
             <Bell size={18} />
-            {hasUnread && (
-              <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#D4AD5C] ring-2 ring-[#383838]" />
+            {unreadCount > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#B13C30] text-[#FFFFFF] text-[10px] font-bold flex items-center justify-center ring-2 ring-[#2C2C2C] shadow-sm">
+                {unreadCount > 9 ? "9+" : unreadCount}
+              </span>
             )}
           </button>
 
@@ -324,11 +382,17 @@ export function Topbar() {
               <div className="p-4 border-b border-[#3E3E3E] flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-bold text-[#F5EDDC]">
-                    Notifikasi
+                    Notifikasi Pelanggan
                   </span>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[rgba(212,173,92,0.18)] text-[#D4AD5C]">
-                    Baru
-                  </span>
+                  {unreadCount > 0 ? (
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#B13C30] text-white">
+                      {unreadCount} Baru
+                    </span>
+                  ) : (
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[rgba(212,173,92,0.18)] text-[#D4AD5C]">
+                      Terbaru
+                    </span>
+                  )}
                 </div>
                 <button
                   type="button"
@@ -340,46 +404,81 @@ export function Topbar() {
               </div>
 
               <div className="divide-y divide-[#383838] max-h-80 overflow-y-auto">
-                {sampleNotifications.map((n) => {
-                  const Icon = n.icon;
-                  return (
-                    <Link
-                      key={n.id}
-                      href={n.href}
-                      onClick={() => setIsNotifOpen(false)}
-                      className="p-3.5 flex items-start gap-3 hover:bg-[#383838] transition-colors block"
-                    >
-                      <div
-                        className={`w-8 h-8 rounded-full ${n.bg} ${n.color} flex items-center justify-center shrink-0 mt-0.5`}
+                {notifications.length === 0 ? (
+                  <div className="p-6 text-center text-xs text-[#8A857B]">
+                    Belum ada notifikasi konfirmasi atau koreksi dari pelanggan.
+                  </div>
+                ) : (
+                  notifications.map((n) => {
+                    const isRead = readIds.includes(n.id);
+                    const isConfirmed = n.type === "dikonfirmasi";
+
+                    return (
+                      <button
+                        key={n.id}
+                        type="button"
+                        onClick={() => handleNotificationClick(n)}
+                        className={`w-full text-left p-3.5 flex items-start gap-3 hover:bg-[#383838] transition-colors cursor-pointer block relative ${
+                          !isRead ? "bg-[#333333]" : ""
+                        }`}
                       >
-                        <Icon size={16} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-[#F5EDDC]">
-                          {n.title}
-                        </p>
-                        <p className="text-[11px] text-[#B8B3A8] mt-0.5 leading-snug">
-                          {n.desc}
-                        </p>
-                        <span className="text-[10px] text-[#8A857B] mt-1 block">
-                          {n.time}
-                        </span>
-                      </div>
-                    </Link>
-                  );
-                })}
+                        <div
+                          className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
+                            isConfirmed
+                              ? "bg-[rgba(47,122,75,0.25)] text-[#7FD39B]"
+                              : "bg-[rgba(177,60,48,0.25)] text-[#FFA39E]"
+                          }`}
+                        >
+                          {isConfirmed ? (
+                            <CheckCircle2 size={16} />
+                          ) : (
+                            <AlertTriangle size={16} />
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-xs font-bold text-[#F5EDDC] truncate">
+                              {n.title}
+                            </span>
+                            <span
+                              className={`text-[9px] font-semibold px-1.5 py-0.5 rounded shrink-0 ${
+                                isConfirmed
+                                  ? "bg-[rgba(47,122,75,0.25)] text-[#7FD39B] border border-[rgba(47,122,75,0.4)]"
+                                  : "bg-[rgba(177,60,48,0.25)] text-[#FFA39E] border border-[rgba(177,60,48,0.4)]"
+                              }`}
+                            >
+                              {isConfirmed ? "Dikonfirmasi" : "Butuh Koreksi"}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-[#D1C6AD] mt-1 leading-snug line-clamp-2">
+                            {n.description}
+                          </p>
+                          <div className="flex items-center justify-between mt-1 text-[10px] text-[#8A857B]">
+                            <span>{n.nama_pelanggan}</span>
+                            <span>{n.time}</span>
+                          </div>
+                        </div>
+                        {!isRead && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#D4AD5C] shrink-0 mt-2" />
+                        )}
+                      </button>
+                    );
+                  })
+                )}
               </div>
 
-              <div className="p-3 bg-[#242424] border-t border-[#3E3E3E] text-center">
-                <button
-                  type="button"
-                  onClick={() => setIsNotifOpen(false)}
-                  className="text-xs font-semibold text-[#D4AD5C] hover:text-[#EEB100] cursor-pointer inline-flex items-center gap-1.5"
-                >
-                  <Check size={14} />
-                  <span>Tandai semua sudah dibaca</span>
-                </button>
-              </div>
+              {notifications.length > 0 && (
+                <div className="p-3 bg-[#242424] border-t border-[#3E3E3E] text-center">
+                  <button
+                    type="button"
+                    onClick={handleMarkAllRead}
+                    className="text-xs font-semibold text-[#D4AD5C] hover:text-[#EEB100] cursor-pointer inline-flex items-center gap-1.5"
+                  >
+                    <Check size={14} />
+                    <span>Tandai semua sudah dibaca</span>
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>

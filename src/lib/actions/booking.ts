@@ -385,3 +385,98 @@ export async function searchBookingsAndChecklists(query: string) {
   return data;
 }
 
+export interface AdminNotification {
+  id: string;
+  booking_id: string;
+  type: "dikonfirmasi" | "perlu_koreksi";
+  title: string;
+  description: string;
+  time: string;
+  raw_date: string;
+  nama_pelanggan: string;
+  tanggal_acara: string;
+}
+
+function formatRelativeTime(dateStr: string): string {
+  try {
+    const now = new Date();
+    const date = new Date(dateStr);
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffMins < 1) return "Baru saja";
+    if (diffMins < 60) return `${diffMins} menit lalu`;
+    if (diffHours < 24) return `${diffHours} jam lalu`;
+    if (diffDays === 1) return "Kemarin";
+    if (diffDays < 7) return `${diffDays} hari lalu`;
+
+    return date.toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  } catch {
+    return "";
+  }
+}
+
+// 11. Ambil Notifikasi: Konfirmasi & Koreksi Pelanggan
+export async function getAdminNotifications(): Promise<AdminNotification[]> {
+  const supabase = createAdminClient();
+  const { data: bookings, error } = await supabase
+    .from("bookings")
+    .select(`
+      id,
+      nama_pelanggan,
+      tanggal_acara,
+      status,
+      dikonfirmasi_pada,
+      updated_at,
+      customer_notes (
+        id,
+        isi,
+        dibuat_pada
+      )
+    `)
+    .in("status", ["dikonfirmasi", "perlu_koreksi"])
+    .order("updated_at", { ascending: false })
+    .limit(15);
+
+  if (error || !bookings) {
+    return [];
+  }
+
+  return bookings.map((b) => {
+    const isConfirmed = b.status === "dikonfirmasi";
+    const dateStr = b.dikonfirmasi_pada || b.updated_at || new Date().toISOString();
+
+    let noteText = "";
+    if (!isConfirmed && b.customer_notes && b.customer_notes.length > 0) {
+      const notes = [...b.customer_notes].sort((x, y) => {
+        const timeY = y.dibuat_pada ? new Date(y.dibuat_pada).getTime() : 0;
+        const timeX = x.dibuat_pada ? new Date(x.dibuat_pada).getTime() : 0;
+        return timeY - timeX;
+      });
+      noteText = ` "${notes[0].isi}"`;
+    }
+
+    return {
+      id: `${b.id}-${b.status}-${dateStr}`,
+      booking_id: b.id,
+      type: b.status as "dikonfirmasi" | "perlu_koreksi",
+      title: isConfirmed
+        ? "Pesanan Dikonfirmasi"
+        : "Permintaan Koreksi Pelanggan",
+      description: isConfirmed
+        ? `${b.nama_pelanggan} telah menyetujui rincian acara pernikahan.`
+        : `${b.nama_pelanggan} mengirim catatan koreksi:${noteText}`,
+      time: formatRelativeTime(dateStr),
+      raw_date: dateStr,
+      nama_pelanggan: b.nama_pelanggan,
+      tanggal_acara: b.tanggal_acara,
+    };
+  });
+}
+
