@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useSyncExternalStore } from "react";
+import React, { useState, useMemo, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -15,11 +15,18 @@ import {
   Clock,
   AlertTriangle,
   CheckSquare,
+  Settings,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/badge";
 import { deleteBooking } from "@/lib/actions/booking";
+import {
+  getStoredWhatsAppTemplate,
+  formatWhatsAppMessage,
+  createWhatsAppUrl,
+  DEFAULT_WA_TEMPLATE,
+} from "@/lib/whatsapp";
 
 interface BookingDetailProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,6 +40,12 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
 
+  const waTemplate = useSyncExternalStore(
+    emptySubscribe,
+    () => getStoredWhatsAppTemplate(),
+    () => DEFAULT_WA_TEMPLATE
+  );
+
   const currentOrigin = useSyncExternalStore(
     emptySubscribe,
     () => window.location.origin,
@@ -41,12 +54,37 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
   const confirmationLink = `${currentOrigin}/konfirmasi/${booking.token_konfirmasi}`;
 
-  // WhatsApp click-to-chat URL sesuai prd.md bagian 6.8
-  const cleanPhone = booking.no_wa.replace(/\D/g, "").replace(/^0/, "62");
-  const waMessage = encodeURIComponent(
-    `Halo Kak ${booking.nama_pelanggan}, terima kasih sudah memesan di Era Waluyo. Mohon cek rincian pesanan Kakak lewat tautan berikut, lalu konfirmasi jika sudah sesuai:\n\n${confirmationLink}`
-  );
-  const waUrl = `https://wa.me/${cleanPhone}?text=${waMessage}`;
+  const formattedEventDate = useMemo(() => {
+    try {
+      const d = new Date(booking.tanggal_acara);
+      if (!isNaN(d.getTime())) {
+        return d.toLocaleDateString("id-ID", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        });
+      }
+    } catch {
+      // fallback
+    }
+    return booking.tanggal_acara;
+  }, [booking.tanggal_acara]);
+
+  // Format pesan WhatsApp menggunakan template tersimpan di Pengaturan
+  const renderedWaMessage = useMemo(() => {
+    return formatWhatsAppMessage(waTemplate, {
+      nama: booking.nama_pelanggan,
+      tanggal: formattedEventDate,
+      paket: booking.packages?.nama || "Paket Khusus",
+      lokasi: booking.lokasi,
+      tautan: confirmationLink,
+      nominal_dp: booking.dp_nominal || 0,
+      status_dp: booking.dp_diterima ? "DP Diterima" : "DP Belum Diterima",
+    });
+  }, [waTemplate, booking, confirmationLink, formattedEventDate]);
+
+  const waUrl = createWhatsAppUrl(booking.no_wa, renderedWaMessage);
 
   const handleDelete = async () => {
     if (
@@ -117,30 +155,46 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
       </div>
 
       {/* WhatsApp Confirmation Banner */}
-      <Card className="p-6 bg-gradient-to-r from-[#FFFFFF] to-[#FAF6ED] dark:from-[#242424] dark:to-[#1E1E1E] border-[#D6CEBE] dark:border-[#332F28] flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
-        <div className="space-y-1">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#EEB100] flex items-center gap-1.5">
-            <MessageCircle size={14} />
-            Konfirmasi Pesanan Pelanggan
-          </span>
-          <p className="text-sm text-[#1A1A1A] font-medium">
-            Kirimkan tautan konfirmasi resmi ini kepada calon pengantin via WhatsApp
+      <Card className="p-5 sm:p-6 bg-gradient-to-r from-[#FFFFFF] to-[#FAF6ED] dark:from-[#242424] dark:to-[#1E1E1E] border-[#D6CEBE] dark:border-[#332F28] flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
+        <div className="space-y-1.5 flex-1">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#EEB100] flex items-center gap-1.5">
+              <MessageCircle size={14} />
+              Konfirmasi Pesanan Pelanggan
+            </span>
+            <span className="text-[#8A857B]">•</span>
+            <Link
+              href="/settings?tab=whatsapp"
+              className="text-[11px] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#EEB100] dark:hover:text-[#EEB100] inline-flex items-center gap-1 transition-colors"
+              title="Kustomisasi template pesan WhatsApp di Pengaturan"
+            >
+              <Settings size={12} />
+              <span>Atur Template</span>
+            </Link>
+          </div>
+          <p className="text-sm text-[#1A1A1A] dark:text-[#F5EDDC] font-medium">
+            Kirimkan pesan konfirmasi resmi dengan template terformat kepada calon pengantin via WhatsApp
           </p>
-          <p className="text-xs text-[#5E5A52] break-all">
-            {confirmationLink}
-          </p>
+          <div className="flex items-center gap-2">
+            <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] break-all font-mono">
+              {confirmationLink}
+            </p>
+          </div>
         </div>
-        <a
-          href={waUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="shrink-0 w-full md:w-auto"
-        >
-          <Button variant="primary" className="w-full md:w-auto gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-black">
-            <MessageCircle size={18} />
-            <span>Kirim via WhatsApp</span>
-          </Button>
-        </a>
+
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0 w-full md:w-auto">
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full md:w-auto"
+          >
+            <Button variant="primary" className="w-full md:w-auto gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-black shadow-sm font-semibold">
+              <MessageCircle size={18} />
+              <span>Kirim via WhatsApp</span>
+            </Button>
+          </a>
+        </div>
       </Card>
 
       {/* Catatan Koreksi Pelanggan (jika ada) */}

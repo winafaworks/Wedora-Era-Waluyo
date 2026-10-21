@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { useState, useRef, useSyncExternalStore } from "react";
 import {
   Sun,
   Moon,
@@ -13,16 +12,69 @@ import {
   Info,
   Layers,
   Eye,
+  Save,
+  RotateCcw,
+  CheckCircle2,
+  Copy,
+  Send,
+  Smartphone,
+  Tag,
+  ExternalLink,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/badge";
 import { useTheme, Theme } from "@/components/theme/theme-provider";
+import {
+  getStoredWhatsAppTemplate,
+  saveStoredWhatsAppTemplate,
+  resetStoredWhatsAppTemplate,
+  formatWhatsAppMessage,
+  createWhatsAppUrl,
+  PRESET_WA_TEMPLATES,
+  WA_AVAILABLE_VARIABLES,
+  DEFAULT_WA_TEMPLATE,
+} from "@/lib/whatsapp";
+
+const emptySubscribe = () => () => {};
 
 export default function SettingsClient() {
   const { theme, resolvedTheme, setTheme } = useTheme();
-  const [activeTab, setActiveTab] = useState<"appearance" | "whatsapp" | "security">("appearance");
+
+  // Ambil initial tab dari URL query jika ada (misal /settings?tab=whatsapp)
+  const initialTab = useSyncExternalStore<"appearance" | "whatsapp" | "security">(
+    emptySubscribe,
+    () => {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get("tab");
+      return tabParam === "whatsapp" || tabParam === "security" ? tabParam : "appearance";
+    },
+    () => "appearance"
+  );
+
+  const [activeTab, setActiveTab] = useState<"appearance" | "whatsapp" | "security">(initialTab);
   const [density, setDensity] = useState<"comfortable" | "compact">("comfortable");
+
+  // State Template WhatsApp
+  const storedTemplate = useSyncExternalStore(
+    emptySubscribe,
+    () => getStoredWhatsAppTemplate(),
+    () => DEFAULT_WA_TEMPLATE
+  );
+
+  const [customTemplate, setCustomTemplate] = useState<string | null>(null);
+  const waTemplate = customTemplate !== null ? customTemplate : storedTemplate;
+  const setWaTemplate = (valOrUpdater: string | ((prev: string) => string)) => {
+    if (typeof valOrUpdater === "function") {
+      setCustomTemplate((prev) => valOrUpdater(prev !== null ? prev : storedTemplate));
+    } else {
+      setCustomTemplate(valOrUpdater);
+    }
+  };
+
+  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const themeOptions: {
     id: Theme;
@@ -104,17 +156,14 @@ export default function SettingsClient() {
 
         <button
           onClick={() => setActiveTab("whatsapp")}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer opacity-75 hover:opacity-100 ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
             activeTab === "whatsapp"
-              ? "bg-[#EEB100] text-[#111111]"
+              ? "bg-[#EEB100] text-[#111111] shadow-xs"
               : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
           }`}
         >
           <MessageSquare size={16} />
           <span>Template WhatsApp</span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#EAE1CF] text-[#5E5A52]">
-            Tahap 2
-          </span>
         </button>
 
         <button
@@ -372,23 +421,329 @@ export default function SettingsClient() {
         </div>
       )}
 
-      {/* Tab Content: Placeholder for Upcoming Tabs */}
-      {activeTab !== "appearance" && (
+      {/* Tab Content: WhatsApp Template */}
+      {activeTab === "whatsapp" && (
+        <div className="space-y-6">
+          {/* Header Banner */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#FAF6ED] to-[#FFFFFF] dark:from-[#252525] dark:to-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#25D366]/15 text-[#25D366] flex items-center justify-center shrink-0 mt-0.5">
+                <MessageSquare size={22} />
+              </div>
+              <div>
+                <h2 className="font-sans text-[18px] sm:text-[20px] font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                  Kustomisasi Template Pesan WhatsApp
+                </h2>
+                <p className="text-xs sm:text-sm text-[#5E5A52] dark:text-[#A8A296] mt-0.5 max-w-2xl">
+                  Pesan ini akan otomatis terisi saat admin mengklik tombol <strong>&quot;Kirim via WhatsApp&quot;</strong> di halaman rincian booking. Gunakan variabel dinamis agar data pengantin terisi otomatis.
+                </p>
+              </div>
+            </div>
+
+            {saveSuccess && (
+              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[rgba(47,122,75,0.15)] text-[#2F7A4B] dark:text-[#7FD39B] border border-[#2F7A4B]/30 text-xs font-semibold animate-in fade-in duration-200 shrink-0">
+                <CheckCircle2 size={16} />
+                <span>Template Berhasil Disimpan!</span>
+              </div>
+            )}
+          </div>
+
+          {/* 2 Columns: Editor (Left) & WhatsApp Live Preview (Right) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* Kolom Kiri: Form Editor Template */}
+            <div className="lg:col-span-7 space-y-5">
+              {/* Card Pilihan Preset Cepat */}
+              <Card className="p-4 sm:p-5 space-y-3 bg-[#FFFFFF] dark:bg-[#202020] border border-[#E5DEC9] dark:border-[#38342C]">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-[#EEB100] uppercase tracking-wider flex items-center gap-1.5">
+                    <Sparkles size={14} />
+                    Pilihan Preset Cepat
+                  </span>
+                  <span className="text-[11px] text-[#8A857B] dark:text-[#A8A296]">
+                    Klik untuk menerapkan template
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {PRESET_WA_TEMPLATES.map((preset) => {
+                    const isCurrent = waTemplate === preset.content;
+                    return (
+                      <button
+                        key={preset.id}
+                        type="button"
+                        onClick={() => {
+                          setWaTemplate(preset.content);
+                        }}
+                        className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                          isCurrent
+                            ? "border-[#EEB100] bg-[rgba(212,173,92,0.12)] dark:bg-[#2A261F] shadow-xs"
+                            : "border-[#E5DEC9] dark:border-[#38342C] bg-[#FAF7F0] dark:bg-[#252525] hover:border-[#D4AD5C] dark:hover:border-[#EEB100]"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                            {preset.name}
+                          </span>
+                          {isCurrent && <Check size={14} className="text-[#EEB100]" />}
+                        </div>
+                        <p className="text-[11px] text-[#5E5A52] dark:text-[#A8A296] mt-1 line-clamp-2">
+                          {preset.description}
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </Card>
+
+              {/* Card Editor Teks & Variabel */}
+              <Card className="p-4 sm:p-5 space-y-4 bg-[#FFFFFF] dark:bg-[#202020] border border-[#E5DEC9] dark:border-[#38342C]">
+                {/* Chip Variabel Dinamis */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-semibold text-[#EEB100] uppercase tracking-wider flex items-center gap-1.5">
+                      <Tag size={13} />
+                      Sisipkan Variabel Dinamis (Klik Tag)
+                    </label>
+                    <span className="text-[11px] text-[#8A857B] dark:text-[#A8A296]">
+                      Otomatis diisi sistem
+                    </span>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {WA_AVAILABLE_VARIABLES.map((v) => (
+                      <button
+                        key={v.tag}
+                        type="button"
+                        onClick={() => {
+                          if (!textareaRef.current) {
+                            setWaTemplate((prev) => prev + " " + v.tag);
+                            return;
+                          }
+                          const start = textareaRef.current.selectionStart || 0;
+                          const end = textareaRef.current.selectionEnd || 0;
+                          const updated = waTemplate.substring(0, start) + v.tag + waTemplate.substring(end);
+                          setWaTemplate(updated);
+                          setTimeout(() => {
+                            if (textareaRef.current) {
+                              textareaRef.current.focus();
+                              textareaRef.current.setSelectionRange(start + v.tag.length, start + v.tag.length);
+                            }
+                          }, 50);
+                        }}
+                        className="group inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FAF6ED] dark:bg-[#28251E] border border-[#D6CEBE] dark:border-[#3D382F] hover:border-[#EEB100] dark:hover:border-[#EEB100] text-xs font-mono font-medium text-[#1A1A1A] dark:text-[#F5EDDC] transition-colors cursor-pointer shadow-2xs"
+                        title={`Contoh isi: ${v.example}`}
+                      >
+                        <span className="text-[#EEB100] font-bold">+</span>
+                        <span>{v.tag}</span>
+                        <span className="text-[10px] text-[#8A857B] dark:text-[#A8A296] hidden sm:inline">
+                          ({v.label})
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Textarea Template */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-semibold text-[#5E5A52] dark:text-[#A8A296]">
+                      Isi Teks Pesan WhatsApp
+                    </label>
+                    <span className="text-[11px] text-[#8A857B] dark:text-[#A8A296]">
+                      {waTemplate.length} karakter
+                    </span>
+                  </div>
+
+                  <textarea
+                    ref={textareaRef}
+                    rows={10}
+                    value={waTemplate}
+                    onChange={(e) => setWaTemplate(e.target.value)}
+                    placeholder="Tulis template pesan WhatsApp di sini..."
+                    className="w-full p-3.5 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-xs sm:text-sm font-sans leading-relaxed text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#EEB100] dark:focus:border-[#EEB100] transition-colors"
+                  />
+                </div>
+
+                {/* Tombol Aksi Simpan & Reset */}
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#E5DEC9] dark:border-[#332F28]">
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        saveStoredWhatsAppTemplate(waTemplate);
+                        setSaveSuccess(true);
+                        setTimeout(() => setSaveSuccess(false), 3000);
+                      }}
+                      className="gap-2 text-xs sm:text-sm shadow-sm"
+                    >
+                      <Save size={16} />
+                      <span>Simpan Template</span>
+                    </Button>
+
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        if (confirm("Kembalikan template pesan WhatsApp ke pengaturan bawaan Era Waluyo?")) {
+                          resetStoredWhatsAppTemplate();
+                          setWaTemplate(DEFAULT_WA_TEMPLATE);
+                          setSaveSuccess(true);
+                          setTimeout(() => setSaveSuccess(false), 3000);
+                        }
+                      }}
+                      className="gap-1.5 text-xs sm:text-sm"
+                      title="Kembalikan teks ke format standar sistem"
+                    >
+                      <RotateCcw size={15} />
+                      <span>Reset Bawaan</span>
+                    </Button>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const sample = {
+                        nama: "Candra",
+                        tanggal: "21 Oktober 2026",
+                        paket: "PAKET SIRAMAN",
+                        lokasi: "Hotel Heritage, Purwokerto",
+                        tautan: "https://wedora.id/konfirmasi/abc123xyz",
+                        nominal_dp: 5000000,
+                        status_dp: "DP Diterima",
+                      };
+                      navigator.clipboard.writeText(formatWhatsAppMessage(waTemplate, sample));
+                      setCopySuccess(true);
+                      setTimeout(() => setCopySuccess(false), 2000);
+                    }}
+                    className="text-xs text-[#5E5A52] dark:text-[#A8A296] hover:text-[#EEB100] dark:hover:text-[#EEB100] inline-flex items-center gap-1.5 py-1.5 px-2.5 rounded-lg border border-[#E5DEC9] dark:border-[#38342C] transition-colors cursor-pointer"
+                  >
+                    {copySuccess ? <Check size={14} className="text-[#2F7A4B]" /> : <Copy size={14} />}
+                    <span>{copySuccess ? "Tersalin!" : "Salin Contoh Pesan"}</span>
+                  </button>
+                </div>
+              </Card>
+            </div>
+
+            {/* Kolom Kanan: Simulator Chat WhatsApp Live */}
+            <div className="lg:col-span-5 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-[#EEB100] uppercase tracking-wider flex items-center gap-1.5">
+                  <Smartphone size={14} />
+                  Simulasi Tampilan WhatsApp
+                </span>
+                <span className="text-[11px] text-[#8A857B] dark:text-[#A8A296]">
+                  Pratinjau Live Calon Pengantin
+                </span>
+              </div>
+
+              {/* Phone Mockup Frame */}
+              <div className="rounded-3xl border-4 border-[#2C2C2C] dark:border-[#3A3A3A] bg-[#EFEAE2] dark:bg-[#0B141A] shadow-xl overflow-hidden max-w-sm mx-auto w-full">
+                {/* Status Bar Ponsel */}
+                <div className="bg-[#075E54] dark:bg-[#1F2C34] px-4 py-1 text-white flex items-center justify-between text-[10px] font-mono opacity-90">
+                  <span>21:00</span>
+                  <div className="flex items-center gap-1.5 text-[9px]">
+                    <span>4G</span>
+                    <span>100%</span>
+                  </div>
+                </div>
+
+                {/* WhatsApp Top App Bar */}
+                <div className="bg-[#075E54] dark:bg-[#1F2C34] text-white p-3 flex items-center gap-2.5 shadow-sm">
+                  <div className="w-8 h-8 rounded-full bg-[#FAF6ED] text-[#111111] font-bold text-xs flex items-center justify-center shrink-0 border border-[#D4AD5C]">
+                    EW
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-xs font-bold truncate">Era Waluyo Galeri</h4>
+                    <p className="text-[10px] text-white/80 leading-none mt-0.5">online</p>
+                  </div>
+                </div>
+
+                {/* Chat Canvas with Wallpaper */}
+                <div className="p-3 sm:p-4 min-h-[360px] max-h-[460px] overflow-y-auto custom-scrollbar flex flex-col justify-end space-y-3 bg-[#EFEAE2] dark:bg-[#0B141A]">
+                  {/* Date badge */}
+                  <div className="text-center my-1">
+                    <span className="inline-block px-2.5 py-1 rounded-lg bg-[#FFFFFF]/85 dark:bg-[#182229] text-[10px] text-[#54656F] dark:text-[#8696A0] shadow-2xs font-medium">
+                      HARI INI
+                    </span>
+                  </div>
+
+                  {/* Outgoing WhatsApp Chat Bubble */}
+                  <div className="ml-auto max-w-[90%] p-3 rounded-2xl rounded-tr-xs bg-[#E7FFDB] dark:bg-[#005C4B] text-[#111B21] dark:text-[#E9EDEF] shadow-xs text-xs space-y-2 relative border border-black/5">
+                    <div className="whitespace-pre-wrap leading-relaxed font-sans text-[12px] break-words">
+                      {formatWhatsAppMessage(waTemplate, {
+                        nama: "Candra",
+                        tanggal: "21 Oktober 2026",
+                        paket: "PAKET SIRAMAN",
+                        lokasi: "Hotel Heritage, Purwokerto",
+                        tautan: "https://wedora.id/konfirmasi/abc123xyz",
+                        nominal_dp: 5000000,
+                        status_dp: "DP Diterima",
+                      })}
+                    </div>
+
+                    {/* Timestamp & Read Receipt */}
+                    <div className="flex items-center justify-end gap-1 text-[10px] text-[#667781] dark:text-[#8696A0] pt-0.5">
+                      <span>21:01</span>
+                      <span className="text-[#53BDEB] font-bold tracking-tighter">✓✓</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Catatan Bawah Simulator */}
+              <div className="p-3 rounded-xl bg-[#FAF6ED] dark:bg-[#252525] border border-[#E5DEC9] dark:border-[#38342C] text-xs text-[#5E5A52] dark:text-[#A8A296] space-y-1">
+                <p className="font-semibold text-[#1A1A1A] dark:text-[#F5EDDC] flex items-center gap-1.5">
+                  <Info size={14} className="text-[#EEB100]" />
+                  Simulasi Variabel Dinamis
+                </p>
+                <p className="text-[11px] leading-relaxed">
+                  Pratinjau di atas menggunakan contoh data pemesan <strong>Kak Candra</strong> (21 Okt 2026). Saat dikirim ke pengantin asli, variabel <code>{`{...}`}</code> otomatis diganti dengan data booking terkait.
+                </p>
+              </div>
+
+              {/* Tombol Uji Coba Langsung ke WhatsApp */}
+              <a
+                href={createWhatsAppUrl(
+                  "62888888888",
+                  formatWhatsAppMessage(waTemplate, {
+                    nama: "Candra",
+                    tanggal: "21 Oktober 2026",
+                    paket: "PAKET SIRAMAN",
+                    lokasi: "Hotel Heritage, Purwokerto",
+                    tautan: "https://wedora.id/konfirmasi/abc123xyz",
+                    nominal_dp: 5000000,
+                    status_dp: "DP Diterima",
+                  })
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <Button
+                  variant="outline"
+                  className="w-full gap-2 text-xs h-10 border-[#25D366]/40 hover:bg-[#25D366]/10 text-[#25D366] dark:text-[#25D366] cursor-pointer"
+                >
+                  <Send size={15} />
+                  <span>Uji Coba Kirim ke WhatsApp Saya</span>
+                  <ExternalLink size={13} className="ml-auto opacity-70" />
+                </Button>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Tab Content: Placeholder for Security */}
+      {activeTab === "security" && (
         <Card className="p-12 text-center space-y-4">
           <div className="w-14 h-14 mx-auto rounded-full bg-[rgba(212,173,92,0.14)] text-[#EEB100] flex items-center justify-center">
-            {activeTab === "whatsapp" && <MessageSquare size={28} />}
-            {activeTab === "security" && <Shield size={28} />}
+            <Shield size={28} />
           </div>
           <div>
-            <h3 className="font-sans text-[20px] font-bold text-[#1A1A1A]">
-              Fitur Dijadwalkan untuk Tahap Berikutnya
+            <h3 className="font-sans text-[20px] font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+              Keamanan Akun Admin
             </h3>
-            <p className="text-xs text-[#5E5A52] mt-1 max-w-md mx-auto">
-              Tab ini akan memuat form pengaturan{" "}
-              {activeTab === "whatsapp"
-                ? "kustomisasi template pesan otomatis WhatsApp ke calon pengantin"
-                : "ubah kata sandi admin dan keamanan akun"}
-              .
+            <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] mt-1 max-w-md mx-auto">
+              Fitur ubah kata sandi admin dan autentikasi multi-faktor dijadwalkan pada pembaruan tahap berikutnya.
             </p>
           </div>
           <Button
