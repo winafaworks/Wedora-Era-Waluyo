@@ -92,7 +92,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
         {/* Action Buttons */}
         <div className="flex items-center gap-2">
           <Link href="/checklist">
-            <Button variant="outline" size="sm" className="gap-1.5 bg-[#FFFFFF]">
+            <Button variant="outline" size="sm" className="gap-1.5">
               <CheckSquare size={16} className="text-[#EEB100]" />
               <span>Checklist</span>
             </Button>

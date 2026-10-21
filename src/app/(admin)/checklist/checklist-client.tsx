@@ -312,7 +312,7 @@ export default function ChecklistClient({
             size="sm"
             onClick={handleDownloadPdf}
             disabled={!currentBooking || items.length === 0}
-            className="gap-2 bg-[#FFFFFF]"
+            className="gap-2"
             title="Unduh file dokumen PDF checklist"
           >
             <Download size={15} />
@@ -324,7 +324,7 @@ export default function ChecklistClient({
             size="sm"
             onClick={handlePrintPdf}
             disabled={!currentBooking || items.length === 0}
-            className="gap-2 bg-[#FFFFFF] border-[#D4AD5C] text-[#EEB100] hover:bg-[#FAF6ED]"
+            className="gap-2 border-[#D4AD5C] text-[#EEB100] hover:border-[#EEB100] active:border-[#EEB100]"
             title="Buka dokumen PDF checklist rapi untuk dicetak"
           >
             <Printer size={15} />
