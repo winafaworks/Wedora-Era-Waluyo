@@ -213,8 +213,33 @@ html.dark .divide-\[\#D6CEBE\] > * + * {
 
 /* Text Overrides */
 html.dark .text-\[\#1A1A1A\],
-html.dark .text-\[\#111111\] {
+html.dark .text-\[\#111111\]:not(.bg-\[\#EEB100\]):not(.bg-\[\#DDA400\]):not(.bg-\[\#C89400\]) {
   color: #f5eddc !important;
+}
+
+/* Pastikan semua button/elemen berlatar gold tetap memiliki teks dan ikon hitam pekat seperti di mode terang */
+.bg-\[\#EEB100\],
+.bg-\[\#EEB100\] *,
+.bg-\[\#DDA400\],
+.bg-\[\#DDA400\] *,
+.bg-\[\#C89400\],
+.bg-\[\#C89400\] *,
+html.dark .bg-\[\#EEB100\],
+html.dark .bg-\[\#EEB100\] *,
+html.dark .bg-\[\#DDA400\],
+html.dark .bg-\[\#DDA400\] *,
+html.dark .bg-\[\#C89400\],
+html.dark .bg-\[\#C89400\] * {
+  color: #111111 !important;
+}
+
+html.dark .bg-\[\#EEB100\] svg,
+html.dark .bg-\[\#DDA400\] svg,
+html.dark .bg-\[\#C89400\] svg,
+.bg-\[\#EEB100\] svg,
+.bg-\[\#DDA400\] svg,
+.bg-\[\#C89400\] svg {
+  stroke: #111111 !important;
 }
 
 html.dark .text-\[\#5E5A52\] {
