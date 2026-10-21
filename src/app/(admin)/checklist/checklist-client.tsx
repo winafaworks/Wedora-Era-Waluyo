@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useTransition } from "react";
+import React, { useState, useMemo, useTransition, useRef, useEffect } from "react";
 import Link from "next/link";
 import {
   CheckSquare,
@@ -20,6 +20,7 @@ import {
   Clock,
   ChevronDown,
   Download,
+  Search,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -53,6 +54,42 @@ export default function ChecklistClient({
   const [filterTab, setFilterTab] = useState<"semua" | "belum_dimuat" | "belum_kembali" | "kembali">("semua");
   const [searchQuery, setSearchQuery] = useState("");
   const [isPending, startTransition] = useTransition();
+
+  // State dropdown pilihan jadwal acara
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [dropdownSearch, setDropdownSearch] = useState("");
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  const filteredDropdownBookings = useMemo(() => {
+    if (!dropdownSearch.trim()) return bookings;
+    const q = dropdownSearch.toLowerCase();
+    return bookings.filter(
+      (b) =>
+        b.nama_pelanggan.toLowerCase().includes(q) ||
+        b.tanggal_acara.toLowerCase().includes(q) ||
+        (b.packages?.nama && b.packages.nama.toLowerCase().includes(q))
+    );
+  }, [bookings, dropdownSearch]);
 
   // State tambah barang baru
   const [isAdding, setIsAdding] = useState(false);
@@ -379,28 +416,112 @@ export default function ChecklistClient({
       ) : (
         <>
           {/* Card Pilih Acara & Rincian Singkat */}
-          <Card className="p-5 sm:p-6 bg-[#FFFFFF] border border-[#E5DEC9] space-y-4">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#E5DEC9]">
+          <Card className="p-5 sm:p-6 bg-[#FFFFFF] border border-[#E5DEC9] dark:border-[#38342C] space-y-4">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#E5DEC9] dark:border-[#332F28]">
               <div className="space-y-1.5 flex-1 max-w-xl">
-                <label className="block text-xs font-semibold text-[#EEB100] uppercase tracking-wider">
-                  Pilih Jadwal Acara Pernikahan
-                </label>
-                <div className="relative">
-                  <select
-                    value={selectedBookingId}
-                    onChange={(e) => handleSelectBooking(e.target.value)}
-                    className="w-full h-11 pl-4 pr-10 bg-[#FAF6ED] border border-[#D6CEBE] rounded-xl text-sm font-semibold text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] cursor-pointer appearance-none shadow-sm"
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-semibold text-[#EEB100] uppercase tracking-wider">
+                    Pilih Jadwal Acara Pernikahan
+                  </label>
+                  {bookings.length > 10 && (
+                    <span className="text-[11px] text-[#8A857B] dark:text-[#A8A296]">
+                      {bookings.length} acara (scroll untuk melihat semua)
+                    </span>
+                  )}
+                </div>
+
+                <div ref={dropdownRef} className="relative">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsDropdownOpen((prev) => !prev);
+                      setDropdownSearch("");
+                    }}
+                    className="w-full h-11 pl-4 pr-10 bg-[#FAF6ED] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm font-semibold text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#EEB100] dark:focus:border-[#EEB100] cursor-pointer text-left flex items-center justify-between shadow-sm transition-colors"
+                    aria-haspopup="listbox"
+                    aria-expanded={isDropdownOpen}
                   >
-                    {bookings.map((b) => (
-                      <option key={b.id} value={b.id}>
-                        {b.tanggal_acara} — {b.nama_pelanggan} ({b.packages?.nama || "Paket Khusus"})
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown
-                    size={18}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#5E5A52] pointer-events-none"
-                  />
+                    <span className="truncate">
+                      {currentBooking
+                        ? `${currentBooking.tanggal_acara} — ${currentBooking.nama_pelanggan} (${currentBooking.packages?.nama || "Paket Khusus"})`
+                        : "Pilih Jadwal Acara"}
+                    </span>
+                    <ChevronDown
+                      size={18}
+                      className={`absolute right-3.5 top-1/2 -translate-y-1/2 transition-transform duration-200 pointer-events-none ${
+                        isDropdownOpen ? "rotate-180 text-[#EEB100]" : "text-[#5E5A52] dark:text-[#A8A296]"
+                      }`}
+                    />
+                  </button>
+
+                  {isDropdownOpen && (
+                    <div
+                      role="listbox"
+                      className="absolute left-0 right-0 top-full mt-1.5 z-50 bg-[#FFFFFF] dark:bg-[#202020] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl shadow-xl overflow-hidden animate-in fade-in-50 zoom-in-95 duration-100"
+                    >
+                      {/* Search box jika opsi jadwal acara lebih dari 10 */}
+                      {bookings.length > 10 && (
+                        <div className="p-2 border-b border-[#E5DEC9] dark:border-[#332F28] bg-[#FAF7F0] dark:bg-[#1E1E1E]">
+                          <div className="relative">
+                            <Search
+                              size={14}
+                              className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#8A857B] pointer-events-none"
+                            />
+                            <input
+                              type="text"
+                              value={dropdownSearch}
+                              onChange={(e) => setDropdownSearch(e.target.value)}
+                              placeholder="Cari tanggal atau nama pengantin..."
+                              className="w-full h-8 pl-8 pr-3 bg-[#FFFFFF] dark:bg-[#262626] border border-[#D6CEBE] dark:border-[#38342C] rounded-lg text-xs text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#EEB100]"
+                              autoFocus
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* List booking - scroll jika lebih dari 10 item (max-h 380px) */}
+                      <div className="max-h-[380px] overflow-y-auto custom-scrollbar divide-y divide-[#F0EBE1] dark:divide-[#2D2A24]">
+                        {filteredDropdownBookings.length === 0 ? (
+                          <div className="p-4 text-center text-xs text-[#8A857B] dark:text-[#A8A296]">
+                            Tidak ada jadwal acara yang cocok
+                          </div>
+                        ) : (
+                          filteredDropdownBookings.map((b) => {
+                            const isSelected = b.id === selectedBookingId;
+                            return (
+                              <button
+                                key={b.id}
+                                type="button"
+                                role="option"
+                                aria-selected={isSelected}
+                                onClick={() => {
+                                  handleSelectBooking(b.id);
+                                  setIsDropdownOpen(false);
+                                }}
+                                className={`w-full px-4 py-2.5 text-left text-sm flex items-center justify-between gap-3 transition-colors cursor-pointer ${
+                                  isSelected
+                                    ? "bg-[#FAF6ED] dark:bg-[#2A261F] text-[#EEB100] font-bold"
+                                    : "text-[#1A1A1A] dark:text-[#E8E2D5] hover:bg-[#FAF6ED] dark:hover:bg-[#2A261F]"
+                                }`}
+                              >
+                                <div className="truncate flex-1">
+                                  <span className="font-semibold">{b.tanggal_acara}</span>
+                                  <span className="mx-1.5 opacity-60">—</span>
+                                  <span>{b.nama_pelanggan}</span>
+                                  <span className="ml-1.5 text-xs opacity-75 font-normal">
+                                    ({b.packages?.nama || "Paket Khusus"})
+                                  </span>
+                                </div>
+                                {isSelected && (
+                                  <CheckCircle2 size={16} className="text-[#EEB100] shrink-0" />
+                                )}
+                              </button>
+                            );
+                          })
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -408,7 +529,7 @@ export default function ChecklistClient({
                 <div className="flex items-center gap-3">
                   <Link
                     href={`/booking/${currentBooking.id}`}
-                    className="text-xs font-semibold text-[#EEB100] hover:text-[#EEB100] inline-flex items-center gap-1.5 py-2 px-3 rounded-lg border border-[#E5DEC9] bg-[#FAF6ED]"
+                    className="text-xs font-semibold text-[#EEB100] hover:text-[#EEB100] inline-flex items-center gap-1.5 py-2 px-3 rounded-lg border border-[#E5DEC9] dark:border-[#38342C] bg-[#FAF6ED] dark:bg-[#252525]"
                   >
                     <span>Buka Rincian Booking</span>
                     <ArrowRight size={14} />
