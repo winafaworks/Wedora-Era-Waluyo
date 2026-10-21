@@ -341,21 +341,21 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
         {/* Calendar View (Left side, 8 cols on desktop) */}
         <Card className="p-4 sm:p-6 lg:col-span-8 space-y-4">
           {/* Calendar Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E5DEC9]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E5DEC9] dark:border-[#332F28]">
             <div className="flex items-center gap-2">
               <button
                 onClick={handlePrevMonth}
-                className="p-2 rounded-xl bg-[#FFFFFF] border border-[#D6CEBE] hover:bg-[#FAF6ED] text-[#1A1A1A] transition-colors cursor-pointer shadow-sm"
+                className="p-2 rounded-xl bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] hover:bg-[#FAF6ED] dark:hover:bg-[#2F2F2F] text-[#1A1A1A] dark:text-[#F5EDDC] transition-colors cursor-pointer shadow-sm"
                 aria-label="Bulan Sebelumnya"
               >
                 <ChevronLeft size={20} />
               </button>
-              <h2 className="font-sans text-[20px] font-bold text-[#1A1A1A] min-w-[190px] text-center">
+              <h2 className="font-sans text-[20px] font-bold text-[#1A1A1A] dark:text-[#F5EDDC] min-w-[190px] text-center">
                 {MONTH_NAMES[currentMonth]} {currentYear}
               </h2>
               <button
                 onClick={handleNextMonth}
-                className="p-2 rounded-xl bg-[#FFFFFF] border border-[#D6CEBE] hover:bg-[#FAF6ED] text-[#1A1A1A] transition-colors cursor-pointer shadow-sm"
+                className="p-2 rounded-xl bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] hover:bg-[#FAF6ED] dark:hover:bg-[#2F2F2F] text-[#1A1A1A] dark:text-[#F5EDDC] transition-colors cursor-pointer shadow-sm"
                 aria-label="Bulan Berikutnya"
               >
                 <ChevronRight size={20} />
@@ -374,7 +374,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="h-9 px-3 bg-[#FFFFFF] border border-[#D6CEBE] rounded-xl text-xs text-[#1A1A1A] focus:outline-none focus:border-[#EEB100] transition-colors cursor-pointer shadow-sm"
+                className="h-9 px-3 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-xs text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-none focus:border-[#EEB100] transition-colors cursor-pointer shadow-sm"
               >
                 <option value="all">Semua Status</option>
                 <option value="dikonfirmasi">Hanya Dikonfirmasi</option>
@@ -385,7 +385,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
           </div>
 
           {/* Day of Week Headers */}
-          <div className="grid grid-cols-7 gap-1 sm:gap-2 text-center text-xs font-semibold text-[#5E5A52] py-1 uppercase tracking-wider">
+          <div className="grid grid-cols-7 gap-1 sm:gap-2 text-center text-xs font-semibold text-[#5E5A52] dark:text-[#A8A296] py-1 uppercase tracking-wider">
             {DAY_NAMES.map((d) => (
               <div key={d.short} className="py-1">
                 <span className="hidden sm:inline">{d.full}</span>
@@ -514,12 +514,12 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
         {/* Selected Date Details Panel (Right side, 4 cols on desktop) */}
         <div className="lg:col-span-4 space-y-4">
           <Card className="p-5 sm:p-6 space-y-4 sticky top-6">
-            <div className="border-b border-[#E5DEC9] pb-3">
+            <div className="border-b border-[#E5DEC9] dark:border-[#332F28] pb-3">
               <span className="text-xs font-semibold text-[#EEB100] uppercase tracking-wider flex items-center gap-1.5">
                 <CalendarIcon size={14} />
                 Jadwal Acara Terpilih
               </span>
-              <h3 className="font-sans text-[20px] font-semibold text-[#1A1A1A] mt-1">
+              <h3 className="font-sans text-[20px] font-semibold text-[#1A1A1A] dark:text-[#F5EDDC] mt-1">
                 {formattedSelectedDate}
               </h3>
             </div>
@@ -541,13 +541,13 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
             {/* List of Bookings on this date */}
             {selectedDateBookings.length === 0 ? (
               <div className="py-8 text-center space-y-3">
-                <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(47,122,75,0.12)] text-[#2F7A4B] flex items-center justify-center">
+                <div className="w-12 h-12 mx-auto rounded-full bg-[rgba(47,122,75,0.12)] text-[#2F7A4B] dark:text-[#7FD39B] flex items-center justify-center">
                   <Sparkles size={22} />
                 </div>
-                <h4 className="font-sans text-base font-semibold text-[#1A1A1A]">
+                <h4 className="font-sans text-base font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
                   Tanggal Masih Kosong
                 </h4>
-                <p className="text-xs text-[#5E5A52] max-w-xs mx-auto">
+                <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] max-w-xs mx-auto">
                   Belum ada pesanan pernikahan yang dicatat pada tanggal ini. Siap menerima
                   booking baru dari calon pengantin.
                 </p>
@@ -610,7 +610,7 @@ export default function KalenderClient({ bookings }: KalenderClientProps) {
                     </div>
 
                     {/* Quick Action buttons */}
-                    <div className="pt-2 border-t border-[#E5DEC9] flex items-center gap-2">
+                    <div className="pt-2 border-t border-[#E5DEC9] dark:border-[#332F28] flex items-center gap-2">
                       <Link href={`/booking/${b.id}`} className="flex-1">
                         <Button variant="outline" size="sm" className="w-full gap-1.5 text-xs">
                           <Eye size={14} />

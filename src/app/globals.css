@@ -258,6 +258,24 @@ html.dark select {
   border-color: #3d382f !important;
 }
 
+/* Date inputs & calendar picker indicator icon contrast in dark mode */
+html.dark input[type="date"] {
+  color-scheme: dark !important;
+}
+
+html.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: brightness(0) invert(1) !important;
+  cursor: pointer;
+  opacity: 1 !important;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+html.dark input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  filter: brightness(0) invert(1) !important;
+  opacity: 1 !important;
+  transform: scale(1.1);
+}
+
 html.dark input::placeholder,
 html.dark textarea::placeholder {
   color: #7a756b !important;
