@@ -35,16 +35,34 @@ export default function KonfirmasiClient({ booking }: KonfirmasiClientProps) {
     <div className="theme-cream min-h-screen py-8 px-4 flex justify-center items-start text-[#111111]">
       <div className="w-full max-w-[560px] space-y-6">
         {/* Header Resmi Era Waluyo */}
-        <div className="text-center space-y-2 py-4 border-b border-[#DDD2BA]">
+        <div className="text-center space-y-2.5 py-4 border-b border-[#DDD2BA] dark:border-[#38342C]">
           <h1 className="font-brand-logo text-3xl font-bold tracking-[0.2em] text-[#EEB100]">
             ERA WALUYO
           </h1>
-          <p className="text-xs uppercase tracking-[0.2em] text-[#5E5A52] font-medium">
+          <p className="text-xs uppercase tracking-[0.2em] text-[#5E5A52] dark:text-[#A8A49B] font-medium">
             Wedding Organizer & Traditional Attire • Purwokerto
           </p>
-          <div className="inline-flex items-center gap-1.5 text-xs text-[#5E5A52] bg-[#FBF7EC] px-3 py-1 rounded-full border border-[#DDD2BA]">
-            <Phone size={12} />
-            <span>Kontak Resmi: 0812-3456-7890</span>
+          <div className="flex flex-wrap items-center justify-center gap-2 pt-1 text-xs">
+            <a
+              href="https://wa.me/6285747566123"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FBF7EC] dark:bg-[#252525] border border-[#DDD2BA] dark:border-[#38342C] text-[#5E5A52] dark:text-[#C7C2B6] hover:border-[#EEB100] hover:text-[#EEB100] transition-colors"
+              title="Hubungi MUA via WhatsApp"
+            >
+              <Phone size={12} className="text-[#EEB100]" />
+              <span>MUA: <strong className="font-semibold text-[#111111] dark:text-[#F5EDDC]">0857-4756-6123</strong></span>
+            </a>
+            <a
+              href="https://wa.me/6281328443228"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FBF7EC] dark:bg-[#252525] border border-[#DDD2BA] dark:border-[#38342C] text-[#5E5A52] dark:text-[#C7C2B6] hover:border-[#EEB100] hover:text-[#EEB100] transition-colors"
+              title="Hubungi Vila & Dekorasi via WhatsApp"
+            >
+              <Phone size={12} className="text-[#EEB100]" />
+              <span>Vila & Dekorasi: <strong className="font-semibold text-[#111111] dark:text-[#F5EDDC]">0813-2844-3228</strong></span>
+            </a>
           </div>
         </div>
 
