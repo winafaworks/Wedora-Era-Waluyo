@@ -20,6 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/badge";
+import { ConfirmModal } from "@/components/ui/confirm-modal";
 import { deleteBooking } from "@/lib/actions/booking";
 import {
   getStoredWhatsAppTemplate,
@@ -86,20 +87,16 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
 
   const waUrl = createWhatsAppUrl(booking.no_wa, renderedWaMessage);
 
-  const handleDelete = async () => {
-    if (
-      confirm(
-        `Hapus booking ${booking.nama_pelanggan} (${booking.tanggal_acara})?\nTindakan ini tidak dapat dibatalkan.`
-      )
-    ) {
-      setIsDeleting(true);
-      const res = await deleteBooking(booking.id);
-      if (res.success) {
-        router.push("/booking");
-      } else {
-        alert("Gagal menghapus booking: " + res.error);
-        setIsDeleting(false);
-      }
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const handleConfirmDelete = async () => {
+    setIsDeleting(true);
+    const res = await deleteBooking(booking.id);
+    if (res.success) {
+      router.push("/booking");
+    } else {
+      setIsDeleting(false);
+      setIsDeleteModalOpen(false);
     }
   };
 
@@ -144,7 +141,7 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
           <Button
             variant="danger"
             size="sm"
-            onClick={handleDelete}
+            onClick={() => setIsDeleteModalOpen(true)}
             disabled={isDeleting}
             className="gap-1.5"
           >
@@ -511,6 +508,19 @@ export default function BookingDetailClient({ booking, appUrl }: BookingDetailPr
           )}
         </Card>
       </div>
+
+      {/* Modal Konfirmasi Hapus Booking */}
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => !isDeleting && setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title="Hapus Jadwal Booking"
+        description={`Apakah Anda yakin ingin menghapus jadwal acara "${booking.nama_pelanggan}" (${formattedEventDate})? Seluruh data rincian paket, status pembayaran, dan checklist terkait acara ini akan dihapus secara permanen.`}
+        confirmText="Ya, Hapus Booking"
+        cancelText="Batal"
+        variant="danger"
+        isLoading={isDeleting}
+      />
     </div>
   );
 }

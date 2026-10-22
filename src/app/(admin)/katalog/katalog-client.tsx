@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ConfirmModal } from "@/components/ui/confirm-modal";
 import {
   CatalogItem,
   createCatalogItem,
@@ -88,6 +89,23 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+
+  // Modal Konfirmasi Kustom
+  const [confirmModal, setConfirmModal] = useState<{
+    isOpen: boolean;
+    title: string;
+    description: string;
+    confirmText?: string;
+    cancelText?: string;
+    variant?: "danger" | "warning" | "info";
+    isLoading?: boolean;
+    onConfirm: () => void | Promise<void>;
+  }>({
+    isOpen: false,
+    title: "",
+    description: "",
+    onConfirm: () => {},
+  });
 
   // Photo Upload State
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
@@ -236,15 +254,24 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
   };
 
   // Delete Item
-  const handleDeleteItem = async (item: CatalogItem) => {
-    if (confirm(`Apakah Anda yakin ingin menghapus "${item.nama}" dari katalog?`)) {
-      const res = await deleteCatalogItem(item.id);
-      if (res.success) {
-        setItems((prev) => prev.filter((it) => it.id !== item.id));
-      } else {
-        alert(res.error || "Gagal menghapus item katalog.");
-      }
-    }
+  const handleDeleteItem = (item: CatalogItem) => {
+    setConfirmModal({
+      isOpen: true,
+      title: "Hapus Item Katalog",
+      description: `Apakah Anda yakin ingin menghapus "${item.nama}" dari katalog? Tindakan ini akan menghapus data dan foto item ini secara permanen.`,
+      confirmText: "Hapus Item",
+      variant: "danger",
+      onConfirm: async () => {
+        setConfirmModal((prev) => ({ ...prev, isLoading: true }));
+        const res = await deleteCatalogItem(item.id);
+        setConfirmModal((prev) => ({ ...prev, isOpen: false, isLoading: false }));
+        if (res.success) {
+          setItems((prev) => prev.filter((it) => it.id !== item.id));
+        } else {
+          setFormError(res.error || "Gagal menghapus item katalog.");
+        }
+      },
+    });
   };
 
   // Open Photos Management Modal
@@ -287,24 +314,33 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
   };
 
   // Delete Photo
-  const handleDeletePhoto = async (photoId: string, photoUrl: string) => {
+  const handleDeletePhoto = (photoId: string, photoUrl: string) => {
     if (!photoTargetItem) return;
 
-    if (confirm("Hapus foto ini dari katalog?")) {
-      const res = await deleteCatalogPhoto(photoId, photoUrl);
-      if (res.success) {
-        const updatedPhotos = (photoTargetItem.catalog_photos || []).filter(
-          (p) => p.id !== photoId
-        );
-        const updatedItem = { ...photoTargetItem, catalog_photos: updatedPhotos };
-        setPhotoTargetItem(updatedItem);
-        setItems((prev) =>
-          prev.map((it) => (it.id === updatedItem.id ? updatedItem : it))
-        );
-      } else {
-        alert(res.error || "Gagal menghapus foto.");
-      }
-    }
+    setConfirmModal({
+      isOpen: true,
+      title: "Hapus Foto Katalog",
+      description: "Apakah Anda yakin ingin menghapus foto ini dari galeri katalog?",
+      confirmText: "Hapus Foto",
+      variant: "danger",
+      onConfirm: async () => {
+        setConfirmModal((prev) => ({ ...prev, isLoading: true }));
+        const res = await deleteCatalogPhoto(photoId, photoUrl);
+        setConfirmModal((prev) => ({ ...prev, isOpen: false, isLoading: false }));
+        if (res.success) {
+          const updatedPhotos = (photoTargetItem.catalog_photos || []).filter(
+            (p) => p.id !== photoId
+          );
+          const updatedItem = { ...photoTargetItem, catalog_photos: updatedPhotos };
+          setPhotoTargetItem(updatedItem);
+          setItems((prev) =>
+            prev.map((it) => (it.id === updatedItem.id ? updatedItem : it))
+          );
+        } else {
+          setPhotoError(res.error || "Gagal menghapus foto.");
+        }
+      },
+    });
   };
 
   return (
@@ -836,6 +872,19 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
           </div>
         </div>
       )}
+
+      {/* Confirmation Modal */}
+      <ConfirmModal
+        isOpen={confirmModal.isOpen}
+        onClose={() => setConfirmModal((prev) => ({ ...prev, isOpen: false }))}
+        onConfirm={confirmModal.onConfirm}
+        title={confirmModal.title}
+        description={confirmModal.description}
+        confirmText={confirmModal.confirmText}
+        cancelText={confirmModal.cancelText}
+        variant={confirmModal.variant}
+        isLoading={confirmModal.isLoading}
+      />
     </div>
   );
 }

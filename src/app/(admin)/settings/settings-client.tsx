@@ -30,6 +30,7 @@ import {
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/badge";
+import { ConfirmModal } from "@/components/ui/confirm-modal";
 import { useTheme, Theme } from "@/components/theme/theme-provider";
 import {
   getStoredWhatsAppTemplate,
@@ -73,6 +74,7 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
 
   const [activeTab, setActiveTab] = useState<"appearance" | "whatsapp" | "security">(initialTab);
   const [density, setDensity] = useState<"comfortable" | "compact">("comfortable");
+  const [isResetWaModalOpen, setIsResetWaModalOpen] = useState(false);
 
   // State Template WhatsApp
   const storedTemplate = useSyncExternalStore(
@@ -679,14 +681,7 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
 
                     <Button
                       variant="outline"
-                      onClick={() => {
-                        if (confirm("Kembalikan template pesan WhatsApp ke pengaturan bawaan Era Waluyo?")) {
-                          resetStoredWhatsAppTemplate();
-                          setWaTemplate(DEFAULT_WA_TEMPLATE);
-                          setSaveSuccess(true);
-                          setTimeout(() => setSaveSuccess(false), 3000);
-                        }
-                      }}
+                      onClick={() => setIsResetWaModalOpen(true)}
                       className="gap-1.5 text-xs sm:text-sm"
                       title="Kembalikan teks ke format standar sistem"
                     >
@@ -1182,6 +1177,23 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
           </div>
         </div>
       )}
+
+      <ConfirmModal
+        isOpen={isResetWaModalOpen}
+        onClose={() => setIsResetWaModalOpen(false)}
+        onConfirm={() => {
+          resetStoredWhatsAppTemplate();
+          setWaTemplate(DEFAULT_WA_TEMPLATE);
+          setSaveSuccess(true);
+          setIsResetWaModalOpen(false);
+          setTimeout(() => setSaveSuccess(false), 3000);
+        }}
+        title="Reset Template WhatsApp"
+        description="Kembalikan format pesan WhatsApp konfirmasi ke pengaturan bawaan Era Waluyo? Seluruh perubahan template kustom saat ini akan diganti dengan format resmi standar."
+        confirmText="Reset Template"
+        cancelText="Batal"
+        variant="warning"
+      />
     </div>
   );
 }

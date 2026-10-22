@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ConfirmModal } from "@/components/ui/confirm-modal";
 import { generateChecklistPdf } from "@/lib/pdf/checklist-pdf";
 import {
   ChecklistItemData,
@@ -95,6 +96,23 @@ export default function ChecklistClient({
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>("semua");
   const [templateSearchQuery, setTemplateSearchQuery] = useState("");
   const [templateCategoryTab, setTemplateCategoryTab] = useState<string>("semua");
+
+  // State kustom modal konfirmasi (pengganti popup bawaan browser)
+  const [confirmModal, setConfirmModal] = useState<{
+    isOpen: boolean;
+    title: string;
+    description: string;
+    confirmText?: string;
+    cancelText?: string;
+    variant?: "danger" | "warning" | "info";
+    isLoading?: boolean;
+    onConfirm: () => void | Promise<void>;
+  }>({
+    isOpen: false,
+    title: "",
+    description: "",
+    onConfirm: () => {},
+  });
 
   // State dropdown pilihan jadwal acara
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -290,61 +308,65 @@ export default function ChecklistClient({
   };
 
   // Hapus barang dari template paket
-  const handleDeleteTemplateItem = async (item: ChecklistTemplateItem) => {
-    if (
-      !window.confirm(
-        `Hapus "${item.nama_barang}" dari daftar barang standar ${activePackage?.nama || "paket"}?`
-      )
-    ) {
-      return;
-    }
+  const handleDeleteTemplateItem = (item: ChecklistTemplateItem) => {
+    setConfirmModal({
+      isOpen: true,
+      title: "Hapus Barang Standar",
+      description: `Hapus "${item.nama_barang}" dari daftar perlengkapan standar ${activePackage?.nama || "paket"}? Tindakan ini tidak akan menghapus barang yang sudah tercatat di acara berjalan.`,
+      confirmText: "Hapus Barang",
+      variant: "danger",
+      onConfirm: async () => {
+        setIsTemplateLoading(true);
+        const res = await deleteChecklistTemplateItem(item.id);
+        setIsTemplateLoading(false);
+        setConfirmModal((prev) => ({ ...prev, isOpen: false }));
 
-    setIsTemplateLoading(true);
-    const res = await deleteChecklistTemplateItem(item.id);
-    setIsTemplateLoading(false);
-
-    if (res.success) {
-      setPackages((prev) =>
-        prev.map((pkg) =>
-          pkg.id === item.package_id
-            ? {
-                ...pkg,
-                templates: pkg.templates.filter((t) => t.id !== item.id),
-              }
-            : pkg
-        )
-      );
-      setTemplateFeedback(`Barang "${item.nama_barang}" telah dihapus dari template.`);
-    } else {
-      setTemplateFeedback(res.error || "Gagal menghapus barang dari template.");
-    }
+        if (res.success) {
+          setPackages((prev) =>
+            prev.map((pkg) =>
+              pkg.id === item.package_id
+                ? {
+                    ...pkg,
+                    templates: pkg.templates.filter((t) => t.id !== item.id),
+                  }
+                : pkg
+            )
+          );
+          setTemplateFeedback(`Barang "${item.nama_barang}" telah dihapus dari template.`);
+        } else {
+          setTemplateFeedback(res.error || "Gagal menghapus barang dari template.");
+        }
+      },
+    });
   };
 
   // Reset template paket ke standar rekomendasi Era Waluyo
-  const handleResetPackageTemplate = async (pkgId: string) => {
+  const handleResetPackageTemplate = (pkgId: string) => {
     const pkg = packages.find((p) => p.id === pkgId);
-    if (
-      !window.confirm(
-        `Reset daftar barang "${pkg?.nama || "paket"}" ke rekomendasi standar resmi Era Waluyo? Daftar barang kustom paket ini akan disesuaikan kembali.`
-      )
-    ) {
-      return;
-    }
+    setConfirmModal({
+      isOpen: true,
+      title: "Reset Master Perlengkapan",
+      description: `Kembalikan daftar perlengkapan "${pkg?.nama || "paket"}" ke rekomendasi standar resmi Era Waluyo? Seluruh penyesuaian kustom pada paket ini akan disinkronkan ulang.`,
+      confirmText: "Reset Standar",
+      variant: "warning",
+      onConfirm: async () => {
+        setIsTemplateLoading(true);
+        const res = await resetPackageTemplates(pkgId);
+        setIsTemplateLoading(false);
+        setConfirmModal((prev) => ({ ...prev, isOpen: false }));
 
-    setIsTemplateLoading(true);
-    const res = await resetPackageTemplates(pkgId);
-    setIsTemplateLoading(false);
-
-    if (res.success && res.templates) {
-      setPackages((prev) =>
-        prev.map((p) => (p.id === pkgId ? { ...p, templates: res.templates! } : p))
-      );
-      setTemplateFeedback(
-        `Daftar barang standar untuk "${pkg?.nama}" berhasil dimuat ulang sesuai SOP Era Waluyo.`
-      );
-    } else {
-      setTemplateFeedback(res.error || "Gagal mereset template paket.");
-    }
+        if (res.success && res.templates) {
+          setPackages((prev) =>
+            prev.map((p) => (p.id === pkgId ? { ...p, templates: res.templates! } : p))
+          );
+          setTemplateFeedback(
+            `Daftar barang standar untuk "${pkg?.nama}" berhasil dimuat ulang sesuai SOP Era Waluyo.`
+          );
+        } else {
+          setTemplateFeedback(res.error || "Gagal mereset template paket.");
+        }
+      },
+    });
   };
 
   // Terapkan barang paket ke acara terpilih
@@ -355,19 +377,6 @@ export default function ChecklistClient({
     }
     if (!activePackageId || !activePackage) {
       alert("Silakan pilih paket terlebih dahulu.");
-      return;
-    }
-
-    const actionDescription =
-      mode === "replace"
-        ? `GANTI SEMUA: Seluruh daftar barang acara "${currentBooking.nama_pelanggan}" akan diganti dengan ${activePackage.templates.length} barang standar dari "${activePackage.nama}".`
-        : `TAMBAHKAN: Barang standar dari "${activePackage.nama}" yang belum tercatat pada acara "${currentBooking.nama_pelanggan}" akan ditambahkan (tanpa menduplikat barang lama).`;
-
-    if (
-      !window.confirm(
-        `Terapkan barang paket ke acara ini?\n\n${actionDescription}\n\nLanjutkan?`
-      )
-    ) {
       return;
     }
 
@@ -490,41 +499,62 @@ export default function ChecklistClient({
 
   // Hapus item
   const handleDeleteItem = (itemId: string, namaBarang: string) => {
-    if (!window.confirm(`Hapus "${namaBarang}" dari daftar checklist acara ini?`)) {
-      return;
-    }
-
-    setItems((prev) => prev.filter((i) => i.id !== itemId));
-    startTransition(async () => {
-      const res = await deleteChecklistItem(itemId);
-      if (!res.success) {
-        setActionError("Gagal menghapus barang.");
-        // Refetch
-        const refreshed = await getChecklistItems(selectedBookingId);
-        setItems(refreshed);
-      }
+    setConfirmModal({
+      isOpen: true,
+      title: "Hapus Barang Checklist",
+      description: `Apakah Anda yakin ingin menghapus "${namaBarang}" dari daftar checklist acara ini?`,
+      confirmText: "Hapus Barang",
+      variant: "danger",
+      onConfirm: () => {
+        setConfirmModal((prev) => ({ ...prev, isOpen: false }));
+        setItems((prev) => prev.filter((i) => i.id !== itemId));
+        startTransition(async () => {
+          const res = await deleteChecklistItem(itemId);
+          if (!res.success) {
+            setActionError("Gagal menghapus barang.");
+            // Refetch
+            const refreshed = await getChecklistItems(selectedBookingId);
+            setItems(refreshed);
+          }
+        });
+      },
     });
   };
 
   // Aksi massal
   const handleBulkAction = (mode: "dimuat_all" | "kembali_all" | "reset_all") => {
-    const confirmText =
+    const title =
       mode === "dimuat_all"
-        ? "Tandai seluruh barang sebagai SUDAH DIMUAT?"
+        ? "Tandai Semua Dimuat"
         : mode === "kembali_all"
-        ? "Tandai seluruh barang sebagai SUDAH KEMBALI ke gudang?"
-        : "Reset seluruh tanda dimuat dan kembali untuk acara ini?";
+        ? "Tandai Semua Kembali"
+        : "Reset Status Checklist";
 
-    if (!window.confirm(confirmText)) return;
+    const description =
+      mode === "dimuat_all"
+        ? "Tandai seluruh barang pada acara ini sebagai SUDAH DIMUAT ke armada pengangkutan?"
+        : mode === "kembali_all"
+        ? "Tandai seluruh barang pada acara ini sebagai SUDAH KEMBALI ke gudang penyimpanan?"
+        : "Reset seluruh tanda dimuat dan kembali untuk acara ini ke status awal (Belum Dimuat)?";
 
-    startTransition(async () => {
-      const res = await bulkUpdateChecklist(selectedBookingId, mode);
-      if (res.success) {
-        const refreshed = await getChecklistItems(selectedBookingId);
-        setItems(refreshed);
-      } else {
-        setActionError("Gagal menjalankan aksi massal.");
-      }
+    setConfirmModal({
+      isOpen: true,
+      title,
+      description,
+      confirmText: mode === "reset_all" ? "Reset Semua" : "Lanjutkan",
+      variant: mode === "reset_all" ? "danger" : "info",
+      onConfirm: () => {
+        setConfirmModal((prev) => ({ ...prev, isOpen: false }));
+        startTransition(async () => {
+          const res = await bulkUpdateChecklist(selectedBookingId, mode);
+          if (res.success) {
+            const refreshed = await getChecklistItems(selectedBookingId);
+            setItems(refreshed);
+          } else {
+            setActionError("Gagal menjalankan aksi massal.");
+          }
+        });
+      },
     });
   };
 
@@ -1907,6 +1937,19 @@ export default function ChecklistClient({
           </div>
         </div>
       )}
+
+      {/* Reusable Confirmation Modal */}
+      <ConfirmModal
+        isOpen={confirmModal.isOpen}
+        onClose={() => setConfirmModal((prev) => ({ ...prev, isOpen: false }))}
+        onConfirm={confirmModal.onConfirm}
+        title={confirmModal.title}
+        description={confirmModal.description}
+        confirmText={confirmModal.confirmText}
+        cancelText={confirmModal.cancelText}
+        variant={confirmModal.variant}
+        isLoading={confirmModal.isLoading}
+      />
     </div>
   );
 }

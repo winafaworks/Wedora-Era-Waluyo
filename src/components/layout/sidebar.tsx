@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { logout } from "@/lib/actions/auth";
 import { useSidebar } from "./sidebar-context";
+import { ConfirmModal } from "@/components/ui/confirm-modal";
 
 const navItems = [
   {
@@ -57,6 +58,8 @@ const navItems = [
 export function Sidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { isCollapsed, toggleSidebar } = useSidebar();
 
   return (
@@ -209,17 +212,28 @@ export function Sidebar() {
               isCollapsed ? "px-0" : "gap-2"
             }`}
             title={isCollapsed ? "Keluar dari sesi admin" : undefined}
-            onClick={async () => {
-              if (confirm("Apakah Anda yakin ingin keluar dari sesi admin?")) {
-                await logout();
-              }
-            }}
+            onClick={() => setIsLogoutModalOpen(true)}
           >
             <LogOut size={16} className="shrink-0" />
             {!isCollapsed && <span>Keluar</span>}
           </button>
         </div>
       </aside>
+
+      <ConfirmModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={async () => {
+          setIsLoggingOut(true);
+          await logout();
+        }}
+        title="Keluar Sesi Admin"
+        description="Apakah Anda yakin ingin mengakhiri sesi admin saat ini? Anda perlu memasukkan kata sandi kembali untuk mengakses panel admin."
+        confirmText="Keluar Sesi"
+        cancelText="Tetap Masuk"
+        variant="warning"
+        isLoading={isLoggingOut}
+      />
     </>
   );
 }
