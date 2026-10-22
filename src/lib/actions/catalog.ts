@@ -12,9 +12,18 @@ export interface CatalogItemPhoto {
   dibuat_pada: string | null;
 }
 
+export type CatalogJenis =
+  | "busana"
+  | "busana_wanita"
+  | "busana_pria"
+  | "aksesori"
+  | "dekorasi"
+  | "layanan"
+  | string;
+
 export interface CatalogItem {
   id: string;
-  jenis: "busana" | "dekorasi" | "layanan";
+  jenis: CatalogJenis;
   nama: string;
   ukuran: string | null;
   deskripsi: string | null;
@@ -25,7 +34,7 @@ export interface CatalogItem {
 }
 
 export interface CatalogInput {
-  jenis: "busana" | "dekorasi" | "layanan";
+  jenis: CatalogJenis;
   nama: string;
   ukuran?: string;
   deskripsi?: string;

@@ -34,37 +34,55 @@ interface KatalogClientProps {
   initialItems: CatalogItem[];
 }
 
-export type CatalogCategory = "all" | "wanita" | "aksesori" | "pria" | "lainnya";
+export type CatalogCategory =
+  | "all"
+  | "wanita"
+  | "pria"
+  | "aksesori"
+  | "dekorasi"
+  | "layanan"
+  | "lainnya";
 
-export function getCatalogCategory(item: CatalogItem): "wanita" | "aksesori" | "pria" | "lainnya" {
-  const text = `${item.nama} ${item.deskripsi || ""}`.toLowerCase();
-  if (
-    text.includes("mahkota") ||
-    text.includes("siger") ||
-    text.includes("cunduk") ||
-    text.includes("tiara") ||
-    text.includes("aksesori") ||
-    text.includes("hiasan kepala")
-  ) {
-    return "aksesori";
+export function getCatalogCategory(item: CatalogItem): "wanita" | "pria" | "aksesori" | "dekorasi" | "layanan" | "lainnya" {
+  // 1. Prioritaskan jika jenis item sudah diset secara eksplisit
+  if (item.jenis === "busana_wanita" || item.jenis === "wanita") return "wanita";
+  if (item.jenis === "busana_pria" || item.jenis === "pria") return "pria";
+  if (item.jenis === "aksesori" || item.jenis === "aksesoris") return "aksesori";
+  if (item.jenis === "layanan") return "layanan";
+  if (item.jenis === "dekorasi") {
+    const namaLower = item.nama.toLowerCase();
+    // Jika item dekorasi merupakan hiasan kepala/mahkota adat
+    if (/\b(mahkota|siger|cunduk|tiara|kembang goyang|aksesori|aksesoris|hiasan kepala)\b/i.test(namaLower)) {
+      return "aksesori";
+    }
+    return "dekorasi";
   }
-  if (
-    text.includes("beskap") ||
-    text.includes("pria") ||
-    text.includes("jas") ||
-    text.includes("sikepan")
-  ) {
-    return "pria";
-  }
-  if (
-    text.includes("kebaya") ||
-    text.includes("gaun") ||
-    text.includes("wanita") ||
-    text.includes("kutubaru") ||
-    item.jenis === "busana"
-  ) {
+
+  const namaLower = item.nama.toLowerCase();
+  const descLower = (item.deskripsi || "").toLowerCase();
+
+  // 2. Jika jenis adalah "busana", tentukan apakah busana pria atau wanita (TIDAK PERNAH masuk aksesori)
+  if (item.jenis === "busana") {
+    if (/\b(beskap|pria|jas|sikepan)\b/i.test(namaLower) || /\b(beskap|jas pria)\b/i.test(descLower)) {
+      return "pria";
+    }
     return "wanita";
   }
+
+  // 3. Fallback pencocokan kata utuh (word boundary agar kata 'mutiara' tidak memicu 'tiara')
+  if (/\b(mahkota|siger|cunduk|tiara|kembang goyang|kalung|gelang|keris|aksesori|aksesoris|hiasan kepala)\b/i.test(namaLower)) {
+    return "aksesori";
+  }
+  if (/\b(beskap|pria|jas|sikepan)\b/i.test(namaLower)) {
+    return "pria";
+  }
+  if (/\b(kebaya|gaun|kutubaru)\b/i.test(namaLower)) {
+    return "wanita";
+  }
+  if (/\b(dekorasi|pelaminan|backdrop|tenda)\b/i.test(namaLower)) {
+    return "dekorasi";
+  }
+
   return "lainnya";
 }
 
@@ -82,13 +100,18 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
 
   // Form Input State
   const [formData, setFormData] = useState({
-    jenis: "busana" as "busana" | "dekorasi" | "layanan",
+    jenis: "busana" as string,
     nama: "",
     ukuran: "L",
     deskripsi: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+
+  const isFormBusana =
+    formData.jenis === "busana" ||
+    formData.jenis === "busana_wanita" ||
+    formData.jenis === "busana_pria";
 
   // Modal Konfirmasi Kustom
   const [confirmModal, setConfirmModal] = useState<{
@@ -114,16 +137,24 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
   // Filtered Items
   const filteredItems = useMemo(() => {
     return items.filter((item) => {
+      const cat = getCatalogCategory(item);
+
       // Tab filter
       if (activeTab !== "all") {
-        const cat = getCatalogCategory(item);
         if (cat !== activeTab) {
           return false;
         }
       }
 
       // Size filter (only for busana)
-      if (item.jenis === "busana" && sizeFilter !== "all") {
+      const isItemBusana =
+        item.jenis === "busana" ||
+        item.jenis === "busana_wanita" ||
+        item.jenis === "busana_pria" ||
+        cat === "wanita" ||
+        cat === "pria";
+
+      if (isItemBusana && sizeFilter !== "all") {
         if (!item.ukuran || !item.ukuran.toLowerCase().includes(sizeFilter.toLowerCase())) {
           return false;
         }
@@ -149,22 +180,32 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
     let wanita = 0;
     let aksesori = 0;
     let pria = 0;
+    let dekorasi = 0;
+    let layanan = 0;
     let lainnya = 0;
     for (const item of items) {
       const cat = getCatalogCategory(item);
       if (cat === "wanita") wanita++;
       else if (cat === "aksesori") aksesori++;
       else if (cat === "pria") pria++;
+      else if (cat === "dekorasi") dekorasi++;
+      else if (cat === "layanan") layanan++;
       else lainnya++;
     }
-    return { all: items.length, wanita, aksesori, pria, lainnya };
+    return { all: items.length, wanita, aksesori, pria, dekorasi, layanan, lainnya };
   }, [items]);
 
   // Open Add Item Modal
   const handleOpenAddModal = () => {
     setEditingItem(null);
+    let defaultJenis = "busana";
+    if (activeTab === "pria") defaultJenis = "busana_pria";
+    else if (activeTab === "aksesori") defaultJenis = "aksesori";
+    else if (activeTab === "dekorasi") defaultJenis = "dekorasi";
+    else if (activeTab === "layanan") defaultJenis = "layanan";
+
     setFormData({
-      jenis: activeTab === "aksesori" ? "dekorasi" : "busana",
+      jenis: defaultJenis,
       nama: "",
       ukuran: "L",
       deskripsi: "",
@@ -176,8 +217,14 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
   // Open Edit Item Modal
   const handleOpenEditModal = (item: CatalogItem) => {
     setEditingItem(item);
+    const cat = getCatalogCategory(item);
+    let mappedJenis = item.jenis;
+    if (item.jenis === "busana" && cat === "pria") mappedJenis = "busana_pria";
+    else if (item.jenis === "busana") mappedJenis = "busana";
+    else if (item.jenis === "dekorasi" && cat === "aksesori") mappedJenis = "aksesori";
+
     setFormData({
-      jenis: item.jenis,
+      jenis: mappedJenis,
       nama: item.nama,
       ukuran: item.ukuran || "L",
       deskripsi: item.deskripsi || "",
@@ -203,7 +250,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
         const res = await updateCatalogItem(editingItem.id, {
           jenis: formData.jenis,
           nama: formData.nama,
-          ukuran: formData.jenis === "busana" ? formData.ukuran : undefined,
+          ukuran: isFormBusana ? formData.ukuran : (formData.ukuran || undefined),
           deskripsi: formData.deskripsi,
         });
 
@@ -215,7 +262,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                     ...it,
                     jenis: formData.jenis,
                     nama: formData.nama,
-                    ukuran: formData.jenis === "busana" ? formData.ukuran : null,
+                    ukuran: isFormBusana ? formData.ukuran : (formData.ukuran || null),
                     deskripsi: formData.deskripsi,
                   }
                 : it
@@ -229,7 +276,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
         const res = await createCatalogItem({
           jenis: formData.jenis,
           nama: formData.nama,
-          ukuran: formData.jenis === "busana" ? formData.ukuran : undefined,
+          ukuran: isFormBusana ? formData.ukuran : (formData.ukuran || undefined),
           deskripsi: formData.deskripsi,
         });
 
@@ -414,6 +461,32 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             <Shirt size={14} />
             <span>Busana Pria ({tabCounts.pria})</span>
           </button>
+          {tabCounts.dekorasi > 0 && (
+            <button
+              onClick={() => setActiveTab("dekorasi")}
+              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+                activeTab === "dekorasi"
+                  ? "bg-[#EEB100] text-black shadow-xs"
+                  : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
+              }`}
+            >
+              <Sparkles size={14} />
+              <span>Dekorasi ({tabCounts.dekorasi})</span>
+            </button>
+          )}
+          {tabCounts.layanan > 0 && (
+            <button
+              onClick={() => setActiveTab("layanan")}
+              className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+                activeTab === "layanan"
+                  ? "bg-[#EEB100] text-black shadow-xs"
+                  : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
+              }`}
+            >
+              <Tag size={14} />
+              <span>Layanan ({tabCounts.layanan})</span>
+            </button>
+          )}
           {tabCounts.lainnya > 0 && (
             <button
               onClick={() => setActiveTab("lainnya")}
@@ -504,6 +577,10 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
                 <Crown size={14} className="text-[#D4AD5C]" />
               ) : cat === "pria" ? (
                 <Shirt size={14} className="text-[#406882]" />
+              ) : cat === "dekorasi" ? (
+                <Sparkles size={14} className="text-[#D97706]" />
+              ) : cat === "layanan" ? (
+                <Tag size={14} className="text-[#10B981]" />
               ) : (
                 <Tag size={14} className="text-[#2F7A4B]" />
               );
@@ -512,9 +589,13 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
               cat === "wanita"
                 ? "Busana Pengantin Wanita"
                 : cat === "aksesori"
-                ? "Aksesori & Hiasan Kepala"
+                ? "Aksesori & Mahkota"
                 : cat === "pria"
                 ? "Busana Pengantin Pria"
+                : cat === "dekorasi"
+                ? "Dekorasi & Properti"
+                : cat === "layanan"
+                ? "Layanan Vendor"
                 : "Koleksi Pelengkap";
 
             return (
@@ -641,24 +722,31 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
             )}
 
             <form onSubmit={handleFormSubmit} className="space-y-4">
-              {/* Jenis Item */}
+              {/* Jenis / Kategori Item */}
               <div>
                 <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
-                  Jenis Item <span className="text-[#B13C30]">*</span>
+                  Kategori / Jenis Item <span className="text-[#B13C30]">*</span>
                 </label>
-                <div className="grid grid-cols-3 gap-2">
-                  {(["busana", "dekorasi", "layanan"] as const).map((j) => (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {[
+                    { key: "busana", label: "Busana Wanita" },
+                    { key: "busana_pria", label: "Busana Pria" },
+                    { key: "aksesori", label: "Aksesori & Mahkota" },
+                    { key: "dekorasi", label: "Dekorasi" },
+                    { key: "layanan", label: "Layanan Vendor" },
+                  ].map((cat) => (
                     <button
-                      key={j}
+                      key={cat.key}
                       type="button"
-                      onClick={() => setFormData({ ...formData, jenis: j })}
-                      className={`h-10 rounded-xl text-xs font-semibold capitalize transition-all border cursor-pointer ${
-                        formData.jenis === j
-                          ? "bg-[rgba(212,173,92,0.18)] text-[#EEB100] border-[#EEB100]"
+                      onClick={() => setFormData({ ...formData, jenis: cat.key })}
+                      className={`h-10 px-2 rounded-xl text-xs font-semibold transition-all border cursor-pointer ${
+                        formData.jenis === cat.key ||
+                        (cat.key === "busana" && formData.jenis === "busana_wanita")
+                          ? "bg-[rgba(212,173,92,0.18)] text-[#EEB100] border-[#EEB100] shadow-xs"
                           : "bg-[#FFFFFF] text-[#5E5A52] border-[#D6CEBE] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
                       }`}
                     >
-                      {j}
+                      {cat.label}
                     </button>
                   ))}
                 </div>
@@ -680,7 +768,7 @@ export default function KatalogClient({ initialItems }: KatalogClientProps) {
               </div>
 
               {/* Ukuran (Khusus Busana & Dekorasi) */}
-              {formData.jenis === "busana" ? (
+              {isFormBusana ? (
                 <div>
                   <label className="block text-xs font-medium text-[#5E5A52] mb-1.5">
                     Ukuran Busana
