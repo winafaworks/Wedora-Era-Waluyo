@@ -22,77 +22,125 @@ export interface ChecklistBookingOption {
   tanggal_acara: string;
   lokasi: string;
   status: string | null;
+  package_id?: string | null;
   packages: {
     id: string;
     nama: string;
   } | null;
 }
 
+export interface ChecklistTemplateItem {
+  id: string;
+  package_id: string;
+  nama_barang: string;
+  dibuat_pada: string | null;
+}
+
+export interface ChecklistPackageInfo {
+  id: string;
+  nama: string;
+  deskripsi: string | null;
+  harga_dasar: number;
+  templates: ChecklistTemplateItem[];
+}
+
 // Default template per paket jika tabel checklist_templates belum terisi
+// Hanya mencakup barang fisik (Dekorasi & Peralatan) yang dimuat ke armada/truk
 const DEFAULT_PACKAGE_TEMPLATES: Record<string, string[]> = {
+  gedung2: [
+    "[Decoration] Dekorasi pelaminan (max 10-12 meter)",
+    "[Decoration] Set sofa pelaminan",
+    "[Decoration] Mini garden",
+    "[Decoration] Karpet permadani",
+    "[Decoration] Meja & kursi akad",
+    "[Decoration] Dekorasi jalan",
+    "[Decoration] Karpet jalan",
+    "[Decoration] Gazebo + akrilik",
+    "[Decoration] Dekorasi photobooth",
+    "[Decoration] Dekorasi terima tamu",
+    "[Decoration] Wedding gate",
+    "[Decoration] Welcome sign",
+    "[Decoration] Stand foto",
+    "[Decoration] Kotak amplop",
+    "[Decoration] Dekorasi mobil pengantin",
+    "[Decoration] Artificial flowers bouquet (for rent)",
+    "[Decoration] Janur dan kembar mayang",
+  ],
+  gedung1: [
+    "[Decoration] Dekorasi pelaminan (max 10 meter)",
+    "[Decoration] Set sofa pelaminan",
+    "[Decoration] Mini garden",
+    "[Decoration] Karpet permadani",
+    "[Decoration] Meja & kursi akad",
+    "[Decoration] Dekorasi jalan",
+    "[Decoration] Karpet jalan",
+    "[Decoration] Gazebo",
+    "[Decoration] Dekorasi photobooth",
+    "[Decoration] Dekorasi terima tamu",
+    "[Decoration] Wedding gate",
+    "[Decoration] Welcome sign",
+    "[Decoration] Stand foto",
+    "[Decoration] Kotak amplop",
+    "[Decoration] Artificial flowers bouquet (for rent)",
+    "[Decoration] Janur dan kembar mayang",
+  ],
+  rumah2: [
+    "[Decoration] Dekorasi pelaminan (max 8 meter)",
+    "[Decoration] Meja dan kursi akad",
+    "[Decoration] Mini garden",
+    "[Decoration] Karpet permadani",
+    "[Decoration] Set sofa pelaminan",
+    "[Decoration] Wedding gate",
+    "[Decoration] Dekorasi kamar",
+    "[Decoration] Dekorasi photobooth",
+    "[Decoration] Welcome sign",
+    "[Decoration] Stand foto",
+    "[Decoration] Kotak amplop",
+    "[Decoration] Artificial flowers bouquet ( for rent )",
+    "[Decoration] Janur dan kembar mayang",
+  ],
+  rumah1: [
+    "[Decoration] Dekorasi pelaminan (max 6 meter)",
+    "[Decoration] Meja dan kursi akad",
+    "[Decoration] Mini garden",
+    "[Decoration] Karpet permadani",
+    "[Decoration] Set sofa pelaminan",
+    "[Decoration] Wedding gate",
+    "[Decoration] Dekorasi photobooth",
+    "[Decoration] Welcome sign",
+    "[Decoration] Stand foto",
+    "[Decoration] Kotak amplop",
+    "[Decoration] Artificial flowers bouquet ( for rent )",
+    "[Decoration] Janur dan kembar mayang",
+  ],
+  siraman: [
+    "[Decoration] Dekorasi siraman",
+    "[Adat Siraman] Peralatan Siraman",
+  ],
+  mua: [
+    "[Peralatan & Aksesoris] Aksessoris akad & resepsi",
+  ],
   default: [
-    "Busana Pengantin Utama (Kebaya & Beskap / Jas)",
-    "Kain Jarik Sogan Tradisional (2 Pasang)",
-    "Alas Kaki / Selop Pengantin (Pria & Wanita)",
-    "Aksesoris Paes, Cunduk Mentul, & Perhiasan",
-    "Set Bunga Melati Segar (Ronce Melati Tibo Dodo)",
-    "Kotak Makeup & Alat Rias Lengkap MUA",
-    "Busana Orang Tua (2 Kebaya Ibu & 2 Beskap Bapak)",
-    "Dekorasi Pelaminan & Mini Garden",
-    "Set Kursi Pengantin & Orang Tua",
-    "Kotak Angpau dengan Gembok & Kunci",
-    "Microphone Wireless & Peralatan Audio",
-    "Kamera Dokumentasi Foto, Baterai, & Tripod",
-  ],
-  melati: [
-    "Kebaya Akad Pengantin Wanita & Kain Jarik",
-    "Beskap Akad Pengantin Pria & Kain Jarik",
-    "Set Ronce Bunga Melati Segar",
-    "Aksesoris Paes & Bros Pengantin",
-    "Selop Pengantin Pria & Wanita",
-    "Kotak Rias & Makeup Kit MUA Era Waluyo",
-    "Busana Orang Tua Pengantin (Ibu & Bapak)",
-    "Cermin Portable & Lampu Ring Light",
-  ],
-  gold: [
-    "Busana Akad Nikah (Kebaya & Beskap)",
-    "Busana Resepsi Modern (Gaun & Setelan Jas)",
-    "Set Busana Orang Tua (2 Pasang Lengkap)",
-    "Set Rias & Paes Lengkap Melati Segar",
-    "Gebyok Dekorasi Pelaminan 8 Meter",
-    "Set Kursi Pelaminan (5 Kursi)",
-    "Mini Garden Pelaminan & Karpet Permadani",
-    "Standing Flowers Jalan & Kotak Angpau (2 Unit)",
-    "Perlengkapan MC & 2 Mic Wireless",
-    "Kamera DSLR/Mirrorless, Lensa, Flash, & Baterai",
-    "Bunga Tangan Pengantin (Hand Bouquet Segar)",
-  ],
-  royal: [
-    "Busana Solo/Yogya Basahan Beludru Hitam Emas",
-    "Kuluk Pengantin Pria & Keris Pusaka Warangka",
-    "Cunduk Mentul (9 Biji), Centung, & Bros Anting",
-    "Ronce Melati Tibo Dodo & Kalung Ronce Melati",
-    "Kain Dodot Kampuh Basahan & Kemben Beludru",
-    "Set Beskap Landung Bapak & Kebaya Kartini Ibu (4 Set)",
-    "Set Busana Among Tamu / Pagar Ayu & Bagus (4 Pasang)",
-    "Gebyok Ukir Kayu Jati Klasik 10 Meter + Taman",
-    "Set Kursi Pengantin Klasik Ukir Gold",
-    "Janur Kuning Umbul-Umbul (2 Batang) & Gapura",
-    "Meja & Kursi Akad Nikah + Bantalan Duduk",
-    "Kotak Cincin & Nampan Mahar Akrilik",
-    "Kotak Angpau Kayu Ukir Gembok (2 Unit)",
-    "Sound System Panggung, 4 Wireless Mic, & Monitor",
-    "Kamera Foto & Cinema Video (2 Unit + Stabilizer Tripod)",
-    "Lighting Panggung (Par LED & Moving Head)",
+    "[Decoration] Dekorasi Pelaminan & Mini Garden",
+    "[Decoration] Set Kursi Pengantin & Orang Tua",
+    "[Decoration] Meja & Kursi Akad Nikah",
+    "[Decoration] Kotak Angpau dengan Gembok & Kunci",
+    "[Decoration] Welcome Sign & Stand Foto",
   ],
 };
 
 function getTemplateKey(packageName?: string): string {
   if (!packageName) return "default";
   const name = packageName.toLowerCase();
-  if (name.includes("royal") || name.includes("jawa")) return "royal";
-  if (name.includes("gold") || name.includes("premium")) return "gold";
-  if (name.includes("melati") || name.includes("basic")) return "melati";
+  if (name.includes("siraman")) return "siraman";
+  if (name.includes("mua")) return "mua";
+  if (name.includes("gedung 2") || name.includes("gedung ii")) return "gedung2";
+  if (name.includes("gedung")) return "gedung1";
+  if (name.includes("rumah 2") || name.includes("rumah ii")) return "rumah2";
+  if (name.includes("rumah")) return "rumah1";
+  if (name.includes("royal") || name.includes("jawa")) return "gedung2";
+  if (name.includes("gold") || name.includes("premium")) return "rumah2";
+  if (name.includes("melati") || name.includes("basic")) return "mua";
   return "default";
 }
 
@@ -108,6 +156,7 @@ export async function getChecklistBookings(): Promise<ChecklistBookingOption[]> 
       tanggal_acara,
       lokasi,
       status,
+      package_id,
       packages (
         id,
         nama
@@ -352,3 +401,309 @@ export async function bulkUpdateChecklist(
   revalidatePath("/checklist");
   return { success: true };
 }
+
+// ============================================================================
+// 8. KELOLA MASTER TEMPLATE BARANG PER PAKET (Checklist Templates)
+// ============================================================================
+
+// Ambil seluruh paket beserta template barangnya (dengan auto-seed jika kosong)
+export async function getChecklistPackages(): Promise<ChecklistPackageInfo[]> {
+  const supabase = createAdminClient();
+
+  // Ambil paket aktif
+  const { data: pkgs, error: pkgError } = await supabase
+    .from("packages")
+    .select("id, nama, deskripsi, harga_dasar, aktif")
+    .eq("aktif", true)
+    .order("harga_dasar", { ascending: true });
+
+  if (pkgError || !pkgs) {
+    console.error("Gagal mengambil data paket:", pkgError);
+    return [];
+  }
+
+  // Cek apakah ada paket yang belum memiliki item di checklist_templates
+  for (const pkg of pkgs) {
+    const { count } = await supabase
+      .from("checklist_templates")
+      .select("*", { count: "exact", head: true })
+      .eq("package_id", pkg.id);
+
+    if (count === 0 || count === null) {
+      const key = getTemplateKey(pkg.nama);
+      const defaultList = DEFAULT_PACKAGE_TEMPLATES[key] || DEFAULT_PACKAGE_TEMPLATES.default;
+      const toInsert = defaultList.map((nama) => ({
+        package_id: pkg.id,
+        nama_barang: nama,
+      }));
+      await supabase.from("checklist_templates").insert(toInsert);
+    }
+  }
+
+  // Ambil seluruh templates yang sudah rapi
+  const { data: allTemplates } = await supabase
+    .from("checklist_templates")
+    .select("*")
+    .order("dibuat_pada", { ascending: true });
+
+  const templatesByPkg = new Map<string, ChecklistTemplateItem[]>();
+  for (const item of allTemplates || []) {
+    if (!templatesByPkg.has(item.package_id)) {
+      templatesByPkg.set(item.package_id, []);
+    }
+    templatesByPkg.get(item.package_id)!.push(item);
+  }
+
+  return pkgs.map((pkg) => ({
+    id: pkg.id,
+    nama: pkg.nama,
+    deskripsi: pkg.deskripsi,
+    harga_dasar: pkg.harga_dasar ?? 0,
+    templates: templatesByPkg.get(pkg.id) || [],
+  }));
+}
+
+// Ambil template barang untuk satu paket tertentu
+export async function getPackageTemplates(packageId: string): Promise<ChecklistTemplateItem[]> {
+  const supabase = createAdminClient();
+
+  const { data: existing, error } = await supabase
+    .from("checklist_templates")
+    .select("*")
+    .eq("package_id", packageId)
+    .order("dibuat_pada", { ascending: true });
+
+  if (error) {
+    console.error("Gagal mengambil templates paket:", error);
+    return [];
+  }
+
+  if (existing && existing.length > 0) {
+    return existing;
+  }
+
+  // Jika kosong, inisialisasi dari template standar
+  const { data: pkg } = await supabase
+    .from("packages")
+    .select("nama")
+    .eq("id", packageId)
+    .single();
+
+  const key = getTemplateKey(pkg?.nama);
+  const defaultList = DEFAULT_PACKAGE_TEMPLATES[key] || DEFAULT_PACKAGE_TEMPLATES.default;
+
+  const toInsert = defaultList.map((nama) => ({
+    package_id: packageId,
+    nama_barang: nama,
+  }));
+
+  const { data: inserted } = await supabase
+    .from("checklist_templates")
+    .insert(toInsert)
+    .select();
+
+  return inserted || [];
+}
+
+// Tambah barang baru ke template paket
+export async function addChecklistTemplateItem(
+  packageId: string,
+  namaBarang: string
+): Promise<{ success: boolean; item?: ChecklistTemplateItem; error?: string }> {
+  if (!namaBarang || namaBarang.trim().length < 2) {
+    return { success: false, error: "Nama barang minimal 2 karakter." };
+  }
+
+  const supabase = createAdminClient();
+  const { data, error } = await supabase
+    .from("checklist_templates")
+    .insert({
+      package_id: packageId,
+      nama_barang: namaBarang.trim(),
+    })
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Gagal menambah template barang paket:", error);
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/checklist");
+  return { success: true, item: data };
+}
+
+// Edit nama barang template paket
+export async function updateChecklistTemplateItem(
+  templateId: string,
+  namaBarang: string
+): Promise<{ success: boolean; error?: string }> {
+  if (!namaBarang || namaBarang.trim().length < 2) {
+    return { success: false, error: "Nama barang minimal 2 karakter." };
+  }
+
+  const supabase = createAdminClient();
+  const { error } = await supabase
+    .from("checklist_templates")
+    .update({ nama_barang: namaBarang.trim() })
+    .eq("id", templateId);
+
+  if (error) {
+    console.error("Gagal update template barang paket:", error);
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/checklist");
+  return { success: true };
+}
+
+// Hapus barang dari template paket
+export async function deleteChecklistTemplateItem(
+  templateId: string
+): Promise<{ success: boolean; error?: string }> {
+  const supabase = createAdminClient();
+  const { error } = await supabase
+    .from("checklist_templates")
+    .delete()
+    .eq("id", templateId);
+
+  if (error) {
+    console.error("Gagal menghapus template barang paket:", error);
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/checklist");
+  return { success: true };
+}
+
+// Reset barang paket kembali ke rekomendasi standar Era Waluyo
+export async function resetPackageTemplates(
+  packageId: string
+): Promise<{ success: boolean; templates?: ChecklistTemplateItem[]; error?: string }> {
+  const supabase = createAdminClient();
+
+  const { data: pkg } = await supabase
+    .from("packages")
+    .select("nama")
+    .eq("id", packageId)
+    .single();
+
+  const key = getTemplateKey(pkg?.nama);
+  const defaultList = DEFAULT_PACKAGE_TEMPLATES[key] || DEFAULT_PACKAGE_TEMPLATES.default;
+
+  // Hapus semua template paket ini
+  await supabase
+    .from("checklist_templates")
+    .delete()
+    .eq("package_id", packageId);
+
+  // Insert ulang sesuai template standar
+  const toInsert = defaultList.map((nama) => ({
+    package_id: packageId,
+    nama_barang: nama,
+  }));
+
+  const { data: inserted, error } = await supabase
+    .from("checklist_templates")
+    .insert(toInsert)
+    .select();
+
+  if (error) {
+    console.error("Gagal mereset template paket:", error);
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/checklist");
+  return { success: true, templates: inserted || [] };
+}
+
+// Terapkan / Sinkronkan template paket ke booking acara tertentu
+export async function applyPackageTemplateToBooking(
+  bookingId: string,
+  packageId: string,
+  mode: "replace" | "append" = "append"
+): Promise<{ success: boolean; count: number; error?: string }> {
+  const supabase = createAdminClient();
+
+  // Ambil template barang paket
+  const templates = await getPackageTemplates(packageId);
+  if (!templates || templates.length === 0) {
+    return {
+      success: false,
+      count: 0,
+      error: "Paket ini belum memiliki daftar barang template.",
+    };
+  }
+
+  if (mode === "replace") {
+    // Hapus seluruh checklist_items lama untuk booking ini
+    const { error: delError } = await supabase
+      .from("checklist_items")
+      .delete()
+      .eq("booking_id", bookingId);
+
+    if (delError) {
+      console.error("Gagal menghapus item lama:", delError);
+      return { success: false, count: 0, error: delError.message };
+    }
+
+    const itemsToInsert = templates.map((t) => ({
+      booking_id: bookingId,
+      nama_barang: t.nama_barang,
+      dimuat: false,
+      kembali: false,
+    }));
+
+    const { data: inserted, error: insError } = await supabase
+      .from("checklist_items")
+      .insert(itemsToInsert)
+      .select();
+
+    if (insError) {
+      console.error("Gagal menyisipkan item baru dari paket:", insError);
+      return { success: false, count: 0, error: insError.message };
+    }
+
+    revalidatePath("/checklist");
+    return { success: true, count: inserted?.length || 0 };
+  } else {
+    // Mode append: hanya masukkan barang yang belum ada
+    const { data: existingItems } = await supabase
+      .from("checklist_items")
+      .select("nama_barang")
+      .eq("booking_id", bookingId);
+
+    const existingNames = new Set(
+      (existingItems || []).map((i) => i.nama_barang.trim().toLowerCase())
+    );
+
+    const missingTemplates = templates.filter(
+      (t) => !existingNames.has(t.nama_barang.trim().toLowerCase())
+    );
+
+    if (missingTemplates.length === 0) {
+      return { success: true, count: 0 };
+    }
+
+    const itemsToInsert = missingTemplates.map((t) => ({
+      booking_id: bookingId,
+      nama_barang: t.nama_barang,
+      dimuat: false,
+      kembali: false,
+    }));
+
+    const { data: inserted, error: insError } = await supabase
+      .from("checklist_items")
+      .insert(itemsToInsert)
+      .select();
+
+    if (insError) {
+      console.error("Gagal menyisipkan missing items dari paket:", insError);
+      return { success: false, count: 0, error: insError.message };
+    }
+
+    revalidatePath("/checklist");
+    return { success: true, count: inserted?.length || 0 };
+  }
+}
+

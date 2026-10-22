@@ -1,6 +1,7 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { ChecklistItemData, ChecklistBookingOption } from "@/lib/actions/checklist";
+import { parseItemName } from "@/lib/checklist-utils";
 
 interface GenerateChecklistPdfOptions {
   booking: ChecklistBookingOption;
@@ -224,9 +225,15 @@ export function generateChecklistPdf({
       ? "DI LOKASI"
       : "MENUNGGU";
 
+    const parsed = parseItemName(item.nama_barang);
+    const displayName =
+      parsed.category && parsed.category !== "Umum"
+        ? `[${parsed.category.toUpperCase()}]\n${parsed.name}`
+        : parsed.name;
+
     return [
       (index + 1).toString(),
-      item.nama_barang,
+      displayName,
       dimuatText,
       kembaliText,
       statusText,

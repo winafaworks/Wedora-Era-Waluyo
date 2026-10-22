@@ -209,7 +209,7 @@ supabase link --project-ref <id-proyek>    # id dari Project Settings → Genera
 
 1. **Buat file migrasi baru** (nama otomatis bertanda waktu):
    ```bash
-   supabase migration new <nama_singkat>      # contoh: create_bookings
+   supabase migration new <nama_singkat>
    ```
 2. **Tulis SQL** di file tersebut. Mengacu pada model data di `prd.md` bagian 7.
 3. **Periksa** SQL: tabel, tipe data, relasi, indeks, dan RLS (bagian 8.3).

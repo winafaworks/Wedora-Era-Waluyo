@@ -1,5 +1,9 @@
 import React, { Suspense } from "react";
-import { getChecklistBookings, getChecklistItems } from "@/lib/actions/checklist";
+import {
+  getChecklistBookings,
+  getChecklistItems,
+  getChecklistPackages,
+} from "@/lib/actions/checklist";
 import ChecklistClient from "./checklist-client";
 
 export const instant = false;
@@ -16,7 +20,10 @@ async function ChecklistLoader({
   searchParams: Promise<{ bookingId?: string }>;
 }) {
   const resolvedSearchParams = await searchParams;
-  const bookings = await getChecklistBookings();
+  const [bookings, initialPackages] = await Promise.all([
+    getChecklistBookings(),
+    getChecklistPackages(),
+  ]);
   const matchedBooking = resolvedSearchParams?.bookingId
     ? bookings.find((b) => b.id === resolvedSearchParams.bookingId)
     : null;
@@ -33,6 +40,7 @@ async function ChecklistLoader({
       bookings={bookings}
       initialItems={initialItems}
       initialSelectedBookingId={initialBookingId}
+      initialPackages={initialPackages}
     />
   );
 }
