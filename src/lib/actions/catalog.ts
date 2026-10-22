@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { logSecurityEvent } from "@/lib/security/audit-logger";
 
 export interface CatalogItemPhoto {
   id: string;
@@ -223,6 +224,13 @@ export async function deleteCatalogItem(id: string) {
       console.error("Gagal menghapus item katalog:", error);
       return { success: false, error: "Gagal menghapus item katalog." };
     }
+
+    logSecurityEvent(
+      "CATALOG_DELETED",
+      "admin",
+      `Item katalog ID: ${id} beserta medianya telah dihapus dari sistem.`,
+      "danger"
+    );
 
     revalidatePath("/katalog");
     return { success: true };

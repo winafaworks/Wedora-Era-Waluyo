@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo, useRef, useSyncExternalStore } from "react";
+import React, { useState, useMemo, useRef, useSyncExternalStore, useEffect } from "react";
 import {
   Sun,
   Moon,
@@ -26,6 +26,12 @@ import {
   LogOut,
   AlertTriangle,
   User,
+  ShieldAlert,
+  Activity,
+  FileText,
+  RefreshCw,
+  Clock,
+  Globe,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -43,6 +49,8 @@ import {
   DEFAULT_WA_TEMPLATE,
 } from "@/lib/whatsapp";
 import { updatePassword, logout } from "@/lib/actions/auth";
+import { fetchAuditLogs } from "@/lib/actions/security";
+import { AuditLogEntry } from "@/lib/security/audit-logger";
 
 export interface SecurityDetails {
   id?: string;
@@ -109,6 +117,28 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
   const [passwordSuccess, setPasswordSuccess] = useState<string | null>(null);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  // State Log Audit Keamanan
+  const [auditLogs, setAuditLogs] = useState<AuditLogEntry[]>([]);
+  const [isLoadingLogs, setIsLoadingLogs] = useState(false);
+
+  const loadAuditLogs = async () => {
+    setIsLoadingLogs(true);
+    try {
+      const logs = await fetchAuditLogs();
+      setAuditLogs(logs);
+    } catch {
+      // ignore
+    } finally {
+      setIsLoadingLogs(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === "security") {
+      loadAuditLogs();
+    }
+  }, [activeTab]);
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
@@ -1170,6 +1200,167 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
                         </Button>
                       </div>
                     </div>
+                  )}
+                </div>
+              </Card>
+            </div>
+
+            {/* Standar & Proteksi Keamanan Siber Aktif */}
+            <div className="lg:col-span-12 space-y-6 pt-2">
+              <div>
+                <h4 className="font-sans text-base font-bold text-[#1A1A1A] dark:text-[#F5EDDC] flex items-center gap-2">
+                  <Shield className="text-[#EEB100]" size={18} />
+                  <span>Standar Keamanan Siber Aktif (WEDORA Defense)</span>
+                </h4>
+                <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] mt-0.5">
+                  Sistem perlindungan digital multi-lapis yang berjalan otomatis melindungi data dan operasional Era Waluyo.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* 1. HTTP Security Headers */}
+                <div className="p-4 rounded-2xl bg-[#FFFFFF] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="w-8 h-8 rounded-lg bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] flex items-center justify-center">
+                      <Globe size={16} />
+                    </div>
+                    <span className="text-[10px] px-2 py-0.5 font-bold rounded-full bg-[#2F7A4B]/20 text-[#2F7A4B] dark:text-[#7FD39B]">
+                      Aktif
+                    </span>
+                  </div>
+                  <h5 className="text-xs font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                    HTTP Security Headers
+                  </h5>
+                  <p className="text-[11px] text-[#5E5A52] dark:text-[#A8A296] leading-relaxed">
+                    Anti-Clickjacking (X-Frame-Options), Anti-MIME Sniffing, HSTS 2-Tahun, dan isolasi izin perangkat keras.
+                  </p>
+                </div>
+
+                {/* 2. Rate Limiting */}
+                <div className="p-4 rounded-2xl bg-[#FFFFFF] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="w-8 h-8 rounded-lg bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] flex items-center justify-center">
+                      <Lock size={16} />
+                    </div>
+                    <span className="text-[10px] px-2 py-0.5 font-bold rounded-full bg-[#2F7A4B]/20 text-[#2F7A4B] dark:text-[#7FD39B]">
+                      Aktif
+                    </span>
+                  </div>
+                  <h5 className="text-xs font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                    Anti Brute-Force Login
+                  </h5>
+                  <p className="text-[11px] text-[#5E5A52] dark:text-[#A8A296] leading-relaxed">
+                    Maks. 5 kali percobaan salah dalam 15 menit. Percobaan berlebih dibekukan otomatis demi keamanan akun.
+                  </p>
+                </div>
+
+                {/* 3. Idle Session Auto-Lock */}
+                <div className="p-4 rounded-2xl bg-[#FFFFFF] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="w-8 h-8 rounded-lg bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] flex items-center justify-center">
+                      <Clock size={16} />
+                    </div>
+                    <span className="text-[10px] px-2 py-0.5 font-bold rounded-full bg-[#2F7A4B]/20 text-[#2F7A4B] dark:text-[#7FD39B]">
+                      Aktif
+                    </span>
+                  </div>
+                  <h5 className="text-xs font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                    Idle Session Auto-Logout
+                  </h5>
+                  <p className="text-[11px] text-[#5E5A52] dark:text-[#A8A296] leading-relaxed">
+                    Sesi admin otomatis terkunci jika ditinggalkan selama 60 menit dengan peringatan hitung mundur 2 menit.
+                  </p>
+                </div>
+
+                {/* 4. Sanitasi & Validasi Input */}
+                <div className="p-4 rounded-2xl bg-[#FFFFFF] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="w-8 h-8 rounded-lg bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] flex items-center justify-center">
+                      <ShieldAlert size={16} />
+                    </div>
+                    <span className="text-[10px] px-2 py-0.5 font-bold rounded-full bg-[#2F7A4B]/20 text-[#2F7A4B] dark:text-[#7FD39B]">
+                      Aktif
+                    </span>
+                  </div>
+                  <h5 className="text-xs font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                    Sanitasi & Kebijakan Sandi
+                  </h5>
+                  <p className="text-[11px] text-[#5E5A52] dark:text-[#A8A296] leading-relaxed">
+                    Filter anti-XSS pada input form dan penegakan kata sandi kuat (8+ karakter, kombinasi simbol & angka).
+                  </p>
+                </div>
+              </div>
+
+              {/* Tabel Log Audit & Jejak Keamanan Terkini */}
+              <Card className="p-6 space-y-4 border-[#E5DEC9] dark:border-[#38342C]">
+                <div className="flex items-center justify-between gap-3 flex-wrap">
+                  <div className="flex items-center gap-2">
+                    <Activity className="text-[#EEB100]" size={18} />
+                    <div>
+                      <h4 className="font-sans text-base font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                        Audit Trail & Log Keamanan Terkini
+                      </h4>
+                      <p className="text-xs text-[#5E5A52] dark:text-[#A8A296]">
+                        Catatan aktivitas otentikasi dan aksi kritis administrator.
+                      </p>
+                    </div>
+                  </div>
+
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={loadAuditLogs}
+                    disabled={isLoadingLogs}
+                    className="text-xs gap-1.5 h-8 border-[#E5DEC9] dark:border-[#38342C] text-[#5E5A52] dark:text-[#A8A296] cursor-pointer"
+                  >
+                    <RefreshCw size={12} className={isLoadingLogs ? "animate-spin" : ""} />
+                    <span>Segarkan Log</span>
+                  </Button>
+                </div>
+
+                <div className="divide-y divide-[#E5DEC9] dark:divide-[#38342C] border border-[#E5DEC9] dark:border-[#38342C] rounded-xl overflow-hidden bg-[#FFFFFF] dark:bg-[#1E1E1E]">
+                  {auditLogs.length === 0 ? (
+                    <div className="p-6 text-center text-xs text-[#8A857B]">
+                      Belum ada peristiwa keamanan yang tercatat pada sesi saat ini.
+                    </div>
+                  ) : (
+                    auditLogs.map((log) => {
+                      const badgeStyle = {
+                        success: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] border-[#2F7A4B]/30",
+                        warning: "bg-[#EEB100]/20 text-[#1A1A1A] dark:text-[#EEB100] border-[#EEB100]/40",
+                        danger: "bg-[#B13C30]/15 text-[#B13C30] dark:text-[#F87171] border-[#B13C30]/30",
+                        info: "bg-[rgba(46,95,138,0.15)] text-[#2E5F8A] dark:text-[#93C5FD] border-[rgba(46,95,138,0.3)]",
+                      }[log.status];
+
+                      return (
+                        <div key={log.id} className="p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-[#FAF7F0] dark:hover:bg-[#252525] transition-colors">
+                          <div className="flex items-start sm:items-center gap-3 min-w-0">
+                            <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full border shrink-0 ${badgeStyle}`}>
+                              {log.event}
+                            </span>
+                            <div className="min-w-0">
+                              <p className="text-xs font-medium text-[#1A1A1A] dark:text-[#F5EDDC] truncate">
+                                {log.description}
+                              </p>
+                              <p className="text-[11px] text-[#8A857B] dark:text-[#7A756D]">
+                                Aktor: <span className="font-semibold">{log.actor}</span>
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="text-[11px] text-[#8A857B] font-mono shrink-0 sm:text-right">
+                            {new Date(log.timestamp).toLocaleString("id-ID", {
+                              day: "numeric",
+                              month: "short",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              second: "2-digit",
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })
                   )}
                 </div>
               </Card>

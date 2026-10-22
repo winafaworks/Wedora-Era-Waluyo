@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { sanitizeText } from "@/lib/security/sanitize";
+import { logSecurityEvent } from "@/lib/security/audit-logger";
 
 export interface ChecklistItemData {
   id: string;
@@ -683,6 +685,13 @@ export async function resetPackageTemplates(
     console.error("Gagal mereset template paket:", error);
     return { success: false, error: error.message };
   }
+
+  logSecurityEvent(
+    "TEMPLATE_RESET",
+    "admin",
+    `Template master perlengkapan "${pkg?.nama || packageId}" direset ke standar resmi Era Waluyo.`,
+    "warning"
+  );
 
   revalidatePath("/checklist");
   return { success: true, templates: inserted || [] };

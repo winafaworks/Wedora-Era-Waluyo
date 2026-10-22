@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import crypto from "crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { bookingSchema, BookingInput } from "@/lib/validations/booking";
+import { logSecurityEvent } from "@/lib/security/audit-logger";
 
 // 1. Ambil atau inisialisasi paket acara
 export async function getPackages() {
@@ -285,6 +286,13 @@ export async function deleteBooking(id: string) {
   if (error) {
     return { success: false, error: error.message };
   }
+
+  logSecurityEvent(
+    "BOOKING_DELETED",
+    "admin",
+    `Booking ID: ${id} telah dihapus secara permanen dari sistem.`,
+    "danger"
+  );
 
   revalidatePath("/dashboard");
   revalidatePath("/booking");
