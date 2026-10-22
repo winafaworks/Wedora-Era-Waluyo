@@ -82,7 +82,7 @@ export async function logout() {
 
   await supabase.auth.signOut();
   revalidatePath("/", "layout");
-  redirect("/login");
+  return { success: true };
 }
 
 export async function getCurrentUser() {

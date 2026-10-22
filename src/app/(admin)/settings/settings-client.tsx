@@ -144,6 +144,7 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
     setIsLoggingOut(true);
     try {
       await logout();
+      window.location.href = "/login";
     } catch {
       setIsLoggingOut(false);
       setShowLogoutConfirm(false);

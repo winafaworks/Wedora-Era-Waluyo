@@ -24,8 +24,7 @@ export default function LoginPage() {
     const res = await login({ email, password });
 
     if (res.success) {
-      router.push("/dashboard");
-      router.refresh();
+      window.location.href = "/dashboard";
     } else {
       setIsLoading(false);
       setErrorMessage(res.error || "Gagal masuk. Silakan periksa kembali akun Anda.");

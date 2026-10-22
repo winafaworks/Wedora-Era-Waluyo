@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -61,6 +61,11 @@ export function Sidebar() {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { isCollapsed, toggleSidebar } = useSidebar();
+
+  useEffect(() => {
+    setIsLogoutModalOpen(false);
+    setIsLoggingOut(false);
+  }, [pathname]);
 
   return (
     <>
@@ -222,10 +227,18 @@ export function Sidebar() {
 
       <ConfirmModal
         isOpen={isLogoutModalOpen}
-        onClose={() => setIsLogoutModalOpen(false)}
+        onClose={() => {
+          if (!isLoggingOut) setIsLogoutModalOpen(false);
+        }}
         onConfirm={async () => {
           setIsLoggingOut(true);
-          await logout();
+          try {
+            await logout();
+          } finally {
+            setIsLogoutModalOpen(false);
+            setIsLoggingOut(false);
+            window.location.href = "/login";
+          }
         }}
         title="Keluar Sesi Admin"
         description="Apakah Anda yakin ingin mengakhiri sesi admin saat ini? Anda perlu memasukkan kata sandi kembali untuk mengakses panel admin."
