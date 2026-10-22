@@ -45,9 +45,22 @@ export interface ChecklistPackageInfo {
 }
 
 // Default template per paket jika tabel checklist_templates belum terisi
-// Hanya mencakup barang fisik (Dekorasi & Peralatan) yang dimuat ke armada/truk
+// Mencakup SELURUH item resmi sesuai brosur Era Waluyo: Make Up, Busana, Dekorasi, Layanan & MC, Siraman, dll.
 const DEFAULT_PACKAGE_TEMPLATES: Record<string, string[]> = {
   gedung2: [
+    // Make Up & Busana
+    "[Make Up] Make up bride and groom",
+    "[Make Up] Retouch make up resepsi for bride and groom",
+    "[Make Up & Busana] Make up & busana 2 mama",
+    "[Make Up & Busana] Make up & busana 2 papa",
+    "[Make Up & Busana] Make up & busana 2 pagar ayu",
+    "[Make Up & Busana] Make up & busana 2 pagar bagus",
+    "[Make Up & Busana] Make up & busana 4 penjaga buku tamu",
+    "[Make Up & Busana] Make up & busana 6 among tamu",
+    "[Peralatan & Aksesoris] Melati fresh",
+    "[Peralatan & Aksesoris] Aksessoris akad & resepsi",
+    "[Busana] Busana bride and groom bebas pilih for akad & resepsi",
+    // Decoration
     "[Decoration] Dekorasi pelaminan (max 10-12 meter)",
     "[Decoration] Set sofa pelaminan",
     "[Decoration] Mini garden",
@@ -65,8 +78,22 @@ const DEFAULT_PACKAGE_TEMPLATES: Record<string, string[]> = {
     "[Decoration] Dekorasi mobil pengantin",
     "[Decoration] Artificial flowers bouquet (for rent)",
     "[Decoration] Janur dan kembar mayang",
+    // Layanan & MC
+    "[MC dan Cucuk Lampah] MC dan Cucuk Lampah",
   ],
   gedung1: [
+    // Make Up & Busana
+    "[Make Up] Make up bride and groom",
+    "[Make Up] Retouch make up resepsi for bride and groom",
+    "[Make Up & Busana] Make up & busana 2 mama",
+    "[Make Up & Busana] Make up & busana 2 papa",
+    "[Make Up & Busana] Make up & busana 2 pagar ayu",
+    "[Make Up & Busana] Make up & busana 2 pagar bagus",
+    "[Make Up & Busana] Make up & busana 4 penjaga buku tamu",
+    "[Peralatan & Aksesoris] Melati fresh",
+    "[Peralatan & Aksesoris] Aksessoris akad & resepsi",
+    "[Busana] Busana bride and groom bebas pilih for akad & resepsi",
+    // Decoration
     "[Decoration] Dekorasi pelaminan (max 10 meter)",
     "[Decoration] Set sofa pelaminan",
     "[Decoration] Mini garden",
@@ -83,8 +110,23 @@ const DEFAULT_PACKAGE_TEMPLATES: Record<string, string[]> = {
     "[Decoration] Kotak amplop",
     "[Decoration] Artificial flowers bouquet (for rent)",
     "[Decoration] Janur dan kembar mayang",
+    // Layanan & MC
+    "[MC dan Cucuk Lampah] MC dan Cucuk Lampah",
   ],
   rumah2: [
+    // Make Up & Busana
+    "[Make Up] Make up bride and groom",
+    "[Make Up] Retouch make up resepsi for bride and groom",
+    "[Make Up & Busana] Make up & busana 2 mama",
+    "[Make Up & Busana] Make up & busana 2 papa",
+    "[Make Up & Busana] Make up & busana 2 pagar ayu",
+    "[Make Up & Busana] Make up & busana 2 pagar bagus",
+    "[Make Up & Busana] Make up & busana 2 penjaga buku tamu",
+    "[Make Up & Busana] Make up & busana 2 keluarga / lain-lain",
+    "[Peralatan & Aksesoris] Melati fresh",
+    "[Peralatan & Aksesoris] Aksessoris akad, adat & resepsi",
+    "[Busana] Busana bride and groom bebas pilih for akad, adat & resepsi",
+    // Decoration
     "[Decoration] Dekorasi pelaminan (max 8 meter)",
     "[Decoration] Meja dan kursi akad",
     "[Decoration] Mini garden",
@@ -98,8 +140,20 @@ const DEFAULT_PACKAGE_TEMPLATES: Record<string, string[]> = {
     "[Decoration] Kotak amplop",
     "[Decoration] Artificial flowers bouquet ( for rent )",
     "[Decoration] Janur dan kembar mayang",
+    // Layanan & MC
+    "[MC dan Cucuk Lampah] MC & Cucuk Lampah",
   ],
   rumah1: [
+    // Make Up & Busana
+    "[Make Up] Make up bride and groom",
+    "[Make Up] Retouch make up resepsi for bride and groom",
+    "[Make Up & Busana] Make up & busana 2 mama",
+    "[Make Up & Busana] Make up & busana 2 papa",
+    "[Make Up & Busana] Make up & busana 4 penjaga buku tamu",
+    "[Peralatan & Aksesoris] Melati fresh",
+    "[Peralatan & Aksesoris] Aksessoris akad & resepsi",
+    "[Busana] Busana bride and groom bebas pilih for akad & resepsi",
+    // Decoration
     "[Decoration] Dekorasi pelaminan (max 6 meter)",
     "[Decoration] Meja dan kursi akad",
     "[Decoration] Mini garden",
@@ -112,15 +166,32 @@ const DEFAULT_PACKAGE_TEMPLATES: Record<string, string[]> = {
     "[Decoration] Kotak amplop",
     "[Decoration] Artificial flowers bouquet ( for rent )",
     "[Decoration] Janur dan kembar mayang",
+    // Layanan & MC
+    "[MC dan Cucuk Lampah] MC & Cucuk Lampah",
   ],
   siraman: [
+    "[Make Up & Busana] Make up + busana siraman calon pengantin",
+    "[Make Up & Busana] Make up & busana 2 mama",
+    "[Make Up & Busana] Make up & busana 2 papa",
+    "[Make Up & Busana] Retouch bride + busana midodareni",
+    "[Peralatan & Aksesoris] Melati fresh (Krodong Siraman)",
     "[Decoration] Dekorasi siraman",
     "[Adat Siraman] Peralatan Siraman",
+    "[MC dan Cucuk Lampah] MC Adat",
   ],
   mua: [
+    "[Make Up] Make up bride and groom",
+    "[Make Up] Retouch make up resepsi for bride and groom",
+    "[Make Up & Busana] Make up & busana 2 mama",
+    "[Make Up & Busana] Make up & busana 2 papa",
+    "[Make Up & Busana] Make up & busana 4 penjaga buku tamu",
+    "[Peralatan & Aksesoris] Melati fresh",
     "[Peralatan & Aksesoris] Aksessoris akad & resepsi",
+    "[Busana] Busana bride and groom bebas pilih for akad & resepsi",
   ],
   default: [
+    "[Make Up] Tata Rias Pengantin Akad & Resepsi",
+    "[Busana] Busana Pengantin Akad & Resepsi",
     "[Decoration] Dekorasi Pelaminan & Mini Garden",
     "[Decoration] Set Kursi Pengantin & Orang Tua",
     "[Decoration] Meja & Kursi Akad Nikah",
