@@ -830,8 +830,8 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
           {/* Header Banner */}
           <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#FAF6ED] via-[#FFFFFF] to-[#FAF6ED] dark:from-[#252525] dark:via-[#1E1E1E] dark:to-[#252525] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-[#EEB100]/15 text-[#EEB100] flex items-center justify-center shrink-0">
-                <Shield size={22} />
+              <div className="w-11 h-11 rounded-xl bg-[#EEB100] text-[#111111] flex items-center justify-center shrink-0 shadow-sm font-bold">
+                <Shield size={22} className="stroke-[2.5]" />
               </div>
               <div>
                 <h3 className="font-sans text-base font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
@@ -1059,8 +1059,8 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
                   </h3>
                 </div>
 
-                <div className="flex items-center gap-4 p-4 rounded-xl bg-[#FAF7F0] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C]">
-                  <div className="w-13 h-13 rounded-2xl bg-[#EEB100]/20 border border-[#EEB100]/40 text-[#EEB100] flex items-center justify-center font-serif text-lg font-bold tracking-wider shrink-0">
+                <div className="flex items-center gap-4 p-4 rounded-xl bg-[#FAF7F0] dark:bg-[#252525] border border-[#E5DEC9] dark:border-[#38342C]">
+                  <div className="w-13 h-13 rounded-2xl bg-[#EEB100] text-[#111111] flex items-center justify-center font-serif text-lg font-black tracking-wider shrink-0 shadow-sm">
                     EW
                   </div>
                   <div className="min-w-0 flex-1">
@@ -1068,7 +1068,7 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
                       <p className="font-semibold text-sm text-[#1A1A1A] dark:text-[#F5EDDC] truncate">
                         Admin WEDORA
                       </p>
-                      <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-[#EEB100]/20 text-[#1A1A1A] dark:text-[#EEB100] border border-[#EEB100]/30">
+                      <span className="px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-[#EEB100] text-[#111111] shadow-2xs">
                         {initialSecurityDetails?.role || "Administrator"}
                       </span>
                     </div>

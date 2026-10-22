@@ -1654,7 +1654,7 @@ export default function ChecklistClient({
                       <div className="flex items-center gap-3">
                         <h3 className="font-sans text-sm sm:text-base font-bold text-[#1A1A1A] dark:text-[#F5EDDC] flex items-center gap-2">
                           <span>{activePackage.nama}</span>
-                          <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-[#EEB100]/20 text-[#EEB100] border border-[#EEB100]/30">
+                          <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#EEB100] text-[#111111] shadow-2xs">
                             {activePackage.templates.length} Barang
                           </span>
                         </h3>
