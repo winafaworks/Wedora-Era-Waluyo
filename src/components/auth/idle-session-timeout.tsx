@@ -12,7 +12,7 @@ export function IdleSessionTimeout() {
   const [showWarning, setShowWarning] = useState(false);
   const [secondsRemaining, setSecondsRemaining] = useState(120);
 
-  const lastActivityRef = useRef<number>(Date.now());
+  const lastActivityRef = useRef<number>(0);
   const timerCheckRef = useRef<NodeJS.Timeout | null>(null);
   const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -33,6 +33,9 @@ export function IdleSessionTimeout() {
   }, []);
 
   useEffect(() => {
+    // Inisialisasi waktu aktivitas saat komponen mount di browser (aman dari prerendering Next.js)
+    lastActivityRef.current = Date.now();
+
     // Event listener untuk mendeteksi keaktifan pengguna
     const events = ["mousemove", "mousedown", "keydown", "touchstart", "scroll"];
 
@@ -53,6 +56,7 @@ export function IdleSessionTimeout() {
 
     // Timer pengecekan periodik setiap 10 detik
     timerCheckRef.current = setInterval(() => {
+      if (lastActivityRef.current === 0) return;
       const idleTime = Date.now() - lastActivityRef.current;
 
       if (idleTime >= IDLE_TIMEOUT_MS) {
