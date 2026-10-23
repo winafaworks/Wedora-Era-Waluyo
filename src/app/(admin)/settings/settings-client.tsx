@@ -26,12 +26,10 @@ import {
   LogOut,
   AlertTriangle,
   User,
-  ShieldAlert,
   Activity,
   FileText,
   RefreshCw,
   Clock,
-  Globe,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -1206,91 +1204,8 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
               </Card>
             </div>
 
-            {/* Standar & Proteksi Keamanan Siber Aktif */}
+            {/* Log Audit Keamanan */}
             <div className="lg:col-span-12 space-y-6 pt-2">
-              <div>
-                <h4 className="font-sans text-base font-bold text-[#1A1A1A] dark:text-[#F5EDDC] flex items-center gap-2">
-                  <Shield className="text-[#EEB100]" size={18} />
-                  <span>Standar Keamanan Siber Aktif (WEDORA Defense)</span>
-                </h4>
-                <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] mt-0.5">
-                  Sistem perlindungan digital multi-lapis yang berjalan otomatis melindungi data dan operasional Era Waluyo.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {/* 1. HTTP Security Headers */}
-                <div className="p-4 rounded-2xl bg-[#FFFFFF] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-lg bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] flex items-center justify-center">
-                      <Globe size={16} />
-                    </div>
-                    <span className="text-[10px] px-2 py-0.5 font-bold rounded-full bg-[#2F7A4B]/20 text-[#2F7A4B] dark:text-[#7FD39B]">
-                      Aktif
-                    </span>
-                  </div>
-                  <h5 className="text-xs font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
-                    HTTP Security Headers
-                  </h5>
-                  <p className="text-[11px] text-[#5E5A52] dark:text-[#A8A296] leading-relaxed">
-                    Anti-Clickjacking (X-Frame-Options), Anti-MIME Sniffing, HSTS 2-Tahun, dan isolasi izin perangkat keras.
-                  </p>
-                </div>
-
-                {/* 2. Rate Limiting */}
-                <div className="p-4 rounded-2xl bg-[#FFFFFF] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-lg bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] flex items-center justify-center">
-                      <Lock size={16} />
-                    </div>
-                    <span className="text-[10px] px-2 py-0.5 font-bold rounded-full bg-[#2F7A4B]/20 text-[#2F7A4B] dark:text-[#7FD39B]">
-                      Aktif
-                    </span>
-                  </div>
-                  <h5 className="text-xs font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
-                    Anti Brute-Force Login
-                  </h5>
-                  <p className="text-[11px] text-[#5E5A52] dark:text-[#A8A296] leading-relaxed">
-                    Maks. 5 kali percobaan salah dalam 15 menit. Percobaan berlebih dibekukan otomatis demi keamanan akun.
-                  </p>
-                </div>
-
-                {/* 3. Idle Session Auto-Lock */}
-                <div className="p-4 rounded-2xl bg-[#FFFFFF] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-lg bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] flex items-center justify-center">
-                      <Clock size={16} />
-                    </div>
-                    <span className="text-[10px] px-2 py-0.5 font-bold rounded-full bg-[#2F7A4B]/20 text-[#2F7A4B] dark:text-[#7FD39B]">
-                      Aktif
-                    </span>
-                  </div>
-                  <h5 className="text-xs font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
-                    Idle Session Auto-Logout
-                  </h5>
-                  <p className="text-[11px] text-[#5E5A52] dark:text-[#A8A296] leading-relaxed">
-                    Sesi admin otomatis terkunci jika ditinggalkan selama 60 menit dengan peringatan hitung mundur 2 menit.
-                  </p>
-                </div>
-
-                {/* 4. Sanitasi & Validasi Input */}
-                <div className="p-4 rounded-2xl bg-[#FFFFFF] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs space-y-2">
-                  <div className="flex items-center justify-between">
-                    <div className="w-8 h-8 rounded-lg bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] flex items-center justify-center">
-                      <ShieldAlert size={16} />
-                    </div>
-                    <span className="text-[10px] px-2 py-0.5 font-bold rounded-full bg-[#2F7A4B]/20 text-[#2F7A4B] dark:text-[#7FD39B]">
-                      Aktif
-                    </span>
-                  </div>
-                  <h5 className="text-xs font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
-                    Sanitasi & Kebijakan Sandi
-                  </h5>
-                  <p className="text-[11px] text-[#5E5A52] dark:text-[#A8A296] leading-relaxed">
-                    Filter anti-XSS pada input form dan penegakan kata sandi kuat (8+ karakter, kombinasi simbol & angka).
-                  </p>
-                </div>
-              </div>
 
               {/* Tabel Log Audit & Jejak Keamanan Terkini */}
               <Card className="p-6 space-y-4 border-[#E5DEC9] dark:border-[#38342C]">
