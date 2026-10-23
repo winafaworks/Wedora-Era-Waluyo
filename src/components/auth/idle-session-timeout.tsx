@@ -29,7 +29,20 @@ export function IdleSessionTimeout() {
 
   const handleForceLogout = useCallback(async () => {
     setShowWarning(false);
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("wedora_session_active");
+      if ("BroadcastChannel" in window) {
+        const channel = new BroadcastChannel("wedora_session_sync");
+        channel.postMessage({ type: "LOGOUT" });
+        channel.close();
+      }
+    }
     await logout();
+    try {
+      const { createClient } = await import("@/lib/supabase/client");
+      await createClient().auth.signOut();
+    } catch {}
+    window.location.href = "/login";
   }, []);
 
   useEffect(() => {

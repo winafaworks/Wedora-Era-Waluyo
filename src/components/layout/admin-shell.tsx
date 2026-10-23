@@ -5,6 +5,7 @@ import { SidebarProvider, useSidebar } from "./sidebar-context";
 import { Sidebar } from "./sidebar";
 import { Topbar } from "./topbar";
 import { IdleSessionTimeout } from "@/components/auth/idle-session-timeout";
+import { SessionLifecycle } from "@/components/auth/session-lifecycle";
 import { TourGuide } from "./tour-guide";
 
 function AdminLayoutContent({ children }: { children: React.ReactNode }) {
@@ -13,6 +14,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-[#FBF7EC] dark:bg-[#1E1E1E] text-[#1A1A1A] dark:text-[#F5EDDC] flex flex-col lg:flex-row">
       <IdleSessionTimeout />
+      <SessionLifecycle />
       <React.Suspense fallback={null}>
         <TourGuide />
       </React.Suspense>

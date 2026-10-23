@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { checkLoginRateLimit, recordFailedLogin, resetLoginRateLimit } from "@/lib/security/rate-limit";
 import { validatePasswordStrength } from "@/lib/security/password-policy";
@@ -68,6 +69,14 @@ export async function login(formData: { email: string; password: string }) {
     "success"
   );
 
+  // Set cookie sesi aktif (Session Cookie: tanpa maxAge/expires, terhapus saat browser ditutup)
+  const cookieStore = await cookies();
+  cookieStore.set("wedora_session_active", "true", {
+    path: "/",
+    sameSite: "lax",
+    httpOnly: false,
+  });
+
   revalidatePath("/", "layout");
   return { success: true };
 }
@@ -81,6 +90,11 @@ export async function logout() {
   }
 
   await supabase.auth.signOut();
+
+  // Hapus cookie sesi aktif
+  const cookieStore = await cookies();
+  cookieStore.delete("wedora_session_active");
+
   revalidatePath("/", "layout");
   return { success: true };
 }

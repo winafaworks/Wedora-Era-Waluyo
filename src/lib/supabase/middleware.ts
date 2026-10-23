@@ -21,9 +21,17 @@ export async function updateSession(request: NextRequest) {
           supabaseResponse = NextResponse.next({
             request,
           });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          );
+          cookiesToSet.forEach(({ name, value, options }) => {
+            const isDeleting = options?.maxAge === 0;
+            const cookieOpts = isDeleting
+              ? options
+              : {
+                  ...options,
+                  maxAge: undefined,
+                  expires: undefined,
+                };
+            supabaseResponse.cookies.set(name, value, cookieOpts);
+          });
         },
       },
     }
@@ -35,6 +43,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const path = request.nextUrl.pathname;
+  const hasActiveSession = request.cookies.get("wedora_session_active")?.value === "true";
 
   // 1. Tentukan rute publik yang boleh diakses siapa saja
   const isPublicRoute =
@@ -44,15 +53,22 @@ export async function updateSession(request: NextRequest) {
     path.startsWith("/api") ||
     path === "/favicon.ico";
 
-  // 2. Jika belum login dan mencoba mengakses rute selain rute publik (admin area)
-  if (!user && !isPublicRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
+  // 2. Jika mencoba mengakses rute admin (selain rute publik):
+  // Harus terautentikasi dan memiliki sesi website yang aktif
+  if (!isPublicRoute) {
+    if (!user || !hasActiveSession) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      const redirectResponse = NextResponse.redirect(url);
+      if (!hasActiveSession && request.cookies.has("wedora_session_active")) {
+        redirectResponse.cookies.delete("wedora_session_active");
+      }
+      return redirectResponse;
+    }
   }
 
-  // 3. Jika sudah login dan mencoba membuka halaman /login
-  if (user && path === "/login") {
+  // 3. Jika sudah login dan memiliki sesi aktif, lalu membuka halaman /login
+  if (user && hasActiveSession && path === "/login") {
     const url = request.nextUrl.clone();
     url.pathname = "/dashboard";
     return NextResponse.redirect(url);

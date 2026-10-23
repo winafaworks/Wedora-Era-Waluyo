@@ -16,6 +16,13 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  React.useEffect(() => {
+    // Pastikan session storage bersih saat admin berada di halaman login
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("wedora_session_active");
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -24,6 +31,10 @@ export default function LoginPage() {
     const res = await login({ email, password });
 
     if (res.success) {
+      // Inisialisasi sesi aktif pada tab ini sebelum navigasi
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("wedora_session_active", "true");
+      }
       window.location.href = "/dashboard";
     } else {
       setIsLoading(false);

@@ -141,7 +141,17 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
   const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
+      if (typeof window !== "undefined") {
+        sessionStorage.removeItem("wedora_session_active");
+        if ("BroadcastChannel" in window) {
+          const channel = new BroadcastChannel("wedora_session_sync");
+          channel.postMessage({ type: "LOGOUT" });
+          channel.close();
+        }
+      }
       await logout();
+      const { createClient } = await import("@/lib/supabase/client");
+      await createClient().auth.signOut();
       window.location.href = "/login";
     } catch {
       setIsLoggingOut(false);
