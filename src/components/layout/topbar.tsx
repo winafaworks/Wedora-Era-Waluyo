@@ -363,14 +363,14 @@ export function Topbar() {
 
         {/* Sisi Kanan: Panduan Fitur & Notifikasi Konfirmasi */}
         <div className="flex items-center gap-2 sm:gap-2.5 relative">
-          {/* Tombol Panduan Fitur Highlight */}
+          {/* Tombol Panduan Fitur Highlight (disembunyikan di tampilan mobile) */}
           <button
             id="tour-help-btn"
             type="button"
             onClick={() => {
               window.dispatchEvent(new CustomEvent("wedora-start-tour"));
             }}
-            className="p-2.5 rounded-xl border border-[#484848] bg-[#383838] text-[#B8B3A8] hover:text-[#EEB100] hover:border-[#D4AD5C]/50 hover:bg-[#444444] transition-all cursor-pointer shadow-xs flex items-center justify-center"
+            className="hidden sm:flex p-2.5 rounded-xl border border-[#484848] bg-[#383838] text-[#B8B3A8] hover:text-[#EEB100] hover:border-[#D4AD5C]/50 hover:bg-[#444444] transition-all cursor-pointer shadow-xs items-center justify-center"
             title="Buka Panduan Fitur"
             aria-label="Panduan Fitur"
           >

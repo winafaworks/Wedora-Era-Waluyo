@@ -97,17 +97,20 @@ function TourGuideInner() {
         });
       }
 
-      // Langkah terakhir mengarahkan ke tombol bantuan agar admin tahu cara membukanya lagi
-      steps.push({
-        element: "#tour-help-btn",
-        popover: {
-          title: "Buka Panduan Kapan Saja 💡",
-          description:
-            "Anda selalu dapat mengulang panduan tur ini kapan pun diperlukan dengan mengklik tombol ikon bantuan ini.",
-          side: "bottom" as const,
-          align: "end" as const,
-        },
-      });
+      // Langkah terakhir mengarahkan ke tombol bantuan agar admin tahu cara membukanya lagi (hanya jika tampak)
+      const helpBtn = document.querySelector("#tour-help-btn");
+      if (helpBtn && (helpBtn as HTMLElement).offsetParent !== null) {
+        steps.push({
+          element: "#tour-help-btn",
+          popover: {
+            title: "Buka Panduan Kapan Saja 💡",
+            description:
+              "Anda selalu dapat mengulang panduan tur ini kapan pun diperlukan dengan mengklik tombol ikon bantuan ini.",
+            side: "bottom" as const,
+            align: "end" as const,
+          },
+        });
+      }
 
       const d = driver({
         animate: true,
