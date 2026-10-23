@@ -362,6 +362,117 @@ html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
 html.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #EEB100;
 }
+/* =========================================
+   Wedora Onboarding Tour Guide (Driver.js)
+   ========================================= */
+.wedora-tour-popover.driver-popover {
+  background-color: #242424 !important;
+  border: 1px solid rgba(212, 173, 92, 0.45) !important;
+  color: #F5EDDC !important;
+  border-radius: 18px !important;
+  padding: 20px 22px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 173, 92, 0.15) !important;
+  max-width: 380px !important;
+  font-family: var(--font-sans), sans-serif !important;
+  backdrop-filter: blur(12px) !important;
+  z-index: 1000000000 !important;
+}
 
+.wedora-tour-popover .driver-popover-title {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #EEB100 !important;
+  margin-bottom: 8px !important;
+  letter-spacing: -0.01em !important;
+  display: block !important;
+}
 
+.wedora-tour-popover .driver-popover-description {
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  color: #D1C6AD !important;
+  margin-bottom: 18px !important;
+}
 
+.wedora-tour-popover .driver-popover-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin-top: 14px !important;
+  padding-top: 12px !important;
+  border-top: 1px solid #383838 !important;
+}
+
+.wedora-tour-popover .driver-popover-progress-text {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #D4AD5C !important;
+  background: rgba(212, 173, 92, 0.12) !important;
+  padding: 3px 8px !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(212, 173, 92, 0.2) !important;
+}
+
+.wedora-tour-popover .driver-popover-prev-btn {
+  background: #383838 !important;
+  color: #B8B3A8 !important;
+  border: 1px solid #484848 !important;
+  padding: 6px 14px !important;
+  border-radius: 10px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  text-shadow: none !important;
+}
+
+.wedora-tour-popover .driver-popover-prev-btn:hover {
+  background: #444444 !important;
+  color: #F5EDDC !important;
+  border-color: #555555 !important;
+}
+
+.wedora-tour-popover .driver-popover-next-btn {
+  background: #EEB100 !important;
+  color: #1A1A1A !important;
+  border: none !important;
+  padding: 6px 16px !important;
+  border-radius: 10px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  text-shadow: none !important;
+}
+
+.wedora-tour-popover .driver-popover-next-btn:hover {
+  background: #E3C27D !important;
+  transform: translateY(-1px) !important;
+}
+
+.wedora-tour-popover .driver-popover-close-btn {
+  color: #8A857B !important;
+  cursor: pointer !important;
+  transition: color 0.2s ease !important;
+}
+
+.wedora-tour-popover .driver-popover-close-btn:hover {
+  color: #F5EDDC !important;
+}
+
+.wedora-tour-popover .driver-popover-arrow {
+  border-color: #242424 !important;
+}
+.wedora-tour-popover .driver-popover-arrow-side-top {
+  border-top-color: #242424 !important;
+}
+.wedora-tour-popover .driver-popover-arrow-side-bottom {
+  border-bottom-color: #242424 !important;
+}
+.wedora-tour-popover .driver-popover-arrow-side-left {
+  border-left-color: #242424 !important;
+}
+.wedora-tour-popover .driver-popover-arrow-side-right {
+  border-right-color: #242424 !important;
+}

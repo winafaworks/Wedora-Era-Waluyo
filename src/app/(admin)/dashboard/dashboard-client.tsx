@@ -31,7 +31,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
             Ringkasan booking pernikahan dan acara Era Waluyo
           </p>
         </div>
-        <div>
+        <div id="tour-new-booking">
           <Link href="/booking/tambah">
             <Button variant="primary" className="gap-2 shadow-sm">
               <Plus size={18} />
@@ -42,7 +42,7 @@ export default function DashboardClient({ stats, upcomingBookings }: DashboardPr
       </div>
 
       {/* 4 Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      <div id="tour-stats" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         <StatCard
           title="Total Booking"
           value={stats.totalBooking}

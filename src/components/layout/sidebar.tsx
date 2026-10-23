@@ -125,7 +125,7 @@ export function Sidebar() {
         <div className="flex-1 flex flex-col justify-between min-h-0">
           <div>
             {/* Logo Brand */}
-            <div className={`mb-8 pt-2 flex ${isCollapsed ? "justify-center" : "items-center"}`}>
+            <div id="tour-brand" className={`mb-8 pt-2 flex ${isCollapsed ? "justify-center" : "items-center"}`}>
               <Link
                 href="/dashboard"
                 className={`flex items-center group ${isCollapsed ? "justify-center" : "gap-3.5"}`}
@@ -153,7 +153,7 @@ export function Sidebar() {
             </div>
 
             {/* Navigation Items */}
-            <nav className="space-y-1.5">
+            <nav id="tour-sidebar-nav" className="space-y-1.5">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive =

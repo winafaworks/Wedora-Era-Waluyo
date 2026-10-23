@@ -21,6 +21,7 @@ import {
   CheckSquare,
   ArrowRight,
   Loader2,
+  HelpCircle,
 } from "lucide-react";
 import {
   searchBookingsAndChecklists,
@@ -240,7 +241,7 @@ export function Topbar() {
           </div>
 
           {/* Kolom Pencarian Cepat Nama Pengantin & Checklist Acara */}
-          <div className="relative flex-1 min-w-0" ref={searchContainerRef}>
+          <div id="tour-search" className="relative flex-1 min-w-0" ref={searchContainerRef}>
             <form onSubmit={handleSearchSubmit} className="relative flex items-center">
               <Search
                 size={16}
@@ -360,31 +361,48 @@ export function Topbar() {
           </div>
         </div>
 
-        {/* Sisi Kanan: Notifikasi Konfirmasi & Koreksi Pelanggan */}
-        <div className="flex items-center relative" ref={notifRef}>
+        {/* Sisi Kanan: Panduan Fitur & Notifikasi Konfirmasi */}
+        <div className="flex items-center gap-2 sm:gap-2.5 relative">
+          {/* Tombol Panduan Fitur Highlight */}
           <button
+            id="tour-help-btn"
             type="button"
             onClick={() => {
-              setIsNotifOpen(!isNotifOpen);
-              if (!isNotifOpen) {
-                fetchNotifications();
-              }
+              window.dispatchEvent(new CustomEvent("wedora-start-tour"));
             }}
-            className={`relative p-2.5 rounded-xl border transition-all cursor-pointer shadow-xs ${
-              isNotifOpen
-                ? "bg-[#383838] border-[#D4AD5C] text-[#D4AD5C]"
-                : "bg-[#383838] border-[#484848] text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#444444]"
-            }`}
-            title="Notifikasi konfirmasi & koreksi pelanggan"
-            aria-label="Buka notifikasi"
+            className="p-2.5 rounded-xl border border-[#484848] bg-[#383838] text-[#B8B3A8] hover:text-[#EEB100] hover:border-[#D4AD5C]/50 hover:bg-[#444444] transition-all cursor-pointer shadow-xs flex items-center justify-center"
+            title="Buka Panduan Fitur"
+            aria-label="Panduan Fitur"
           >
-            <Bell size={18} />
-            {unreadCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#B13C30] text-[#FFFFFF] text-[10px] font-bold flex items-center justify-center ring-2 ring-[#2C2C2C] shadow-sm">
-                {unreadCount > 9 ? "9+" : unreadCount}
-              </span>
-            )}
+            <HelpCircle size={18} />
           </button>
+
+          {/* Notifikasi Konfirmasi & Koreksi Pelanggan */}
+          <div className="relative" ref={notifRef}>
+            <button
+              id="tour-notifications"
+              type="button"
+              onClick={() => {
+                setIsNotifOpen(!isNotifOpen);
+                if (!isNotifOpen) {
+                  fetchNotifications();
+                }
+              }}
+              className={`relative p-2.5 rounded-xl border transition-all cursor-pointer shadow-xs ${
+                isNotifOpen
+                  ? "bg-[#383838] border-[#D4AD5C] text-[#D4AD5C]"
+                  : "bg-[#383838] border-[#484848] text-[#B8B3A8] hover:text-[#F5EDDC] hover:bg-[#444444]"
+              }`}
+              title="Notifikasi konfirmasi & koreksi pelanggan"
+              aria-label="Buka notifikasi"
+            >
+              <Bell size={18} />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#B13C30] text-[#FFFFFF] text-[10px] font-bold flex items-center justify-center ring-2 ring-[#2C2C2C] shadow-sm">
+                  {unreadCount > 9 ? "9+" : unreadCount}
+                </span>
+              )}
+            </button>
 
           {/* Dropdown Notifikasi */}
           {isNotifOpen && (
@@ -491,6 +509,7 @@ export function Topbar() {
               )}
             </div>
           )}
+          </div>
         </div>
       </div>
     </header>
