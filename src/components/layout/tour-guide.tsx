@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, Suspense } from "react";
 import { usePathname } from "next/navigation";
 import { driver, Driver } from "driver.js";
 import "driver.js/dist/driver.css";
 
-export function TourGuide() {
+function TourGuideInner() {
   const pathname = usePathname();
   const driverRef = useRef<Driver | null>(null);
 
@@ -155,4 +155,12 @@ export function TourGuide() {
   }, [pathname]);
 
   return null;
+}
+
+export function TourGuide() {
+  return (
+    <Suspense fallback={null}>
+      <TourGuideInner />
+    </Suspense>
+  );
 }

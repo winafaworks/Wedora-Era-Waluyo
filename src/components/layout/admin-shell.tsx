@@ -13,7 +13,9 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-[#FBF7EC] dark:bg-[#1E1E1E] text-[#1A1A1A] dark:text-[#F5EDDC] flex flex-col lg:flex-row">
       <IdleSessionTimeout />
-      <TourGuide />
+      <React.Suspense fallback={null}>
+        <TourGuide />
+      </React.Suspense>
       <React.Suspense fallback={null}>
         <Sidebar />
       </React.Suspense>
