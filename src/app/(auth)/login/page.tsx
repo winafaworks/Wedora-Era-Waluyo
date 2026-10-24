@@ -106,7 +106,7 @@ export default function LoginPage() {
                 <input
                   type="email"
                   required
-                  placeholder="admin@erawaluyo.com"
+                  placeholder="masukkan email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full h-11 pl-11 pr-4 bg-[#FFFFFF] dark:bg-[#252525] border border-[#D6CEBE] dark:border-[#38342C] rounded-xl text-sm text-[#1A1A1A] dark:text-[#F5EDDC] placeholder-[#8A857B] focus:outline-none focus:border-[#EEB100] transition-colors shadow-xs"
