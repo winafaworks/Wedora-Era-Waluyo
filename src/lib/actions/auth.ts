@@ -2,16 +2,22 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { checkLoginRateLimit, recordFailedLogin, resetLoginRateLimit } from "@/lib/security/rate-limit";
 import { validatePasswordStrength } from "@/lib/security/password-policy";
-import { logSecurityEvent } from "@/lib/security/audit-logger";
+import { logSecurityEvent, parseUserDevice } from "@/lib/security/audit-logger";
 import { sanitizeText } from "@/lib/security/sanitize";
 
 export async function login(formData: { email: string; password: string }) {
   const cleanEmail = sanitizeText(formData.email).toLowerCase();
   const password = formData.password;
+
+  // Deteksi metadata perangkat & IP dari User-Agent
+  const headersList = await headers();
+  const userAgent = headersList.get("user-agent") || "";
+  const clientIp = headersList.get("x-forwarded-for")?.split(",")[0]?.trim() || headersList.get("x-real-ip") || undefined;
+  const device = parseUserDevice(userAgent);
 
   // 1. Periksa batas laju percobaan login (Rate Limiting Defense)
   const rateLimit = checkLoginRateLimit(cleanEmail);
@@ -20,7 +26,9 @@ export async function login(formData: { email: string; password: string }) {
       "RATE_LIMIT_BLOCKED",
       cleanEmail,
       `Login diblokir otomatis karena melebihi batas salah (Tunggu ${rateLimit.retryAfterMinutes} menit).`,
-      "danger"
+      "danger",
+      clientIp,
+      device
     );
     return {
       success: false,
@@ -41,7 +49,9 @@ export async function login(formData: { email: string; password: string }) {
       "LOGIN_FAILED",
       cleanEmail,
       `Percobaan login gagal (Sisa kesempatan: ${attemptResult.remainingAttempts}).`,
-      "warning"
+      "warning",
+      clientIp,
+      device
     );
 
     if (attemptResult.isBlocked) {
@@ -66,7 +76,9 @@ export async function login(formData: { email: string; password: string }) {
     "LOGIN_SUCCESS",
     cleanEmail,
     "Autentikasi administrator berhasil. Sesi aman dimulai.",
-    "success"
+    "success",
+    clientIp,
+    device
   );
 
   // Set cookie sesi aktif (Session Cookie: tanpa maxAge/expires, terhapus saat browser ditutup)
@@ -86,7 +98,10 @@ export async function logout() {
   const { data: { user } } = await supabase.auth.getUser();
 
   if (user?.email) {
-    logSecurityEvent("LOGOUT", user.email, "Administrator mengakhiri sesi (Logout).", "info");
+    const headersList = await headers();
+    const userAgent = headersList.get("user-agent") || "";
+    const device = parseUserDevice(userAgent);
+    logSecurityEvent("LOGOUT", user.email, "Administrator mengakhiri sesi (Logout).", "info", undefined, device);
   }
 
   await supabase.auth.signOut();
@@ -154,11 +169,16 @@ export async function updatePassword(data: {
   }
 
   // 4. Catat Audit Trail
+  const headersList = await headers();
+  const userAgent = headersList.get("user-agent") || "";
+  const device = parseUserDevice(userAgent);
   logSecurityEvent(
     "PASSWORD_CHANGED",
     user.email,
     "Kata sandi akun administrator berhasil diperbarui sesuai standar keamanan siber.",
-    "success"
+    "success",
+    undefined,
+    device
   );
 
   revalidatePath("/settings", "page");

@@ -1269,9 +1269,29 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
                               <p className="text-xs font-medium text-[#1A1A1A] dark:text-[#F5EDDC] truncate">
                                 {log.description}
                               </p>
-                              <p className="text-[11px] text-[#8A857B] dark:text-[#7A756D]">
-                                Aktor: <span className="font-semibold">{log.actor}</span>
-                              </p>
+                              <div className="flex items-center gap-2 flex-wrap text-[11px] text-[#8A857B] dark:text-[#7A756D] mt-0.5">
+                                <span>
+                                  Aktor: <span className="font-semibold">{log.actor}</span>
+                                </span>
+                                {log.device && (
+                                  <>
+                                    <span>•</span>
+                                    <span className="inline-flex items-center gap-1.5 text-[#5E5A52] dark:text-[#C5BEB0]">
+                                      {log.device.toLowerCase().includes("android") || log.device.toLowerCase().includes("ios") || log.device.toLowerCase().includes("iphone") ? (
+                                        <Smartphone size={12} className="text-[#8A857B] shrink-0" />
+                                      ) : (
+                                        <Laptop size={12} className="text-[#8A857B] shrink-0" />
+                                      )}
+                                      <span>
+                                        Perangkat:{" "}
+                                        <span className="font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                                          {log.device}
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </>
+                                )}
+                              </div>
                             </div>
                           </div>
 
