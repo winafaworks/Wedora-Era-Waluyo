@@ -22,8 +22,8 @@ import {
   ChevronUp,
   X,
   Key,
+  CalendarDays,
 } from "lucide-react";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AuditLogEntry, SecurityEventType, getActivityCategory, ActivityCategory } from "@/types/activity-log";
 
@@ -40,63 +40,63 @@ function getEventMeta(event: SecurityEventType) {
         label: "Login Berhasil",
         icon: LogIn,
         badgeClass: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] border-[#2F7A4B]/30",
-        iconBgClass: "bg-[#2F7A4B]/10 text-[#2F7A4B] dark:text-[#7FD39B]",
+        iconBgClass: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B]",
       };
     case "LOGIN_FAILED":
       return {
         label: "Login Gagal",
         icon: ShieldAlert,
         badgeClass: "bg-[#B13C30]/15 text-[#B13C30] dark:text-[#F87171] border-[#B13C30]/30",
-        iconBgClass: "bg-[#B13C30]/10 text-[#B13C30] dark:text-[#F87171]",
+        iconBgClass: "bg-[#B13C30]/15 text-[#B13C30] dark:text-[#F87171]",
       };
     case "LOGOUT":
       return {
         label: "Logout",
         icon: LogOut,
         badgeClass: "bg-[#8A857B]/15 text-[#5E5A52] dark:text-[#A8A296] border-[#8A857B]/30",
-        iconBgClass: "bg-[#8A857B]/10 text-[#5E5A52] dark:text-[#A8A296]",
+        iconBgClass: "bg-[#8A857B]/15 text-[#5E5A52] dark:text-[#A8A296]",
       };
     case "BOOKING_CREATED":
       return {
-        label: "Tambah Booking",
+        label: "Booking Baru",
         icon: CalendarPlus,
-        badgeClass: "bg-[#EEB100]/20 text-[#9C7300] dark:text-[#EEB100] border-[#EEB100]/40",
-        iconBgClass: "bg-[#EEB100]/15 text-[#EEB100]",
+        badgeClass: "bg-[#EEB100]/20 text-[#8B6500] dark:text-[#EEB100] border-[#EEB100]/40",
+        iconBgClass: "bg-[#EEB100]/20 text-[#EEB100]",
       };
     case "BOOKING_UPDATED":
       return {
         label: "Edit Booking",
         icon: FileEdit,
         badgeClass: "bg-[rgba(46,95,138,0.15)] text-[#2E5F8A] dark:text-[#93C5FD] border-[rgba(46,95,138,0.3)]",
-        iconBgClass: "bg-[rgba(46,95,138,0.12)] text-[#2E5F8A] dark:text-[#93C5FD]",
+        iconBgClass: "bg-[rgba(46,95,138,0.15)] text-[#2E5F8A] dark:text-[#93C5FD]",
       };
     case "BOOKING_DELETED":
       return {
         label: "Hapus Booking",
         icon: Trash2,
         badgeClass: "bg-[#B13C30]/15 text-[#B13C30] dark:text-[#F87171] border-[#B13C30]/30",
-        iconBgClass: "bg-[#B13C30]/10 text-[#B13C30] dark:text-[#F87171]",
+        iconBgClass: "bg-[#B13C30]/15 text-[#B13C30] dark:text-[#F87171]",
       };
     case "BOOKING_CONFIRMED":
       return {
         label: "Konfirmasi Acara",
         icon: ShieldCheck,
         badgeClass: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] border-[#2F7A4B]/30",
-        iconBgClass: "bg-[#2F7A4B]/10 text-[#2F7A4B] dark:text-[#7FD39B]",
+        iconBgClass: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B]",
       };
     case "PASSWORD_CHANGED":
       return {
         label: "Ubah Sandi",
         icon: Key,
         badgeClass: "bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30",
-        iconBgClass: "bg-purple-500/10 text-purple-600 dark:text-purple-300",
+        iconBgClass: "bg-purple-500/15 text-purple-600 dark:text-purple-300",
       };
     default:
       return {
         label: event.replace(/_/g, " "),
         icon: Activity,
         badgeClass: "bg-[#8A857B]/15 text-[#5E5A52] dark:text-[#A8A296] border-[#8A857B]/30",
-        iconBgClass: "bg-[#8A857B]/10 text-[#5E5A52] dark:text-[#A8A296]",
+        iconBgClass: "bg-[#8A857B]/15 text-[#5E5A52] dark:text-[#A8A296]",
       };
   }
 }
@@ -173,18 +173,15 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
   // Filter logs berdasarkan kategori, pencarian, dan status
   const filteredLogs = useMemo(() => {
     return logs.filter((log) => {
-      // 1. Kategori
       if (selectedCategory !== "all") {
         const cat = getActivityCategory(log.event);
         if (cat !== selectedCategory) return false;
       }
 
-      // 2. Status filter
       if (statusFilter !== "all" && log.status !== statusFilter) {
         return false;
       }
 
-      // 3. Search query
       if (searchQuery.trim().length > 0) {
         const q = searchQuery.toLowerCase().trim();
         const descMatch = log.description.toLowerCase().includes(q);
@@ -206,7 +203,6 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
     return filteredLogs.slice(0, visibleCount);
   }, [filteredLogs, visibleCount]);
 
-  // Ekspor log ke file JSON
   const handleExportJson = () => {
     try {
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(filteredLogs, null, 2));
@@ -227,32 +223,30 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
 
   return (
     <div className="space-y-6">
-      {/* Header Halaman Log Aktivitas */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5DEC9] dark:border-[#38342C]">
-        <div>
-          <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-[#EEB100]/15 text-[#EEB100]">
-              <Activity size={22} />
-            </div>
-            <div>
-              <h2 className="font-sans text-[22px] font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
-                Log Aktivitas Sistem
-              </h2>
-              <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] mt-0.5">
-                Rekam jejak aktivitas operasional: aktivitas login, penambahan data booking terbaru, dan edit pesanan.
-              </p>
-            </div>
+      {/* 1. Header Banner Selaras dengan Tab WhatsApp & Keamanan */}
+      <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#FAF6ED] via-[#FFFFFF] to-[#FAF6ED] dark:from-[#252525] dark:via-[#1E1E1E] dark:to-[#252525] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-3.5">
+          <div className="w-11 h-11 rounded-xl bg-[#EEB100] text-[#111111] flex items-center justify-center shrink-0 shadow-sm font-bold">
+            <Activity size={22} className="stroke-[2.5]" />
+          </div>
+          <div>
+            <h2 className="font-sans text-base sm:text-lg font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+              Log Aktivitas Sistem & Pengguna
+            </h2>
+            <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] mt-0.5">
+              Rekam jejak real-time aktivitas login administrator, penambahan data booking baru, dan edit pesanan.
+            </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2.5 shrink-0">
+        <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
           <Button
             type="button"
             variant="outline"
             size="sm"
             onClick={onRefresh}
             disabled={isLoading}
-            className="text-xs gap-2 h-9 border-[#E5DEC9] dark:border-[#38342C] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] cursor-pointer"
+            className="flex-1 sm:flex-initial text-xs gap-2 h-9 border-[#E5DEC9] dark:border-[#38342C] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] cursor-pointer"
           >
             <RefreshCw size={13} className={isLoading ? "animate-spin" : ""} />
             <span>Segarkan</span>
@@ -264,7 +258,7 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
             size="sm"
             onClick={handleExportJson}
             disabled={filteredLogs.length === 0}
-            className="text-xs gap-2 h-9 border-[#E5DEC9] dark:border-[#38342C] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] cursor-pointer"
+            className="flex-1 sm:flex-initial text-xs gap-2 h-9 border-[#E5DEC9] dark:border-[#38342C] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] cursor-pointer"
           >
             <Download size={13} />
             <span>Ekspor Log</span>
@@ -272,118 +266,130 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
         </div>
       </div>
 
-      {/* Grid 4 Kartu Metrik Ringkasan */}
+      {/* 2. Grid 4 Kartu Metrik Ringkasan */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* Total Aktivitas */}
-        <Card
+        <div
           onClick={() => setSelectedCategory("all")}
-          className={`p-4 cursor-pointer transition-all border ${
+          className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
             selectedCategory === "all"
-              ? "border-[#EEB100] shadow-sm bg-[#EEB100]/5 dark:bg-[#EEB100]/10"
-              : "border-[#E5DEC9] dark:border-[#38342C] hover:border-[#EEB100]/60"
+              ? "bg-[#EEB100]/10 dark:bg-[#EEB100]/15 border-[#EEB100] shadow-xs"
+              : "bg-[#FFFFFF] dark:bg-[#1E1E1E] border-[#E5DEC9] dark:border-[#38342C] hover:border-[#EEB100]/50"
           }`}
         >
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#5E5A52] dark:text-[#A8A296]">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-xs sm:text-sm font-semibold text-[#5E5A52] dark:text-[#A8A296]">
               Total Aktivitas
             </span>
-            <div className="p-1.5 rounded-lg bg-[#EEB100]/15 text-[#EEB100]">
-              <Activity size={15} />
+            <div className="w-8 h-8 rounded-xl bg-[#EEB100]/15 text-[#EEB100] flex items-center justify-center shrink-0">
+              <CalendarDays size={16} />
             </div>
           </div>
-          <div className="mt-2 text-2xl font-bold font-sans text-[#1A1A1A] dark:text-[#F5EDDC]">
-            {stats.total}
+          <div className="mt-3">
+            <div className="text-2xl sm:text-3xl font-bold font-sans text-[#1A1A1A] dark:text-[#F5EDDC] tracking-tight">
+              {stats.total}
+            </div>
+            <p className="text-[11px] text-[#8A857B] dark:text-[#888888] mt-0.5">Semua riwayat tercatat</p>
           </div>
-          <p className="text-[11px] text-[#8A857B] mt-0.5">Semua riwayat tercatat</p>
-        </Card>
+        </div>
 
         {/* Aktivitas Login */}
-        <Card
+        <div
           onClick={() => setSelectedCategory("auth")}
-          className={`p-4 cursor-pointer transition-all border ${
+          className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
             selectedCategory === "auth"
-              ? "border-[#2F7A4B] shadow-sm bg-[#2F7A4B]/5 dark:bg-[#2F7A4B]/10"
-              : "border-[#E5DEC9] dark:border-[#38342C] hover:border-[#2F7A4B]/60"
+              ? "bg-[#2F7A4B]/10 dark:bg-[#2F7A4B]/15 border-[#2F7A4B] shadow-xs"
+              : "bg-[#FFFFFF] dark:bg-[#1E1E1E] border-[#E5DEC9] dark:border-[#38342C] hover:border-[#2F7A4B]/50"
           }`}
         >
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#5E5A52] dark:text-[#A8A296]">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-xs sm:text-sm font-semibold text-[#5E5A52] dark:text-[#A8A296]">
               Aktivitas Login
             </span>
-            <div className="p-1.5 rounded-lg bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B]">
-              <LogIn size={15} />
+            <div className="w-8 h-8 rounded-xl bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] flex items-center justify-center shrink-0">
+              <LogIn size={16} />
             </div>
           </div>
-          <div className="mt-2 text-2xl font-bold font-sans text-[#1A1A1A] dark:text-[#F5EDDC]">
-            {stats.auth}
+          <div className="mt-3">
+            <div className="text-2xl sm:text-3xl font-bold font-sans text-[#2F7A4B] dark:text-[#7FD39B] tracking-tight">
+              {stats.auth}
+            </div>
+            <p className="text-[11px] text-[#8A857B] dark:text-[#888888] mt-0.5">Sesi masuk admin</p>
           </div>
-          <p className="text-[11px] text-[#8A857B] mt-0.5">Sesi masuk & otentikasi</p>
-        </Card>
+        </div>
 
         {/* Penambahan Data Booking */}
-        <Card
+        <div
           onClick={() => setSelectedCategory("booking_add")}
-          className={`p-4 cursor-pointer transition-all border ${
+          className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
             selectedCategory === "booking_add"
-              ? "border-[#EEB100] shadow-sm bg-[#EEB100]/10 dark:bg-[#EEB100]/15"
-              : "border-[#E5DEC9] dark:border-[#38342C] hover:border-[#EEB100]/60"
+              ? "bg-[#EEB100]/10 dark:bg-[#EEB100]/15 border-[#EEB100] shadow-xs"
+              : "bg-[#FFFFFF] dark:bg-[#1E1E1E] border-[#E5DEC9] dark:border-[#38342C] hover:border-[#EEB100]/50"
           }`}
         >
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#5E5A52] dark:text-[#A8A296]">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-xs sm:text-sm font-semibold text-[#5E5A52] dark:text-[#A8A296]">
               Penambahan Booking
             </span>
-            <div className="p-1.5 rounded-lg bg-[#EEB100]/20 text-[#9C7300] dark:text-[#EEB100]">
-              <CalendarPlus size={15} />
+            <div className="w-8 h-8 rounded-xl bg-[#EEB100]/15 text-[#EEB100] flex items-center justify-center shrink-0">
+              <CalendarPlus size={16} />
             </div>
           </div>
-          <div className="mt-2 text-2xl font-bold font-sans text-[#1A1A1A] dark:text-[#F5EDDC]">
-            {stats.create}
+          <div className="mt-3">
+            <div className="text-2xl sm:text-3xl font-bold font-sans text-[#EEB100] tracking-tight">
+              {stats.create}
+            </div>
+            <p className="text-[11px] text-[#8A857B] dark:text-[#888888] mt-0.5">Pesanan baru dibuat</p>
           </div>
-          <p className="text-[11px] text-[#8A857B] mt-0.5">Pesanan baru dibuat</p>
-        </Card>
+        </div>
 
         {/* Edit Data Booking */}
-        <Card
+        <div
           onClick={() => setSelectedCategory("booking_edit")}
-          className={`p-4 cursor-pointer transition-all border ${
+          className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
             selectedCategory === "booking_edit"
-              ? "border-[#2E5F8A] shadow-sm bg-[#2E5F8A]/5 dark:bg-[#2E5F8A]/10"
-              : "border-[#E5DEC9] dark:border-[#38342C] hover:border-[#2E5F8A]/60"
+              ? "bg-[rgba(46,95,138,0.12)] border-[#2E5F8A] shadow-xs"
+              : "bg-[#FFFFFF] dark:bg-[#1E1E1E] border-[#E5DEC9] dark:border-[#38342C] hover:border-[#2E5F8A]/50"
           }`}
         >
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#5E5A52] dark:text-[#A8A296]">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-xs sm:text-sm font-semibold text-[#5E5A52] dark:text-[#A8A296]">
               Edit Data Booking
             </span>
-            <div className="p-1.5 rounded-lg bg-[rgba(46,95,138,0.15)] text-[#2E5F8A] dark:text-[#93C5FD]">
-              <FileEdit size={15} />
+            <div className="w-8 h-8 rounded-xl bg-[rgba(46,95,138,0.15)] text-[#2E5F8A] dark:text-[#93C5FD] flex items-center justify-center shrink-0">
+              <FileEdit size={16} />
             </div>
           </div>
-          <div className="mt-2 text-2xl font-bold font-sans text-[#1A1A1A] dark:text-[#F5EDDC]">
-            {stats.edit}
+          <div className="mt-3">
+            <div className="text-2xl sm:text-3xl font-bold font-sans text-[#2E5F8A] dark:text-[#93C5FD] tracking-tight">
+              {stats.edit}
+            </div>
+            <p className="text-[11px] text-[#8A857B] dark:text-[#888888] mt-0.5">Pembaruan & edit data</p>
           </div>
-          <p className="text-[11px] text-[#8A857B] mt-0.5">Pembaruan & edit pesanan</p>
-        </Card>
+        </div>
       </div>
 
-      {/* Filter Kategori & Search Bar */}
-      <Card className="p-4 space-y-3 border-[#E5DEC9] dark:border-[#38342C]">
+      {/* 3. Filter Bar & Pencarian */}
+      <div className="p-4 sm:p-5 rounded-2xl bg-[#FFFFFF] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs space-y-3.5">
         {/* Pills Kategori */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
           <button
             type="button"
             onClick={() => setSelectedCategory("all")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium shrink-0 transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-semibold shrink-0 transition-all cursor-pointer flex items-center gap-2 ${
               selectedCategory === "all"
-                ? "bg-[#EEB100] text-[#111111] font-semibold"
-                : "text-[#5E5A52] dark:text-[#A8A296] hover:bg-[#FAF6ED] dark:hover:bg-[#252525]"
+                ? "bg-[#EEB100] text-[#111111] shadow-xs"
+                : "bg-[#FAF7F0] dark:bg-[#252525] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] border border-[#E5DEC9] dark:border-[#38342C]"
             }`}
           >
             <span>Semua Aktivitas</span>
-            <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${
-              selectedCategory === "all" ? "bg-black/15 text-black" : "bg-[#E5DEC9] dark:bg-[#38342C]"
-            }`}>
+            <span
+              className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                selectedCategory === "all"
+                  ? "bg-black/15 text-[#111111]"
+                  : "bg-[#E5DEC9] dark:bg-[#38342C] text-[#5E5A52] dark:text-[#A8A296]"
+              }`}
+            >
               {stats.total}
             </span>
           </button>
@@ -391,17 +397,21 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
           <button
             type="button"
             onClick={() => setSelectedCategory("auth")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium shrink-0 transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-semibold shrink-0 transition-all cursor-pointer flex items-center gap-2 ${
               selectedCategory === "auth"
-                ? "bg-[#2F7A4B] text-white font-semibold"
-                : "text-[#5E5A52] dark:text-[#A8A296] hover:bg-[#FAF6ED] dark:hover:bg-[#252525]"
+                ? "bg-[#2F7A4B] text-white shadow-xs"
+                : "bg-[#FAF7F0] dark:bg-[#252525] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] border border-[#E5DEC9] dark:border-[#38342C]"
             }`}
           >
-            <LogIn size={13} />
+            <LogIn size={14} />
             <span>Aktivitas Login</span>
-            <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${
-              selectedCategory === "auth" ? "bg-white/20 text-white" : "bg-[#E5DEC9] dark:bg-[#38342C]"
-            }`}>
+            <span
+              className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                selectedCategory === "auth"
+                  ? "bg-white/20 text-white"
+                  : "bg-[#E5DEC9] dark:bg-[#38342C] text-[#5E5A52] dark:text-[#A8A296]"
+              }`}
+            >
               {stats.auth}
             </span>
           </button>
@@ -409,17 +419,21 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
           <button
             type="button"
             onClick={() => setSelectedCategory("booking_add")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium shrink-0 transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-semibold shrink-0 transition-all cursor-pointer flex items-center gap-2 ${
               selectedCategory === "booking_add"
-                ? "bg-[#EEB100] text-[#111111] font-semibold"
-                : "text-[#5E5A52] dark:text-[#A8A296] hover:bg-[#FAF6ED] dark:hover:bg-[#252525]"
+                ? "bg-[#EEB100] text-[#111111] shadow-xs"
+                : "bg-[#FAF7F0] dark:bg-[#252525] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] border border-[#E5DEC9] dark:border-[#38342C]"
             }`}
           >
-            <CalendarPlus size={13} />
+            <CalendarPlus size={14} />
             <span>Penambahan Booking</span>
-            <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${
-              selectedCategory === "booking_add" ? "bg-black/15 text-black" : "bg-[#E5DEC9] dark:bg-[#38342C]"
-            }`}>
+            <span
+              className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                selectedCategory === "booking_add"
+                  ? "bg-black/15 text-[#111111]"
+                  : "bg-[#E5DEC9] dark:bg-[#38342C] text-[#5E5A52] dark:text-[#A8A296]"
+              }`}
+            >
               {stats.create}
             </span>
           </button>
@@ -427,40 +441,44 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
           <button
             type="button"
             onClick={() => setSelectedCategory("booking_edit")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium shrink-0 transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-semibold shrink-0 transition-all cursor-pointer flex items-center gap-2 ${
               selectedCategory === "booking_edit"
-                ? "bg-[#2E5F8A] text-white font-semibold"
-                : "text-[#5E5A52] dark:text-[#A8A296] hover:bg-[#FAF6ED] dark:hover:bg-[#252525]"
+                ? "bg-[#2E5F8A] text-white shadow-xs"
+                : "bg-[#FAF7F0] dark:bg-[#252525] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] border border-[#E5DEC9] dark:border-[#38342C]"
             }`}
           >
-            <FileEdit size={13} />
+            <FileEdit size={14} />
             <span>Edit Data Booking</span>
-            <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${
-              selectedCategory === "booking_edit" ? "bg-white/20 text-white" : "bg-[#E5DEC9] dark:bg-[#38342C]"
-            }`}>
+            <span
+              className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
+                selectedCategory === "booking_edit"
+                  ? "bg-white/20 text-white"
+                  : "bg-[#E5DEC9] dark:bg-[#38342C] text-[#5E5A52] dark:text-[#A8A296]"
+              }`}
+            >
               {stats.edit}
             </span>
           </button>
         </div>
 
-        {/* Input Pencarian & Filter Status */}
+        {/* Input Pencarian & Dropdown Status */}
         <div className="flex flex-col sm:flex-row items-center gap-3 pt-1">
           <div className="relative flex-1 w-full">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8A857B]" size={15} />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8A857B]" size={15} />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Cari pengantin, email, aktivitas, atau perangkat..."
-              className="w-full pl-9 pr-9 py-2 text-xs rounded-xl border border-[#E5DEC9] dark:border-[#38342C] bg-[#FFFFFF] dark:bg-[#1E1E1E] text-[#1A1A1A] dark:text-[#F5EDDC] placeholder:text-[#8A857B] focus:outline-hidden focus:ring-1 focus:ring-[#EEB100]"
+              placeholder="Cari pengantin, email admin, atau detail aktivitas..."
+              className="w-full pl-10 pr-9 py-2.5 text-xs sm:text-sm rounded-xl border border-[#E5DEC9] dark:border-[#38342C] bg-[#FAF7F0] dark:bg-[#252525] text-[#1A1A1A] dark:text-[#F5EDDC] placeholder:text-[#8A857B] focus:outline-hidden focus:ring-2 focus:ring-[#EEB100]/40 focus:border-[#EEB100] transition-all"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8A857B] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8A857B] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] p-1 cursor-pointer"
               >
-                <X size={13} />
+                <X size={14} />
               </button>
             )}
           </div>
@@ -469,7 +487,7 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-3 py-2 text-xs rounded-xl border border-[#E5DEC9] dark:border-[#38342C] bg-[#FFFFFF] dark:bg-[#1E1E1E] text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-hidden focus:ring-1 focus:ring-[#EEB100] cursor-pointer"
+              className="w-full sm:w-auto px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-[#E5DEC9] dark:border-[#38342C] bg-[#FAF7F0] dark:bg-[#252525] text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-hidden focus:ring-2 focus:ring-[#EEB100]/40 focus:border-[#EEB100] cursor-pointer"
             >
               <option value="all">Semua Status</option>
               <option value="success">Sukses (Success)</option>
@@ -479,10 +497,10 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
             </select>
           </div>
         </div>
-      </Card>
+      </div>
 
-      {/* Daftar Baris Log Aktivitas */}
-      <Card className="divide-y divide-[#E5DEC9] dark:divide-[#38342C] border-[#E5DEC9] dark:border-[#38342C] overflow-hidden">
+      {/* 4. Daftar Baris Log Aktivitas */}
+      <div className="rounded-2xl border border-[#E5DEC9] dark:border-[#38342C] overflow-hidden bg-[#FFFFFF] dark:bg-[#1E1E1E] shadow-xs">
         {filteredLogs.length === 0 ? (
           <div className="p-12 text-center space-y-3">
             <div className="w-12 h-12 mx-auto rounded-full bg-[#FAF6ED] dark:bg-[#252525] flex items-center justify-center text-[#8A857B]">
@@ -490,11 +508,11 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
             </div>
             <div>
               <p className="text-sm font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
-                Tidak ada aktivitas yang ditemukan
+                Tidak ada riwayat yang sesuai filter
               </p>
               <p className="text-xs text-[#8A857B] mt-0.5">
                 {searchQuery || statusFilter !== "all" || selectedCategory !== "all"
-                  ? "Coba ubah kata kunci pencarian atau bersihkan filter."
+                  ? "Coba gunakan kata kunci pencarian lain atau bersihkan filter."
                   : "Belum ada riwayat aktivitas yang tercatat pada sistem."}
               </p>
             </div>
@@ -515,126 +533,136 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
             )}
           </div>
         ) : (
-          displayedLogs.map((log) => {
-            const meta = getEventMeta(log.event);
-            const IconComp = meta.icon;
-            const isExpanded = expandedLogId === log.id;
-            const isMobileDevice =
-              log.device?.toLowerCase().includes("android") ||
-              log.device?.toLowerCase().includes("ios") ||
-              log.device?.toLowerCase().includes("iphone") ||
-              log.device?.toLowerCase().includes("ipad");
+          <div className="divide-y divide-[#E5DEC9] dark:divide-[#38342C]">
+            {displayedLogs.map((log) => {
+              const meta = getEventMeta(log.event);
+              const IconComp = meta.icon;
+              const isExpanded = expandedLogId === log.id;
+              const isMobileDevice =
+                log.device?.toLowerCase().includes("android") ||
+                log.device?.toLowerCase().includes("ios") ||
+                log.device?.toLowerCase().includes("iphone") ||
+                log.device?.toLowerCase().includes("ipad");
 
-            return (
-              <div
-                key={log.id}
-                className="p-4 hover:bg-[#FAF7F0] dark:hover:bg-[#252525]/50 transition-colors"
-              >
-                <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
-                  {/* Icon & Deskripsi */}
-                  <div className="flex items-start gap-3 min-w-0 flex-1">
-                    <div className={`p-2.5 rounded-xl shrink-0 mt-0.5 ${meta.iconBgClass}`}>
-                      <IconComp size={18} />
-                    </div>
-
-                    <div className="min-w-0 space-y-1.5 flex-1">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full border shrink-0 ${meta.badgeClass}`}>
-                          {meta.label}
-                        </span>
-                        <span className="text-xs font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
-                          {log.description}
-                        </span>
+              return (
+                <div
+                  key={log.id}
+                  className="p-4 sm:p-4.5 hover:bg-[#FAF7F0] dark:hover:bg-[#252525]/60 transition-colors"
+                >
+                  <div className="flex items-start justify-between gap-3.5 flex-wrap sm:flex-nowrap">
+                    {/* Icon & Rincian Deskripsi */}
+                    <div className="flex items-start gap-3.5 min-w-0 flex-1">
+                      <div className={`w-10 h-10 rounded-xl shrink-0 flex items-center justify-center mt-0.5 ${meta.iconBgClass}`}>
+                        <IconComp size={18} />
                       </div>
 
-                      {/* Baris Metadata (Aktor, Perangkat, IP) */}
-                      <div className="flex items-center gap-3 flex-wrap text-[11px] text-[#8A857B] dark:text-[#A8A296]">
-                        {/* Aktor */}
-                        <div className="inline-flex items-center gap-1.5">
-                          <User size={12} className="text-[#EEB100]" />
-                          <span>
-                            Aktor: <span className="font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">{log.actor}</span>
+                      <div className="min-w-0 space-y-1.5 flex-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span
+                            className={`px-2 py-0.5 text-[10px] font-bold rounded-full border shrink-0 ${meta.badgeClass}`}
+                          >
+                            {meta.label}
+                          </span>
+                          <span className="text-xs sm:text-sm font-semibold text-[#1A1A1A] dark:text-[#F5EDDC] leading-snug">
+                            {log.description}
                           </span>
                         </div>
 
-                        {/* Perangkat */}
-                        {log.device && (
-                          <>
-                            <span>•</span>
-                            <div className="inline-flex items-center gap-1.5">
-                              {isMobileDevice ? (
-                                <Smartphone size={12} className="text-[#8A857B]" />
-                              ) : (
-                                <Laptop size={12} className="text-[#8A857B]" />
-                              )}
-                              <span>
-                                Perangkat: <span className="font-medium text-[#1A1A1A] dark:text-[#F5EDDC]">{log.device}</span>
+                        {/* Metadata Baris (Aktor, Perangkat, IP) */}
+                        <div className="flex items-center gap-3 flex-wrap text-[11px] text-[#8A857B] dark:text-[#A8A296]">
+                          {/* Aktor */}
+                          <div className="inline-flex items-center gap-1.5">
+                            <User size={12} className="text-[#EEB100]" />
+                            <span>
+                              Aktor:{" "}
+                              <span className="font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                                {log.actor}
                               </span>
-                            </div>
-                          </>
-                        )}
+                            </span>
+                          </div>
 
-                        {/* IP Address */}
-                        {log.ip && (
-                          <>
-                            <span>•</span>
-                            <div className="inline-flex items-center gap-1 text-mono">
-                              <Globe size={11} className="text-[#8A857B]" />
-                              <span>IP: {log.ip}</span>
+                          {/* Perangkat */}
+                          {log.device && (
+                            <>
+                              <span>•</span>
+                              <div className="inline-flex items-center gap-1.5">
+                                {isMobileDevice ? (
+                                  <Smartphone size={12} className="text-[#8A857B]" />
+                                ) : (
+                                  <Laptop size={12} className="text-[#8A857B]" />
+                                )}
+                                <span>
+                                  Perangkat:{" "}
+                                  <span className="font-medium text-[#1A1A1A] dark:text-[#F5EDDC]">
+                                    {log.device}
+                                  </span>
+                                </span>
+                              </div>
+                            </>
+                          )}
+
+                          {/* IP Address */}
+                          {log.ip && (
+                            <>
+                              <span>•</span>
+                              <div className="inline-flex items-center gap-1 font-mono text-[10px]">
+                                <Globe size={11} className="text-[#8A857B]" />
+                                <span>IP: {log.ip}</span>
+                              </div>
+                            </>
+                          )}
+                        </div>
+
+                        {/* Parameter Detail Jika Diperluas */}
+                        {isExpanded && log.details && (
+                          <div className="mt-2.5 p-3 rounded-xl bg-[#FAF6ED] dark:bg-[#252525] border border-[#E5DEC9] dark:border-[#38342C] text-xs space-y-1.5 font-mono">
+                            <div className="font-sans font-semibold text-[11px] text-[#5E5A52] dark:text-[#A8A296] uppercase tracking-wider mb-1">
+                              Rincian Parameter Event
                             </div>
-                          </>
+                            {Object.entries(log.details).map(([key, val]) => (
+                              <div key={key} className="flex items-center gap-2 text-[11px]">
+                                <span className="text-[#8A857B]">{key}:</span>
+                                <span className="font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                                  {typeof val === "object" ? JSON.stringify(val) : String(val)}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
                         )}
                       </div>
+                    </div>
 
-                      {/* Rincian Tambahan jika Diperluas */}
-                      {isExpanded && log.details && (
-                        <div className="mt-2.5 p-3 rounded-xl bg-[#FAF6ED] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] text-xs space-y-1.5 font-mono">
-                          <div className="font-sans font-semibold text-[11px] text-[#5E5A52] dark:text-[#A8A296] uppercase tracking-wider mb-1">
-                            Rincian Parameter Event
-                          </div>
-                          {Object.entries(log.details).map(([key, val]) => (
-                            <div key={key} className="flex items-center gap-2 text-[11px]">
-                              <span className="text-[#8A857B]">{key}:</span>
-                              <span className="font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
-                                {typeof val === "object" ? JSON.stringify(val) : String(val)}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
+                    {/* Waktu & Tombol Detail */}
+                    <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto shrink-0 gap-1 pt-1 sm:pt-0">
+                      <div className="flex items-center gap-1 text-xs font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                        <Clock size={12} className="text-[#EEB100]" />
+                        <span>{formatRelativeTime(log.timestamp)}</span>
+                      </div>
+
+                      <div className="text-[10px] text-[#8A857B] font-mono">
+                        {formatFullDateTime(log.timestamp)}
+                      </div>
+
+                      {log.details && (
+                        <button
+                          type="button"
+                          onClick={() => toggleExpand(log.id)}
+                          className="text-[11px] text-[#EEB100] hover:underline flex items-center gap-0.5 mt-1 cursor-pointer font-medium"
+                        >
+                          <span>{isExpanded ? "Tutup Detail" : "Lihat Detail"}</span>
+                          {isExpanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+                        </button>
                       )}
                     </div>
                   </div>
-
-                  {/* Waktu & Tombol Aksi */}
-                  <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto shrink-0 gap-1.5 pt-1 sm:pt-0">
-                    <div className="flex items-center gap-1 text-[11px] text-[#8A857B] font-medium">
-                      <Clock size={11} className="text-[#EEB100]" />
-                      <span>{formatRelativeTime(log.timestamp)}</span>
-                    </div>
-
-                    <div className="text-[10px] text-[#8A857B] font-mono">
-                      {formatFullDateTime(log.timestamp)}
-                    </div>
-
-                    {log.details && (
-                      <button
-                        type="button"
-                        onClick={() => toggleExpand(log.id)}
-                        className="text-[11px] text-[#EEB100] hover:underline flex items-center gap-0.5 mt-1 cursor-pointer font-medium"
-                      >
-                        <span>{isExpanded ? "Tutup Detail" : "Lihat Detail"}</span>
-                        {isExpanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
-                      </button>
-                    )}
-                  </div>
                 </div>
-              </div>
-            );
-          })
+              );
+            })}
+          </div>
         )}
-      </Card>
+      </div>
 
-      {/* Tombol Tampilkan Lebih Banyak jika > 20 */}
+      {/* 5. Tombol Paginasi / Tampilkan Lebih Banyak */}
       {filteredLogs.length > visibleCount && (
         <div className="text-center pt-2">
           <Button

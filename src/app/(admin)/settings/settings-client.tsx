@@ -292,13 +292,13 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
       </div>
 
       {/* Tabs Navigation */}
-      <div className="flex flex-wrap items-center gap-2 p-1.5 bg-[#FAF7F0] border border-[#E5DEC9] rounded-2xl shadow-xs">
+      <div className="flex flex-wrap items-center gap-2 p-1.5 bg-[#FAF7F0] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] rounded-2xl shadow-xs">
         <button
           onClick={() => setActiveTab("appearance")}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
             activeTab === "appearance"
               ? "bg-[#EEB100] text-[#111111] shadow-xs"
-              : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
+              : "text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] hover:bg-[#FAF6ED] dark:hover:bg-[#252525]"
           }`}
         >
           <Palette size={16} />
@@ -310,7 +310,7 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
             activeTab === "whatsapp"
               ? "bg-[#EEB100] text-[#111111] shadow-xs"
-              : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
+              : "text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] hover:bg-[#FAF6ED] dark:hover:bg-[#252525]"
           }`}
         >
           <MessageSquare size={16} />
@@ -322,7 +322,7 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
             activeTab === "activity"
               ? "bg-[#EEB100] text-[#111111] shadow-xs"
-              : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
+              : "text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] hover:bg-[#FAF6ED] dark:hover:bg-[#252525]"
           }`}
         >
           <Activity size={16} />
@@ -334,7 +334,7 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
             activeTab === "security"
               ? "bg-[#EEB100] text-[#111111] shadow-xs"
-              : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
+              : "text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] hover:bg-[#FAF6ED] dark:hover:bg-[#252525]"
           }`}
         >
           <Shield size={16} />
@@ -887,7 +887,7 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
 
       {/* Tab Content: Log Aktivitas */}
       {activeTab === "activity" && (
-        <div className="animate-in fade-in duration-200">
+        <div className="space-y-6 animate-in fade-in duration-200">
           <ActivityLogTab
             logs={auditLogs}
             isLoading={isLoadingLogs}
