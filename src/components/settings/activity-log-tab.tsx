@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { AuditLogEntry, SecurityEventType, getActivityCategory, ActivityCategory } from "@/lib/security/audit-logger";
+import { AuditLogEntry, SecurityEventType, getActivityCategory, ActivityCategory } from "@/types/activity-log";
 
 interface ActivityLogTabProps {
   logs: AuditLogEntry[];

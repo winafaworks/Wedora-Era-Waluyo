@@ -47,7 +47,7 @@ import {
 } from "@/lib/whatsapp";
 import { updatePassword, logout } from "@/lib/actions/auth";
 import { fetchAuditLogs } from "@/lib/actions/security";
-import { AuditLogEntry } from "@/lib/security/audit-logger";
+import type { AuditLogEntry } from "@/types/activity-log";
 import { ActivityLogTab } from "@/components/settings/activity-log-tab";
 
 export interface SecurityDetails {

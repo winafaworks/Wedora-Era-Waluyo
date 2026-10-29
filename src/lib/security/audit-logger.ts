@@ -1,6 +1,3 @@
-import fs from "fs";
-import path from "path";
-
 /**
  * Audit Trail & Security Logger
  * Mencatat peristiwa keamanan dan aktivitas operasional krusial untuk pemantauan administrator:
@@ -10,57 +7,8 @@ import path from "path";
  * - Perubahan Keamanan & Pengaturan
  */
 
-export type SecurityEventType =
-  | "LOGIN_SUCCESS"
-  | "LOGIN_FAILED"
-  | "LOGOUT"
-  | "PASSWORD_CHANGED"
-  | "RATE_LIMIT_BLOCKED"
-  | "BOOKING_CREATED"
-  | "BOOKING_UPDATED"
-  | "BOOKING_DELETED"
-  | "BOOKING_CONFIRMED"
-  | "CATALOG_DELETED"
-  | "TEMPLATE_RESET";
-
-export type ActivityCategory = "all" | "auth" | "booking_add" | "booking_edit" | "security";
-
-export interface AuditLogEntry {
-  id: string;
-  timestamp: string;
-  event: SecurityEventType;
-  actor: string;
-  description: string;
-  status: "success" | "warning" | "danger" | "info";
-  ip?: string;
-  device?: string;
-  details?: Record<string, unknown>;
-}
-
-/**
- * Mendeteksi kategori aktivitas untuk keperluan filter UI
- */
-export function getActivityCategory(event: SecurityEventType): ActivityCategory {
-  if (
-    event === "LOGIN_SUCCESS" ||
-    event === "LOGIN_FAILED" ||
-    event === "LOGOUT" ||
-    event === "RATE_LIMIT_BLOCKED"
-  ) {
-    return "auth";
-  }
-  if (event === "BOOKING_CREATED") {
-    return "booking_add";
-  }
-  if (
-    event === "BOOKING_UPDATED" ||
-    event === "BOOKING_DELETED" ||
-    event === "BOOKING_CONFIRMED"
-  ) {
-    return "booking_edit";
-  }
-  return "security";
-}
+export * from "@/types/activity-log";
+import { AuditLogEntry, SecurityEventType } from "@/types/activity-log";
 
 /**
  * Mendeteksi sistem operasi (Windows, Mac, iOS, Android, Linux) dan browser dari User-Agent
@@ -101,49 +49,9 @@ export function parseUserDevice(userAgent?: string | null): string {
   return browser ? `${os} (${browser})` : os;
 }
 
-// Lokasi penyimpanan file lokal jika berjalan di lingkungan server Node.js
-const DATA_DIR = path.join(process.cwd(), "data");
-const LOG_FILE = path.join(DATA_DIR, "activity-logs.json");
 const MAX_LOGS = 100;
 
-function ensureDirectoryExists(filePath: string) {
-  try {
-    const dir = path.dirname(filePath);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-  } catch {
-    // Abaikan jika read-only
-  }
-}
-
-function loadPersistedLogs(): AuditLogEntry[] {
-  try {
-    if (typeof window === "undefined" && fs.existsSync(LOG_FILE)) {
-      const raw = fs.readFileSync(LOG_FILE, "utf-8");
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
-      }
-    }
-  } catch (err) {
-    console.warn("[AUDIT_LOG] Gagal membaca log persisten:", err);
-  }
-  return [];
-}
-
-function persistLogs(logs: AuditLogEntry[]) {
-  try {
-    if (typeof window === "undefined") {
-      ensureDirectoryExists(LOG_FILE);
-      fs.writeFileSync(LOG_FILE, JSON.stringify(logs.slice(0, MAX_LOGS), null, 2), "utf-8");
-    }
-  } catch (err) {
-    console.warn("[AUDIT_LOG] Gagal menyimpan log persisten:", err);
-  }
-}
-
-// Log awal representatif jika belum ada data sebelumnya
+// Log representatif awal jika server baru dinyalakan
 const DEFAULT_SEED_LOGS: AuditLogEntry[] = [
   {
     id: "seed-log-1",
@@ -180,22 +88,11 @@ const DEFAULT_SEED_LOGS: AuditLogEntry[] = [
   },
 ];
 
-let memoryLogs: AuditLogEntry[] = [];
+// In-Memory Ring Buffer yang persisten di globalThis runtime
+const globalStore = globalThis as unknown as { __wedoraAuditLogs?: AuditLogEntry[] };
 
-function initializeLogs(): AuditLogEntry[] {
-  if (memoryLogs.length > 0) {
-    return memoryLogs;
-  }
-
-  const loaded = loadPersistedLogs();
-  if (loaded.length > 0) {
-    memoryLogs = loaded;
-  } else {
-    memoryLogs = [...DEFAULT_SEED_LOGS];
-    persistLogs(memoryLogs);
-  }
-
-  return memoryLogs;
+if (!globalStore.__wedoraAuditLogs) {
+  globalStore.__wedoraAuditLogs = [...DEFAULT_SEED_LOGS];
 }
 
 export function logSecurityEvent(
@@ -207,8 +104,6 @@ export function logSecurityEvent(
   device?: string,
   details?: Record<string, unknown>
 ): AuditLogEntry {
-  initializeLogs();
-
   const entry: AuditLogEntry = {
     id: `log-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
     timestamp: new Date().toISOString(),
@@ -221,12 +116,14 @@ export function logSecurityEvent(
     details,
   };
 
-  memoryLogs.unshift(entry);
-  if (memoryLogs.length > MAX_LOGS) {
-    memoryLogs.pop();
+  if (!globalStore.__wedoraAuditLogs) {
+    globalStore.__wedoraAuditLogs = [...DEFAULT_SEED_LOGS];
   }
 
-  persistLogs(memoryLogs);
+  globalStore.__wedoraAuditLogs.unshift(entry);
+  if (globalStore.__wedoraAuditLogs.length > MAX_LOGS) {
+    globalStore.__wedoraAuditLogs.pop();
+  }
 
   // Log ke server console untuk observability
   console.log(`[AUDIT_LOG] [${entry.timestamp}] [${event}] ${actor} (${device || "Unknown Device"}): ${description}`);
@@ -235,10 +132,12 @@ export function logSecurityEvent(
 }
 
 export function getRecentAuditLogs(): AuditLogEntry[] {
-  return [...initializeLogs()];
+  if (!globalStore.__wedoraAuditLogs) {
+    globalStore.__wedoraAuditLogs = [...DEFAULT_SEED_LOGS];
+  }
+  return [...globalStore.__wedoraAuditLogs];
 }
 
 export function clearAllAuditLogs(): void {
-  memoryLogs = [];
-  persistLogs(memoryLogs);
+  globalStore.__wedoraAuditLogs = [];
 }
