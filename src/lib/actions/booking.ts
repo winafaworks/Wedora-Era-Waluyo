@@ -2,9 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 import crypto from "crypto";
+import { headers } from "next/headers";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { bookingSchema, BookingInput } from "@/lib/validations/booking";
-import { logSecurityEvent } from "@/lib/security/audit-logger";
+import { logSecurityEvent, parseUserDevice } from "@/lib/security/audit-logger";
+import { getCurrentUser } from "@/lib/actions/auth";
 
 // 1. Ambil atau inisialisasi paket acara
 export async function getPackages() {
@@ -215,6 +217,36 @@ export async function createBooking(input: BookingInput) {
     return { success: false, error: "Gagal menyimpan pesanan ke database: " + error.message };
   }
 
+  // Catat log aktivitas penambahan booking baru
+  try {
+    const user = await getCurrentUser();
+    const actor = user?.email || "admin@erawaluyo.com";
+    const headersList = await headers();
+    const userAgent = headersList.get("user-agent") || "";
+    const clientIp = headersList.get("x-forwarded-for")?.split(",")[0]?.trim() || headersList.get("x-real-ip") || undefined;
+    const device = parseUserDevice(userAgent);
+
+    logSecurityEvent(
+      "BOOKING_CREATED",
+      actor,
+      `Penambahan data booking baru: "${parsed.data.namaPelanggan}" (Tanggal Acara: ${parsed.data.tanggalAcara}, Lokasi: ${parsed.data.lokasi || "Ditentukan kemudian"}, Total Biaya: Rp ${totalBiaya.toLocaleString("id-ID")}).`,
+      "success",
+      clientIp,
+      device,
+      {
+        bookingId: data?.id,
+        customerName: parsed.data.namaPelanggan,
+        actionType: "create",
+        eventDate: parsed.data.tanggalAcara,
+        location: parsed.data.lokasi,
+        totalBiaya,
+        dpNominal: nominalDp,
+      }
+    );
+  } catch (logErr) {
+    console.warn("Gagal mencatat log booking create:", logErr);
+  }
+
   revalidatePath("/dashboard");
   revalidatePath("/booking");
   return { success: true, booking: data };
@@ -272,6 +304,35 @@ export async function updateBooking(id: string, input: BookingInput) {
     return { success: false, error: error.message };
   }
 
+  // Catat log aktivitas edit booking
+  try {
+    const user = await getCurrentUser();
+    const actor = user?.email || "admin@erawaluyo.com";
+    const headersList = await headers();
+    const userAgent = headersList.get("user-agent") || "";
+    const clientIp = headersList.get("x-forwarded-for")?.split(",")[0]?.trim() || headersList.get("x-real-ip") || undefined;
+    const device = parseUserDevice(userAgent);
+
+    logSecurityEvent(
+      "BOOKING_UPDATED",
+      actor,
+      `Pembaruan / edit data booking: "${parsed.data.namaPelanggan}" (Tanggal Acara: ${parsed.data.tanggalAcara}, Lokasi: ${parsed.data.lokasi || "Ditentukan kemudian"}, Total Biaya: Rp ${totalBiaya.toLocaleString("id-ID")}).`,
+      "info",
+      clientIp,
+      device,
+      {
+        bookingId: id,
+        customerName: parsed.data.namaPelanggan,
+        actionType: "update",
+        eventDate: parsed.data.tanggalAcara,
+        totalBiaya,
+        dpNominal: nominalDp,
+      }
+    );
+  } catch (logErr) {
+    console.warn("Gagal mencatat log booking update:", logErr);
+  }
+
   revalidatePath("/dashboard");
   revalidatePath("/booking");
   revalidatePath(`/booking/${id}`);
@@ -287,12 +348,29 @@ export async function deleteBooking(id: string) {
     return { success: false, error: error.message };
   }
 
-  logSecurityEvent(
-    "BOOKING_DELETED",
-    "admin",
-    `Booking ID: ${id} telah dihapus secara permanen dari sistem.`,
-    "danger"
-  );
+  try {
+    const user = await getCurrentUser();
+    const actor = user?.email || "admin@erawaluyo.com";
+    const headersList = await headers();
+    const userAgent = headersList.get("user-agent") || "";
+    const clientIp = headersList.get("x-forwarded-for")?.split(",")[0]?.trim() || headersList.get("x-real-ip") || undefined;
+    const device = parseUserDevice(userAgent);
+
+    logSecurityEvent(
+      "BOOKING_DELETED",
+      actor,
+      `Booking ID: ${id} telah dihapus secara permanen dari sistem.`,
+      "danger",
+      clientIp,
+      device,
+      {
+        bookingId: id,
+        actionType: "delete",
+      }
+    );
+  } catch (logErr) {
+    console.warn("Gagal mencatat log booking delete:", logErr);
+  }
 
   revalidatePath("/dashboard");
   revalidatePath("/booking");

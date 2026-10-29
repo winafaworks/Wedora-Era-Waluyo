@@ -7,7 +7,7 @@ import { getAccountSecurityDetails } from "@/lib/actions/auth";
 export const metadata: Metadata = {
   title: "Pengaturan Sistem | WEDORA Era Waluyo",
   description:
-    "Pengaturan tema antarmuka (mode terang & gelap), template pesan WhatsApp, dan keamanan akun administrator WEDORA.",
+    "Pengaturan tema antarmuka (mode terang & gelap), template pesan WhatsApp, log aktivitas operasional & login, serta keamanan akun administrator WEDORA.",
 };
 
 async function SettingsLoader() {

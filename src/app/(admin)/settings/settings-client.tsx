@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo, useRef, useSyncExternalStore, useEffect } from "react";
+import React, { useState, useMemo, useRef, useSyncExternalStore, useEffect, useCallback } from "react";
 import {
   Sun,
   Moon,
@@ -29,7 +29,6 @@ import {
   Activity,
   FileText,
   RefreshCw,
-  Clock,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -49,6 +48,7 @@ import {
 import { updatePassword, logout } from "@/lib/actions/auth";
 import { fetchAuditLogs } from "@/lib/actions/security";
 import { AuditLogEntry } from "@/lib/security/audit-logger";
+import { ActivityLogTab } from "@/components/settings/activity-log-tab";
 
 export interface SecurityDetails {
   id?: string;
@@ -67,18 +67,18 @@ const emptySubscribe = () => () => {};
 export default function SettingsClient({ initialSecurityDetails }: SettingsClientProps) {
   const { theme, resolvedTheme, setTheme } = useTheme();
 
-  // Ambil initial tab dari URL query jika ada (misal /settings?tab=whatsapp)
-  const initialTab = useSyncExternalStore<"appearance" | "whatsapp" | "security">(
+  // Ambil initial tab dari URL query jika ada (misal /settings?tab=activity)
+  const initialTab = useSyncExternalStore<"appearance" | "whatsapp" | "activity" | "security">(
     emptySubscribe,
     () => {
       const params = new URLSearchParams(window.location.search);
       const tabParam = params.get("tab");
-      return tabParam === "whatsapp" || tabParam === "security" ? tabParam : "appearance";
+      return tabParam === "whatsapp" || tabParam === "activity" || tabParam === "security" ? tabParam : "appearance";
     },
     () => "appearance"
   );
 
-  const [activeTab, setActiveTab] = useState<"appearance" | "whatsapp" | "security">(initialTab);
+  const [activeTab, setActiveTab] = useState<"appearance" | "whatsapp" | "activity" | "security">(initialTab);
   const [density, setDensity] = useState<"comfortable" | "compact">("comfortable");
   const [isResetWaModalOpen, setIsResetWaModalOpen] = useState(false);
 
@@ -120,7 +120,7 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
   const [auditLogs, setAuditLogs] = useState<AuditLogEntry[]>([]);
   const [isLoadingLogs, setIsLoadingLogs] = useState(false);
 
-  const loadAuditLogs = async () => {
+  const loadAuditLogs = useCallback(async () => {
     setIsLoadingLogs(true);
     try {
       const logs = await fetchAuditLogs();
@@ -130,12 +130,22 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
     } finally {
       setIsLoadingLogs(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    if (activeTab === "security") {
-      loadAuditLogs();
+    let isMounted = true;
+    if (activeTab === "activity" || activeTab === "security") {
+      fetchAuditLogs()
+        .then((logs) => {
+          if (isMounted) {
+            setAuditLogs(logs);
+          }
+        })
+        .catch(() => {});
     }
+    return () => {
+      isMounted = false;
+    };
   }, [activeTab]);
 
   const handleLogout = async () => {
@@ -305,6 +315,18 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
         >
           <MessageSquare size={16} />
           <span>Template WhatsApp</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab("activity")}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+            activeTab === "activity"
+              ? "bg-[#EEB100] text-[#111111] shadow-xs"
+              : "text-[#5E5A52] hover:text-[#1A1A1A] hover:bg-[#FAF6ED]"
+          }`}
+        >
+          <Activity size={16} />
+          <span>Log Aktivitas</span>
         </button>
 
         <button
@@ -863,6 +885,17 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
         </div>
       )}
 
+      {/* Tab Content: Log Aktivitas */}
+      {activeTab === "activity" && (
+        <div className="animate-in fade-in duration-200">
+          <ActivityLogTab
+            logs={auditLogs}
+            isLoading={isLoadingLogs}
+            onRefresh={loadAuditLogs}
+          />
+        </div>
+      )}
+
       {/* Tab Content: Keamanan Akun */}
       {activeTab === "security" && (
         <div className="space-y-8 animate-in fade-in duration-200">
@@ -1214,20 +1247,20 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
               </Card>
             </div>
 
-            {/* Log Audit Keamanan */}
-            <div className="lg:col-span-12 space-y-6 pt-2">
-
-              {/* Tabel Log Audit & Jejak Keamanan Terkini */}
-              <Card className="p-6 space-y-4 border-[#E5DEC9] dark:border-[#38342C]">
-                <div className="flex items-center justify-between gap-3 flex-wrap">
-                  <div className="flex items-center gap-2">
-                    <Activity className="text-[#EEB100]" size={18} />
+            {/* Navigasi Cepat & Banner Log Aktivitas */}
+            <div className="lg:col-span-12 pt-2">
+              <Card className="p-5 border-[#E5DEC9] dark:border-[#38342C] bg-gradient-to-r from-[#FAF6ED] via-[#FFFFFF] to-[#FAF6ED] dark:from-[#252525] dark:via-[#1E1E1E] dark:to-[#252525]">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-[#EEB100]/15 text-[#EEB100]">
+                      <Activity size={20} />
+                    </div>
                     <div>
-                      <h4 className="font-sans text-base font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
-                        Audit Trail & Log Keamanan Terkini
+                      <h4 className="font-sans text-sm font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                        Audit Trail & Log Aktivitas Sistem
                       </h4>
-                      <p className="text-xs text-[#5E5A52] dark:text-[#A8A296]">
-                        Catatan aktivitas otentikasi dan aksi kritis administrator.
+                      <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] mt-0.5">
+                        Jejak lengkap aktivitas login, penambahan data booking terbaru, dan edit pesanan telah dipusatkan pada tab Log Aktivitas.
                       </p>
                     </div>
                   </div>
@@ -1235,84 +1268,18 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
                   <Button
                     type="button"
                     variant="outline"
-                    size="sm"
-                    onClick={loadAuditLogs}
-                    disabled={isLoadingLogs}
-                    className="text-xs gap-1.5 h-8 border-[#E5DEC9] dark:border-[#38342C] text-[#5E5A52] dark:text-[#A8A296] cursor-pointer"
+                    onClick={() => setActiveTab("activity")}
+                    className="text-xs gap-1.5 h-8 border-[#EEB100] text-[#1A1A1A] dark:text-[#EEB100] hover:bg-[#EEB100]/10 cursor-pointer font-semibold shrink-0"
                   >
-                    <RefreshCw size={12} className={isLoadingLogs ? "animate-spin" : ""} />
-                    <span>Segarkan Log</span>
+                    <span>Buka Log Aktivitas</span>
+                    <ExternalLink size={12} />
                   </Button>
-                </div>
-
-                <div className="divide-y divide-[#E5DEC9] dark:divide-[#38342C] border border-[#E5DEC9] dark:border-[#38342C] rounded-xl overflow-hidden bg-[#FFFFFF] dark:bg-[#1E1E1E]">
-                  {auditLogs.length === 0 ? (
-                    <div className="p-6 text-center text-xs text-[#8A857B]">
-                      Belum ada peristiwa keamanan yang tercatat pada sesi saat ini.
-                    </div>
-                  ) : (
-                    auditLogs.map((log) => {
-                      const badgeStyle = {
-                        success: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] border-[#2F7A4B]/30",
-                        warning: "bg-[#EEB100]/20 text-[#1A1A1A] dark:text-[#EEB100] border-[#EEB100]/40",
-                        danger: "bg-[#B13C30]/15 text-[#B13C30] dark:text-[#F87171] border-[#B13C30]/30",
-                        info: "bg-[rgba(46,95,138,0.15)] text-[#2E5F8A] dark:text-[#93C5FD] border-[rgba(46,95,138,0.3)]",
-                      }[log.status];
-
-                      return (
-                        <div key={log.id} className="p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-[#FAF7F0] dark:hover:bg-[#252525] transition-colors">
-                          <div className="flex items-start sm:items-center gap-3 min-w-0">
-                            <span className={`px-2 py-0.5 text-[10px] font-bold rounded-full border shrink-0 ${badgeStyle}`}>
-                              {log.event}
-                            </span>
-                            <div className="min-w-0">
-                              <p className="text-xs font-medium text-[#1A1A1A] dark:text-[#F5EDDC] truncate">
-                                {log.description}
-                              </p>
-                              <div className="flex items-center gap-2 flex-wrap text-[11px] text-[#8A857B] dark:text-[#7A756D] mt-0.5">
-                                <span>
-                                  Aktor: <span className="font-semibold">{log.actor}</span>
-                                </span>
-                                {log.device && (
-                                  <>
-                                    <span>•</span>
-                                    <span className="inline-flex items-center gap-1.5 text-[#5E5A52] dark:text-[#C5BEB0]">
-                                      {log.device.toLowerCase().includes("android") || log.device.toLowerCase().includes("ios") || log.device.toLowerCase().includes("iphone") ? (
-                                        <Smartphone size={12} className="text-[#8A857B] shrink-0" />
-                                      ) : (
-                                        <Laptop size={12} className="text-[#8A857B] shrink-0" />
-                                      )}
-                                      <span>
-                                        Perangkat:{" "}
-                                        <span className="font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
-                                          {log.device}
-                                        </span>
-                                      </span>
-                                    </span>
-                                  </>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="text-[11px] text-[#8A857B] font-mono shrink-0 sm:text-right">
-                            {new Date(log.timestamp).toLocaleString("id-ID", {
-                              day: "numeric",
-                              month: "short",
-                              hour: "2-digit",
-                              minute: "2-digit",
-                              second: "2-digit",
-                            })}
-                          </div>
-                        </div>
-                      );
-                    })
-                  )}
                 </div>
               </Card>
             </div>
           </div>
         </div>
+
       )}
 
       <ConfirmModal
