@@ -39,64 +39,64 @@ function getEventMeta(event: SecurityEventType) {
       return {
         label: "Login Berhasil",
         icon: LogIn,
-        badgeClass: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] border-[#2F7A4B]/30",
-        iconBgClass: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B]",
+        badgeClass: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:bg-emerald-500/20 dark:text-emerald-300 border-[#2F7A4B]/30 dark:border-emerald-500/40",
+        iconBgClass: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:bg-emerald-500/20 dark:text-emerald-300",
       };
     case "LOGIN_FAILED":
       return {
         label: "Login Gagal",
         icon: ShieldAlert,
-        badgeClass: "bg-[#B13C30]/15 text-[#B13C30] dark:text-[#F87171] border-[#B13C30]/30",
-        iconBgClass: "bg-[#B13C30]/15 text-[#B13C30] dark:text-[#F87171]",
+        badgeClass: "bg-[#B13C30]/15 text-[#B13C30] dark:bg-rose-500/20 dark:text-rose-300 border-[#B13C30]/30 dark:border-rose-500/40",
+        iconBgClass: "bg-[#B13C30]/15 text-[#B13C30] dark:bg-rose-500/20 dark:text-rose-300",
       };
     case "LOGOUT":
       return {
         label: "Logout",
         icon: LogOut,
-        badgeClass: "bg-[#8A857B]/15 text-[#5E5A52] dark:text-[#A8A296] border-[#8A857B]/30",
-        iconBgClass: "bg-[#8A857B]/15 text-[#5E5A52] dark:text-[#A8A296]",
+        badgeClass: "bg-[#8A857B]/15 text-[#5E5A52] dark:bg-zinc-700/40 dark:text-zinc-300 border-[#8A857B]/30 dark:border-zinc-600/50",
+        iconBgClass: "bg-[#8A857B]/15 text-[#5E5A52] dark:bg-zinc-700/40 dark:text-zinc-300",
       };
     case "BOOKING_CREATED":
       return {
         label: "Booking Baru",
         icon: CalendarPlus,
-        badgeClass: "bg-[#EEB100]/20 text-[#8B6500] dark:text-[#EEB100] border-[#EEB100]/40",
-        iconBgClass: "bg-[#EEB100]/20 text-[#EEB100]",
+        badgeClass: "bg-[#EEB100]/20 text-[#8B6500] dark:bg-[#EEB100]/25 dark:text-[#FFD868] border-[#EEB100]/40 dark:border-[#EEB100]/50",
+        iconBgClass: "bg-[#EEB100]/20 text-[#8B6500] dark:bg-[#EEB100]/25 dark:text-[#FFD868]",
       };
     case "BOOKING_UPDATED":
       return {
         label: "Edit Booking",
         icon: FileEdit,
-        badgeClass: "bg-[rgba(46,95,138,0.15)] text-[#2E5F8A] dark:text-[#93C5FD] border-[rgba(46,95,138,0.3)]",
-        iconBgClass: "bg-[rgba(46,95,138,0.15)] text-[#2E5F8A] dark:text-[#93C5FD]",
+        badgeClass: "bg-[rgba(46,95,138,0.15)] text-[#2E5F8A] dark:bg-sky-500/20 dark:text-sky-300 border-[rgba(46,95,138,0.3)] dark:border-sky-500/40",
+        iconBgClass: "bg-[rgba(46,95,138,0.15)] text-[#2E5F8A] dark:bg-sky-500/20 dark:text-sky-300",
       };
     case "BOOKING_DELETED":
       return {
         label: "Hapus Booking",
         icon: Trash2,
-        badgeClass: "bg-[#B13C30]/15 text-[#B13C30] dark:text-[#F87171] border-[#B13C30]/30",
-        iconBgClass: "bg-[#B13C30]/15 text-[#B13C30] dark:text-[#F87171]",
+        badgeClass: "bg-[#B13C30]/15 text-[#B13C30] dark:bg-rose-500/20 dark:text-rose-300 border-[#B13C30]/30 dark:border-rose-500/40",
+        iconBgClass: "bg-[#B13C30]/15 text-[#B13C30] dark:bg-rose-500/20 dark:text-rose-300",
       };
     case "BOOKING_CONFIRMED":
       return {
         label: "Konfirmasi Acara",
         icon: ShieldCheck,
-        badgeClass: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] border-[#2F7A4B]/30",
-        iconBgClass: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B]",
+        badgeClass: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:bg-emerald-500/20 dark:text-emerald-300 border-[#2F7A4B]/30 dark:border-emerald-500/40",
+        iconBgClass: "bg-[#2F7A4B]/15 text-[#2F7A4B] dark:bg-emerald-500/20 dark:text-emerald-300",
       };
     case "PASSWORD_CHANGED":
       return {
         label: "Ubah Sandi",
         icon: Key,
-        badgeClass: "bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30",
-        iconBgClass: "bg-purple-500/15 text-purple-600 dark:text-purple-300",
+        badgeClass: "bg-purple-500/15 text-purple-700 dark:bg-purple-500/20 dark:text-purple-300 border-purple-500/30 dark:border-purple-500/40",
+        iconBgClass: "bg-purple-500/15 text-purple-600 dark:bg-purple-500/20 dark:text-purple-300",
       };
     default:
       return {
         label: event.replace(/_/g, " "),
         icon: Activity,
-        badgeClass: "bg-[#8A857B]/15 text-[#5E5A52] dark:text-[#A8A296] border-[#8A857B]/30",
-        iconBgClass: "bg-[#8A857B]/15 text-[#5E5A52] dark:text-[#A8A296]",
+        badgeClass: "bg-[#8A857B]/15 text-[#5E5A52] dark:bg-zinc-700/40 dark:text-zinc-300 border-[#8A857B]/30 dark:border-zinc-600/50",
+        iconBgClass: "bg-[#8A857B]/15 text-[#5E5A52] dark:bg-zinc-700/40 dark:text-zinc-300",
       };
   }
 }
@@ -224,16 +224,16 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
   return (
     <div className="space-y-6">
       {/* 1. Header Banner Selaras dengan Tab WhatsApp & Keamanan */}
-      <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#FAF6ED] via-[#FFFFFF] to-[#FAF6ED] dark:from-[#252525] dark:via-[#1E1E1E] dark:to-[#252525] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#FAF6ED] via-[#FFFFFF] to-[#FAF6ED] dark:from-[#222222] dark:via-[#1B1B1B] dark:to-[#222222] border border-[#E5DEC9] dark:border-[#3E3A32] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3.5">
           <div className="w-11 h-11 rounded-xl bg-[#EEB100] text-[#111111] flex items-center justify-center shrink-0 shadow-sm font-bold">
             <Activity size={22} className="stroke-[2.5]" />
           </div>
           <div>
-            <h2 className="font-sans text-base sm:text-lg font-bold text-[#1A1A1A] dark:text-[#F5EDDC]">
+            <h2 className="font-sans text-base sm:text-lg font-bold text-[#1A1A1A] dark:text-[#FDFBF7]">
               Log Aktivitas Sistem & Pengguna
             </h2>
-            <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] mt-0.5">
+            <p className="text-xs text-[#5E5A52] dark:text-[#C5BFB2] mt-0.5">
               Rekam jejak real-time aktivitas login administrator, penambahan data booking baru, dan edit pesanan.
             </p>
           </div>
@@ -246,7 +246,7 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
             size="sm"
             onClick={onRefresh}
             disabled={isLoading}
-            className="flex-1 sm:flex-initial text-xs gap-2 h-9 border-[#E5DEC9] dark:border-[#38342C] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] cursor-pointer"
+            className="flex-1 sm:flex-initial text-xs gap-2 h-9 border-[#E5DEC9] dark:border-[#443F35] bg-[#FFFFFF] dark:bg-[#252525] text-[#5E5A52] dark:text-[#DCD6C8] hover:text-[#1A1A1A] dark:hover:text-[#FFFFFF] dark:hover:border-[#EEB100]/60 cursor-pointer"
           >
             <RefreshCw size={13} className={isLoading ? "animate-spin" : ""} />
             <span>Segarkan</span>
@@ -258,7 +258,7 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
             size="sm"
             onClick={handleExportJson}
             disabled={filteredLogs.length === 0}
-            className="flex-1 sm:flex-initial text-xs gap-2 h-9 border-[#E5DEC9] dark:border-[#38342C] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] cursor-pointer"
+            className="flex-1 sm:flex-initial text-xs gap-2 h-9 border-[#E5DEC9] dark:border-[#443F35] bg-[#FFFFFF] dark:bg-[#252525] text-[#5E5A52] dark:text-[#DCD6C8] hover:text-[#1A1A1A] dark:hover:text-[#FFFFFF] dark:hover:border-[#EEB100]/60 cursor-pointer"
           >
             <Download size={13} />
             <span>Ekspor Log</span>
@@ -273,23 +273,23 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
           onClick={() => setSelectedCategory("all")}
           className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
             selectedCategory === "all"
-              ? "bg-[#EEB100]/10 dark:bg-[#EEB100]/15 border-[#EEB100] shadow-xs"
-              : "bg-[#FFFFFF] dark:bg-[#1E1E1E] border-[#E5DEC9] dark:border-[#38342C] hover:border-[#EEB100]/50"
+              ? "bg-[#EEB100]/10 dark:bg-[#EEB100]/20 border-[#EEB100] shadow-sm ring-1 ring-[#EEB100]/50"
+              : "bg-[#FFFFFF] dark:bg-[#1E1E1E] border-[#E5DEC9] dark:border-[#3D382F] hover:border-[#EEB100]/50 dark:hover:border-[#EEB100]/60"
           }`}
         >
           <div className="flex items-center justify-between gap-2">
-            <span className="text-xs sm:text-sm font-semibold text-[#5E5A52] dark:text-[#A8A296]">
+            <span className="text-xs sm:text-sm font-semibold text-[#5E5A52] dark:text-[#DCD6C8]">
               Total Aktivitas
             </span>
-            <div className="w-8 h-8 rounded-xl bg-[#EEB100]/15 text-[#EEB100] flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-[#EEB100]/15 dark:bg-[#EEB100]/25 text-[#D49B00] dark:text-[#FFD868] flex items-center justify-center shrink-0">
               <CalendarDays size={16} />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl sm:text-3xl font-bold font-sans text-[#1A1A1A] dark:text-[#F5EDDC] tracking-tight">
+            <div className="text-2xl sm:text-3xl font-bold font-sans text-[#1A1A1A] dark:text-[#FFFFFF] tracking-tight">
               {stats.total}
             </div>
-            <p className="text-[11px] text-[#8A857B] dark:text-[#888888] mt-0.5">Semua riwayat tercatat</p>
+            <p className="text-[11px] text-[#7A756D] dark:text-[#B5AFA4] mt-0.5 font-medium">Semua riwayat tercatat</p>
           </div>
         </div>
 
@@ -298,23 +298,23 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
           onClick={() => setSelectedCategory("auth")}
           className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
             selectedCategory === "auth"
-              ? "bg-[#2F7A4B]/10 dark:bg-[#2F7A4B]/15 border-[#2F7A4B] shadow-xs"
-              : "bg-[#FFFFFF] dark:bg-[#1E1E1E] border-[#E5DEC9] dark:border-[#38342C] hover:border-[#2F7A4B]/50"
+              ? "bg-[#2F7A4B]/10 dark:bg-[#2F7A4B]/25 border-[#2F7A4B] dark:border-emerald-500 shadow-sm ring-1 ring-emerald-500/40"
+              : "bg-[#FFFFFF] dark:bg-[#1E1E1E] border-[#E5DEC9] dark:border-[#3D382F] hover:border-[#2F7A4B]/50 dark:hover:border-emerald-500/50"
           }`}
         >
           <div className="flex items-center justify-between gap-2">
-            <span className="text-xs sm:text-sm font-semibold text-[#5E5A52] dark:text-[#A8A296]">
+            <span className="text-xs sm:text-sm font-semibold text-[#5E5A52] dark:text-[#DCD6C8]">
               Aktivitas Login
             </span>
-            <div className="w-8 h-8 rounded-xl bg-[#2F7A4B]/15 text-[#2F7A4B] dark:text-[#7FD39B] flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-[#2F7A4B]/15 dark:bg-emerald-500/25 text-[#2F7A4B] dark:text-emerald-300 flex items-center justify-center shrink-0">
               <LogIn size={16} />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl sm:text-3xl font-bold font-sans text-[#2F7A4B] dark:text-[#7FD39B] tracking-tight">
+            <div className="text-2xl sm:text-3xl font-bold font-sans text-[#2F7A4B] dark:text-[#6EE7B7] tracking-tight">
               {stats.auth}
             </div>
-            <p className="text-[11px] text-[#8A857B] dark:text-[#888888] mt-0.5">Sesi masuk admin</p>
+            <p className="text-[11px] text-[#7A756D] dark:text-[#B5AFA4] mt-0.5 font-medium">Sesi masuk admin</p>
           </div>
         </div>
 
@@ -323,23 +323,23 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
           onClick={() => setSelectedCategory("booking_add")}
           className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
             selectedCategory === "booking_add"
-              ? "bg-[#EEB100]/10 dark:bg-[#EEB100]/15 border-[#EEB100] shadow-xs"
-              : "bg-[#FFFFFF] dark:bg-[#1E1E1E] border-[#E5DEC9] dark:border-[#38342C] hover:border-[#EEB100]/50"
+              ? "bg-[#EEB100]/10 dark:bg-[#EEB100]/20 border-[#EEB100] shadow-sm ring-1 ring-[#EEB100]/50"
+              : "bg-[#FFFFFF] dark:bg-[#1E1E1E] border-[#E5DEC9] dark:border-[#3D382F] hover:border-[#EEB100]/50 dark:hover:border-[#EEB100]/60"
           }`}
         >
           <div className="flex items-center justify-between gap-2">
-            <span className="text-xs sm:text-sm font-semibold text-[#5E5A52] dark:text-[#A8A296]">
+            <span className="text-xs sm:text-sm font-semibold text-[#5E5A52] dark:text-[#DCD6C8]">
               Penambahan Booking
             </span>
-            <div className="w-8 h-8 rounded-xl bg-[#EEB100]/15 text-[#EEB100] flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-[#EEB100]/15 dark:bg-[#EEB100]/25 text-[#D49B00] dark:text-[#FFD868] flex items-center justify-center shrink-0">
               <CalendarPlus size={16} />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl sm:text-3xl font-bold font-sans text-[#EEB100] tracking-tight">
+            <div className="text-2xl sm:text-3xl font-bold font-sans text-[#D49B00] dark:text-[#FFD868] tracking-tight">
               {stats.create}
             </div>
-            <p className="text-[11px] text-[#8A857B] dark:text-[#888888] mt-0.5">Pesanan baru dibuat</p>
+            <p className="text-[11px] text-[#7A756D] dark:text-[#B5AFA4] mt-0.5 font-medium">Pesanan baru dibuat</p>
           </div>
         </div>
 
@@ -348,29 +348,29 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
           onClick={() => setSelectedCategory("booking_edit")}
           className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
             selectedCategory === "booking_edit"
-              ? "bg-[rgba(46,95,138,0.12)] border-[#2E5F8A] shadow-xs"
-              : "bg-[#FFFFFF] dark:bg-[#1E1E1E] border-[#E5DEC9] dark:border-[#38342C] hover:border-[#2E5F8A]/50"
+              ? "bg-[rgba(46,95,138,0.12)] dark:bg-sky-500/20 border-[#2E5F8A] dark:border-sky-400 shadow-sm ring-1 ring-sky-400/40"
+              : "bg-[#FFFFFF] dark:bg-[#1E1E1E] border-[#E5DEC9] dark:border-[#3D382F] hover:border-[#2E5F8A]/50 dark:hover:border-sky-400/50"
           }`}
         >
           <div className="flex items-center justify-between gap-2">
-            <span className="text-xs sm:text-sm font-semibold text-[#5E5A52] dark:text-[#A8A296]">
+            <span className="text-xs sm:text-sm font-semibold text-[#5E5A52] dark:text-[#DCD6C8]">
               Edit Data Booking
             </span>
-            <div className="w-8 h-8 rounded-xl bg-[rgba(46,95,138,0.15)] text-[#2E5F8A] dark:text-[#93C5FD] flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-[rgba(46,95,138,0.15)] dark:bg-sky-500/25 text-[#2E5F8A] dark:text-sky-300 flex items-center justify-center shrink-0">
               <FileEdit size={16} />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl sm:text-3xl font-bold font-sans text-[#2E5F8A] dark:text-[#93C5FD] tracking-tight">
+            <div className="text-2xl sm:text-3xl font-bold font-sans text-[#2E5F8A] dark:text-[#7DD3FC] tracking-tight">
               {stats.edit}
             </div>
-            <p className="text-[11px] text-[#8A857B] dark:text-[#888888] mt-0.5">Pembaruan & edit data</p>
+            <p className="text-[11px] text-[#7A756D] dark:text-[#B5AFA4] mt-0.5 font-medium">Pembaruan & edit data</p>
           </div>
         </div>
       </div>
 
       {/* 3. Filter Bar & Pencarian */}
-      <div className="p-4 sm:p-5 rounded-2xl bg-[#FFFFFF] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#38342C] shadow-xs space-y-3.5">
+      <div className="p-4 sm:p-5 rounded-2xl bg-[#FFFFFF] dark:bg-[#1E1E1E] border border-[#E5DEC9] dark:border-[#3D382F] shadow-xs space-y-3.5">
         {/* Pills Kategori */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
           <button
@@ -378,8 +378,8 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
             onClick={() => setSelectedCategory("all")}
             className={`px-3.5 py-2 rounded-xl text-xs font-semibold shrink-0 transition-all cursor-pointer flex items-center gap-2 ${
               selectedCategory === "all"
-                ? "bg-[#EEB100] text-[#111111] shadow-xs"
-                : "bg-[#FAF7F0] dark:bg-[#252525] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] border border-[#E5DEC9] dark:border-[#38342C]"
+                ? "bg-[#EEB100] text-[#111111] font-bold shadow-sm"
+                : "bg-[#FAF7F0] dark:bg-[#262626] text-[#5E5A52] dark:text-[#DDD7CB] hover:text-[#1A1A1A] dark:hover:text-[#FFFFFF] border border-[#E5DEC9] dark:border-[#423C32] hover:dark:border-[#EEB100]/50 hover:dark:bg-[#2D2D2D]"
             }`}
           >
             <span>Semua Aktivitas</span>
@@ -387,7 +387,7 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
               className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
                 selectedCategory === "all"
                   ? "bg-black/15 text-[#111111]"
-                  : "bg-[#E5DEC9] dark:bg-[#38342C] text-[#5E5A52] dark:text-[#A8A296]"
+                  : "bg-[#E5DEC9] dark:bg-[#3A352B] text-[#5E5A52] dark:text-[#EDE8DE]"
               }`}
             >
               {stats.total}
@@ -399,8 +399,8 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
             onClick={() => setSelectedCategory("auth")}
             className={`px-3.5 py-2 rounded-xl text-xs font-semibold shrink-0 transition-all cursor-pointer flex items-center gap-2 ${
               selectedCategory === "auth"
-                ? "bg-[#2F7A4B] text-white shadow-xs"
-                : "bg-[#FAF7F0] dark:bg-[#252525] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] border border-[#E5DEC9] dark:border-[#38342C]"
+                ? "bg-[#2F7A4B] dark:bg-[#1E824C] text-white font-bold shadow-sm"
+                : "bg-[#FAF7F0] dark:bg-[#262626] text-[#5E5A52] dark:text-[#DDD7CB] hover:text-[#1A1A1A] dark:hover:text-[#FFFFFF] border border-[#E5DEC9] dark:border-[#423C32] hover:dark:border-emerald-500/50 hover:dark:bg-[#2D2D2D]"
             }`}
           >
             <LogIn size={14} />
@@ -409,7 +409,7 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
               className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
                 selectedCategory === "auth"
                   ? "bg-white/20 text-white"
-                  : "bg-[#E5DEC9] dark:bg-[#38342C] text-[#5E5A52] dark:text-[#A8A296]"
+                  : "bg-[#E5DEC9] dark:bg-[#3A352B] text-[#5E5A52] dark:text-[#EDE8DE]"
               }`}
             >
               {stats.auth}
@@ -421,8 +421,8 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
             onClick={() => setSelectedCategory("booking_add")}
             className={`px-3.5 py-2 rounded-xl text-xs font-semibold shrink-0 transition-all cursor-pointer flex items-center gap-2 ${
               selectedCategory === "booking_add"
-                ? "bg-[#EEB100] text-[#111111] shadow-xs"
-                : "bg-[#FAF7F0] dark:bg-[#252525] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] border border-[#E5DEC9] dark:border-[#38342C]"
+                ? "bg-[#EEB100] text-[#111111] font-bold shadow-sm"
+                : "bg-[#FAF7F0] dark:bg-[#262626] text-[#5E5A52] dark:text-[#DDD7CB] hover:text-[#1A1A1A] dark:hover:text-[#FFFFFF] border border-[#E5DEC9] dark:border-[#423C32] hover:dark:border-[#EEB100]/50 hover:dark:bg-[#2D2D2D]"
             }`}
           >
             <CalendarPlus size={14} />
@@ -431,7 +431,7 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
               className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
                 selectedCategory === "booking_add"
                   ? "bg-black/15 text-[#111111]"
-                  : "bg-[#E5DEC9] dark:bg-[#38342C] text-[#5E5A52] dark:text-[#A8A296]"
+                  : "bg-[#E5DEC9] dark:bg-[#3A352B] text-[#5E5A52] dark:text-[#EDE8DE]"
               }`}
             >
               {stats.create}
@@ -443,8 +443,8 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
             onClick={() => setSelectedCategory("booking_edit")}
             className={`px-3.5 py-2 rounded-xl text-xs font-semibold shrink-0 transition-all cursor-pointer flex items-center gap-2 ${
               selectedCategory === "booking_edit"
-                ? "bg-[#2E5F8A] text-white shadow-xs"
-                : "bg-[#FAF7F0] dark:bg-[#252525] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] border border-[#E5DEC9] dark:border-[#38342C]"
+                ? "bg-[#2E5F8A] dark:bg-[#2563EB] text-white font-bold shadow-sm"
+                : "bg-[#FAF7F0] dark:bg-[#262626] text-[#5E5A52] dark:text-[#DDD7CB] hover:text-[#1A1A1A] dark:hover:text-[#FFFFFF] border border-[#E5DEC9] dark:border-[#423C32] hover:dark:border-sky-500/50 hover:dark:bg-[#2D2D2D]"
             }`}
           >
             <FileEdit size={14} />
@@ -453,7 +453,7 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
               className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
                 selectedCategory === "booking_edit"
                   ? "bg-white/20 text-white"
-                  : "bg-[#E5DEC9] dark:bg-[#38342C] text-[#5E5A52] dark:text-[#A8A296]"
+                  : "bg-[#E5DEC9] dark:bg-[#3A352B] text-[#5E5A52] dark:text-[#EDE8DE]"
               }`}
             >
               {stats.edit}
@@ -464,19 +464,19 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
         {/* Input Pencarian & Dropdown Status */}
         <div className="flex flex-col sm:flex-row items-center gap-3 pt-1">
           <div className="relative flex-1 w-full">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8A857B]" size={15} />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7A756D] dark:text-[#B5AFA4]" size={15} />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari pengantin, email admin, atau detail aktivitas..."
-              className="w-full pl-10 pr-9 py-2.5 text-xs sm:text-sm rounded-xl border border-[#E5DEC9] dark:border-[#38342C] bg-[#FAF7F0] dark:bg-[#252525] text-[#1A1A1A] dark:text-[#F5EDDC] placeholder:text-[#8A857B] focus:outline-hidden focus:ring-2 focus:ring-[#EEB100]/40 focus:border-[#EEB100] transition-all"
+              className="w-full pl-10 pr-9 py-2.5 text-xs sm:text-sm rounded-xl border border-[#E5DEC9] dark:border-[#423C32] bg-[#FAF7F0] dark:bg-[#242424] text-[#1A1A1A] dark:text-[#FFFFFF] placeholder:text-[#8A857B] dark:placeholder:text-[#9E988C] focus:outline-hidden focus:ring-2 focus:ring-[#EEB100]/40 focus:border-[#EEB100] transition-all"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8A857B] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] p-1 cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7A756D] dark:text-[#B5AFA4] hover:text-[#1A1A1A] dark:hover:text-[#FFFFFF] p-1 cursor-pointer"
               >
                 <X size={14} />
               </button>
@@ -487,7 +487,7 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full sm:w-auto px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-[#E5DEC9] dark:border-[#38342C] bg-[#FAF7F0] dark:bg-[#252525] text-[#1A1A1A] dark:text-[#F5EDDC] focus:outline-hidden focus:ring-2 focus:ring-[#EEB100]/40 focus:border-[#EEB100] cursor-pointer"
+              className="w-full sm:w-auto px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-[#E5DEC9] dark:border-[#423C32] bg-[#FAF7F0] dark:bg-[#242424] text-[#1A1A1A] dark:text-[#FFFFFF] focus:outline-hidden focus:ring-2 focus:ring-[#EEB100]/40 focus:border-[#EEB100] cursor-pointer"
             >
               <option value="all">Semua Status</option>
               <option value="success">Sukses (Success)</option>
@@ -500,17 +500,17 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
       </div>
 
       {/* 4. Daftar Baris Log Aktivitas */}
-      <div className="rounded-2xl border border-[#E5DEC9] dark:border-[#38342C] overflow-hidden bg-[#FFFFFF] dark:bg-[#1E1E1E] shadow-xs">
+      <div className="rounded-2xl border border-[#E5DEC9] dark:border-[#383329] overflow-hidden bg-[#FFFFFF] dark:bg-[#1C1C1C] shadow-xs">
         {filteredLogs.length === 0 ? (
           <div className="p-12 text-center space-y-3">
-            <div className="w-12 h-12 mx-auto rounded-full bg-[#FAF6ED] dark:bg-[#252525] flex items-center justify-center text-[#8A857B]">
+            <div className="w-12 h-12 mx-auto rounded-full bg-[#FAF6ED] dark:bg-[#262626] flex items-center justify-center text-[#7A756D] dark:text-[#B5AFA4]">
               <Search size={22} />
             </div>
             <div>
-              <p className="text-sm font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
+              <p className="text-sm font-semibold text-[#1A1A1A] dark:text-[#FFFFFF]">
                 Tidak ada riwayat yang sesuai filter
               </p>
-              <p className="text-xs text-[#8A857B] mt-0.5">
+              <p className="text-xs text-[#7A756D] dark:text-[#B5AFA4] mt-0.5">
                 {searchQuery || statusFilter !== "all" || selectedCategory !== "all"
                   ? "Coba gunakan kata kunci pencarian lain atau bersihkan filter."
                   : "Belum ada riwayat aktivitas yang tercatat pada sistem."}
@@ -526,14 +526,14 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
                   setStatusFilter("all");
                   setSelectedCategory("all");
                 }}
-                className="text-xs h-8 border-[#E5DEC9] dark:border-[#38342C] cursor-pointer"
+                className="text-xs h-8 border-[#E5DEC9] dark:border-[#423C32] bg-[#FFFFFF] dark:bg-[#262626] text-[#5E5A52] dark:text-[#DDD7CB] cursor-pointer"
               >
                 Reset Filter
               </Button>
             )}
           </div>
         ) : (
-          <div className="divide-y divide-[#E5DEC9] dark:divide-[#38342C]">
+          <div className="divide-y divide-[#E5DEC9] dark:divide-[#2E2A22]">
             {displayedLogs.map((log) => {
               const meta = getEventMeta(log.event);
               const IconComp = meta.icon;
@@ -547,7 +547,7 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
               return (
                 <div
                   key={log.id}
-                  className="p-4 sm:p-4.5 hover:bg-[#FAF7F0] dark:hover:bg-[#252525]/60 transition-colors"
+                  className="p-4 sm:p-4.5 hover:bg-[#FAF7F0] dark:hover:bg-[#252525]/80 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-3.5 flex-wrap sm:flex-nowrap">
                     {/* Icon & Rincian Deskripsi */}
@@ -563,19 +563,19 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
                           >
                             {meta.label}
                           </span>
-                          <span className="text-xs sm:text-sm font-semibold text-[#1A1A1A] dark:text-[#F5EDDC] leading-snug">
+                          <span className="text-xs sm:text-sm font-semibold text-[#1A1A1A] dark:text-[#FFFFFF] leading-snug">
                             {log.description}
                           </span>
                         </div>
 
                         {/* Metadata Baris (Aktor, Perangkat, IP) */}
-                        <div className="flex items-center gap-3 flex-wrap text-[11px] text-[#8A857B] dark:text-[#A8A296]">
+                        <div className="flex items-center gap-3 flex-wrap text-[11px] text-[#7A756D] dark:text-[#B5AFA4]">
                           {/* Aktor */}
                           <div className="inline-flex items-center gap-1.5">
-                            <User size={12} className="text-[#EEB100]" />
+                            <User size={12} className="text-[#D49B00] dark:text-[#FFD868]" />
                             <span>
                               Aktor:{" "}
-                              <span className="font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                              <span className="font-semibold text-[#1A1A1A] dark:text-[#FFFFFF]">
                                 {log.actor}
                               </span>
                             </span>
@@ -584,16 +584,16 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
                           {/* Perangkat */}
                           {log.device && (
                             <>
-                              <span>•</span>
+                              <span className="text-[#8A857B] dark:text-[#6B655B]">•</span>
                               <div className="inline-flex items-center gap-1.5">
                                 {isMobileDevice ? (
-                                  <Smartphone size={12} className="text-[#8A857B]" />
+                                  <Smartphone size={12} className="text-[#7A756D] dark:text-[#B5AFA4]" />
                                 ) : (
-                                  <Laptop size={12} className="text-[#8A857B]" />
+                                  <Laptop size={12} className="text-[#7A756D] dark:text-[#B5AFA4]" />
                                 )}
                                 <span>
                                   Perangkat:{" "}
-                                  <span className="font-medium text-[#1A1A1A] dark:text-[#F5EDDC]">
+                                  <span className="font-medium text-[#1A1A1A] dark:text-[#EDE6D8]">
                                     {log.device}
                                   </span>
                                 </span>
@@ -604,10 +604,15 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
                           {/* IP Address */}
                           {log.ip && (
                             <>
-                              <span>•</span>
+                              <span className="text-[#8A857B] dark:text-[#6B655B]">•</span>
                               <div className="inline-flex items-center gap-1 font-mono text-[10px]">
-                                <Globe size={11} className="text-[#8A857B]" />
-                                <span>IP: {log.ip}</span>
+                                <Globe size={11} className="text-[#7A756D] dark:text-[#B5AFA4]" />
+                                <span>
+                                  IP:{" "}
+                                  <span className="font-medium text-[#1A1A1A] dark:text-[#DDD7CA]">
+                                    {log.ip}
+                                  </span>
+                                </span>
                               </div>
                             </>
                           )}
@@ -615,14 +620,14 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
 
                         {/* Parameter Detail Jika Diperluas */}
                         {isExpanded && log.details && (
-                          <div className="mt-2.5 p-3 rounded-xl bg-[#FAF6ED] dark:bg-[#252525] border border-[#E5DEC9] dark:border-[#38342C] text-xs space-y-1.5 font-mono">
-                            <div className="font-sans font-semibold text-[11px] text-[#5E5A52] dark:text-[#A8A296] uppercase tracking-wider mb-1">
+                          <div className="mt-2.5 p-3 rounded-xl bg-[#FAF6ED] dark:bg-[#242424] border border-[#E5DEC9] dark:border-[#3D382F] text-xs space-y-1.5 font-mono">
+                            <div className="font-sans font-semibold text-[11px] text-[#5E5A52] dark:text-[#DCD6C8] uppercase tracking-wider mb-1">
                               Rincian Parameter Event
                             </div>
                             {Object.entries(log.details).map(([key, val]) => (
                               <div key={key} className="flex items-center gap-2 text-[11px]">
-                                <span className="text-[#8A857B]">{key}:</span>
-                                <span className="font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
+                                <span className="text-[#7A756D] dark:text-[#B5AFA4]">{key}:</span>
+                                <span className="font-semibold text-[#1A1A1A] dark:text-[#FFFFFF]">
                                   {typeof val === "object" ? JSON.stringify(val) : String(val)}
                                 </span>
                               </div>
@@ -634,12 +639,14 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
 
                     {/* Waktu & Tombol Detail */}
                     <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto shrink-0 gap-1 pt-1 sm:pt-0">
-                      <div className="flex items-center gap-1 text-xs font-semibold text-[#1A1A1A] dark:text-[#F5EDDC]">
-                        <Clock size={12} className="text-[#EEB100]" />
-                        <span>{formatRelativeTime(log.timestamp)}</span>
+                      <div className="flex items-center gap-1 text-xs font-semibold">
+                        <Clock size={12} className="text-[#D49B00] dark:text-[#FFD868]" />
+                        <span className="text-[#B8860B] dark:text-[#FFD868] font-bold">
+                          {formatRelativeTime(log.timestamp)}
+                        </span>
                       </div>
 
-                      <div className="text-[10px] text-[#8A857B] font-mono">
+                      <div className="text-[10px] text-[#7A756D] dark:text-[#B5AFA4] font-mono">
                         {formatFullDateTime(log.timestamp)}
                       </div>
 
@@ -647,7 +654,7 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
                         <button
                           type="button"
                           onClick={() => toggleExpand(log.id)}
-                          className="text-[11px] text-[#EEB100] hover:underline flex items-center gap-0.5 mt-1 cursor-pointer font-medium"
+                          className="text-[11px] text-[#B8860B] dark:text-[#FFD868] hover:underline flex items-center gap-0.5 mt-1 cursor-pointer font-semibold"
                         >
                           <span>{isExpanded ? "Tutup Detail" : "Lihat Detail"}</span>
                           {isExpanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
@@ -670,7 +677,7 @@ export function ActivityLogTab({ logs, isLoading, onRefresh }: ActivityLogTabPro
             variant="outline"
             size="sm"
             onClick={() => setVisibleCount((prev) => prev + 20)}
-            className="text-xs h-9 px-6 border-[#E5DEC9] dark:border-[#38342C] text-[#5E5A52] dark:text-[#A8A296] hover:text-[#1A1A1A] dark:hover:text-[#F5EDDC] cursor-pointer"
+            className="text-xs h-9 px-6 border-[#E5DEC9] dark:border-[#423C32] bg-[#FFFFFF] dark:bg-[#252525] text-[#5E5A52] dark:text-[#DCD6C8] hover:text-[#1A1A1A] dark:hover:text-[#FFFFFF] dark:hover:border-[#EEB100]/60 cursor-pointer"
           >
             Tampilkan Lebih Banyak ({filteredLogs.length - visibleCount} sisa)
           </Button>
