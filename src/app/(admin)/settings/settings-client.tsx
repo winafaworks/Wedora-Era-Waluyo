@@ -10,7 +10,6 @@ import {
   Shield,
   Sparkles,
   Info,
-  Layers,
   Eye,
   EyeOff,
   Save,
@@ -79,7 +78,6 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
   );
 
   const [activeTab, setActiveTab] = useState<"appearance" | "whatsapp" | "activity" | "security">(initialTab);
-  const [density, setDensity] = useState<"comfortable" | "compact">("comfortable");
   const [isResetWaModalOpen, setIsResetWaModalOpen] = useState(false);
 
   // State Template WhatsApp
@@ -517,58 +515,7 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
             </div>
           </Card>
 
-          {/* Section 3: Kerapatan Tampilan */}
-          <Card className="p-6 space-y-4">
-            <div className="flex items-center gap-2 text-[#EEB100]">
-              <Layers size={18} />
-              <h3 className="font-sans text-[17px] font-bold text-[#1A1A1A]">
-                Kerapatan Tampilan Tabel (Density)
-              </h3>
-            </div>
-            <p className="text-xs text-[#5E5A52]">
-              Atur jarak spasi baris tabel data agar sesuai dengan preferensi kenyamanan mata Anda:
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl">
-              <button
-                type="button"
-                onClick={() => setDensity("comfortable")}
-                className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
-                  density === "comfortable"
-                    ? "border-[#EEB100] bg-[rgba(212,173,92,0.12)] text-[#1A1A1A] font-semibold"
-                    : "border-[#E5DEC9] bg-[#FFFFFF] text-[#5E5A52] hover:bg-[#FAF6ED]"
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold text-[#1A1A1A]">Nyaman (Comfortable)</span>
-                  {density === "comfortable" && <Check size={16} className="text-[#EEB100]" />}
-                </div>
-                <p className="text-xs text-[#8A857B] mt-1">
-                  Spasi baris lega, nyaman dibaca untuk pemakaian harian.
-                </p>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setDensity("compact")}
-                className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
-                  density === "compact"
-                    ? "border-[#EEB100] bg-[rgba(212,173,92,0.12)] text-[#1A1A1A] font-semibold"
-                    : "border-[#E5DEC9] bg-[#FFFFFF] text-[#5E5A52] hover:bg-[#FAF6ED]"
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold text-[#1A1A1A]">Ringkas (Compact)</span>
-                  {density === "compact" && <Check size={16} className="text-[#EEB100]" />}
-                </div>
-                <p className="text-xs text-[#8A857B] mt-1">
-                  Spasi baris lebih rapat, muat lebih banyak data dalam satu layar monitor.
-                </p>
-              </button>
-            </div>
-          </Card>
-
-          {/* Section 4: Informasi Versi Aplikasi */}
+          {/* Section 3: Informasi Versi Aplikasi */}
           <div className="p-4 rounded-xl bg-[#FAF6ED] border border-[#E5DEC9] flex items-center justify-between text-xs text-[#5E5A52]">
             <div className="flex items-center gap-2">
               <Info size={16} className="text-[#EEB100] shrink-0" />
@@ -1147,26 +1094,6 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
                     <p className="text-xs text-[#5E5A52] dark:text-[#A8A296] truncate mt-0.5">
                       {initialSecurityDetails?.email || "admin@erawaluyo.com"}
                     </p>
-                  </div>
-                </div>
-
-                <div className="space-y-3 text-xs border-t border-[#E5DEC9] dark:border-[#38342C] pt-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[#5E5A52] dark:text-[#A8A296]">Status Autentikasi:</span>
-                    <span className="font-semibold text-[#2F7A4B] dark:text-[#7FD39B] flex items-center gap-1">
-                      <span className="w-2 h-2 rounded-full bg-[#2F7A4B] animate-pulse"></span>
-                      Aktif & Terverifikasi
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[#5E5A52] dark:text-[#A8A296]">ID Pengguna:</span>
-                    <span className="font-mono text-[11px] text-[#1A1A1A] dark:text-[#F5EDDC] bg-[#FAF7F0] dark:bg-[#1E1E1E] px-2 py-0.5 rounded border border-[#E5DEC9] dark:border-[#38342C] max-w-[170px] truncate" title={initialSecurityDetails?.id || "admin-system"}>
-                      {initialSecurityDetails?.id ? `${initialSecurityDetails.id.slice(0, 8)}...` : "admin-system"}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[#5E5A52] dark:text-[#A8A296]">Penyedia Akun:</span>
-                    <span className="text-[#1A1A1A] dark:text-[#F5EDDC] font-medium">Supabase Auth</span>
                   </div>
                 </div>
               </Card>
