@@ -514,17 +514,6 @@ export default function SettingsClient({ initialSecurityDetails }: SettingsClien
               </div>
             </div>
           </Card>
-
-          {/* Section 3: Informasi Versi Aplikasi */}
-          <div className="p-4 rounded-xl bg-[#FAF6ED] border border-[#E5DEC9] flex items-center justify-between text-xs text-[#5E5A52]">
-            <div className="flex items-center gap-2">
-              <Info size={16} className="text-[#EEB100] shrink-0" />
-              <span>
-                <strong>WEDORA Sistem Manajemen Digital</strong> — Versi 1.2.0 (Build 2026.10)
-              </span>
-            </div>
-            <span className="font-mono text-[#8A857B]">Next.js 16 • Tailwind 4 • Supabase</span>
-          </div>
         </div>
       )}
 
